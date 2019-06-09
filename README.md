@@ -19,6 +19,7 @@ npm i
 ## Running the Application
 
 To run the application go to `studhub` folder and run the next command prompt
+(from node.js command prompt instead of cmd)
 ```
 ng serve --open
 ```
