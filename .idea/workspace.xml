@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="eb4c415d-916d-4f5e-946d-e217f23943ed" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/studhub/src/app/home/home-routing.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/studhub/src/assets/images/boy.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/studhub/src/assets/images/cookies.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/studhub/src/assets/images/meat.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/studhub/src/assets/images/mortarboard.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/studhub/src/assets/js/scripts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/studhub/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/studhub/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/studhub/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/studhub/src/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/studhub/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/studhub/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/studhub/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/studhub/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/studhub/src/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/studhub/src/styles.scss" afterDir="false" />
-    </list>
+    <list default="true" id="eb4c415d-916d-4f5e-946d-e217f23943ed" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -165,7 +153,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="240" />
     <option name="y" value="127" />
     <option name="width" value="1440" />
@@ -233,6 +221,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="editor.config.ad.shown" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -270,12 +259,12 @@
       <option name="presentableId" value="Default" />
       <updated>1560102529446</updated>
       <workItem from="1560102532629" duration="611000" />
-      <workItem from="1560165521633" duration="7459000" />
+      <workItem from="1560165521633" duration="8063000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8070000" />
+    <option name="totallyTimeSpent" value="8674000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
