@@ -9,21 +9,24 @@ import { TagService } from '../service/tag.service';
 })
 export class TagsComponent implements OnInit {
   tags: Tag[];
-  tagsTotalCount: number = 6;
+  tagsTotalCount: number;
 
-  pageSize: number = 2;
-  page: number = 1;
+  pageSize: number;
+  page: number;
 
   constructor(private tagService: TagService) { }
 
   ngOnInit() {
     this.getTags(this.getCurrentPaginationSettings());
+    this.page = 1;
+    this.pageSize = 2;
   }
 
   getTags(paginationSettings: string) {
     this.tagService.getTags(paginationSettings)
-    .subscribe(tags => {
-      this.tags = tags;
+    .subscribe(tagsDTO => {
+      this.tags = tagsDTO.tags;
+      this.tagsTotalCount = tagsDTO.tagsTotalCount;
     });
   }
 
