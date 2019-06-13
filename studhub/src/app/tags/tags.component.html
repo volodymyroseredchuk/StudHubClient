@@ -1,6 +1,6 @@
 <p>
   tags works!
 </p>
-<mat-card>
-  kfhdfsdhf
+<mat-card *ngFor="let tag of tags">
+  {{ tag.id }} {{ tag.name }}
 </mat-card>
