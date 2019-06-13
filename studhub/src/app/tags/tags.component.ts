@@ -9,15 +9,30 @@ import { TagService } from '../service/tag.service';
 })
 export class TagsComponent implements OnInit {
   tags: Tag[];
+  tagsTotalCount: number = 6;
+
+  pageSize: number = 2;
+  page: number = 1;
 
   constructor(private tagService: TagService) { }
 
   ngOnInit() {
-    this.getTags();
+    this.getTags(this.getCurrentPaginationSettings());
   }
 
-  getTags() {
-    this.tagService.getTags()
-    .subscribe(tags => this.tags = tags);
+  getTags(paginationSettings: string) {
+    this.tagService.getTags(paginationSettings)
+    .subscribe(tags => {
+      this.tags = tags;
+    });
+  }
+
+  changePage(currentPage: number) {
+    this.page = currentPage;
+    this.getTags(this.getCurrentPaginationSettings());
+  }
+
+  getCurrentPaginationSettings() : string {
+      return "?page=" + (this.page - 1) + "&size=" + this.pageSize;
   }
 }

@@ -15,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
         this.apiUrl += '/tags';
       }
 
-    getTags(): Observable<Tag[]> {
-        return this.http.get<Tag[]>(`${this.apiUrl}`);
+    getTags(paginationSettings: string): Observable<Tag[]> {
+        return this.http.get<Tag[]>(`${this.apiUrl}` + paginationSettings);
     }
   }
