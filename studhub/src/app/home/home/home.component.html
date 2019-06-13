@@ -3,7 +3,7 @@
 
   </div>
   <div class="menu">
-    <a href="" class="menu__link light_orange">
+    <a  class="menu__link light_orange" (click)="openSnackBar('Some action occurred','Got ya!')">
       <div class="card" onmouseover="event.stopPropagation()">
         <div class="card__face card__face--front">
           <div class="card__face--img">
@@ -20,7 +20,7 @@
         </div>
       </div>
     </a>
-    <a href="" class="menu__link light_green" >
+    <a href="" class="menu__link light_green" (click)="openSnackBar('1','2')">
       <div class="card" onmouseover="event.stopPropagation()">
         <div class="card__face card__face--front">
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import 'src/assets/js/scripts';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 declare var mainPageFunction: any;
 
@@ -10,7 +11,20 @@ declare var mainPageFunction: any;
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  private _snackBar: MatSnackBar;
+
+  constructor(_snackBar: MatSnackBar) {
+    this._snackBar = _snackBar;
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open('Action2', action, {
+      duration: 12000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right'
+    });
+
+  }
 
   ngOnInit() {
     this.f();
