@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { TagsModule } from './tags/tags.module';
 import { HttpClientModule } from '@angular/common/http';
+import { QuestionsModule } from './questions/questions.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HomeModule,
     TagsModule,
+    QuestionsModule,
     BrowserAnimationsModule,
     MaterialModule
   ],
