@@ -7,7 +7,7 @@ export class Question {
     title: string;
     body: string;
     creationDate: Date;
-    modifiedDare: Date;
+    modifiedDate: Date;
     user: User;
     answerList: Answer[];
     tagList: Tag[];

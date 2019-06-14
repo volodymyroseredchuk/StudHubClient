@@ -9,6 +9,7 @@ import { MaterialModule } from './material/material.module';
 import { TagsModule } from './tags/tags.module';
 import { HttpClientModule } from '@angular/common/http';
 import { QuestionsModule } from './questions/questions.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { QuestionsModule } from './questions/questions.module';
     AppRoutingModule,
     HomeModule,
     TagsModule,
+    FormsModule,
     QuestionsModule,
     BrowserAnimationsModule,
     MaterialModule
