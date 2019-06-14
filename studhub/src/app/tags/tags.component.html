@@ -1,0 +1,8 @@
+<h2 style="text-align: center">Paginated tags</h2>
+
+<mat-card *ngFor="let tag of tags | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: tagsTotalCount}"
+  class = "tagCard">
+  {{ tag.id }} {{ tag.name }}
+</mat-card>
+
+<pagination-controls (pageChange)="changePage($event)" style="text-align: center"><pagination-controls>
