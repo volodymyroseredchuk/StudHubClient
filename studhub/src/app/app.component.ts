@@ -9,53 +9,33 @@ import {SocketService} from './service/SocketService';
 })
 export class AppComponent implements OnInit {
   title = 'studhub';
-  // tslint:disable-next-line:variable-name
   private _snackBar: MatSnackBar;
   private connection: SocketService;
-  // private socketService: SocketService;
-  // private ioConnection: any;
-  // tslint:disable-next-line:variable-name
+
 
 
   constructor(_snackBar: MatSnackBar) {
     this._snackBar = _snackBar;
     this.connection = new SocketService();
-   // this.socketService = socketService;
   }
 
   ngOnInit(): void {
     this.connection.initSocket();
     this.onMessage();
-    this.sendMessage('message from angular');
-    // this.initIoConnection();
-    // this.sendMessage('Connected?');
-  }
-  private initIoConnection(): void {
-    // this.socketService.initSocket();
-
-    /*this.ioConnection = this.socketService.onMessage((message: string) => {
-      this._snackBar.open(message, 'Got ya!');
-      this.sendMessage('Got your message');
-    });
-      .subscribe((message: string) => {
-
-      });*/
+    this.sendMessage({name: 'Message from angular', text: 'admin'});
   }
 
-  public sendMessage(message: string): void {
+  public sendMessage(message: {name: string, text: string}): void {
     if (!message) {
       return;
     }
     this.connection.send(message);
-
-    // this.socketService.send('Message from Angular');
   }
 
   public onMessage(): void {
-    this.connection.onMessage((event: any) => {
+    this.connection.onMessage((message: {name: string, text: string}) => {
       console.log(event);
-      const s = JSON.parse(event.data);
-      this._snackBar.open(s.text, s.name);
+      this._snackBar.open(message.text, message.name);
     });
   }
 

@@ -1,7 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
-
 
 const SERVER_URL = 'ws://localhost:9090/sock';
 
@@ -22,9 +19,11 @@ export class SocketService {
     this.onOpen();
   }
 
-  public send(message: string): void {
+  public send(message: {name: string, text: string}): void {
+
     if (this.isOpen) {
-      this.socket.send(message);
+      const json = JSON.stringify(message);
+      this.socket.send(json);
     } else {
       this.messages.push(message);
     }
@@ -32,10 +31,10 @@ export class SocketService {
   }
 
   public onMessage(callback: any): void {
-    /*return new Observable<string>(observer => {
-      this.socket.onmessage((data: String) => observer.next(data));
-    });*/
-    this.socket.onmessage = callback;
+    this.socket.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      callback(message);
+    };
   }
 
   public onOpen(): void {
@@ -47,15 +46,8 @@ export class SocketService {
   }
 
   public sendBufferedMessages(): void {
-    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.messages.length; i++) {
       this.send(this.messages[i]);
     }
   }
-
-  // public onEvent(event: Event): Observable<any> {
-  //   return new Observable<Event>(observer => {
-  //     this.socket.onEvent(event);
-  //   });
-  // }
 }
