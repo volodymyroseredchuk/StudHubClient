@@ -10,16 +10,13 @@ import { TagService } from '../service/tag.service';
 export class TagsComponent implements OnInit {
   tags: Tag[];
   tagsTotalCount: number;
-
-  pageSize: number;
-  page: number;
+  pageSize: number = 2;
+  page: number = 1;
 
   constructor(private tagService: TagService) { }
 
   ngOnInit() {
     this.getTags(this.getCurrentPaginationSettings());
-    this.page = 1;
-    this.pageSize = 2;
   }
 
   getTags(paginationSettings: string) {
