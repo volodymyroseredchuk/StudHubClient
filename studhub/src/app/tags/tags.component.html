@@ -1,5 +1,16 @@
 <h2 style="text-align: center">Paginated tags</h2>
 
+Select how many tags to show on a page &nbsp;
+<mat-form-field>
+  <mat-label>Page size</mat-label>
+  <mat-select [(value)]="pageSize" (selectionChange)="ngOnInit()">
+    <mat-option value=2>2</mat-option>
+    <mat-option value=5>5</mat-option>
+    <mat-option value=10>10</mat-option>
+    <mat-option value=25 [disabled]="25 > tagsTotalCount">25</mat-option>
+  </mat-select>
+</mat-form-field>
+
 <mat-card *ngFor="let tag of tags | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: tagsTotalCount}"
   class = "tagCard">
   {{ tag.id }} {{ tag.name }}

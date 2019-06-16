@@ -12,6 +12,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { AuthModule } from './auth/auth.module';
 import { ErrorInterceptor } from './_helpers';
+import { QuestionsModule } from './questions/questions.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { ErrorInterceptor } from './_helpers';
     AppRoutingModule,
     TagsModule,
     ReactiveFormsModule,
+    FormsModule,
+    QuestionsModule,
     BrowserAnimationsModule,
     MaterialModule,
     AuthModule
