@@ -1,0 +1,26 @@
+<p>
+  Input tags for the new Question!
+</p>
+
+<mat-card *ngIf="question">
+  {{ question.id }} {{ question.title }}
+  <mat-chip *ngFor="let tag of question.tagList">
+      {{tag.name}}
+    </mat-chip>
+</mat-card>
+
+<mat-form-field class="tags-chip-list">
+  <mat-chip-list #chipList aria-label="Tag selection">
+    <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
+             [removable]="removable" (removed)="removeTag(tag)">
+      {{tag.name}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+    <input placeholder="New tag..."
+           [matChipInputFor]="chipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="addTag($event)">
+  </mat-chip-list>
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="createQuestion()">Create Question</button>
