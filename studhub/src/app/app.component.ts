@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SocketService} from './service/SocketService';
+import {HttpClient, HttpHandler} from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -14,15 +15,15 @@ export class AppComponent implements OnInit {
 
 
 
-  constructor(_snackBar: MatSnackBar) {
+  constructor(_snackBar: MatSnackBar, httpVar: HttpClient) {
     this._snackBar = _snackBar;
-    this.connection = new SocketService();
+    this.connection = new SocketService(httpVar);
   }
 
   ngOnInit(): void {
     this.connection.initSocket();
     this.onMessage();
-    this.sendMessage({name: 'Message from angular', text: 'admin'});
+    this.sendMessage({name: 'admin', text: 'Message from angular'});
   }
 
   public sendMessage(message: {name: string, text: string}): void {

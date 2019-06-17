@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
-const SERVER_URL = 'ws://localhost:9090/sock';
+
+const SERVER_URL = 'ws://localhost:9090/sock?';
 
 @Injectable({
   providedIn: 'root',
@@ -11,12 +13,30 @@ export class SocketService {
   private messages;
 
   private isOpen;
+  private token: any;
+  private http: HttpClient;
+  private onmessage;
+
+  constructor(http: HttpClient) {
+    this.http = http;
+  }
 
   public initSocket(): void {
-    this.socket = new WebSocket(SERVER_URL);
-    this.messages = [];
-    this.isOpen = false;
-    this.onOpen();
+    const thus = this;
+    thus.messages = [];
+    thus.isOpen = false;
+    this.http.get('http://localhost:9090/getSocketToken').subscribe(
+       data => {
+         console.log(data);
+         thus.token = data['token'];
+         console.log(this.token);
+         thus.socket = new WebSocket(SERVER_URL + this.token);
+
+         thus.onOpen();
+       },
+       err => {
+         console.log(err);
+       });
   }
 
   public send(message: {name: string, text: string}): void {
@@ -31,10 +51,17 @@ export class SocketService {
   }
 
   public onMessage(callback: any): void {
-    this.socket.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      callback(message);
-    };
+
+    if(this.isOpen){
+      console.log(this.socket, 'socket');
+      this.socket.onmessage = (event) => {
+        console.log(event, 'onmessage');
+        const message = JSON.parse(event.data);
+        callback(message);
+      };
+    } else {
+      this.onmessage = callback;
+    }
   }
 
   public onOpen(): void {
@@ -42,6 +69,7 @@ export class SocketService {
     this.socket.onopen = () => {
       thus.isOpen = true;
       thus.sendBufferedMessages();
+      this.onMessage(this.onmessage);
     };
   }
 
@@ -50,4 +78,5 @@ export class SocketService {
       this.send(this.messages[i]);
     }
   }
+
 }
