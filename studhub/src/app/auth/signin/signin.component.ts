@@ -23,14 +23,16 @@ export class SigninComponent implements OnInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private alertService: AlertService
-    ) {
-        // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) {
-            this.router.navigate(['/']);
-        }
-    }
+    ) { }
 
     ngOnInit() {
+
+        // redirect to home if already logged in
+        if (localStorage.getItem('jwt-token')) {
+            console.log("in if");   
+            this.router.navigate(['/']);
+        }
+
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required]
