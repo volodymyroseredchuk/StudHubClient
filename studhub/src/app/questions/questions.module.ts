@@ -5,15 +5,21 @@ import { QuestionsRoutingModule } from './questions-routing.module';
 import { QuestionsCreateComponent } from './questions-create/questions-create.component';
 import { QuestionsComponent } from './questions.component';
 import { MaterialModule } from '../material/material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule, MatAutocompleteModule } from '@angular/material';
+import { QuestionsPageComponent } from './question-page/questions-page.component';
 
 @NgModule({
-  declarations: [QuestionsCreateComponent, QuestionsComponent],
+  declarations: [QuestionsCreateComponent, QuestionsComponent, QuestionsPageComponent],
   imports: [
     CommonModule,
     QuestionsRoutingModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatAutocompleteModule 
+
   ]
 })
 export class QuestionsModule { }

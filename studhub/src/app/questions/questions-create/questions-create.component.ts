@@ -5,6 +5,7 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Question } from 'src/app/model/question.model';
 import { User } from 'src/app/model/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-questions-create',
@@ -19,26 +20,13 @@ export class QuestionsCreateComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   tags: Tag[] = [];
-  question: Question = this.questionMock();
+  question: Question;
 
-  constructor(private questionService: QuestionService) { }
+  constructor(private questionService: QuestionService, private router: Router) {
+    this.question = new Question();
+   }
 
   ngOnInit() {
-  }
-
-  questionMock(): Question {
-    let question: Question = new Question();
-    question.id = 0;
-    question.answerList = [];
-    question.body = "templateBody";
-    question.creationDate = new Date();
-    question.modifiedDate = null;
-    question.title = "templateTitle";
-    question.user = new User();
-    question.user.id = 1;
-
-    question.tagList = this.tags;
-    return question;
   }
 
   addTag(event: MatChipInputEvent): void {
@@ -64,8 +52,12 @@ export class QuestionsCreateComponent implements OnInit {
     }
   }
 
-  createQuestion() {
-    this.questionService.createQuestion(this.questionMock())
-      .subscribe(question => this.question = question);
+  goToAllQuestions() {
+    this.router.navigate(['/questions']);    
+  }
+
+  onSubmit(){
+    this.questionService.createQuestion(this.question)
+      .subscribe(result => this.goToAllQuestions());
   }
 }
