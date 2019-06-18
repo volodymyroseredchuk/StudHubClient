@@ -12,7 +12,7 @@ exports.config = {
     'browserName': 'chrome'
   },
   directConnect: true,
-  baseUrl: 'https://studhub.herokuapp.com',
+  baseUrl: 'https://studhubclient.herokuapp.com',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
