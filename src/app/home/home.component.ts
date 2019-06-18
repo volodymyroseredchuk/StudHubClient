@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import 'src/assets/js/scripts';
+import '../../assets/js/scripts';
 
 declare var mainPageFunction: any;
 
