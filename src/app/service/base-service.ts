@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 
 export abstract class BaseService {
   // protected apiUrl: string = environment.apiUrl;
-  protected apiUrl: string = 'https://studhub.herokuapp.com/';
+  protected apiUrl: string = 'https://studhub.herokuapp.com';
   constructor(protected http: HttpClient) {}
 
   protected log(message) {
