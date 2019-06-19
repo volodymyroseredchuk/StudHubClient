@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import * as jwt_decode from 'jwt-decode';
 
-const SERVER_URL = 'ws://localhost:9090/sock?';
+const SERVER_URL = 'ws://localhost:8080/sock?';
 
 @Injectable({
   providedIn: 'root',
