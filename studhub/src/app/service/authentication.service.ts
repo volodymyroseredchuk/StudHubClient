@@ -17,10 +17,6 @@ export class AuthenticationService extends BaseService{
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
-    public get currentUserValue(): User {
-        return this.currentUserSubject.value;
-    }
-
     login(username: string, password: string) {
         return this.http.post<any>(`${this.apiUrl}/signin`, { username, password })
             .pipe(map(jwt => {
@@ -28,7 +24,6 @@ export class AuthenticationService extends BaseService{
                 if (jwt) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('jwt-token', `${jwt.type} ${jwt.token}`);
-                    this.currentUserSubject.next(jwt);
                 }
 
                 return jwt;
@@ -38,6 +33,5 @@ export class AuthenticationService extends BaseService{
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('jwt-token');
-        this.currentUserSubject.next(null);
     }
 }

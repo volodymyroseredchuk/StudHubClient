@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-
+import * as jwt_decode from 'jwt-decode';
 
 const SERVER_URL = 'ws://localhost:9090/sock?';
 
@@ -25,7 +25,9 @@ export class SocketService {
     const thus = this;
     thus.messages = [];
     thus.isOpen = false;
-    this.http.get('http://localhost:9090/getSocketToken?id=' + 1).subscribe(
+    const tokenInfo = this.getDecodedAccessToken(localStorage.getItem('jwt-token')); // decode token
+    console.log(tokenInfo);
+    this.http.get('http://localhost:9090/getSocketToken?id=' + tokenInfo.sub).subscribe(
       data => {
         console.log(data);
         thus.token = data['token'];
@@ -76,6 +78,14 @@ export class SocketService {
   public sendBufferedMessages(): void {
     for (let i = 0; i < this.messages.length; i++) {
       this.send(this.messages[i]);
+    }
+  }
+
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch (Error) {
+      return null;
     }
   }
 

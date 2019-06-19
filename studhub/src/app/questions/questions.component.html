@@ -1,1 +1,39 @@
 <button mat-raised-button color="warn" routerLink="/questions/create">Create Question</button>
+<button (click)="sortByTag()" routerLink="/questions/tagged">Sort by tags</button>
+
+    
+<!-- <mat-chip-list #tags>
+<mat-chip *ngFor="let tag of tags" [selectable]="selectable"
+             [removable]="removable" (removed)="removeTag(tag)">
+      {{tag.name}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+</mat-chip>
+<input [matChipInputFor]="tags"> 
+</mat-chip-list> -->
+      
+
+<h2>Recent Questions</h2>
+
+<mat-card *ngFor="let question of questions">
+    
+    <mat-card-title>
+        <a [routerLink]="['/questions', question.id]">
+        {{question.title}}
+        </a> <br>
+        <h6>
+        {{question.creationDate}}
+      </h6>
+    </mat-card-title>
+    <mat-card-footer *ngIf="question.user" >
+      {{question.user.id}}
+  </mat-card-footer>
+    
+    <mat-card-actions *ngIf="question.tagList">
+        <button *ngFor="let tag of question.tagList">
+            <a [title]="tag.name" [routerLink]="['/tags', tagId]">
+                {{tag.name}}
+            </a>
+        </button>
+    </mat-card-actions>
+</mat-card>
+

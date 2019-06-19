@@ -3,16 +3,16 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AlertService } from '../../service/alert.service';
-import { AuthenticationService } from '../../service/authentication.service';
+import { UserService } from '../../service/user.service';
 
 @Component({
     selector: 'app-auth',
-    templateUrl: './signin.component.html',
-    styleUrls: ['./signin.component.scss']
+    templateUrl: './password_forgot.component.html',
+    styleUrls: ['./password_forgot.component.scss']
 })
-export class SigninComponent implements OnInit {
+export class PasswordForgotComponent implements OnInit {
 
-    loginForm: FormGroup;
+    passwordForgotForm: FormGroup;
     loading = false;
     submitted = false;
     returnUrl: string;
@@ -21,39 +21,32 @@ export class SigninComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService,
+        private userService: UserService,
         private alertService: AlertService
     ) { }
 
     ngOnInit() {
-
-        // redirect to home if already logged in
-        if (localStorage.getItem('jwt-token')) {
-            this.router.navigate(['/']);
-        }
-
-        this.loginForm = this.formBuilder.group({
-            username: ['', Validators.required],
-            password: ['', Validators.required]
+        this.passwordForgotForm = this.formBuilder.group({
+            email: ['', Validators.required]
         });
 
         // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/password_reset';
     }
 
     // convenience getter for easy access to form fields
-    get f() { return this.loginForm.controls; }
+    get f() { return this.passwordForgotForm.controls; }
 
     onSubmit() {
         this.submitted = true;
 
         // stop here if form is invalid
-        if (this.loginForm.invalid) {
+        if (this.passwordForgotForm.invalid) {
             return;
         }
 
         this.loading = true;
-        this.authenticationService.login(this.f.username.value, this.f.password.value)
+        this.userService.forgotPassword(this.f.email.value)
             .pipe(first())
             .subscribe(
                 data => {
@@ -64,4 +57,5 @@ export class SigninComponent implements OnInit {
                     this.loading = false;
                 });
     }
+
 }
