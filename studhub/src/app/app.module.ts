@@ -10,11 +10,17 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+
+import { QuestionsComponent } from './questions/questions.component';
+import { QuestionsPageComponent } from './questions/question-page/questions-page.component';
+
 import { ProfileComponent } from './profile/profile.component';
 import { AuthModule } from './auth/auth.module';
-import { ErrorInterceptor } from './_helpers';
+//import { ErrorInterceptor } from './_helpers';
 import { QuestionsModule } from './questions/questions.module';
 import { FormsModule } from '@angular/forms';
+import { ErrorInterceptor } from './_helpers/error.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -36,9 +42,9 @@ import { FormsModule } from '@angular/forms';
     MaterialModule,
     AuthModule
   ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
-],
+
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, QuestionsComponent, QuestionsPageComponent],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
