@@ -27,7 +27,7 @@ export class SocketService {
     thus.isOpen = false;
     const tokenInfo = this.getDecodedAccessToken(localStorage.getItem('jwt-token')); // decode token
     console.log(tokenInfo);
-    this.http.get('http://localhost:9090/getSocketToken?id=' + tokenInfo.sub).subscribe(
+    this.http.get('http://localhost:8080/getSocketToken?id=' + tokenInfo.sub).subscribe(
       data => {
         console.log(data);
         thus.token = data['token'];
