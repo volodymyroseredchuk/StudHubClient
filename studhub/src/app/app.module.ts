@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { ErrorInterceptor } from './_helpers';
 import { QuestionsModule } from './questions/questions.module';
 import { FormsModule } from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FormsModule } from '@angular/forms';
     QuestionsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    AuthModule
+    AuthModule,
+    MatSnackBarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
