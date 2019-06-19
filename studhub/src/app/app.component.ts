@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';
 import {SocketService} from './service/SocketService';
-import {HttpClient, HttpHandler} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -23,10 +23,9 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.connection.initSocket();
     this.onMessage();
-    this.sendMessage({name: 'admin', text: 'Message from angular'});
   }
 
-  public sendMessage(message: {name: string, text: string}): void {
+  public sendMessage(message: {subject_type: string, id: string}): void {
     if (!message) {
       return;
     }
@@ -34,9 +33,11 @@ export class AppComponent implements OnInit {
   }
 
   public onMessage(): void {
-    this.connection.onMessage((message: {name: string, text: string}) => {
-      console.log(event);
-      this._snackBar.open(message.text, message.name);
+    const thus = this;
+    this.connection.onMessage((message: {subject_type: string, id: string}) => {
+      thus._snackBar.open(message.id, message.subject_type, {duration: 3000}).onAction().subscribe(() => {
+        thus.sendMessage({subject_type: 'question', id: '1'});
+      });
     });
   }
 

@@ -25,7 +25,7 @@ export class SocketService {
     const thus = this;
     thus.messages = [];
     thus.isOpen = false;
-    this.http.get('http://localhost:9090/getSocketToken').subscribe(
+    this.http.get('http://localhost:9090/getSocketToken?id=' + 1).subscribe(
        data => {
          console.log(data);
          thus.token = data['token'];
@@ -39,7 +39,7 @@ export class SocketService {
        });
   }
 
-  public send(message: {name: string, text: string}): void {
+  public send(message: {subject_type: string, id: string}): void {
 
     if (this.isOpen) {
       const json = JSON.stringify(message);
@@ -52,7 +52,7 @@ export class SocketService {
 
   public onMessage(callback: any): void {
 
-    if(this.isOpen){
+    if (this.isOpen) {
       console.log(this.socket, 'socket');
       this.socket.onmessage = (event) => {
         console.log(event, 'onmessage');
