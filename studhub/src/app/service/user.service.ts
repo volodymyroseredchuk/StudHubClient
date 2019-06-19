@@ -14,4 +14,11 @@ export class UserService extends BaseService {
         return this.http.post(`${this.apiUrl}/signup`, user);
     }
 
+    forgotPassword(email: string){
+        return this.http.post<any>(`${this.apiUrl}/forgot-password`, { email });
+    }
+
+    resetPassword(password: string, confirmPassword: string, token: string){
+        return this.http.post<any>(`${this.apiUrl}/reset-password`, { password, confirmPassword, token });
+    }
 }       
