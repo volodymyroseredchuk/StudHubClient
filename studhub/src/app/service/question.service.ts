@@ -19,6 +19,22 @@ import { Question } from '../model/question.model';
         return this.http.post<Question>(`${this.apiUrl}/create`, question);
     }
 
+    getAllQuestions(): Observable<Question[]> {
+      return this.http.get<Question[]>(`${this.apiUrl}`);
+    }
+
+    editQuestion(questionId: number , question: Question): Observable<Question> {
+    return this.http.put<Question>(`${this.apiUrl}/${questionId}/edit`, question);
+    }
+
+    deleteQuestion(questionId: number): Observable <any>{
+      return this.http.delete(`${this.apiUrl}/${questionId}/delete`);
+    }
+
+    showQuestionPage(id: number): Observable <Question>{
+      return this.http.get<Question>(`${this.apiUrl}/${id}`);
+    }
+
     searchQuestions(searchPattern: string): Observable<Question[]> {
       return this.http.get<Question[]>(`${this.apiUrl}/search/` + searchPattern);
     }
