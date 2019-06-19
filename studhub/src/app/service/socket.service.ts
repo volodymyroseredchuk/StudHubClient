@@ -8,6 +8,21 @@ const SERVER_URL = 'ws://localhost:8080/sock?';
   providedIn: 'root',
 })
 export class SocketService {
+  protected static socket: SocketServiceImpl;
+
+  static getInstance(http: HttpClient): SocketServiceImpl {
+    if (SocketService.socket) {
+      return SocketService.socket;
+    } else {
+      SocketService.socket = new SocketServiceImpl(http);
+      return SocketService.socket;
+    }
+  }
+}
+
+
+class SocketServiceImpl {
+
   private socket;
 
   private messages;
@@ -87,6 +102,10 @@ export class SocketService {
     } catch (Error) {
       return null;
     }
+  }
+
+  public close(): void {
+    this.socket.close();
   }
 
 }
