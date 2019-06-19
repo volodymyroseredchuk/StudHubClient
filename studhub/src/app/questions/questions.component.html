@@ -1,1 +1,8 @@
 <button mat-raised-button color="warn" routerLink="/questions/create">Create Question</button>
+
+<mat-card *ngFor="let question of questions">
+    {{ question.id }} {{ question.title }}
+    <mat-chip *ngFor="let tag of question.tagList">
+        {{tag.name}}
+      </mat-chip>
+  </mat-card>

@@ -12,10 +12,14 @@ import { Question } from '../model/question.model';
 
     constructor(protected http: HttpClient) {
         super(http);
-        this.apiUrl += '/question';
+        this.apiUrl += '/questions';
       }
 
     createQuestion(question: Question): Observable<Question> {
         return this.http.post<Question>(`${this.apiUrl}/create`, question);
+    }
+
+    searchQuestions(searchPattern: string): Observable<Question[]> {
+      return this.http.get<Question[]>(`${this.apiUrl}/search/` + searchPattern);
     }
   }
