@@ -10,6 +10,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { ProfileComponent } from './profile/profile.component';
 import { AuthModule } from './auth/auth.module';
 import { ErrorInterceptor } from './_helpers';
 import { QuestionsModule } from './questions/questions.module';
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
