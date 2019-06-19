@@ -15,7 +15,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'questions/ :id',
+    path: 'questions/:id',
     component: QuestionsPageComponent
   }
 ];

@@ -57,6 +57,7 @@ export class QuestionsCreateComponent implements OnInit {
   }
 
   onSubmit(){
+    this.question.tagList = this.tags;
     this.questionService.createQuestion(this.question)
       .subscribe(result => this.goToAllQuestions());
   }

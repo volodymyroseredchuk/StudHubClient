@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { QuestionsComponent } from './questions/questions.component';
+import { QuestionsPageComponent } from './questions/question-page/questions-page.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,7 @@ import { FooterComponent } from './footer/footer.component';
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [QuestionsComponent, QuestionsPageComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
