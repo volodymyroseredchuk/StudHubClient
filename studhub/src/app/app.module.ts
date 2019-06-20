@@ -20,6 +20,7 @@ import { AuthModule } from './auth/auth.module';
 import { QuestionsModule } from './questions/questions.module';
 import { FormsModule } from '@angular/forms';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+import { QuestionsEditComponent } from './questions/questions-edit/questions-edit.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     AuthModule
   ],
 
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, QuestionsComponent, QuestionsPageComponent],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+     QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent],
 
   bootstrap: [AppComponent]
 })

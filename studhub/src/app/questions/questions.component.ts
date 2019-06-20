@@ -25,4 +25,6 @@ export class QuestionsComponent implements OnInit {
     this.service.getAllQuestions().subscribe(data => this.questions = data);
     
   }
+
+
 }

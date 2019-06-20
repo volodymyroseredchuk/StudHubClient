@@ -2,8 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { BaseService } from './base-service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Question } from '../model/question.model';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
     providedIn: 'root'
@@ -27,8 +31,8 @@ import { Question } from '../model/question.model';
     return this.http.put<Question>(`${this.apiUrl}/${questionId}/edit`, question);
     }
 
-    deleteQuestion(questionId: number): Observable <any>{
-      return this.http.delete(`${this.apiUrl}/${questionId}/delete`);
+    deleteQuestion(id: number): Observable <string>{
+      return this.http.delete<string>(`${this.apiUrl}/${id}`);
     }
 
     showQuestionPage(id: number): Observable <Question>{

@@ -8,9 +8,10 @@ import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatAutocompleteModule } from '@angular/material';
 import { QuestionsPageComponent } from './question-page/questions-page.component';
+import { QuestionsEditComponent } from './questions-edit/questions-edit.component';
 
 @NgModule({
-  declarations: [QuestionsCreateComponent, QuestionsComponent, QuestionsPageComponent],
+  declarations: [QuestionsCreateComponent, QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent],
   imports: [
     CommonModule,
     QuestionsRoutingModule,

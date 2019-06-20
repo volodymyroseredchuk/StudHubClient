@@ -1,4 +1,4 @@
-<!-- <mat-card *ngIf="question">
+<mat-card *ngIf="question">
         <mat-card-title>
             {{question.title}}
         </mat-card-title>
@@ -6,24 +6,29 @@
             {{question.body}}
         </mat-card-content>
         <mat-card-footer>
-            {{question.creationDate}} {{question.user}}
+            {{question.creationDate}} 
         </mat-card-footer>
-    <button>Edit</button>
-    <button>Delete</button>
+        
+    <button routerLink="/questions/{{question.id}}/edit">Edit</button>
+    <button class="btn btn-danger"  (click)="delete(question.id)">Delete</button>
+    <button class="btn btn-dark" (click)="goBack()">Back</button>
+    <button mat-raised-button color="warn" routerLink="/questions/create">Create Question</button>
     
     </mat-card>
-    <mat-card *ngIf="question.answerList" *ngFor="let answer of question.answerList">
-        <mat-card-content>
-            {{answer.body}} 
+    <mat-card *ngIf="question?.answerList">
+        <mat-card *ngFor="let answer of question.answerList">
+        <mat-card-content >
+            {{answer.id}} 
         </mat-card-content>
-        <mat-card-footer>
+        <!-- <mat-card-footer>
                 {{answer.user}} {{answer.creationDate}}
         </mat-card-footer>
-        <button>Edit</button>
+        <button>Edit</button> -->
     <button>Delete</button>
     <button>Comment</button>
-    
-    <mat-card *ngIf="question.answerList.commentList" *ngFor="let comment of question.answerList.commentList">
+
+ <!-- <mat-card *ngIf="question?.answerList?.commentList" >
+     <mat-card *ngFor="let comment of question.answerList.commentList">
             <mat-card-content>
                 {{comment.body}} 
             </mat-card-content>
@@ -31,7 +36,14 @@
                     {{comment.user}} {{comment.creationDate}}
             </mat-card-footer>
             <button>Edit</button>
-        <button>Delete</button>
-        
-    
+        <button>Delete</button>   
+    </mat-card>
     </mat-card> -->
+
+</mat-card>
+</mat-card>
+    
+   
+
+    
+    

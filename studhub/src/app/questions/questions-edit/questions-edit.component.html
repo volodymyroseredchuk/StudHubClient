@@ -1,0 +1,40 @@
+<p>
+        Add some changes to your Question!
+      </p>
+      
+      <mat-card *ngIf="question">
+        {{ question.id }} {{ question.title }}
+        <mat-chip *ngFor="let tag of question.tagList">
+            {{tag.name}}
+          </mat-chip>
+      </mat-card>
+      <form class="my-form" (ngSubmit)="onSubmit()" #userForm="ngForm">
+      <mat-form-field class="tags-chip-list">
+        <mat-chip-list #chipList aria-label="Tag selection">
+          <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
+                   [removable]="removable" (removed)="removeTag(tag)">
+            {{tag.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="New tag..."
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="addTag($event)">
+        </mat-chip-list>  
+      </mat-form-field>
+      
+        <mat-form-field class="tags-chip-list">
+               <mat-label>Title</mat-label>
+               <input [(ngModel)]="newQuestion.title" class="form-control" id="title" 
+               name="title"   matInput  placeholder="Title of question" required>
+            </mat-form-field>
+            <mat-form-field class="tags-chip-list">
+               <mat-label>Body</mat-label>
+               <input [(ngModel)]="question.body" class="form-control" id="body" 
+               name="body"  matInput  placeholder="Body of question" required>
+            </mat-form-field>        
+            
+      </form>
+      
+      <button type="submit" mat-raised-button color="primary"  class="btn btn-success"  (click)="onSubmit()">Create Question</button>
