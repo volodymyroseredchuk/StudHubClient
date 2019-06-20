@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../service/authentication.service';
 import { User } from '../model/user.model';
+import {SocketService} from "../service/socket.service";
 
 @Component({
   selector: 'app-header',
@@ -11,8 +12,6 @@ import { User } from '../model/user.model';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
-  
   currentUser: User;
 
   constructor(
@@ -25,7 +24,8 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/signin']);
+    SocketService.getInstance(null).close();
   }
 
-  ngOnInit(){}
+  ngOnInit() { }
 }
