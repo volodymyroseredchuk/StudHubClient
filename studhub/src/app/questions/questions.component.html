@@ -21,7 +21,7 @@
         <a [routerLink]="['/questions', question.id]">
         {{question.title}}
         </a> <br>
-        <h6>
+        <h6>Creation date: 
         {{question.creationDate}}
       </h6>
     </mat-card-title>
@@ -29,11 +29,11 @@
       {{question.user.id}}
   </mat-card-footer>
     
-    <mat-card-actions *ngIf="question.tagList">
-        <button *ngFor="let tag of question.tagList">
-            <a [title]="tag.name" [routerLink]="['/tags', tagId]">
-                {{tag.name}}
-            </a>
-        </button>
-    </mat-card-actions>
+    <mat-chip-list>
+        <mat-chip *ngFor="let tag of question.tagList">
+                  {{tag.name}}
+        </mat-chip>  
+    </mat-chip-list>
 </mat-card>
+
+<h3 *ngIf="questions.length == 0">Sorry, questions are not found</h3>
