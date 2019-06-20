@@ -76,7 +76,7 @@ body { font-family: sans-serif; }
   perspective: 600px;
 }
 
-.card {
+.сustom__card {
   position: relative;
   width: 100%;
   height: 100%;
@@ -86,7 +86,7 @@ body { font-family: sans-serif; }
   transition: transform 1s;
 }
 
-.card.is-flipped {
+.сustom__card.is-flipped {
   transform: translateX(-100%) rotateY(-180deg);
 }
 
