@@ -4,6 +4,7 @@ import { QuestionService } from 'src/app/service/question.service';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Question } from 'src/app/model/question.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,12 +22,23 @@ export class QuestionsCreateComponent implements OnInit {
   tags: Tag[] = [];
   question: Question;
 
-  constructor(private questionService: QuestionService, private router: Router) {
+  questionCreateForm: FormGroup;
+    loading = false;
+    submitted = false;
+
+  constructor(private questionService: QuestionService, private router: Router, private formBuilder: FormBuilder) {
     this.question = new Question();
    }
 
   ngOnInit() {
+    this.questionCreateForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      body: ['', Validators.required]
+  });
   }
+
+  // convenience getter for easy access to form fields
+  get f() { return this.questionCreateForm.controls; }
 
   addTag(event: MatChipInputEvent): void {
     const input = event.input;
@@ -56,6 +68,13 @@ export class QuestionsCreateComponent implements OnInit {
   }
 
   onSubmit(){
+    this.submitted = true;
+
+        // stop here if form is invalid
+        if (this.questionCreateForm.invalid) {
+            return;
+        }
+
     this.question.tagList = this.tags;
     this.questionService.createQuestion(this.question)
       .subscribe(result => this.goToAllQuestions());
