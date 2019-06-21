@@ -32,7 +32,8 @@ import { FormsModule } from '@angular/forms';
     QuestionsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    AuthModule
+    AuthModule,
+    FeedbackModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
