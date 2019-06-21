@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { ErrorInterceptor } from './_helpers';
 import { QuestionsModule } from './questions/questions.module';
 import { FormsModule } from '@angular/forms';
+import {FeedbackModule} from './feedback/feedback.module';
 
 @NgModule({
   declarations: [
