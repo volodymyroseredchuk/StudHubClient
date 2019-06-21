@@ -4,6 +4,7 @@ import { QuestionService } from 'src/app/service/question.service';
 import { QuestionsComponent } from '../questions.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { AnswerService } from 'src/app/service/answer.service';
 
 
 
@@ -18,7 +19,7 @@ export class QuestionsPageComponent{
    question: Question;
 
   constructor(private questionService: QuestionService, private qlist: QuestionsComponent, private route: ActivatedRoute,
-    private router: Router){
+    private router: Router, private answerService: AnswerService){
     
   }
 
@@ -38,5 +39,22 @@ export class QuestionsPageComponent{
     this.question.answerList.push($event);
   }
   
+  deleteAnswer(answerId:number){
+
+    console.log(answerId);
+    this.answerService.deleteAnswer(this.question.id, answerId)
+      .subscribe(serverResponce => {
+        this.deleteAnswerFromList(serverResponce, answerId)
+      });
+  }
+
+  deleteAnswerFromList(serverResponce: String, answerId:number ){
+    console.log(answerId);
+    if (serverResponce === "Answer deleted"){
+      this.question.answerList = this.question.answerList.filter(function (value, index, arr){
+        return value.id !== answerId;
+      })
+    }
+  }
 
 }

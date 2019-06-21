@@ -13,6 +13,15 @@ const httpOptions = {
   })
 }
 
+const httpOptionsTextResponse = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': localStorage.getItem('jwt-token'),
+    
+  }),
+  responseType: 'text' as 'json'
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,5 +34,9 @@ export class AnswerService extends BaseService{
 
   createAnswer(answerCreateDTO: AnswerCreateDTO, questionId:number) : Observable<Answer> {
     return this.http.post<Answer>(`${this.apiUrl}/${questionId}/answers`, answerCreateDTO, httpOptions)
+  }
+
+  deleteAnswer(questionId: number, answerId: number){
+    return this.http.delete<any>(`${this.apiUrl}/${questionId}/answers/${answerId}/delete`, httpOptionsTextResponse)
   }
 }

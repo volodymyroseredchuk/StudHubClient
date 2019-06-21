@@ -57,11 +57,11 @@
             {{answer.id}}
             {{answer.body}} 
         </mat-card-content>
-        <mat-card-footer>{{answer.creationDate}}
+        <mat-card-footer>{{answer.creationDate}} {{answer.user.username}}
         </mat-card-footer>
         <button>Edit</button>
-    <button>Delete</button>
-    <button>Comment</button>
+        <button (click)="deleteAnswer(answer.id)">Delete</button>
+        <button>Comment</button>
     </mat-card>
     
     <app-answer [questionId]="question.id" (newAnswerEvent)="recieveNewAnswer($event)">
