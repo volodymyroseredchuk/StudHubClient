@@ -1,26 +1,41 @@
-<button mat-raised-button color="warn" routerLink="/questions/create">Create Question</button>
-<button (click)="sortByTag()" routerLink="/questions/tagged">Sort by tags</button>
-
-    
-<!-- <mat-chip-list #tags>
-<mat-chip *ngFor="let tag of tags" [selectable]="selectable"
-             [removable]="removable" (removed)="removeTag(tag)">
-      {{tag.name}}
-      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-</mat-chip>
-<input [matChipInputFor]="tags"> 
-</mat-chip-list> -->
-      
-
 <h2>Recent Questions</h2>
 
+<button mat-raised-button color="primary" id="btnCreate" routerLink="/questions/create">Create Question</button>
+
+
+<h4>Search for questions</h4>
+<div id="searchQuestionsDiv">
+    <mat-form-field class="keywords-chip-list">
+        <mat-chip-list #chipList aria-label="Keywords selection">
+          <mat-chip *ngFor="let keyword of keywords" [selectable]="selectable"
+                   [removable]="removable" (removed)="removeKeyword(keyword)">
+            {{keyword.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Tags or Keywords..."
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="addKeyword($event)">
+        </mat-chip-list>  
+    </mat-form-field>
+
+  <button mat-raised-button color="primary" id="btnTagSearch" (click)="searchByTags()">Search by tags</button>
+  <button mat-raised-button color="primary" id="btnKeywordSearch" (click)="searchByKeywords()">Search by keywords</button>
+
+  <button mat-icon-button id="btnRefresh" (click)="refresh()">
+      <mat-icon>refresh</mat-icon>
+  </button>
+</div>
+
+<div id="questionsList">
 <mat-card *ngFor="let question of questions">
     
     <mat-card-title>
         <a [routerLink]="['/questions', question.id]">
         {{question.title}}
         </a> <br>
-        <h6>
+        <h6>Creation date: 
         {{question.creationDate}}
       </h6>
     </mat-card-title>
@@ -28,12 +43,11 @@
       {{question.user.id}}
   </mat-card-footer>
     
-    <mat-card-actions *ngIf="question.tagList">
-        <button *ngFor="let tag of question.tagList">
-            <a [title]="tag.name" [routerLink]="['/tags', tagId]">
-                {{tag.name}}
-            </a>
-        </button>
-    </mat-card-actions>
+    <mat-chip-list>
+        <mat-chip *ngFor="let tag of question.tagList">
+                  {{tag.name}}
+        </mat-chip>  
+    </mat-chip-list>
 </mat-card>
-
+</div>
+<h3 *ngIf="questions.length == 0">Sorry, questions are not found</h3>

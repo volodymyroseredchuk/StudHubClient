@@ -10,7 +10,7 @@ import { TagService } from '../service/tag.service';
 export class TagsComponent implements OnInit {
   tags: Tag[];
   tagsTotalCount: number;
-  pageSize: number = 2;
+  pageSize: number = 5;
   page: number = 1;
 
   constructor(private tagService: TagService) { }

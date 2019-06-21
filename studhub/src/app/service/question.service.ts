@@ -35,4 +35,11 @@ import { Question } from '../model/question.model';
       return this.http.get<Question>(`${this.apiUrl}/${id}`);
     }
 
+    searchQuestionsByKeywords(searchPattern: string): Observable<Question[]> {
+      return this.http.get<Question[]>(`${this.apiUrl}/search/` + searchPattern);
+    }
+
+    searchQuestionsByTags(searchPattern: string): Observable<Question[]> {
+      return this.http.get<Question[]>(`${this.apiUrl}/tagged/` + searchPattern);
+    }
   }
