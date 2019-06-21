@@ -23,12 +23,14 @@ export class QuestionsEditComponent implements OnInit{
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
     constructor(private questionService: QuestionService, private router: Router, private route: ActivatedRoute) {
-        this.newQuestion = new Question();
+        
         this.question = new Question();
+        this.newQuestion = this.question;
        }
 
     ngOnInit(): void {
-        this.getQuestion();        
+        this.getQuestion();   
+        this.newQuestion = this.question;     
     }
   
     getQuestion() {   
@@ -61,8 +63,8 @@ export class QuestionsEditComponent implements OnInit{
       }
 
     onSubmit(){
-        this.newQuestion.tagList = this.tags;
-        this.questionService.editQuestion(this.question.id, this.newQuestion)
+        this.question.tagList = this.tags;
+        this.questionService.editQuestion(this.question.id, this.question)
         .subscribe(result => this.goToAllQuestions());
     }
 

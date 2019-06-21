@@ -22,7 +22,10 @@ export class QuestionsComponent implements OnInit {
 
   ngOnInit() {
     
-    this.service.getAllQuestions().subscribe(data => this.questions = data);
+    this.service.getAllQuestions().subscribe(data => {
+      console.log('Список питань :', data);
+      this.questions = data
+  });
     
   }
 

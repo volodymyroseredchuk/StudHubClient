@@ -13,7 +13,7 @@ import { Location } from '@angular/common';
 export class QuestionsPageComponent implements OnInit{  
   
    question: Question;   
-   list: Question[]   
+   //list: Question[]   
    
   constructor(private questionService: QuestionService,
                private qlist: QuestionsComponent, private route: ActivatedRoute,
@@ -32,12 +32,15 @@ export class QuestionsPageComponent implements OnInit{
   }
 
   goToAllQuestions() {
-    this.questionService.getAllQuestions().subscribe(data=>this.list = data);
+    //this.questionService.getAllQuestions().subscribe(data=>this.list = data);
+    //alert("all is bad");
     this.router.navigate(['/questions']);
   }
 
   delete (id:number){
-      this.questionService.deleteQuestion(id).subscribe(()=>this.goToAllQuestions())      
+      this.questionService.deleteQuestion(id).subscribe(()=>this.goToAllQuestions()); 
+      this.goToAllQuestions();
+      //.subscribe(message=>{alert(message); this.goToAllQuestions()});      
   }
 
   goBack(): void {

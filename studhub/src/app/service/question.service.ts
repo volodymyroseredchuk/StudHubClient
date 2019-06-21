@@ -33,6 +33,7 @@ const httpOptions = {
 
     deleteQuestion(id: number): Observable <string>{
       return this.http.delete<string>(`${this.apiUrl}/${id}`);
+      //return "message";
     }
 
     showQuestionPage(id: number): Observable <Question>{

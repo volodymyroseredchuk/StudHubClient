@@ -4,7 +4,6 @@ import { QuestionService } from 'src/app/service/question.service';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Question } from 'src/app/model/question.model';
-import { User } from 'src/app/model/user.model';
 import { Router } from '@angular/router';
 
 @Component({
