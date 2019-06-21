@@ -28,12 +28,15 @@ export class QuestionsPageComponent{
 
   getQuestion() {
     //const id = +this.route.snapshot.paramMap.get('id');
-    //const id = +this.route.snapshot.params.id;
-    let id = parseInt(this.route.snapshot.paramMap.get('id'));
+    const id = +this.route.snapshot.params.id;
+    //let id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.questionService.showQuestionPage(id)
-      .subscribe(question => this.question = this.question);
+      .subscribe(question => this.question = question);
   }
 
+  recieveNewAnswer($event){
+    this.question.answerList.push($event);
+  }
   
 
 }
