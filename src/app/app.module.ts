@@ -14,7 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { ErrorInterceptor } from './_helpers';
 import { QuestionsModule } from './questions/questions.module';
 import { FormsModule } from '@angular/forms';
-import {FeedbackModule} from './feedback/feedback.module';
+import {FeedbackModule} from "./feedback/feedback.module";
 
 @NgModule({
   declarations: [
@@ -34,7 +34,8 @@ import {FeedbackModule} from './feedback/feedback.module';
     BrowserAnimationsModule,
     MaterialModule,
     AuthModule,
-    FeedbackModule
+    FeedbackModule,
+    AuthModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }

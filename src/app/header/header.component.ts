@@ -12,7 +12,7 @@ import { User } from '../model/user.model';
 })
 export class HeaderComponent implements OnInit {
 
-  
+
   currentUser: User;
 
   constructor(

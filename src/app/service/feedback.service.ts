@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
 
-import { BaseService } from './base-service';
-import { HttpClient } from '@angular/common/http';
-import { Question } from '../model/question.model';
+import {BaseService} from './base-service';
+import {HttpClient} from '@angular/common/http';
 import {Feedback} from "../model/feedback.model";
 
 @Injectable({

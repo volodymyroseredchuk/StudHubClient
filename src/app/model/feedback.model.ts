@@ -7,8 +7,5 @@ export class Feedback {
     title: string;
     body: string;
     creationDate: Date;
-    // modifiedDate: Date;
     user: User;
-    // answerList: Answer[];
-    // tagList: Tag[];
 }
