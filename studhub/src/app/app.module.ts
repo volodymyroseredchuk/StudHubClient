@@ -25,7 +25,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    ProfileComponent
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
