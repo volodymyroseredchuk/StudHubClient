@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../model/user.model';
@@ -18,6 +18,7 @@ export class AuthenticationService extends BaseService{
     }
 
     login(username: string, password: string) {
+
         return this.http.post<any>(`${this.apiUrl}/signin`, { username, password })
             .pipe(map(jwt => {
                 // login successful if there's a jwt token in the response
