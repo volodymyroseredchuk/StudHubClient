@@ -56,10 +56,14 @@
         <mat-card-content>
             {{answer.id}}
             {{answer.body}} 
+            <div *ngIf="answer.approved">
+                answer is approved by question creator
+            </div>
         </mat-card-content>
         <mat-card-footer>{{answer.creationDate}} {{answer.user.username}}
         </mat-card-footer>
-        <button>Edit</button>
+        <button *ngIf="!answer.approved" (click)="approveAnswer(answer.id, true)">Set answer as right</button>
+        <button *ngIf="answer.approved" (click)="approveAnswer(answer.id, false)">Unmark answer</button>
         <button (click)="deleteAnswer(answer.id)">Delete</button>
         <button>Comment</button>
     </mat-card>

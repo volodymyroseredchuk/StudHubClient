@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Question } from 'src/app/model/question.model';
+import { AnswerCreateDTO } from 'src/app/model/answerCreateDTO.model'
 import { QuestionService } from 'src/app/service/question.service';
 import { QuestionsComponent } from '../questions.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -41,7 +42,6 @@ export class QuestionsPageComponent{
   
   deleteAnswer(answerId:number){
 
-    console.log(answerId);
     this.answerService.deleteAnswer(this.question.id, answerId)
       .subscribe(serverResponce => {
         this.deleteAnswerFromList(serverResponce, answerId)
@@ -49,12 +49,23 @@ export class QuestionsPageComponent{
   }
 
   deleteAnswerFromList(serverResponce: String, answerId:number ){
-    console.log(answerId);
     if (serverResponce === "Answer deleted"){
       this.question.answerList = this.question.answerList.filter(function (value, index, arr){
         return value.id !== answerId;
       })
     }
+  }
+
+
+
+  approveAnswer(answerId: number, newApproved: boolean){
+
+    this.answerService.approveAnswer(this.question.id, answerId, newApproved)
+      .subscribe(response => {
+        this.question.answerList.find((answer) => {
+          return response.answerId == answer.id;
+        }).approved = response.approved;
+      })
   }
 
 }

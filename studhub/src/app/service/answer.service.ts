@@ -4,6 +4,7 @@ import { BaseService } from './base-service';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AnswerCreateDTO} from './../model/answerCreateDTO.model';
+import { AnswerApproveDTO} from './../model/answerApproveDTO.model';
 import {Answer} from './../model/answer.model';
 
 const httpOptions = {
@@ -38,5 +39,9 @@ export class AnswerService extends BaseService{
 
   deleteAnswer(questionId: number, answerId: number){
     return this.http.delete<any>(`${this.apiUrl}/${questionId}/answers/${answerId}/delete`, httpOptionsTextResponse)
+  }
+
+  approveAnswer(questionId:number, answerId: number, approved: boolean){
+    return this.http.put<AnswerApproveDTO>(`${this.apiUrl}/${questionId}/answers/${answerId}/approve`, approved.toString(), httpOptions )
   }
 }
