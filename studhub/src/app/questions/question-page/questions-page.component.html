@@ -1,20 +1,27 @@
-<mat-card *ngIf="question">
-        <mat-card-title>
-            {{question.title}}
-        </mat-card-title>
-        <mat-card-content>
-            {{question.body}}
-        </mat-card-content>
-        <mat-card-footer>
-            {{question.creationDate}} 
-        </mat-card-footer>
-        
-    <button routerLink="/questions/{{question.id}}/edit">Edit</button>
-    <button class="btn btn-danger"  (click)="delete(question.id)">Delete</button>
-    <button class="btn btn-dark" (click)="goBack()">Back</button>
-    <button mat-raised-button color="warn" routerLink="/questions/create">Create Question</button>
+
+<button mat-raised-button color="primary" id="btnCreate" routerLink="/questions/create">Create Question</button>
+<button mat-button routerLink="." (click)="goBack()">Back</button>
+
+<mat-card *ngIf="question" class="questionCard">
+    <mat-card-title>
+        {{question.title}}
+    </mat-card-title>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+        {{question.body}}
+    </mat-card-content>
+
+    <button mat-button color="primary" routerLink="/questions/{{question.id}}/edit">Edit</button>
+    <button mat-button color="warn"  (click)="delete(question.id)">Delete</button> 
+
+    <span>Asked: {{question.creationDate}}</span>
+    <mat-card-footer *ngIf="question.user" class="userCard">
+            
+    {{question.user.id}} Here will be users name ladies and gentlemen
+    </mat-card-footer>
     
     </mat-card>
+    <mat-divider></mat-divider>
     <mat-card *ngIf="question?.answerList">
         <mat-card *ngFor="let answer of question.answerList">
         <mat-card-content >

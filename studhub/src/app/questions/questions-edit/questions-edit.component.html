@@ -1,15 +1,29 @@
-<p>
-        Add some changes to your Question!
-      </p>
-      
-      <mat-card *ngIf="question">
-        {{ question.id }} {{ question.title }}
-        <mat-chip *ngFor="let tag of question.tagList">
-            {{tag.name}}
-          </mat-chip>
-      </mat-card>
-      <form class="my-form" (ngSubmit)="onSubmit()" #userForm="ngForm">
+
+<h3>Make changes to you question here</h3>
+
+<mat-card id="questionForm">
+<form class="my-form" [formGroup]="questionCreateForm" (ngSubmit)="onSubmit()" #userForm="ngForm">
+
+  <mat-form-field class="tags-chip-list">
+         <mat-label>Title in few words</mat-label>
+         <input [(ngModel)]="question.title" class="form-control" id="title" formControlName="title"
+         name="title"   matInput  placeholder="Title of question" required 
+         [ngClass]="{ 'is-invalid': submitted && f.title.errors }" />
+         <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+             <div *ngIf="f.title.errors.required">Title is required</div>
+         </div>
+      </mat-form-field>
       <mat-form-field class="tags-chip-list">
+         <mat-label>Problem explanation</mat-label>
+         <input [(ngModel)]="question.body" class="form-control" id="body" formControlName="body"
+         name="body"  matInput  placeholder="Problem explanation" required
+         [ngClass]="{ 'is-invalid': submitted && f.body.errors }" />
+         <div *ngIf="submitted && f.body.errors" class="invalid-feedback">
+             <div *ngIf="f.body.errors.required">Body is required</div>
+         </div>
+      </mat-form-field>        
+      
+  <mat-form-field class="tags-chip-list">
         <mat-chip-list #chipList aria-label="Tag selection">
           <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
                    [removable]="removable" (removed)="removeTag(tag)">
@@ -21,20 +35,16 @@
                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                  [matChipInputAddOnBlur]="addOnBlur"
                  (matChipInputTokenEnd)="addTag($event)">
-        </mat-chip-list>  
-      </mat-form-field>
-      
-        <mat-form-field class="tags-chip-list">
-               <mat-label>Title</mat-label>
-               <input [(ngModel)]="question.title" class="form-control" id="title" 
-               name="title"   matInput  placeholder="Title of question" required>
-            </mat-form-field>
-            <mat-form-field class="tags-chip-list">
-               <mat-label>Body</mat-label>
-               <input [(ngModel)]="question.body" class="form-control" id="body" 
-               name="body"  matInput  placeholder="Body of question" required>
-            </mat-form-field>        
-            
-      </form>
-      
-      <button type="submit" mat-raised-button color="primary"  class="btn btn-success"  (click)="onSubmit()">Create Question</button>
+        </mat-chip-list> 
+         
+  </mat-form-field>
+  <mat-chip *ngFor="let tag of question.tagList">
+      {{tag.name}}
+  </mat-chip>
+</form>
+
+<button id="submitBtn" type="submit" mat-raised-button color="primary"  class="btn btn-success"  (click)="onSubmit()">Update Question</button>
+
+</mat-card>
+<a mat-raised-button routerLink="/questions" id="backBtn">Go back</a>
+

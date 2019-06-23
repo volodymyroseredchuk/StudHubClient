@@ -4,6 +4,7 @@ import { QuestionService } from 'src/app/service/question.service';
 import { QuestionsComponent } from '../questions.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-questions-page',
@@ -13,7 +14,7 @@ import { Location } from '@angular/common';
 export class QuestionsPageComponent implements OnInit{  
   
    question: Question;   
-   //list: Question[]   
+   public questionList: Question[];
    
   constructor(private questionService: QuestionService,
                private qlist: QuestionsComponent, private route: ActivatedRoute,
@@ -21,8 +22,9 @@ export class QuestionsPageComponent implements OnInit{
     
   }
 
-  ngOnInit(): void {
-      this.getQuestion();      
+  ngOnInit(): void {    
+    //this.questionService.questions.subscribe(data=>{this.questionList=data;});
+    this.getQuestion();      
   }
 
   getQuestion() {   
@@ -32,15 +34,17 @@ export class QuestionsPageComponent implements OnInit{
   }
 
   goToAllQuestions() {
-    //this.questionService.getAllQuestions().subscribe(data=>this.list = data);
-    //alert("all is bad");
+  this.questionService.getAllQuestions().subscribe(data=>this.questionList = data);   
+    alert("Question deleted. Press 'back' to see list of questions");
     this.router.navigate(['/questions']);
   }
 
-  delete (id:number){
-      this.questionService.deleteQuestion(id).subscribe(()=>this.goToAllQuestions()); 
-      this.goToAllQuestions();
-      //.subscribe(message=>{alert(message); this.goToAllQuestions()});      
+  delete (questionId:number){    
+      this.questionService.deleteQuestion(questionId).subscribe(()=>this.goToAllQuestions());
+      alert("all is bad");
+      //.subscribe(()=> this.goToAllQuestions());
+      //this.questionList = this.questionList.filter(item => item.id != questionId);
+      console.log("Delete ",questionId);      
   }
 
   goBack(): void {

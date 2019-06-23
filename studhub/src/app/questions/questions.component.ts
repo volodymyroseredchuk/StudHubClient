@@ -23,17 +23,13 @@ export class QuestionsComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-
   keywords: Tag[] = [];
-
   myControl = new FormControl();
-  public questions = [];
-  filteredQuestions: Observable<string[]>;
+  public questions = [];  
  
   constructor(private router: Router, private service: QuestionService, private activRouter: ActivatedRoute) { }
 
   ngOnInit() {
-    
     this.service.getAllQuestions().subscribe(data => {
       console.log('Список питань :', data);
       this.questions = data

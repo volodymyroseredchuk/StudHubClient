@@ -5,6 +5,7 @@ import { Question } from 'src/app/model/question.model';
 import { Tag } from 'src/app/model/tag.model';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-questions-edit',
@@ -20,18 +21,29 @@ export class QuestionsEditComponent implements OnInit{
     selectable = true;
     removable = true;
     addOnBlur = true;
+    questionCreateForm: FormGroup;
+    loading = false;
+    submitted = false;
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-    constructor(private questionService: QuestionService, private router: Router, private route: ActivatedRoute) {
+    constructor(private questionService: QuestionService, private router: Router, 
+                private route: ActivatedRoute, private formBuilder: FormBuilder) {
         
         this.question = new Question();
         this.newQuestion = this.question;
        }
 
     ngOnInit(): void {
+      this.questionCreateForm = this.formBuilder.group({
+        title: ['', Validators.required],
+        body: ['', Validators.required]
+    });
         this.getQuestion();   
         this.newQuestion = this.question;     
     }
+
+    // convenience getter for easy access to form fields
+  get f() { return this.questionCreateForm.controls; }
   
     getQuestion() {   
       const id = +this.route.snapshot.params.id;    
@@ -63,6 +75,12 @@ export class QuestionsEditComponent implements OnInit{
       }
 
     onSubmit(){
+      this.submitted = true;
+
+        // stop here if form is invalid
+        if (this.questionCreateForm.invalid) {
+            return;
+        }
         this.question.tagList = this.tags;
         this.questionService.editQuestion(this.question.id, this.question)
         .subscribe(result => this.goToAllQuestions());

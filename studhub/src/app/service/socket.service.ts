@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import * as jwt_decode from 'jwt-decode';
+//import * as jwt_decode from 'jwt-decode';
 
 const SERVER_URL = 'ws://localhost:8080/sock?';
 
@@ -98,7 +98,7 @@ class SocketServiceImpl {
 
   getDecodedAccessToken(token: string): any {
     try {
-      return jwt_decode(token);
+      return null/*jwt_decode(token)*/;
     } catch (Error) {
       return null;
     }
