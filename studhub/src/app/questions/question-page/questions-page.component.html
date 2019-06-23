@@ -20,56 +20,24 @@
     {{question.user.id}} Here will be users name ladies and gentlemen
     </mat-card-footer>
     
-    </mat-card>
-    <mat-divider></mat-divider>
+</mat-card>
+<mat-divider></mat-divider>
     <mat-card *ngIf="question?.answerList">
-        <mat-card *ngFor="let answer of question.answerList">
-        <mat-card-content >
-            {{answer.id}} 
-        </mat-card-content>
-        <!-- <mat-card-footer>
-                {{answer.user}} {{answer.creationDate}}
-        </mat-card-footer>
-        <button>Edit</button> -->
-    <button>Delete</button>
-    <button>Comment</button>
-
- <!-- <mat-card *ngIf="question?.answerList?.commentList" >
-     <mat-card *ngFor="let comment of question.answerList.commentList">
+        <mat-card  *ngFor="let answer of question.answerList">
             <mat-card-content>
-                {{comment.body}} 
+                {{answer.id}}
+                {{answer.body}} 
+                    <div *ngIf="answer.approved">
+                        answer is approved by question creator
+                    </div>
             </mat-card-content>
-            <mat-card-footer>
-                    {{comment.user}} {{comment.creationDate}}
+            <mat-card-footer>{{answer.creationDate}} {{answer.user.username}}
             </mat-card-footer>
-            <button>Edit</button>
-        <button>Delete</button>   
+                <button *ngIf="!answer.approved" (click)="approveAnswer(answer.id, true)">Mark as correct</button>
+                <button *ngIf="answer.approved" (click)="approveAnswer(answer.id, false)">Unmark answer</button>
+                <button (click)="deleteAnswer(answer.id)">Delete</button>
+                <button>Comment</button>
+        </mat-card>
+                
+    <app-answer [questionId]="question.id" (newAnswerEvent)="recieveNewAnswer($event)"></app-answer>
     </mat-card>
-    </mat-card> -->
-
-</mat-card>
-</mat-card>
-    
-    <mat-card  *ngFor="let answer of question.answerList">
-        <mat-card-content>
-            {{answer.id}}
-            {{answer.body}} 
-            <div *ngIf="answer.approved">
-                answer is approved by question creator
-            </div>
-        </mat-card-content>
-        <mat-card-footer>{{answer.creationDate}} {{answer.user.username}}
-        </mat-card-footer>
-        <button *ngIf="!answer.approved" (click)="approveAnswer(answer.id, true)">Set answer as right</button>
-        <button *ngIf="answer.approved" (click)="approveAnswer(answer.id, false)">Unmark answer</button>
-        <button (click)="deleteAnswer(answer.id)">Delete</button>
-        <button>Comment</button>
-    </mat-card>
-    
-    <app-answer [questionId]="question.id" (newAnswerEvent)="recieveNewAnswer($event)">
-
-    </app-answer>
-    </mat-card>
-
-
-    
