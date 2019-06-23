@@ -53,7 +53,9 @@ export class SignupComponent implements OnInit {
           .subscribe(
               data => {
                   this.alertService.success('Registration successful', true);
-                  this.router.navigate(['/signin']);
+                  setTimeout(() => {
+                    this.router.navigate(['/signin']);
+                }, 1000);
               },
               error => {
                   this.alertService.error(error);

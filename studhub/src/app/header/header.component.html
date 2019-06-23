@@ -4,7 +4,7 @@
   <div class="collapse navbar-collapse">
     <ul class= "navbar-nav mr-auto">
       <li class="navbar-item">
-        <a class="nav-link" routerLink="">Home</a>
+        <a class="nav-link" routerLink="/">Home</a>
       </li>
       <li class="navbar-item">
           <a class="nav-link" routerLink="/questions">QA</a>
@@ -26,6 +26,9 @@
       </li>
       <li class="navbar-item">
         <a class="nav-link" (click)="logout()">Log out</a>
+      </li>
+      <li class="navbar-item">
+        <a class="nav-link" (click)="verifyToken()">Verify Token</a>
       </li>
     </ul>
   </div>
