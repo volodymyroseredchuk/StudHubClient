@@ -30,12 +30,19 @@
                     <div *ngIf="answer.approved">
                         answer is approved by question creator
                     </div>
+                    <p>Rate: {{answer.rate}}</p>
+                    <div *ngIf="answer.vote">
+                        <p *ngIf="answer.vote.value === -1"> You downvoted this answer</p>
+                        <p *ngIf="answer.vote.value === 1"> You upvoted this answer</p>
+                    </div>
             </mat-card-content>
             <mat-card-footer>{{answer.creationDate}} {{answer.user.username}}
             </mat-card-footer>
                 <button *ngIf="!answer.approved" (click)="approveAnswer(answer.id, true)">Mark as correct</button>
                 <button *ngIf="answer.approved" (click)="approveAnswer(answer.id, false)">Unmark answer</button>
                 <button (click)="deleteAnswer(answer.id)">Delete</button>
+                <button (click)="upvoteAnswer(answer.id)">Upvote</button>
+                <button (click)="downvoteAnswer(answer.id)">Downvote</button>
                 <button>Comment</button>
         </mat-card>
                 
