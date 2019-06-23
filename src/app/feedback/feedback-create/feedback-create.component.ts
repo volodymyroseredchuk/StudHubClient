@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {User} from 'src/app/model/user.model';
-import {FeedbackService} from "../../service/feedback.service";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 import {Feedback} from "../../model/feedback.model";
+import {FeedbackService} from "../../service/feedback.service";
 
 @Component({
   selector: 'app-feedback-create',
@@ -16,54 +17,41 @@ export class FeedbackCreateComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  // tags: Tag[] = [];
-  feedback: Feedback = this.feedbackMock();
+  feedback: Feedback;
 
-  constructor(private feedbackService: FeedbackService) { }
+  feedbackCreateForm: FormGroup;
+  loading = false;
+  submitted = false;
+
+  constructor(private feedbackService: FeedbackService, private router: Router, private formBuilder: FormBuilder) {
+    this.feedback = new Feedback();
+  }
 
   ngOnInit() {
+    this.feedbackCreateForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      body: ['', Validators.required]
+    });
   }
 
-  feedbackMock(): Feedback {
-    let feedback: Feedback = new Feedback();
-    feedback.id = 0;
-    // feedback.answerList = [];
-    feedback.body = "templateBody";
-    feedback.creationDate = new Date();
-    // feedback.modifiedDate = null;
-    feedback.title = "templateTitle";
-    feedback.user = new User();
-    feedback.user.id = 1;
+  // convenience getter for easy access to form fields
+  get f() { return this.feedbackCreateForm.controls; }
 
-    // feedback.tagList = this.tags;
-    return feedback;
+  goToAllFeedback() {
+    this.router.navigate(['/feedback']);
   }
 
-  // addTag(event: MatChipInputEvent): void {
-  //   const input = event.input;
-  //   const value = event.value;
-  //
-  //   // Add tag
-  //   if ((value || '').trim()) {
-  //     this.tags.push({id:0, name: value.trim()});
-  //   }
+  onSubmit(){
+    this.submitted = true;
 
-    // Reset the input value
-    if (input) {
-      input.value = '';
+    // stop here if form is invalid
+    if (this.feedbackCreateForm.invalid) {
+      return;
     }
-  // }
 
-  // removeTag(tag: Tag): void {
-  //   const index = this.tags.indexOf(tag);
-  //
-  //   if (index >= 0) {
-  //     this.tags.splice(index, 1);
-  //   }
-  // }
-
-  createFeedback() {
-    this.feedbackService.createFeedback(this.feedbackMock())
-      .subscribe(feedback => this.feedback = feedback);
+    this.feedbackService.createFeedback(this.feedback)
+        .subscribe(result => this.goToAllFeedback());
   }
 }
+
+
