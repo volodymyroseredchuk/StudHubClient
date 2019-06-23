@@ -28,4 +28,9 @@ export class UserService extends BaseService {
                 set('Authorization', localStorage.getItem('jwt-token'))
         });
     }
+
+    updateUser(user:User) {
+        alert(user.firstName);
+        return this.http.post<any>(`${this.apiUrl}/profile/update`, user);
+    }
 }       

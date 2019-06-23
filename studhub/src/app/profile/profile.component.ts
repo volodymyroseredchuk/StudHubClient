@@ -11,12 +11,12 @@ import { UserService } from '../service/user.service';
 export class ProfileComponent implements OnInit {
   user: User;
 
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.userService.getUser().subscribe(res => {
       this.user = res
     });
   }
-
+ 
 }
