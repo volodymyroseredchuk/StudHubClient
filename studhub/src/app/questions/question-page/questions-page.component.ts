@@ -1,10 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Question } from 'src/app/model/question.model';
+import { AnswerCreateDTO } from 'src/app/model/answerCreateDTO.model'
 import { QuestionService } from 'src/app/service/question.service';
 import { QuestionsComponent } from '../questions.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
+import { AnswerService } from 'src/app/service/answer.service';
+import { switchMap } from 'rxjs/operators';
+
+
+
+
 
 @Component({
     selector: 'app-questions-page',
@@ -13,12 +20,14 @@ import { Observable } from 'rxjs';
   })
 export class QuestionsPageComponent implements OnInit{  
   
+
    question: Question;   
    public questionList: Question[];
    
   constructor(private questionService: QuestionService,
                private qlist: QuestionsComponent, private route: ActivatedRoute,
-              private router: Router, private location: Location){
+              private router: Router, private location: Location, private answerService: AnswerService){
+
     
   }
 
@@ -26,6 +35,7 @@ export class QuestionsPageComponent implements OnInit{
     //this.questionService.questions.subscribe(data=>{this.questionList=data;});
     this.getQuestion();      
   }
+
 
   getQuestion() {   
     const id = +this.route.snapshot.params.id;    
@@ -50,5 +60,39 @@ export class QuestionsPageComponent implements OnInit{
   goBack(): void {
     this.location.back();
   }  
+
+
+  recieveNewAnswer($event){
+    this.question.answerList.push($event);
+  }
+  
+  deleteAnswer(answerId:number){
+
+    this.answerService.deleteAnswer(this.question.id, answerId)
+      .subscribe(serverResponce => {
+        this.deleteAnswerFromList(serverResponce, answerId)
+      });
+  }
+
+  deleteAnswerFromList(serverResponce: String, answerId:number ){
+    if (serverResponce === "Answer deleted"){
+      this.question.answerList = this.question.answerList.filter(function (value, index, arr){
+        return value.id !== answerId;
+      })
+    }
+  }
+
+
+
+  approveAnswer(answerId: number, newApproved: boolean){
+
+    this.answerService.approveAnswer(this.question.id, answerId, newApproved)
+      .subscribe(response => {
+        this.question.answerList.find((answer) => {
+          return response.answerId == answer.id;
+        }).approved = response.approved;
+      })
+  }
+
 
 }
