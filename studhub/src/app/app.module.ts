@@ -26,7 +26,7 @@ import { QuestionsEditComponent } from './questions/questions-edit/questions-edi
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    ProfileComponent
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
