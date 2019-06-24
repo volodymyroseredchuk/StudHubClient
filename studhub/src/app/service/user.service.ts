@@ -24,13 +24,13 @@ export class UserService extends BaseService {
 
   getUser() {
     return this.http.get<User>(`${this.apiUrl}/profile/my`, {
-      headers: new HttpHeaders().set('Authorization', localStorage.getItem('jwt-token'))
+      headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
     });
   }
 
   updateUser(user: User) {
     return this.http.post<any>(`${this.apiUrl}/profile/update`, user, {
-      headers: new HttpHeaders().set('Authorization', localStorage.getItem('jwt-token'))
+      headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
     });
   }
 }       
