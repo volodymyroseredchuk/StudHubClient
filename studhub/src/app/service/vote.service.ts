@@ -26,22 +26,39 @@ const httpOptionsTextResponse = {
 @Injectable({
   providedIn: 'root'
 })
-export class AnswerService extends BaseService{
+export class VoteService extends BaseService{
 
   constructor(protected http: HttpClient) {
     super(http);
-    this.apiUrl += '/questions';
+    this.apiUrl += '/votes';
   }
 
-  createAnswer(answerCreateDTO: AnswerCreateDTO, questionId:number) : Observable<Answer> {
-    return this.http.post<Answer>(`${this.apiUrl}/${questionId}/answers`, answerCreateDTO, httpOptions)
+  upvoteAnswer(answerId: number){
+      return this.http.post<any>(
+        `${this.apiUrl}`, 
+        {
+          'answerId': answerId,
+          'feedbackId': null,
+          'value': 1
+        },
+        httpOptions
+      )
   }
 
-  deleteAnswer(questionId: number, answerId: number){
-    return this.http.delete<any>(`${this.apiUrl}/${questionId}/answers/${answerId}/delete`, httpOptionsTextResponse)
+  downvoteAnswer(answerId: number){
+    return this.http.post<any>(
+      `${this.apiUrl}`, 
+      {
+        'answerId': answerId,
+        'feedbackId': null,
+        'value': -1
+      },
+      httpOptions
+    )
+}
+
+  getAnswerVotesForQuestion(questionId: number){
+    return this.http.get<any>(`${this.apiUrl}/question/${questionId}`, httpOptions);
   }
 
-  approveAnswer(questionId:number, answerId: number, approved: boolean){
-    return this.http.put<AnswerApproveDTO>(`${this.apiUrl}/${questionId}/answers/${answerId}/approve`, approved.toString(), httpOptions )
-  }
 }

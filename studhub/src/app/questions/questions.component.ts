@@ -24,10 +24,12 @@ export class QuestionsComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+
   tagSearch = false;
   keywordSearch = false;
   keywords: Tag[] = [];
   myControl = new FormControl();
+
   questions: QuestionForListDTO[] = [];
   questionsTotalCount: number;
   pageSize: number = 5;
@@ -37,6 +39,7 @@ export class QuestionsComponent implements OnInit {
   constructor(private router: Router, private service: QuestionService, private activRouter: ActivatedRoute) { }
 
   ngOnInit() {
+
     this.getAllQuestions();
   }
 

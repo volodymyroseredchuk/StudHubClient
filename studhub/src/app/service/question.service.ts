@@ -9,7 +9,7 @@ import { QuestionPaginatedDTO } from '../model/questionPaginatedDTO.model';
 const httpOptionsTextResponse = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': localStorage.getItem('jwt-token'),
+    'Authorization': localStorage.getItem('accessToken'),
     
   }),
   responseType: 'text' as 'json'
