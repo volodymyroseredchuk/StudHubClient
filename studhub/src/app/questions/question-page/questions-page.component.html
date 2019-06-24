@@ -21,30 +21,44 @@
     </mat-card-footer>
     
 </mat-card>
-<mat-divider></mat-divider>
-    <mat-card *ngIf="question?.answerList">
-        <mat-card  *ngFor="let answer of question.answerList">
+
+    <div class="answer-list" *ngIf="question?.answerList">
+        <mat-card class="answer-mat-card" *ngFor="let answer of question.answerList">
             <mat-card-content>
-                {{answer.id}}
-                {{answer.body}} 
-                    <div *ngIf="answer.approved">
-                        answer is approved by question creator
+                <div class="row">
+                    <div class="col-md-2">
+                            <button (click)="upvoteAnswer(answer.id)">Upvote</button><br/>
+                            
+                            <div *ngIf="answer.vote">
+                                <div *ngIf="answer.vote.value === -1" class="text-danger"> Rate: {{answer.rate}}</div>
+                                <div *ngIf="answer.vote.value === 1" class="text-success" > Rate: {{answer.rate}}</div>
+                            </div>
+                            <div *ngIf="!answer.vote"> Rate: {{answer.rate}} </div>
+                            <button (click)="downvoteAnswer(answer.id)">Downvote</button>
                     </div>
-                    <p>Rate: {{answer.rate}}</p>
-                    <div *ngIf="answer.vote">
-                        <p *ngIf="answer.vote.value === -1"> You downvoted this answer</p>
-                        <p *ngIf="answer.vote.value === 1"> You upvoted this answer</p>
+                    <div class="col-md-10">
+                            {{answer.id}}
+                            {{answer.body}} 
+                                <div *ngIf="answer.approved">
+                                    answer is approved by question creator
+                                </div>
+                                <p>Rate: {{answer.rate}}</p>
+                                <div *ngIf="answer.vote">
+                                    <p *ngIf="answer.vote.value === -1"> You downvoted this answer</p>
+                                    <p *ngIf="answer.vote.value === 1"> You upvoted this answer</p>
+                                </div>
                     </div>
+                </div>
+                
             </mat-card-content>
             <mat-card-footer>{{answer.creationDate}} {{answer.user.username}}
             </mat-card-footer>
                 <button *ngIf="!answer.approved" (click)="approveAnswer(answer.id, true)">Mark as correct</button>
                 <button *ngIf="answer.approved" (click)="approveAnswer(answer.id, false)">Unmark answer</button>
                 <button (click)="deleteAnswer(answer.id)">Delete</button>
-                <button (click)="upvoteAnswer(answer.id)">Upvote</button>
-                <button (click)="downvoteAnswer(answer.id)">Downvote</button>
+                
                 <button>Comment</button>
         </mat-card>
                 
     <app-answer [questionId]="question.id" (newAnswerEvent)="recieveNewAnswer($event)"></app-answer>
-    </mat-card>
+    </div>
