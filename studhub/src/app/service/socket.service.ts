@@ -61,7 +61,7 @@ class SocketServiceImpl {
       });
   }
 
-  public send(message: {subject_type: string, id: string}): void {
+  public send(message: { subject_type: string, id: string }): void {
 
     if (this.isOpen) {
       const json = JSON.stringify(message);
