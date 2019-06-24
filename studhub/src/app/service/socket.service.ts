@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import * as jwt_decode from 'jwt-decode';
 
 const SERVER_URL = 'ws://localhost:8080/sock?';
@@ -42,11 +42,19 @@ class SocketServiceImpl {
     thus.isOpen = false;
     const tokenInfo = this.getDecodedAccessToken(localStorage.getItem('accessToken')); // decode token
     console.log(tokenInfo);
+<<<<<<< HEAD
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `${localStorage.getItem('accessToken')}`
     });
     let options = { headers: headers };
+=======
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `${localStorage.getItem('accessToken')}`
+    });
+    const options = { headers: headers };
+>>>>>>> 189d0d9491d093f7dc3471597ebe93475045970c
     this.http.get('http://localhost:8080/getSocketToken?id=' + tokenInfo.sub, options).subscribe(
       data => {
         console.log(data);

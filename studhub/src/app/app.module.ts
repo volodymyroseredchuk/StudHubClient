@@ -18,6 +18,8 @@ import { QuestionsModule } from './questions/questions.module';
 import { FormsModule } from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { QuestionsEditComponent } from './questions/questions-edit/questions-edit.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     HeaderComponent,
     FooterComponent,
     ProfileComponent,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     MatSnackBarModule
   ],
 
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, QuestionsComponent, QuestionsPageComponent],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+     QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent],
 
   bootstrap: [AppComponent]
 })

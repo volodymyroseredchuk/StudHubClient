@@ -55,13 +55,4 @@ export class ErrorInterceptor implements HttpInterceptor {
 
         }))
     }
-
-    requestDataFromMultipleSources(request: HttpRequest<any>): Observable<any[]> {
-        console.log("multi");
-        let f1 = this.authenticationService.refreshToken();
-        let f2 = request.headers.set("Authorization", localStorage.getItem("accessToken"));
-        let f3 = this.http.request(request);
-        // Observable.forkJoin (RxJS 5) changes to just forkJoin() in RxJS 6
-        return forkJoin([f1, f2, f3]);
-      }
 }
