@@ -4,7 +4,7 @@ import { Observable, throwError, forkJoin } from 'rxjs';
 import { catchError, first } from 'rxjs/operators';
 import { AuthenticationService } from '../service/authentication.service';
 import { Router } from '@angular/router';
-import {EMPTY} from 'rxjs';
+import { EMPTY } from 'rxjs';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -18,41 +18,24 @@ export class ErrorInterceptor implements HttpInterceptor {
             if (err.status === 403) {
                 // auto logout if 403 response returned from api
                 this.authenticationService.logout();
-                this.router.navigate(["/signin"]);
-                location.reload(true);
             } else if (err.status === 401) {
 
                 if (localStorage.getItem('refreshToken')) {
-                   console.log("refresh");
+                    console.log("refresh");
                     this.authenticationService.verifyToken(localStorage.getItem("refreshToken")).toPromise()
-                    .then(() => {
-                        console.log(1);
-                        return this.authenticationService.refreshToken();
-                        }).then(() => {
-                            console.log(2);
-                            request.headers.set("Authorization", localStorage.getItem("accessToken"));
-                        }).then(() => {
-                            console.log(3);
-                            return this.http.request(request).toPromise()
-                            .then(() =>  {
-                                console.log(4);
-                                location.reload(true);
-                                return EMPTY;
-                            });
+                        .then(() => {
+                            this.authenticationService.refreshToken();
+                            window.location.reload();
                         }).catch(error => {
-                        console.log(error);
-                        this.authenticationService.logout();
-                        this.router.navigate(["/signin"]);
-                        location.reload(true);
-                    });
-                    return EMPTY;
-                } 
-            } else {
-
-                const errorMessage = err.error.message;
-                return throwError(errorMessage);
+                            console.log(error);
+                            this.authenticationService.logout();
+                        });
+                } else {
+                    this.authenticationService.logout();
+                }
             }
-
+            const errorMessage = err.error.message;
+            return throwError(errorMessage);
         }))
     }
 }

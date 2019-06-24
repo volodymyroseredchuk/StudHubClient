@@ -4,6 +4,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map, catchError, first } from 'rxjs/operators';
 import { User } from '../model/user.model';
 import { BaseService } from './base-service';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService extends BaseService {
@@ -11,7 +13,7 @@ export class AuthenticationService extends BaseService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
-    constructor(protected http: HttpClient) {
+    constructor(protected http: HttpClient,private router: Router) {
         super(http);
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
@@ -61,5 +63,6 @@ export class AuthenticationService extends BaseService {
         // remove user from local storage to log user out
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
+        window.location.href = '/signin';
     }
 }

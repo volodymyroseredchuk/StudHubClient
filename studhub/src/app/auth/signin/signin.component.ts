@@ -34,7 +34,6 @@ export class SigninComponent implements OnInit {
   }
 
   ngOnInit() {
-
     // redirect to home if already logged in
     if (localStorage.getItem('accessToken')) {
       this.router.navigate(['/']);
