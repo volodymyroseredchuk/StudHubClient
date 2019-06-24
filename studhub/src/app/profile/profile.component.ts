@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Profile } from '../model/profile.model';
-import { Router } from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Profile} from '../model/profile.model';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +11,8 @@ import { Router } from "@angular/router";
 export class ProfileComponent implements OnInit {
   profile: Profile;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+  }
 
   ngOnInit() {
     this.getUser();
@@ -20,8 +21,7 @@ export class ProfileComponent implements OnInit {
   public getUser() {
     let url = "http://localhost:8080/profile/my";
     this.http.get<Profile>(url, {
-      headers: new HttpHeaders().
-        set('Authorization', localStorage.getItem('jwt-token'))
+      headers: new HttpHeaders().set('Authorization', localStorage.getItem('jwt-token'))
     })
       .subscribe(
         res => {
