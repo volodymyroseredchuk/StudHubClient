@@ -26,7 +26,7 @@ import {FeedbackModule} from "./feedback/feedback.module";
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    ProfileComponent
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

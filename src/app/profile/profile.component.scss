@@ -1,10 +1,44 @@
-.container {
-  background-color: #ffefe5;
-  margin-top: 5%;
-  height: 500px;
+.profile-container {
+  font-family: sans-serif;
+  color: #3c3939;
+  margin-top:5%;
 }
-.image {
-  margin-top: 1%;
-  width: 50%;
-  height: auto;
+.profile-card {
+  width: 500px;
+  margin: auto;
+  background: #fff;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.5);
+}
+.image-container {
+  position: relative;
+}
+.info {
+  color: #4b4fe2;
+  margin-right: 16px;
+}
+.main-container {
+  padding: 20px;
+}
+.skill-bar {
+  background-color: #bdc9ea;
+  border-radius: 16px;
+}
+.progress-bar {
+  padding: 0.1em;
+  border-radius: 16px;
+  text-align: center;
+  color: #fff;
+  background-color: #4b4fe2;
+}
+.title {
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+}
+.title h1{
+  border-radius: 15px;
+  background-color:rgba(255, 255, 255, 0.5);
+}
+.edit{
+  float:right;
 }

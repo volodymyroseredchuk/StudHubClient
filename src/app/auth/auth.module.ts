@@ -4,7 +4,7 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { MaterialModule } from '../material/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AlertComponent } from '../_components/alert.component';
 import { PasswordResetComponent } from './password_reset/password_reset.component';
 import { PasswordForgotComponent } from './password_forgot/password_forgot.component';
@@ -21,7 +21,8 @@ import { PasswordForgotComponent } from './password_forgot/password_forgot.compo
     CommonModule,
     AuthRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class AuthModule { }

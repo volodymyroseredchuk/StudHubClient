@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Profile } from '../model/profile.model';
 import { Router } from "@angular/router";
+import { User } from '../model/user.model';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,29 +9,14 @@ import { Router } from "@angular/router";
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  profile: Profile;
+  user: User;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
-    this.getUser();
-  }
-
-  public getUser() {
-    let url = "http://localhost:8080/profile/my";
-    this.http.get<Profile>(url, {
-      headers: new HttpHeaders().
-        set('Authorization', localStorage.getItem('jwt-token'))
-    })
-      .subscribe(
-        res => {
-          this.profile = res;
-        },
-        err => {
-          alert('You are not logged in!');
-          this.router.navigate(['/signin'])
-        }
-      );
+    this.userService.getUser().subscribe(res => {
+      this.user = res
+    });
   }
 
 }
