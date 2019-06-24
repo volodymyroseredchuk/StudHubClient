@@ -45,6 +45,10 @@ export class AuthenticationService extends BaseService {
                     localStorage.setItem('accessToken', `${jwt.type} ${jwt.accessToken}`);
                     localStorage.setItem('refreshToken', `${jwt.type} ${jwt.refreshToken}`);
                 }
+            },
+            error => {
+                this.logout();
+                location.reload(true);
             });
     }
 
