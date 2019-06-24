@@ -43,7 +43,7 @@
 
 <div id="questionsList">
 
-<mat-card *ngFor="let question of questions | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: questionsTotalCount}">
+<mat-card class="questionCard" *ngFor="let question of questions | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: questionsTotalCount}">
     
 
     <mat-card-title>
