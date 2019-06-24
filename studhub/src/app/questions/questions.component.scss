@@ -1,4 +1,4 @@
-h2, h3, h4 {
+h2, h3, h4, pagination-controls {
     text-align: center;
 }
 
@@ -47,4 +47,12 @@ mat-card {
 #btnRefresh {
     margin-right: 0px;
     background-color: coral;
+}
+
+#pagination {
+    margin-top: 20px;
+}
+
+#sizeSelector {
+    margin-left: 5%;
 }

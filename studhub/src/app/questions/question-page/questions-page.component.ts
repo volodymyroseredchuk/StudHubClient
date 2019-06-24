@@ -43,15 +43,15 @@ export class QuestionsPageComponent implements OnInit{
       .subscribe(question => this.question = question);      
   }
 
-  goToAllQuestions() {
-  this.questionService.getAllQuestions().subscribe(data=>this.questionList = data);   
-    alert("Question deleted. Press 'back' to see list of questions");
-    this.router.navigate(['/questions']);
-  }
+  // goToAllQuestions() {
+  // this.questionService.getAllQuestions().subscribe(data=>this.questionList = data);   
+  //   alert("Question deleted. Press 'back' to see list of questions");
+  //   this.router.navigate(['/questions']);
+  // }
 
   delete (questionId:number){    
-      this.questionService.deleteQuestion(questionId).subscribe(()=>this.goToAllQuestions());
-      alert("all is bad");
+      this.questionService.deleteQuestion(questionId).subscribe(()=>this.goBack());
+      alert("Question deleted. Press 'back' to see list of questions");
       //.subscribe(()=> this.goToAllQuestions());
       //this.questionList = this.questionList.filter(item => item.id != questionId);
       console.log("Delete ",questionId);      
