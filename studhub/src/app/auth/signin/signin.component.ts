@@ -35,7 +35,7 @@ export class SigninComponent implements OnInit {
     ngOnInit() {
 
         // redirect to home if already logged in
-        if (localStorage.getItem('jwt-token')) {
+        if (localStorage.getItem('accessToken')) {
             this.router.navigate(['/']);
         }
 
@@ -64,8 +64,9 @@ export class SigninComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.init();
+                    //this.init();
                     this.router.navigate([this.returnUrl]);
+                    this.loading = false;
                 },
                 error => {
                     this.alertService.error(error);
