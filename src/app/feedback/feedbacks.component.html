@@ -7,14 +7,17 @@
 
         <mat-card-title>
             <a [routerLink]="['/feedbacks', feedback.id]">
-                {{feedback.title}}
+                {{feedback.body}}
             </a> <br>
-            <h6>Creation date:
-                {{feedback.creationDate}}
+            <h6>Rating:
+                {{feedback.rate}}
+            </h6>
+            <h6>Mark:
+                {{feedback.mark}}
             </h6>
         </mat-card-title>
         <mat-card-footer *ngIf="feedback.user">
-            {{feedback.user.id}}
+            {{feedback.user.username}}
         </mat-card-footer>
 
     </mat-card>
