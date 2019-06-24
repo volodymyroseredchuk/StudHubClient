@@ -10,11 +10,11 @@ function mainPageFunction() {
     }
 
     open(){
-      this.element.className = "card is-flipped";
+      this.element.className = "сustom__card is-flipped";
     }
 
     close(){
-      this.element.className = "card";
+      this.element.className = "сustom__card";
     }
 
     lock(){
@@ -72,7 +72,7 @@ function mainPageFunction() {
     }
   }
 
-var card = document.querySelectorAll('.card');
+var card = document.querySelectorAll('.сustom__card');
 
 for(var i = 0; i< card.length;i++){
   new Card(card[i]);

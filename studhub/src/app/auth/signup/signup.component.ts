@@ -23,12 +23,7 @@ export class SignupComponent implements OnInit {
       private authenticationService: AuthenticationService,
       private userService: UserService,
       private alertService: AlertService
-  ) { 
-      // redirect to home if already logged in
-      if (this.authenticationService.currentUserValue) { 
-          this.router.navigate(['/']);
-      }
-  }
+  ) { }
 
   ngOnInit() {
       this.registerForm = this.formBuilder.group({
@@ -36,7 +31,8 @@ export class SignupComponent implements OnInit {
           lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]],
           email: ['', [Validators.required, Validators.email, Validators.maxLength(60)]],
           username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]],
-          password: ['', [Validators.required, Validators.minLength(6)]]
+          password: ['', [Validators.required, Validators.minLength(6)]],
+          creationDate: new Date()
       });
   }
 
