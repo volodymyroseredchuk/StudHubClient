@@ -11,7 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { QuestionsComponent } from './questions/questions.component';
-import { QuestionsPageComponent } from './questions/question-page/questions-page.component';
+// import { QuestionsPageComponent } from './questions/question-page/questions-page.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthModule } from './auth/auth.module';
 import { QuestionsModule } from './questions/questions.module';
@@ -43,7 +43,7 @@ import {FeedbackModule} from "./feedback/feedback.module";
     FeedbackModule
   ],
 
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, QuestionsComponent, QuestionsPageComponent],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, QuestionsComponent,],
 
   bootstrap: [AppComponent]
 })

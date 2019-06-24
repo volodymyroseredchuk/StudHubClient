@@ -29,7 +29,7 @@ export class FeedbackCreateComponent implements OnInit {
 
     ngOnInit() {
         this.feedbackCreateForm = this.formBuilder.group({
-            title: ['', Validators.required],
+            // title: ['', Validators.required],
             body: ['', Validators.required]
         });
     }
@@ -39,7 +39,7 @@ export class FeedbackCreateComponent implements OnInit {
         return this.feedbackCreateForm.controls;
     }
 
-    goToAllFeedback() {
+    goToAllFeedbacks() {
         this.router.navigate(['/feedback']);
     }
 
@@ -52,6 +52,6 @@ export class FeedbackCreateComponent implements OnInit {
         }
 
         this.feedbackService.createFeedback(this.feedback)
-            .subscribe(result => this.goToAllFeedback());
+            .subscribe(result => this.goToAllFeedbacks());
     }
 }

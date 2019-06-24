@@ -6,7 +6,7 @@
   <mat-form-field class="tags-chip-list">
          <mat-label>Title</mat-label>
          <input [(ngModel)]="question.title" class="form-control" id="title" formControlName="title"
-         name="title"   matInput  placeholder="Title of question" required 
+         name="title"   matInput  placeholder="Title of question" required
          [ngClass]="{ 'is-invalid': submitted && f.title.errors }" />
          <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
              <div *ngIf="f.title.errors.required">Title is required</div>
@@ -34,7 +34,7 @@
                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                  [matChipInputAddOnBlur]="addOnBlur"
                  (matChipInputTokenEnd)="addTag($event)">
-        </mat-chip-list>  
+        </mat-chip-list>
   </mat-form-field>
   
   <button type="submit" [disabled]="loading" mat-raised-button color="primary" id="submitBtn" class="btn btn-success">Create Question</button>

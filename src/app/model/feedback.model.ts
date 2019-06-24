@@ -1,8 +1,7 @@
-import { Tag } from './tag.model';
-import { User } from './user.model';
-import { Answer } from './answer.model';
+import {User} from './user.model';
 import {University} from "./university.model";
 import {Teacher} from "./teacher.model";
+import {Vote} from "./vote.model";
 
 export class Feedback {
     id: number;
@@ -12,4 +11,7 @@ export class Feedback {
     teacher: Teacher;
     mark: number;
     rate: number;
+    // approved: boolean;
+    vote: Vote;
+    // creationDate: Date;
 }
