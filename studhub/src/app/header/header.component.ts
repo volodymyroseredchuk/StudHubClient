@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../service/authentication.service';
 import { User } from '../model/user.model';
 import {SocketService} from "../service/socket.service";
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +25,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/signin']);
-    SocketService.getInstance(null).close();
+    //SocketService.getInstance(null).close();
   }
 
   ngOnInit() { }
