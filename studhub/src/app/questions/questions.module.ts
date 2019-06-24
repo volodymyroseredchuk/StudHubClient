@@ -10,6 +10,7 @@ import { MatInputModule, MatAutocompleteModule } from '@angular/material';
 import { QuestionsPageComponent } from './question-page/questions-page.component';
 import { QuestionsEditComponent } from './questions-edit/questions-edit.component';
 import { AnswerComponent } from './answer/answer.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [QuestionsCreateComponent, QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent, AnswerComponent],
@@ -20,8 +21,8 @@ import { AnswerComponent } from './answer/answer.component';
     MaterialModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatAutocompleteModule 
-
+    MatAutocompleteModule,
+    NgxPaginationModule
   ]
 })
 export class QuestionsModule { }

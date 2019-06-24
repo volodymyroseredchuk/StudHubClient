@@ -4,6 +4,7 @@ import { Observable, of, BehaviorSubject } from 'rxjs';
 import { BaseService } from './base-service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Question } from '../model/question.model';
+import { QuestionPaginatedDTO } from '../model/questionPaginatedDTO.model';
 
 const httpOptionsTextResponse = {
   headers: new HttpHeaders({
@@ -37,8 +38,8 @@ const httpOptionsTextResponse = {
         return this.http.post<Question>(`${this.apiUrl}/create`, question);
     }
 
-    getAllQuestions(): Observable<Question[]> {
-      return this.http.get<Question[]>(`${this.apiUrl}`);
+    getAllQuestions(paginationSettings: string): Observable<QuestionPaginatedDTO> {
+      return this.http.get<QuestionPaginatedDTO>(`${this.apiUrl}` + paginationSettings);
     }
 
     editQuestion(questionId: number , question: Question): Observable<Question> {
@@ -70,11 +71,11 @@ const httpOptionsTextResponse = {
       return this.http.get<Question>(`${this.apiUrl}/${id}`);
     }
 
-    searchQuestionsByKeywords(searchPattern: string): Observable<Question[]> {
-      return this.http.get<Question[]>(`${this.apiUrl}/search/` + searchPattern);
+    searchQuestionsByKeywords(searchPattern: string, paginationSettings: string): Observable<QuestionPaginatedDTO> {
+      return this.http.get<QuestionPaginatedDTO>(`${this.apiUrl}/search/` + searchPattern + paginationSettings);
     }
 
-    searchQuestionsByTags(searchPattern: string): Observable<Question[]> {
-      return this.http.get<Question[]>(`${this.apiUrl}/tagged/` + searchPattern);
+    searchQuestionsByTags(searchPattern: string, paginationSettings: string): Observable<QuestionPaginatedDTO> {
+      return this.http.get<QuestionPaginatedDTO>(`${this.apiUrl}/tagged/` + searchPattern + paginationSettings);
     }
   }

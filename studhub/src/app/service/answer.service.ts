@@ -10,14 +10,14 @@ import {Answer} from './../model/answer.model';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': localStorage.getItem('jwt-token')
+    'Authorization': localStorage.getItem('accessToken')
   })
 }
 
 const httpOptionsTextResponse = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': localStorage.getItem('jwt-token'),
+    'Authorization': localStorage.getItem('accessToken')
     
   }),
   responseType: 'text' as 'json'

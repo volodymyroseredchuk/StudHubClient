@@ -28,13 +28,36 @@
   </button>
 </div>
 
+<div id="sizeSelector">
+    <strong>Select how many questions to show on a page &nbsp;</strong>
+    <mat-form-field>
+      <mat-label>Page size</mat-label>
+      <mat-select [(value)]="pageSize" (selectionChange)="changePage(1)">
+        <mat-option value=2 [disabled]="2 > questionsTotalCount">2</mat-option>
+        <mat-option value=5 [disabled]="5 > questionsTotalCount">5</mat-option>
+        <mat-option value=10 [disabled]="10 > questionsTotalCount">10</mat-option>
+        <mat-option value=25 [disabled]="25 > questionsTotalCount">25</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
 <div id="questionsList">
-<mat-card *ngFor="let question of questions" class="questionCard">  
+
+<mat-card *ngFor="let question of questions | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: questionsTotalCount}">
+    
     <mat-card-title>
       <a [routerLink]="['/questions', question.id]">
         {{question.title}}
-      </a> <br>      
-      </mat-card-title>  
+
+        </a> <br>
+        <h6>Creation date: 
+        {{question.creationDate}}
+      </h6>
+    </mat-card-title>
+    <!-- <mat-card-footer *ngIf="question.user" >
+      {{question.user.id}}
+  </mat-card-footer> -->
+
     <mat-chip-list>
       <mat-chip *ngFor="let tag of question.tagList">
           {{tag.name}}
@@ -48,3 +71,7 @@
 </mat-card>
 </div>
 <h3 *ngIf="questions.length == 0">Sorry, questions are not found</h3>
+
+<div id="pagination">
+  <pagination-controls *ngIf="questions.length != 0" (pageChange)="changePage($event)"></pagination-controls>
+</div>

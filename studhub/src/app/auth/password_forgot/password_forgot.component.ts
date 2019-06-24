@@ -27,7 +27,7 @@ export class PasswordForgotComponent implements OnInit {
 
     ngOnInit() {
         this.passwordForgotForm = this.formBuilder.group({
-            email: ['', Validators.required]
+            email: ['', [Validators.required, Validators.email]]
         });
 
         // get return url from route parameters or default to '/'

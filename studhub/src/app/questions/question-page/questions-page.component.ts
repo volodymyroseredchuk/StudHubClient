@@ -85,8 +85,9 @@ export class QuestionsPageComponent implements OnInit{
     )
   }
 
+
   goToAllQuestions() {
-  this.questionService.getAllQuestions().subscribe(data=>this.questionList = data);   
+ // this.questionService.getAllQuestions().subscribe(data=>this.questionList = data);   
     alert("Question deleted. Press 'back' to see list of questions");
     this.router.navigate(['/questions']);
   }

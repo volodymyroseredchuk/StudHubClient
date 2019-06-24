@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {SocketService} from './service/socket.service';
-import {HttpClient} from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SocketService } from './service/socket.service';
+import { HttpClient } from '@angular/common/http';
+import { AuthenticationService } from './service/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -15,22 +16,30 @@ export class AppComponent implements OnInit {
 
 
 
-  constructor(snackBar: MatSnackBar, httpVar: HttpClient) {
+  constructor(snackBar: MatSnackBar, httpVar: HttpClient, private authenticationService: AuthenticationService) {
     this.snackBar = snackBar;
     this.connection = SocketService.getInstance(httpVar);
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('jwt-token')) {
+    if (localStorage.getItem('accessToken')) {
       this.init();
     }
   }
   public init() {
+    if (localStorage.getItem('refreshToken')) {
+      this.authenticationService.verifyToken().toPromise().catch(error => {
+        if (localStorage.getItem('refreshToken')) {
+          this.authenticationService.refreshToken();
+        }
+      })
+    }
+
     this.connection.initSocket();
     this.onMessage();
   }
 
-  public sendMessage(message: {subject_type: string, id: string}): void {
+  public sendMessage(message: { subject_type: string, id: string }): void {
     if (!message) {
       return;
     }
@@ -40,9 +49,7 @@ export class AppComponent implements OnInit {
   public onMessage(): void {
     const thus = this;
     this.connection.onMessage((message: {subject_type: string, id: string}) => {
-      thus.snackBar.open(message.id, message.subject_type, {duration: 3000}).onAction().subscribe(() => {
-        thus.sendMessage({subject_type: 'question', id: '1'});
-      });
+      thus.snackBar.open(message.id, message.subject_type, {duration: 3000});
     });
   }
 }
