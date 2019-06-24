@@ -50,7 +50,8 @@ export class PasswordForgotComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.router.navigate([this.returnUrl]);
+                    this.alertService.success("Check your email!")
+                    this.loading = false;
                 },
                 error => {
                     this.alertService.error(error);
