@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from '../model/user.model';
-import { UserService } from '../service/user.service';
-import { NgForm } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {User} from '../model/user.model';
+import {UserService} from '../service/user.service';
+import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-edit-profile',
@@ -12,9 +13,16 @@ export class EditProfileComponent implements OnInit {
 
   user: User;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) {
+  }
 
   ngOnInit() {
+    this.userService.getUser().subscribe(res => {
+      this.user = res
+    });
+  }
+
+  ngAfterViewInit(){
     this.userService.getUser().subscribe(res => {
       this.user = res
     });
@@ -24,10 +32,14 @@ export class EditProfileComponent implements OnInit {
     this.user.firstName = f.value.firstname;
     this.user.lastName = f.value.lastname;
     this.user.email = f.value.email;
-
     this.userService.updateUser(this.user).subscribe(res => {
       this.user = res
-    });;
+    });
+
+    this.router.navigateByUrl('/profile', {skipLocationChange: true}).then(()=>
+      this.router.navigate(["/profile"]));
+
+    // this.router.navigate(['/profile']);
   }
 
 }

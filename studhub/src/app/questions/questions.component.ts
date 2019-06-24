@@ -8,6 +8,7 @@ import { Question } from '../model/question.model';
 import { FormControl } from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
 import { Tag } from '../model/tag.model';
+import { QuestionForListDTO } from '../model/questionForListDTO.model';
 
 
 
@@ -24,18 +25,46 @@ export class QuestionsComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
+  tagSearch = false;
+  keywordSearch = false;
+
   keywords: Tag[] = [];
 
   myControl = new FormControl();
-  public questions = [];
-  filteredQuestions: Observable<string[]>;
+
+  questions: QuestionForListDTO[] = [];
+  questionsTotalCount: number;
+  pageSize: number = 5;
+  page: number = 1;
  
   constructor(private router: Router, private service: QuestionService, private activRouter: ActivatedRoute) { }
 
   ngOnInit() {
-    
-    this.service.getAllQuestions().subscribe(data => this.questions = data);
-    
+    this.getAllQuestions();
+  }
+
+  getAllQuestions() {
+    this.service.getAllQuestions(this.getCurrentPaginationSettings())
+      .subscribe(questionPaginatedDTO => {
+        this.questions = questionPaginatedDTO.questions;
+        this.questionsTotalCount = questionPaginatedDTO.questionsTotalCount;
+      });
+  }
+
+  getSearchedQuestions() {
+    this.service.searchQuestionsByKeywords(this.createSearchPattern(), this.getCurrentPaginationSettings())
+      .subscribe(questionPaginatedDTO => {
+        this.questions = questionPaginatedDTO.questions;
+        this.questionsTotalCount = questionPaginatedDTO.questionsTotalCount;
+      });
+  }
+
+  getTaggedQuestions() {
+    this.service.searchQuestionsByTags(this.createSearchPattern(), this.getCurrentPaginationSettings())
+      .subscribe(questionPaginatedDTO => {
+        this.questions = questionPaginatedDTO.questions;
+        this.questionsTotalCount = questionPaginatedDTO.questionsTotalCount;
+      });
   }
 
   addKeyword(event: MatChipInputEvent): void {
@@ -67,8 +96,10 @@ export class QuestionsComponent implements OnInit {
       return;
     }
 
-    this.service.searchQuestionsByTags(this.createSearchPattern())
-      .subscribe(data => this.questions = data);
+    this.tagSearch = true;
+    this.getTaggedQuestions();
+
+    this.page = 1;    
   }
 
   searchByKeywords() {
@@ -77,21 +108,46 @@ export class QuestionsComponent implements OnInit {
       return;
     }
     
-    this.service.searchQuestionsByKeywords(this.createSearchPattern())
-      .subscribe(data => this.questions = data);
+    this.keywordSearch = true;
+    this.getSearchedQuestions();
+
+    this.page = 1;
   }
 
   createSearchPattern(): string {
     let searchPattern: string = "";
     this.keywords.forEach(keyword => {
       searchPattern += keyword.name;
-      searchPattern += " ";
+      searchPattern += ",";
     });
-    return searchPattern.trim();
+    if (searchPattern == "") {
+      return searchPattern;
+    } else {
+      return searchPattern.substring(0, searchPattern.length - 1);
+    }
   }
 
   refresh() {
     this.keywords = [];
+    this.tagSearch = false;
+    this.keywordSearch = false;
     this.ngOnInit();
+    this.page = 1;
+    this.pageSize = 5;
+  }
+
+  changePage(currentPage: number) {
+    this.page = currentPage;
+    if (this.tagSearch) {
+      this.getTaggedQuestions();
+    } else if (this.keywordSearch) {
+      this.getSearchedQuestions();
+    } else {
+      this.getAllQuestions();
+    }
+  }
+
+  getCurrentPaginationSettings() : string {
+      return "?page=" + (this.page - 1) + "&size=" + this.pageSize;
   }
 }
