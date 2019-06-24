@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
         if (localStorage.getItem('refreshToken')) {
           this.authenticationService.refreshToken();
         }
-      })
+      });
     }
 
     this.connection.initSocket();
