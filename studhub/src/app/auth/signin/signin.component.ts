@@ -88,9 +88,7 @@ export class SigninComponent implements OnInit {
   public onMessage(): void {
     const thus = this;
     this.connection.onMessage((message: {subject_type: string, id: string}) => {
-      thus.snackBar.open(message.id, message.subject_type, {duration: 3000}).onAction().subscribe(() => {
-        thus.sendMessage({subject_type: 'question', id: '1'});
-      });
+      thus.snackBar.open(message.id, message.subject_type, {duration: 3000});
     });
   }
 }
