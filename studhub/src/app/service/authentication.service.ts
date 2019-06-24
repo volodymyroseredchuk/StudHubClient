@@ -4,6 +4,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map, catchError, first } from 'rxjs/operators';
 import { User } from '../model/user.model';
 import { BaseService } from './base-service';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService extends BaseService {
@@ -11,7 +13,7 @@ export class AuthenticationService extends BaseService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
-    constructor(protected http: HttpClient) {
+    constructor(protected http: HttpClient,private router: Router) {
         super(http);
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
@@ -39,7 +41,7 @@ export class AuthenticationService extends BaseService {
         let options = { headers: headers };
         return this.http.post<any>(`${this.apiUrl}/token/refresh`, null, options)
             .pipe(first()).subscribe(jwt => {
-                
+                console.log("refreshin..");
                 if (jwt) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('accessToken', `${jwt.type} ${jwt.accessToken}`);
@@ -48,10 +50,10 @@ export class AuthenticationService extends BaseService {
             });
     }
 
-    verifyToken() {
+    verifyToken(token: string) {
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'Authorization': `${localStorage.getItem('accessToken')}`
+            'Authorization': `${token}`
         });
         let options = { headers: headers };
         return this.http.post(`${this.apiUrl}/token/verify`, null, options);
@@ -61,5 +63,6 @@ export class AuthenticationService extends BaseService {
         // remove user from local storage to log user out
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
+        window.location.href = '/signin';
     }
 }

@@ -9,8 +9,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-    canActivate: [AuthGuard]
+    component: HomeComponent
   },
   {
     path: 'profile',
