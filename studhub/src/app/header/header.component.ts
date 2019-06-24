@@ -28,11 +28,5 @@ export class HeaderComponent implements OnInit {
     //SocketService.getInstance(null).close();
   }
 
-  verifyToken() {
-    this.authenticationService.verifyToken().pipe(first()).subscribe(data => {
-      console.log(data);
-    });
-  }
-
   ngOnInit() { }
 }

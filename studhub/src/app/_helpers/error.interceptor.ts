@@ -17,20 +17,10 @@ export class ErrorInterceptor implements HttpInterceptor {
                 // auto logout if 403 response returned from api
                 this.authenticationService.logout();
                 location.reload(true);
-            } else if (err.status === 401) {
-
-                if (localStorage.getItem('refreshToken')) {
-                    console.log("refresh token");
-                    this.authenticationService.refreshToken();
-                } 
-                    
-                const errorMessage = err.error.message;
-                return throwError(errorMessage);
-            } else {
-
-                const errorMessage = err.error.message;
-                return throwError(errorMessage);
             }
+            
+            const errorMessage = err.error.message;
+            return throwError(errorMessage);
 
         }))
     }
