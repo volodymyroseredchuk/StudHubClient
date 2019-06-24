@@ -31,8 +31,6 @@ export class AnswerComponent implements OnInit {
     this.router.navigate([`/questions/${this.questionId}`]);
   }
 
-
-
   onSubmit(){
     this.answerService.createAnswer(this.newAnswer, this.questionId)
       .subscribe(result =>{ 

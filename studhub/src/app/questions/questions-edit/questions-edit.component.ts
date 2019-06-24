@@ -74,6 +74,10 @@ export class QuestionsEditComponent implements OnInit{
         }
       }
 
+      goToAllQuestions() {
+        this.router.navigate(['/questions']);    
+      }
+
     onSubmit(){
       this.submitted = true;
 
@@ -86,9 +90,7 @@ export class QuestionsEditComponent implements OnInit{
         .subscribe(result => this.goToAllQuestions());
     }
 
-    goToAllQuestions() {
-        this.router.navigate(['/questions']);    
-      }
+    
   
 
 
