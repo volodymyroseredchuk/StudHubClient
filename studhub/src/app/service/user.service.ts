@@ -33,4 +33,5 @@ export class UserService extends BaseService {
       headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
     });
   }
-}       
+}
+

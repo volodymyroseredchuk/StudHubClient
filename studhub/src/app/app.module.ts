@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { QuestionsEditComponent } from './questions/questions-edit/questions-edit.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     MatSnackBarModule
   ],
 
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, QuestionsComponent, QuestionsPageComponent],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+     QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent],
 
   bootstrap: [AppComponent]
 })

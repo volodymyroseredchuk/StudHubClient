@@ -4,11 +4,9 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../service/authentication.service';
-
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private authenticationService: AuthenticationService) { }
-
+    constructor(private authenticationService: AuthenticationService) {}
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
             console.log(err);
