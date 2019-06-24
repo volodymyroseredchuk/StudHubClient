@@ -39,23 +39,19 @@ export class AuthenticationService extends BaseService {
         let options = { headers: headers };
         return this.http.post<any>(`${this.apiUrl}/token/refresh`, null, options)
             .pipe(first()).subscribe(jwt => {
-                
+                console.log("refreshin..");
                 if (jwt) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('accessToken', `${jwt.type} ${jwt.accessToken}`);
                     localStorage.setItem('refreshToken', `${jwt.type} ${jwt.refreshToken}`);
                 }
-            },
-            error => {
-                this.logout();
-                location.reload(true);
             });
     }
 
-    verifyToken() {
+    verifyToken(token: string) {
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'Authorization': `${localStorage.getItem('accessToken')}`
+            'Authorization': `${token}`
         });
         let options = { headers: headers };
         return this.http.post(`${this.apiUrl}/token/verify`, null, options);

@@ -1,41 +1,67 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError, forkJoin } from 'rxjs';
 import { catchError, first } from 'rxjs/operators';
-
 import { AuthenticationService } from '../service/authentication.service';
-import { RouterStateSnapshot, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import {EMPTY} from 'rxjs';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private router: Router, private authenticationService: AuthenticationService, 
-        private http: HttpClient) { }
-
+    constructor(private authenticationService: AuthenticationService,
+        private http: HttpClient,
+        private router: Router) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
             console.log(err);
 
             if (err.status === 403) {
                 // auto logout if 403 response returned from api
-                console.log("403");
                 this.authenticationService.logout();
+                this.router.navigate(["/signin"]);
                 location.reload(true);
             } else if (err.status === 401) {
-                console.log("401");
-                const errorMessage = err.error.message;
 
                 if (localStorage.getItem('refreshToken')) {
-                    console.log("refresh token");
-                    this.authenticationService.refreshToken();
-                    console.log(request.headers.getAll);
-                    location.reload(true);
-                }      
+                   console.log("refresh");
+                    this.authenticationService.verifyToken(localStorage.getItem("refreshToken")).toPromise()
+                    .then(() => {
+                        console.log(1);
+                        return this.authenticationService.refreshToken();
+                        }).then(() => {
+                            console.log(2);
+                            request.headers.set("Authorization", localStorage.getItem("accessToken"));
+                        }).then(() => {
+                            console.log(3);
+                            return this.http.request(request).toPromise()
+                            .then(() =>  {
+                                console.log(4);
+                                location.reload(true);
+                                return EMPTY;
+                            });
+                        }).catch(error => {
+                        console.log(error);
+                        this.authenticationService.logout();
+                        this.router.navigate(["/signin"]);
+                        location.reload(true);
+                    });
+                    return EMPTY;
+                } 
             } else {
-                console.log("else");
+
                 const errorMessage = err.error.message;
                 return throwError(errorMessage);
             }
 
         }))
     }
+
+    requestDataFromMultipleSources(request: HttpRequest<any>): Observable<any[]> {
+        console.log("multi");
+        let f1 = this.authenticationService.refreshToken();
+        let f2 = request.headers.set("Authorization", localStorage.getItem("accessToken"));
+        let f3 = this.http.request(request);
+        // Observable.forkJoin (RxJS 5) changes to just forkJoin() in RxJS 6
+        return forkJoin([f1, f2, f3]);
+      }
 }
