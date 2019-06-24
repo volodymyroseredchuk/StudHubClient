@@ -18,6 +18,7 @@ import { QuestionsModule } from './questions/questions.module';
 import { FormsModule } from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+import {FeedbackModule} from "./feedback/feedback.module";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     BrowserAnimationsModule,
     MaterialModule,
     AuthModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    FeedbackModule
   ],
 
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, QuestionsComponent, QuestionsPageComponent],

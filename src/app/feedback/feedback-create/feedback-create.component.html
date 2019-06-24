@@ -1,1 +1,22 @@
-<button mat-raised-button color="primary" (click)="createFeedback()">Create Feedback</button>
+<h3>Input data for the new Feedback!</h3>
+
+<mat-card id="feedbackForm">
+    <form class="my-form" [formGroup]="feedbackCreateForm" (ngSubmit)="onSubmit()" #userForm="ngForm">
+
+        <mat-form-field class="tags-chip-list">
+            <mat-label>Body</mat-label>
+            <input [(ngModel)]="feedback.body" class="form-control" id="body" formControlName="body"
+                   name="body" matInput placeholder="Body of a feedback" required
+                   [ngClass]="{ 'is-invalid': submitted && f.body.errors }"/>
+            <div *ngIf="submitted && f.body.errors" class="invalid-feedback">
+                <div *ngIf="f.body.errors.required">Body is required</div>
+            </div>
+        </mat-form-field>
+
+
+    </form>
+    <button type="submit" [disabled]="loading" mat-raised-button color="primary" id="submitBtn"
+            class="btn btn-success">Create Feedback
+    </button>
+</mat-card>
+<!--<a mat-raised-button routerLink="/feedback" id="backBtn">Go back</a>-->

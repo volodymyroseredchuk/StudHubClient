@@ -1,0 +1,22 @@
+<h2>Recent Feedbacks</h2>
+
+<button mat-raised-button color="primary" id="btnCreate" routerLink="/feedback/feedback">Create Feedback</button>
+
+<div id="feedbackList">
+    <mat-card *ngFor="let feedback of feedbacks">
+
+        <mat-card-title>
+            <a [routerLink]="['/feedbacks', feedback.id]">
+                {{feedback.title}}
+            </a> <br>
+            <h6>Creation date:
+                {{feedback.creationDate}}
+            </h6>
+        </mat-card-title>
+        <mat-card-footer *ngIf="feedback.user">
+            {{feedback.user.id}}
+        </mat-card-footer>
+
+    </mat-card>
+</div>
+<h3 *ngIf="feedbacks.length == 0">Sorry, feedback are not found</h3>
