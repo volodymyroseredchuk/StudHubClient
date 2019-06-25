@@ -65,7 +65,7 @@ export class SigninComponent implements OnInit {
       .subscribe(
         data => {
           this.init();
-          this.router.navigate([this.returnUrl]);
+          window.location.href = this.returnUrl;
           this.loading = false;
         },
         error => {

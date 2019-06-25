@@ -37,6 +37,12 @@ export class SignupComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+
+        // redirect to home if already logged in
+        if (localStorage.getItem('accessToken')) {
+            this.router.navigate(['/']);
+        }
+
         this.registerForm = this.formBuilder.group({
             firstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]],
             lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]],
@@ -87,7 +93,7 @@ export class SignupComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-        
+
         this.registerForm.controls['university'].setValue(this.selectedUniversity);
         // stop here if form is invalid
         if (this.registerForm.invalid) {
