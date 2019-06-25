@@ -22,18 +22,12 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-
   onSubmit(f: NgForm) {
     this.user.firstName = f.value.firstname;
     this.user.lastName = f.value.lastname;
     this.user.email = f.value.email;
 
-    this.userService.updateUser(this.user).subscribe(res => {
-      this.user = res
-    });
-
-    this.router.navigateByUrl('/profile', {skipLocationChange: false}).then(() =>
-        this.router.navigate(["/profile"]));
+    this.userService.updateUser(this.user).subscribe(() => this.router.navigate(["/profile"]));
   }
 
 }

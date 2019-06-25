@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { TagsModule } from './tags/tags.module';
+import {MatTabsModule} from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
@@ -33,6 +34,7 @@ import { QuestionsEditComponent } from './questions/questions-edit/questions-edi
   imports: [
     BrowserModule,
     HttpClientModule,
+    MatTabsModule,
     AppRoutingModule,
     TagsModule,
     ReactiveFormsModule,
