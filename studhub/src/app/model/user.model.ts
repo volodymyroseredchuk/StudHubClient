@@ -10,4 +10,5 @@ export class User {
     creationDate: string;
     imageUrl: string;
     university: University;
+    roles: { name: string}[];
 }

@@ -17,14 +17,14 @@
     <span>Asked: {{question.creationDate}}</span>
     <mat-card-footer *ngIf="question.user" class="userCard">
             
-    {{question.user.id}} Here will be users name ladies and gentlemen
+    {{question.user.username}} Here will be users name ladies and gentlemen
     </mat-card-footer>
     
 </mat-card>
 
     <div class="answer-list" *ngIf="question?.answerList">
         <mat-card class="answer-mat-card" *ngFor="let answer of question.answerList">
-            <mat-card-content>
+            <mat-card-content class="answer-mat-card-content">
                 <div class="row">
                     <div class="col-md-2">
                             <button (click)="upvoteAnswer(answer.id)">Upvote</button><br/>
@@ -42,22 +42,20 @@
                                 <div *ngIf="answer.approved">
                                     answer is approved by question creator
                                 </div>
-                                <p>Rate: {{answer.rate}}</p>
-                                <div *ngIf="answer.vote">
-                                    <p *ngIf="answer.vote.value === -1"> You downvoted this answer</p>
-                                    <p *ngIf="answer.vote.value === 1"> You upvoted this answer</p>
-                                </div>
+                                
                     </div>
                 </div>
                 
             </mat-card-content>
             <mat-card-footer>{{answer.creationDate}} {{answer.user.username}}
             </mat-card-footer>
-                <button *ngIf="!answer.approved" (click)="approveAnswer(answer.id, true)">Mark as correct</button>
-                <button *ngIf="answer.approved" (click)="approveAnswer(answer.id, false)">Unmark answer</button>
-                <button (click)="deleteAnswer(answer.id)">Delete</button>
+                <div *ngIf="this.user">
+                <button *ngIf="(!answer.approved) && this.user.username === question.user.username" (click)="approveAnswer(answer.id, true)">Mark as correct</button>
+                <button *ngIf="answer.approved && this.user.username === question.user.username" (click)="approveAnswer(answer.id, false)">Unmark answer</button>
+                <button *ngIf="canDelete(answer)" (click)="deleteAnswer(answer.id)">Delete</button>
                 
                 <button>Comment</button>
+                </div>
         </mat-card>
                 
     <app-answer [questionId]="question.id" (newAnswerEvent)="recieveNewAnswer($event)"></app-answer>

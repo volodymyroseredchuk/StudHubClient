@@ -76,6 +76,23 @@ export class QuestionsPageComponent implements OnInit{
     )
   }
 
+  canDelete(answer){
+    console.log(this.user)
+    if(!this.user) { return false; }
+    let allowDelete = this.user.username === answer.user.username;
+    if(allowDelete) { 
+      if(answer.approved){ return false; }
+      return allowDelete;
+    } else {
+      for(let role of this.user.roles) {
+        if(role.name.toUpperCase() === "ROLE_MODERATOR" || role.name.toUpperCase() === "ROLE_ADMIN") {
+          return true;
+        }
+      }
+      return false;
+    }
+
+  }
 
   goToAllQuestions() {
  // this.questionService.getAllQuestions().subscribe(data=>this.questionList = data);   
