@@ -1,33 +1,41 @@
 <div>
-<nav class = "navbar navbar-expand-md bg-orange ">
-  <a class="navbar-brand">Studhub</a>
-  <div class="collapse navbar-collapse">
-    <ul class= "navbar-nav mr-auto">
-      <li class="navbar-item">
-        <a class="nav-link" routerLink="/">Home</a>
-      </li>
-      <li class="navbar-item">
+  <nav class="navbar navbar-expand-md bg-orange ">
+    <a class="navbar-brand">Studhub</a>
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+      <ul class="navbar-nav mr-auto">
+        <li class="navbar-item">
+          <a class="nav-link" routerLink="/">Home</a>
+        </li>
+        <li class="navbar-item">
           <a class="nav-link" routerLink="/questions">QA</a>
-      </li>
-      <li class="navbar-item">
+        </li>
+        <li class="navbar-item">
           <a class="nav-link" routerLink="/universities">University rate</a>
-      </li>
-      <li class="navbar-item">
-        <a class="nav-link" routerLink="/teachers">Teacher rate</a>
-      </li>
-      <li class="navbar-item">
-        <a class="nav-link" routerLink="/tags">Tags</a>
-    </li>
-      <li class="navbar-item">
-        <a class="nav-link" routerLink="/signin">Sign in</a>
-      </li>
-      <li class="navbar-item">
-        <a class="nav-link" routerLink="/signup">Sign up</a>
-      </li>
-      <li class="navbar-item">
-        <a class="nav-link" (click)="logout()">Log out</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+        </li>
+        <li class="navbar-item">
+          <a class="nav-link" routerLink="/teachers">Teacher rate</a>
+        </li>
+        <li class="navbar-item">
+          <a class="nav-link" routerLink="/tags">Tags</a>
+        </li>
+      </ul>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <ul class="navbar-nav ml-auto">
+        <ng-container *ngIf="!isAuthenticated">
+          <li class="navbar-item">
+            <a class="nav-link" routerLink="/signin">Sign in</a>
+          </li>
+          <li class="navbar-item">
+            <a class="nav-link" routerLink="/signup">Sign up</a>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="isAuthenticated">
+          <li class="navbar-item">
+            <a class="nav-link logout" (click)="logout()" href="/signin">Log out</a>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </nav>
 </div>

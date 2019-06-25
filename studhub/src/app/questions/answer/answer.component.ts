@@ -14,6 +14,7 @@ export class AnswerComponent implements OnInit {
   newAnswer: AnswerCreateDTO;
   answerService: AnswerService;
   router: Router;
+  submitButtonEnabled: boolean;
 
   @Input() questionId: number;
   @Output() newAnswerEvent = new EventEmitter<Answer>();
@@ -22,20 +23,25 @@ export class AnswerComponent implements OnInit {
     this.newAnswer = new Answer();
     this.answerService = answerService;
     this.router = router;
+    this.submitButtonEnabled = true;
    }
 
   ngOnInit() {
   }
 
-  goToQuestionPage(){
-    this.router.navigate([`/questions/${this.questionId}`]);
-  }
+
 
   onSubmit(){
+    this.submitButtonEnabled = false;
     this.answerService.createAnswer(this.newAnswer, this.questionId)
       .subscribe(result =>{ 
         this.newAnswerEvent.emit(result);
-        console.log(result);
+        this.submitButtonEnabled = true;
+        this.newAnswer.body = "";
+        
+      }, err =>{
+        this.submitButtonEnabled = true;
+        throw err;
       });
   }
 }

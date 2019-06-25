@@ -70,21 +70,30 @@ export class QuestionsPageComponent implements OnInit {
           let answer = this.question.answerList.find((answer) => {
             return vote.answerId == answer.id;
           });
-          if (answer.vote) {
-            if (answer.vote.value !== vote.value) {
-              answer.rate -= answer.vote.value;
-              answer.rate += vote.value;
-              answer.vote = vote;
-            }
-          } else {
-            answer.rate += vote.value;
-            answer.vote = vote;
-          }
+
+         answer.vote = vote;
         }
       }
     )
   }
 
+  canDelete(answer){
+    console.log(this.user)
+    if(!this.user) { return false; }
+    let allowDelete = this.user.username === answer.user.username;
+    if(allowDelete) { 
+      if(answer.approved){ return false; }
+      return allowDelete;
+    } else {
+      for(let role of this.user.roles) {
+        if(role.name.toUpperCase() === "ROLE_MODERATOR" || role.name.toUpperCase() === "ROLE_ADMIN") {
+          return true;
+        }
+      }
+      return false;
+    }
+
+  }
 
   deleteQuestion(questionId: number) {
     this.questionService.deleteQuestion(questionId).subscribe(() => this.router.navigate(["/questions"]));
@@ -131,7 +140,7 @@ export class QuestionsPageComponent implements OnInit {
     this.voteService.upvoteAnswer(answerId)
       .subscribe(vote => {
         let answer = this.question.answerList.find((answer) => {
-          return vote.answerId == answer.id;
+          return vote.answerId === answer.id;
         });
         if (answer.vote) {
           if (answer.vote.value !== vote.value) {

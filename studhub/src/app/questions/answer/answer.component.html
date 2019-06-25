@@ -1,10 +1,12 @@
-<form class="my-form" (ngSubmit)="onSubmit()" #userForm="ngForm">
+<mat-card  class="answer-create-form">
+<form (ngSubmit)="onSubmit()" #userForm="ngForm" id="createAnswerForm">
 
-     <mat-form-field class="tags-chip-list">
+     <mat-form-field class="tags-chip-list answer-card">
         <mat-label>Your answer</mat-label>
-        <input [(ngModel)]="newAnswer.body" class="form-control" id="body" 
-        name="body"  matInput  placeholder="Type your answer here" required>
+        <textarea [(ngModel)]="newAnswer.body" class="form-control" id="answer-body" 
+        name="body"  matInput  placeholder="Type your answer here" required></textarea>
      </mat-form-field>        
      
 </form>
-<button type="submit" mat-raised-button color="primary"  class="btn btn-success" (click)="onSubmit()">Post answer</button>
+</mat-card>
+<button type="submit" mat-raised-button color="primary" [disabled]="!submitButtonEnabled" class="btn btn-success" (click)="onSubmit()">Post answer</button>
