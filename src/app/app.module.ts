@@ -11,13 +11,15 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { QuestionsComponent } from './questions/questions.component';
-// import { QuestionsPageComponent } from './questions/question-page/questions-page.component';
+import { QuestionsPageComponent } from './questions/question-page/questions-page.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthModule } from './auth/auth.module';
 import { QuestionsModule } from './questions/questions.module';
 import { FormsModule } from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { QuestionsEditComponent } from './questions/questions-edit/questions-edit.component';
 import {FeedbackModule} from "./feedback/feedback.module";
 
 @NgModule({
@@ -27,6 +29,7 @@ import {FeedbackModule} from "./feedback/feedback.module";
     HeaderComponent,
     FooterComponent,
     ProfileComponent,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import {FeedbackModule} from "./feedback/feedback.module";
     FeedbackModule
   ],
 
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, QuestionsComponent,],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+     QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent],
 
   bootstrap: [AppComponent]
 })

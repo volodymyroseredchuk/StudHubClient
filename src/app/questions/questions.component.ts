@@ -27,19 +27,19 @@ export class QuestionsComponent implements OnInit {
 
   tagSearch = false;
   keywordSearch = false;
-
   keywords: Tag[] = [];
-
   myControl = new FormControl();
 
   questions: QuestionForListDTO[] = [];
   questionsTotalCount: number;
   pageSize: number = 5;
   page: number = 1;
+
  
   constructor(private router: Router, private service: QuestionService, private activRouter: ActivatedRoute) { }
 
   ngOnInit() {
+
     this.getAllQuestions();
   }
 
@@ -65,6 +65,7 @@ export class QuestionsComponent implements OnInit {
         this.questions = questionPaginatedDTO.questions;
         this.questionsTotalCount = questionPaginatedDTO.questionsTotalCount;
       });
+
   }
 
   addKeyword(event: MatChipInputEvent): void {
@@ -99,7 +100,7 @@ export class QuestionsComponent implements OnInit {
     this.tagSearch = true;
     this.getTaggedQuestions();
 
-    this.page = 1;    
+    this.page = 1;
   }
 
   searchByKeywords() {
@@ -150,4 +151,5 @@ export class QuestionsComponent implements OnInit {
   getCurrentPaginationSettings() : string {
       return "?page=" + (this.page - 1) + "&size=" + this.pageSize;
   }
+
 }

@@ -8,10 +8,13 @@ import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatAutocompleteModule } from '@angular/material';
 import { QuestionsPageComponent } from './question-page/questions-page.component';
+import { QuestionsEditComponent } from './questions-edit/questions-edit.component';
+import { AnswerComponent } from './answer/answer.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 
+
 @NgModule({
-  declarations: [QuestionsCreateComponent, QuestionsComponent, QuestionsPageComponent],
+  declarations: [QuestionsCreateComponent, QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent, AnswerComponent],
   imports: [
     CommonModule,
     QuestionsRoutingModule,

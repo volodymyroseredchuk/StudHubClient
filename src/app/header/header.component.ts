@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../service/authentication.service';
 import { User } from '../model/user.model';
-import {SocketService} from "../service/socket.service";
+import { SocketService } from "../service/socket.service";
 import { first } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,7 @@ import { first } from 'rxjs/operators';
 })
 export class HeaderComponent implements OnInit {
   currentUser: User;
+  isAuthenticated: boolean;
 
   constructor(
     private router: Router,
@@ -24,9 +26,22 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authenticationService.logout();
-    this.router.navigate(['/signin']);
-    //SocketService.getInstance(null).close();
+
+    SocketService.getInstance(null).close();
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.isAuthenticated = this.readLocalStorageValue();
+  }
+
+  readLocalStorageValue(): boolean {
+
+    if (localStorage.getItem("accessToken")) {
+      console.log("true");
+      return true;
+    } else {
+      console.log("false");
+      return false;
+    }
+  }
 }
