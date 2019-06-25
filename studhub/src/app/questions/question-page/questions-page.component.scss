@@ -42,11 +42,21 @@ mat-divider {
 .answer-mat-card{
     margin-top: 15px;
     margin-bottom: 15px;
-    //background-color: #ffefe5;
+    background-color: #fffbf9;
 }
 
 .answer-mat-card-content{
     margin-top: 15px;
     margin-bottom: 15px;
-    //background-color: #ffefe5;
+    //background-color: #f9f3ef;
+}
+
+.rate-val {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+}
+
+.btn-vote {
+    width:50px;
+    font-size: 1.3rem;
 }

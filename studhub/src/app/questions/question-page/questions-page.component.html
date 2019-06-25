@@ -26,22 +26,34 @@
         <mat-card class="answer-mat-card" *ngFor="let answer of question.answerList">
             <mat-card-content class="answer-mat-card-content">
                 <div class="row">
-                    <div class="col-md-2">
-                            <button (click)="upvoteAnswer(answer.id)">Upvote</button><br/>
-                            
+                    <div class="col-md-2 answer-vote">
                             <div *ngIf="answer.vote">
-                                <div *ngIf="answer.vote.value === -1" class="text-danger"> Rate: {{answer.rate}}</div>
-                                <div *ngIf="answer.vote.value === 1" class="text-success" > Rate: {{answer.rate}}</div>
+                                <div *ngIf="answer.vote.value === -1">
+                                    <button class="btn btn-light btn-vote" (click)="upvoteAnswer(answer.id)">+</button><br/>
+                                    <div class="text-danger rate-val">  {{answer.rate}}</div>
+                                    <button class="btn btn-danger btn-vote" (click)="downvoteAnswer(answer.id)">-</button>
+                                </div>
+                                <div *ngIf="answer.vote.value === 1">
+                                    <button class="btn btn-success btn-vote" (click)="upvoteAnswer(answer.id)">+</button><br/>
+                                    <div class="text-success rate-val" >  {{answer.rate}}</div>
+                                    <button class="btn btn-light btn-vote" (click)="downvoteAnswer(answer.id)">-</button>
+                                </div>
                             </div>
-                            <div *ngIf="!answer.vote"> Rate: {{answer.rate}} </div>
-                            <button (click)="downvoteAnswer(answer.id)">Downvote</button>
+                            <div *ngIf="!answer.vote">
+                                <button class="btn btn-light btn-vote" (click)="upvoteAnswer(answer.id)">+</button><br/>
+                                <div class="rate-val">  {{answer.rate}} </div>
+                                <button class="btn btn-light btn-vote" (click)="downvoteAnswer(answer.id)">-</button>
+                            </div>
+                            
                     </div>
                     <div class="col-md-10">
-                            {{answer.id}}
-                            {{answer.body}} 
-                                <div *ngIf="answer.approved">
-                                    answer is approved by question creator
-                                </div>
+                            <div class="answer-approved text-success" *ngIf="answer.approved">
+                                    Answer is approved by question creator
+                            </div>
+                            <div>
+                                {{answer.body}} 
+                            </div>
+                                
                                 
                     </div>
                 </div>
@@ -50,9 +62,9 @@
             <mat-card-footer>{{answer.creationDate}} {{answer.user.username}}
             </mat-card-footer>
                 <div *ngIf="this.user">
-                <button *ngIf="(!answer.approved) && this.user.username === question.user.username" (click)="approveAnswer(answer.id, true)">Mark as correct</button>
-                <button *ngIf="answer.approved && this.user.username === question.user.username" (click)="approveAnswer(answer.id, false)">Unmark answer</button>
-                <button *ngIf="canDelete(answer)" (click)="deleteAnswer(answer.id)">Delete</button>
+                <button class="btn btn-success" *ngIf="(!answer.approved) && this.user.username === question.user.username" (click)="approveAnswer(answer.id, true)">Mark as correct</button>
+                <button class="btn btn-light" *ngIf="answer.approved && this.user.username === question.user.username" (click)="approveAnswer(answer.id, false)">Unmark answer</button>
+                <button class="btn btn-danger" *ngIf="canDelete(answer)" (click)="deleteAnswer(answer.id)">Delete</button>
                 
                 <button>Comment</button>
                 </div>
