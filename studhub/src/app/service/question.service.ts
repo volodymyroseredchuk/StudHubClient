@@ -28,10 +28,7 @@ export class QuestionService extends BaseService {
 
   constructor(protected http: HttpClient) {
     super(http);
-    this.apiUrl += '/questions';
-    this.dataStore = { questions: [] };
-    this.subjectQuestions = <BehaviorSubject<Question[]>>new BehaviorSubject([]);
-    this.questions = this.subjectQuestions.asObservable();
+    this.apiUrl += '/questions';    
   }
 
   createQuestion(question: Question): Observable<Question> {
@@ -48,28 +45,13 @@ export class QuestionService extends BaseService {
   }
 
   editQuestion(questionId: number, question: Question): Observable<Question> {
-    return this.http.put<Question>(`${this.apiUrl}/${questionId}/edit`, question);
-  }
-  // alternative getAll method using BehavourSubject
-  loadAll() {
-    this.http.get<Question[]>(`${this.apiUrl}`).subscribe(data => {
-      this.dataStore.questions = data;
-      this.subjectQuestions.next(Object.assign({}, this.dataStore).questions);
-    }, error => console.log('Could not load todos.'));
+    return this.http.put<Question>(`${this.apiUrl}/${questionId}`, question);
   }
 
   deleteQuestion(id: number): Observable<string> {
-    return this.http.delete<string>(`${this.apiUrl}/${id}`);
+    
+    return this.http.delete<string>(`${this.apiUrl}/${id}`,httpOptionsTextResponse);
 
-  }
-  //alternative delete method using BehavourSubject
-  remove(questionId: number) {
-    this.http.delete<string>(`${this.apiUrl}/${questionId}`, httpOptionsTextResponse).subscribe(response => {
-      this.dataStore.questions.forEach((t, i) => {
-        if (t.id === questionId) { this.dataStore.questions.splice(i, 1); }
-      });
-      this.subjectQuestions.next(Object.assign({}, this.dataStore).questions);
-    }, error => console.log('Could not delete todo.'));
   }
 
   showQuestionPage(id: number): Observable<Question> {

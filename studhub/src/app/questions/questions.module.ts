@@ -12,6 +12,7 @@ import { QuestionsEditComponent } from './questions-edit/questions-edit.componen
 import { AnswerComponent } from './answer/answer.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 
+
 @NgModule({
   declarations: [QuestionsCreateComponent, QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent, AnswerComponent],
   imports: [

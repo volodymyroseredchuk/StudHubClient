@@ -30,6 +30,7 @@ export class AnswerComponent implements OnInit {
   }
 
 
+
   onSubmit(){
     this.submitButtonEnabled = false;
     this.answerService.createAnswer(this.newAnswer, this.questionId)

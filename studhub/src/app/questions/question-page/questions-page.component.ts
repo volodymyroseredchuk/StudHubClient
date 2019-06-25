@@ -17,47 +17,47 @@ import { UserService } from 'src/app/service/user.service';
 
 
 @Component({
-    selector: 'app-questions-page',
-    templateUrl: './questions-page.component.html',
-    styleUrls: ['./questions-page.component.scss']
-  })
-export class QuestionsPageComponent implements OnInit{  
-  
+  selector: 'app-questions-page',
+  templateUrl: './questions-page.component.html',
+  styleUrls: ['./questions-page.component.scss']
+})
+export class QuestionsPageComponent implements OnInit {
 
-   question: Question;   
-   public questionList: Question[];
-   user: User;
-   
+
+  question: Question;
+  public questionList: Question[];
+  user: User;
+
   constructor(private questionService: QuestionService,
-               private qlist: QuestionsComponent, private route: ActivatedRoute,
-              private router: Router, private location: Location, private answerService: AnswerService,
-              private voteService : VoteService, private userService: UserService){
+    private qlist: QuestionsComponent, private route: ActivatedRoute,
+    private router: Router, private location: Location, private answerService: AnswerService,
+    private voteService: VoteService, private userService: UserService) {
 
-    
+
   }
 
   ngOnInit(): void {    
-    //this.questionService.questions.subscribe(data=>{this.questionList=data;});
     this.getQuestion();
-     
+
   }
 
 
-  getQuestion() {   
-    const id = +this.route.snapshot.params.id;    
+  getQuestion() {
+    const id = +this.route.snapshot.params.id;
     this.questionService.showQuestionPage(id)
       .subscribe(question => {
         this.question = question;
         this.getUser();
-      });      
+      });
   }
+
 
   getUser() {
     this.userService.getUser().subscribe(
       user => {
         this.user = user;
         this.getUserVotes();
-      }, err  => {
+      }, err => {
         this.user = null;
       }
     )
@@ -66,10 +66,11 @@ export class QuestionsPageComponent implements OnInit{
   getUserVotes() {
     this.voteService.getAnswerVotesForQuestion(this.question.id).subscribe(
       votes => {
-        for(let vote of votes){
+        for (let vote of votes) {
           let answer = this.question.answerList.find((answer) => {
             return vote.answerId == answer.id;
           });
+
          answer.vote = vote;
         }
       }
@@ -94,30 +95,20 @@ export class QuestionsPageComponent implements OnInit{
 
   }
 
-  goToAllQuestions() {
- // this.questionService.getAllQuestions().subscribe(data=>this.questionList = data);   
-    alert("Question deleted. Press 'back' to see list of questions");
-    this.router.navigate(['/questions']);
-  }
-
-  delete (questionId:number){    
-      this.questionService.deleteQuestion(questionId).subscribe(()=>this.goToAllQuestions());
-      alert("all is bad");
-      //.subscribe(()=> this.goToAllQuestions());
-      //this.questionList = this.questionList.filter(item => item.id != questionId);
-      console.log("Delete ",questionId);      
+  deleteQuestion(questionId: number) {
+    this.questionService.deleteQuestion(questionId).subscribe(() => this.router.navigate(["/questions"]));
+    console.log("Delete ", questionId);
   }
 
   goBack(): void {
     this.location.back();
-  }  
+  }
 
-
-  recieveNewAnswer($event){
+  recieveNewAnswer($event) {
     this.question.answerList.push($event);
   }
-  
-  deleteAnswer(answerId:number){
+
+  deleteAnswer(answerId: number) {
 
     this.answerService.deleteAnswer(this.question.id, answerId)
       .subscribe(serverResponce => {
@@ -125,9 +116,9 @@ export class QuestionsPageComponent implements OnInit{
       });
   }
 
-  deleteAnswerFromList(serverResponce: String, answerId:number ){
-    if (serverResponce === "Answer deleted"){
-      this.question.answerList = this.question.answerList.filter(function (value, index, arr){
+  deleteAnswerFromList(serverResponce: String, answerId: number) {
+    if (serverResponce === "Answer deleted") {
+      this.question.answerList = this.question.answerList.filter(function (value, index, arr) {
         return value.id !== answerId;
       })
     }
@@ -135,7 +126,7 @@ export class QuestionsPageComponent implements OnInit{
 
 
 
-  approveAnswer(answerId: number, newApproved: boolean){
+  approveAnswer(answerId: number, newApproved: boolean) {
 
     this.answerService.approveAnswer(this.question.id, answerId, newApproved)
       .subscribe(response => {
@@ -145,14 +136,14 @@ export class QuestionsPageComponent implements OnInit{
       })
   }
 
-  upvoteAnswer(answerId:number){
+  upvoteAnswer(answerId: number) {
     this.voteService.upvoteAnswer(answerId)
-      .subscribe( vote => {
+      .subscribe(vote => {
         let answer = this.question.answerList.find((answer) => {
           return vote.answerId === answer.id;
         });
-        if(answer.vote){
-          if (answer.vote.value !== vote.value){
+        if (answer.vote) {
+          if (answer.vote.value !== vote.value) {
             answer.rate -= answer.vote.value;
             answer.rate += vote.value;
             answer.vote = vote;
@@ -161,28 +152,28 @@ export class QuestionsPageComponent implements OnInit{
           answer.rate += vote.value;
           answer.vote = vote;
         }
-        
+
       })
   }
 
-  downvoteAnswer(answerId:number){
+  downvoteAnswer(answerId: number) {
     this.voteService.downvoteAnswer(answerId)
-    .subscribe( vote => {
-      let answer = this.question.answerList.find((answer) => {
-        return vote.answerId == answer.id;
-      });
-      if(answer.vote){
-        if (answer.vote.value !== vote.value){
-          answer.rate -= answer.vote.value;
+      .subscribe(vote => {
+        let answer = this.question.answerList.find((answer) => {
+          return vote.answerId == answer.id;
+        });
+        if (answer.vote) {
+          if (answer.vote.value !== vote.value) {
+            answer.rate -= answer.vote.value;
+            answer.rate += vote.value;
+            answer.vote = vote;
+          }
+        } else {
           answer.rate += vote.value;
           answer.vote = vote;
         }
-      } else {
-        answer.rate += vote.value;
-        answer.vote = vote;
-      }
-      
-    })
+
+      })
   }
 
 }
