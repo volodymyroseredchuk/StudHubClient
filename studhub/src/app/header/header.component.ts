@@ -6,6 +6,7 @@ import { AuthenticationService } from '../service/authentication.service';
 import { User } from '../model/user.model';
 import {SocketService} from "../service/socket.service";
 import { first } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -24,9 +25,8 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authenticationService.logout();
-    this.router.navigate(['/signin']);
+
     SocketService.getInstance(null).close();
-    location.reload(true);
   }
 
   ngOnInit() { }

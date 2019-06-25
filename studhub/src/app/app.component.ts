@@ -28,11 +28,12 @@ export class AppComponent implements OnInit {
   }
   public init() {
     if (localStorage.getItem('refreshToken')) {
-      this.authenticationService.verifyToken().toPromise().catch(error => {
+      this.authenticationService.verifyToken(localStorage.getItem("accessToken")).toPromise().catch(error => {
+        console.log("refresh in app");
         if (localStorage.getItem('refreshToken')) {
           this.authenticationService.refreshToken();
         }
-      })
+      });
     }
 
     this.connection.initSocket();
