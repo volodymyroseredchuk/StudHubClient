@@ -45,7 +45,12 @@ export class QuestionService extends BaseService {
   }
 
   editQuestion(questionId: number, question: Question): Observable<Question> {
-    return this.http.put<Question>(`${this.apiUrl}/${questionId}`, question);
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `${localStorage.getItem("accessToken")}`
+    });
+    let options = { headers: headers };
+    return this.http.put<Question>(`${this.apiUrl}/${questionId}`, question, options);
   }
 
   deleteQuestion(id: number): Observable<string> {

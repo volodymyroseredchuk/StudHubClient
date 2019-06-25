@@ -48,7 +48,10 @@ export class QuestionsEditComponent implements OnInit{
     getQuestion() {   
       const id = +this.route.snapshot.params.id;    
       this.questionService.showQuestionPage(id)
-        .subscribe(question => this.question = question);      
+        .subscribe(question => {
+          this.question = question;
+          this.tags=question.tagList;
+        });      
     }
 
     addTag(event: MatChipInputEvent): void {
