@@ -52,17 +52,12 @@ export class SignupComponent implements OnInit {
             university: new University(),
             creationDate: new Date()
         });
-        this.options = [];
-        this.filteredOptions = this.myControl.valueChanges
-            .pipe(
-                startWith(''),
-                map(value => this._filter(value))
-            );
+        
         this.getUniversities();
     }
 
     async getUniversities() {
-
+        this.options = [];
         let url = "http://localhost:8080/universities";
         await this.http.get<University[]>(url).toPromise().then(data => {
             console.log(data);
@@ -73,6 +68,12 @@ export class SignupComponent implements OnInit {
             });
         }).then(() => {
             console.log(this.options);
+        }).then(() => {
+            this.filteredOptions = this.myControl.valueChanges
+            .pipe(
+                startWith(''),
+                map(value => this._filter(value))
+            );
         });
     }
 
@@ -93,12 +94,13 @@ export class SignupComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-
+        console.log(this.selectedUniversity);
         this.registerForm.controls['university'].setValue(this.selectedUniversity);
         // stop here if form is invalid
         if (this.registerForm.invalid) {
             return;
         }
+
         this.loading = true;
         this.userService.register(this.registerForm.value)
             .pipe(first())
