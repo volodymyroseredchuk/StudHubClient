@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
-import { environment } from './../../environments/environment';
+import { environment } from '../../environments/environment';
 
 export abstract class BaseService {
-  protected apiUrl: string = environment.apiUrl;
-
+  // protected apiUrl: string = environment.apiUrl;
+  // protected apiUrl: string = 'https://studhub.herokuapp.com';
+  protected apiUrl: string = 'http://localhost:8080';
   constructor(protected http: HttpClient) {}
 
   protected log(message) {

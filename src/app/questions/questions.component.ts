@@ -100,7 +100,7 @@ export class QuestionsComponent implements OnInit {
     this.tagSearch = true;
     this.getTaggedQuestions();
 
-    this.page = 1;    
+    this.page = 1;
   }
 
   searchByKeywords() {

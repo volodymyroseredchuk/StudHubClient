@@ -53,7 +53,7 @@
         {{question.title}}
 
         </a> <br>
-        <h6>Asked: 
+        <h6>Asked:
         {{question.creationDate}}
       </h6>
     </mat-card-title>
@@ -61,9 +61,9 @@
     <mat-chip-list>
       <mat-chip *ngFor="let tag of question.tagList">
           {{tag.name}}
-       </mat-chip>  
+       </mat-chip>
     </mat-chip-list>
-    
+
 </mat-card>
 </div>
 <h3 *ngIf="questions.length == 0">Sorry, questions are not found</h3>

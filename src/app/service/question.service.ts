@@ -28,7 +28,7 @@ export class QuestionService extends BaseService {
 
   constructor(protected http: HttpClient) {
     super(http);
-    this.apiUrl += '/questions';    
+    this.apiUrl += '/questions';
   }
 
   createQuestion(question: Question): Observable<Question> {
@@ -49,7 +49,7 @@ export class QuestionService extends BaseService {
   }
 
   deleteQuestion(id: number): Observable<string> {
-    
+
     return this.http.delete<string>(`${this.apiUrl}/${id}`,httpOptionsTextResponse);
 
   }

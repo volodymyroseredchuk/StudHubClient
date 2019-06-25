@@ -1,0 +1,48 @@
+h2, h3, h4, pagination-controls {
+  text-align: center;
+}
+
+mat-card {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.keywords-chip-list {
+  width: 100%;
+}
+
+#searchQuestionsDiv {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#questionsList {
+  margin-top: 20px;
+}
+
+#btnTagSearch {
+  margin-left: 30%;
+}
+
+#btnKeywordSearch {
+  margin-right: 20%;
+}
+
+#btnCreate {
+  margin-left: 5%;
+}
+
+#btnRefresh {
+  margin-right: 0px;
+  background-color: coral;
+}
+
+#pagination {
+  margin-top: 20px;
+}
+
+#sizeSelector {
+  margin-left: 5%;
+}

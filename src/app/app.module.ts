@@ -20,6 +20,7 @@ import {MatSnackBarModule} from '@angular/material';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { QuestionsEditComponent } from './questions/questions-edit/questions-edit.component';
+import {FeedbackModule} from "./feedback/feedback.module";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { QuestionsEditComponent } from './questions/questions-edit/questions-edi
     BrowserAnimationsModule,
     MaterialModule,
     AuthModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    FeedbackModule
   ],
 
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
