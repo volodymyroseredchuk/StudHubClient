@@ -32,7 +32,7 @@ export class EditProfileComponent implements OnInit {
       this.user = res
     });
 
-    this.router.navigateByUrl('/profile', {skipLocationChange: false}).then(() =>
+    this.router.navigateByUrl("/profile", {skipLocationChange: true}).then(() =>
         this.router.navigate(["/profile"]));
   }
 
