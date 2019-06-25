@@ -5,6 +5,13 @@ import {BaseService} from './base-service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Feedback} from "../model/feedback.model";
 
+const httpOptions = {
+    headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('accessToken')
+    })
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -16,12 +23,7 @@ export class FeedbackService extends BaseService {
     }
 
     createFeedback(feedback: Feedback): Observable<Feedback> {
-        let headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorisation': `${localStorage.getItem("accessToken")}`
-        });
-        let options = {headers: headers};
-        return this.http.post<Feedback>(`${this.apiUrl}/feedback`, feedback, options);
+        return this.http.post<Feedback>(`${this.apiUrl}/feedback`, feedback, httpOptions);
     }
 
     // getAllFeedbackByTeacherId(teacherId: number, feedback: Feedback): Observable<Feedback[]> {
