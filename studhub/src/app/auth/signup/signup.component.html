@@ -36,13 +36,11 @@
     
                         <form class="example-form">
                             <mat-form-field class="example-full-width">
-                                <input type="text" placeholder="University" matInput
-                                    [formControl]="myControl" [matAutocomplete]="auto">
-                                <mat-autocomplete #auto="matAutocomplete">
+                                <mat-select placeholder="University (optional)">
                                     <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (onSelectionChange)="getUniverFromName(option)">
                                         {{option}}
                                     </mat-option>
-                                </mat-autocomplete>
+                                </mat-select>
                             </mat-form-field>
                         </form>
     
