@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentInit, Component, DoCheck, OnInit} from '@angular/core';
 import {User} from '../model/user.model';
 import {UserService} from '../service/user.service';
 import {NgForm} from '@angular/forms';
@@ -18,7 +18,7 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getUser().subscribe(res => {
-      this.user = res
+      this.user = res;
     });
   }
 
