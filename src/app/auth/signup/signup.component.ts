@@ -58,7 +58,7 @@ export class SignupComponent implements OnInit {
 
     async getUniversities() {
         this.options = [];
-        let url = "http://localhost:8080/universities";
+        let url = "https://studhub.herokuapp.com/universities";
         await this.http.get<University[]>(url).toPromise().then(data => {
             console.log(data);
             this.universities = data;

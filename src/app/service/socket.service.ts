@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import * as jwt_decode from 'jwt-decode';
 
-const SERVER_URL = 'ws://localhost:8080/sock?';
+const SERVER_URL = 'ws://studhub.herokuapp.com/sock?';
 
 @Injectable({
   providedIn: 'root',
@@ -47,7 +47,7 @@ class SocketServiceImpl {
       'Authorization': `${localStorage.getItem('accessToken')}`
     });
     const options = { headers: headers };
-    this.http.get('http://localhost:8080/getSocketToken?id=' + tokenInfo.sub, options).subscribe(
+    this.http.get('https://studhub.herokuapp.com/getSocketToken?id=' + tokenInfo.sub, options).subscribe(
       data => {
         console.log(data);
         thus.token = data['token'];
