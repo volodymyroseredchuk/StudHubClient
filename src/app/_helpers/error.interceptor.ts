@@ -17,10 +17,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(catchError(err => {
             console.log(err);
 
-            if (err.status === 403) {
-                // auto logout if 403 response returned from api
-                this.authenticationService.logout();
-            } else if (err.status === 401) {
+            if (err.status === 401) {
 
                 if (localStorage.getItem('refreshToken')) {
                     console.log("refresh");
@@ -32,8 +29,6 @@ export class ErrorInterceptor implements HttpInterceptor {
                             console.log(error);
                             this.authenticationService.logout();
                         });
-                } else {
-                    this.authenticationService.logout();
                 }
             }
             const errorMessage = err.error.message;

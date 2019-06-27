@@ -52,7 +52,7 @@ export class SignupComponent implements OnInit {
             university: new University(),
             creationDate: new Date()
         });
-        
+
         this.getUniversities();
     }
 
@@ -70,10 +70,10 @@ export class SignupComponent implements OnInit {
             console.log(this.options);
         }).then(() => {
             this.filteredOptions = this.myControl.valueChanges
-            .pipe(
-                startWith(''),
-                map(value => this._filter(value))
-            );
+                .pipe(
+                    startWith(''),
+                    map(value => this._filter(value))
+                );
         });
     }
 
@@ -106,10 +106,8 @@ export class SignupComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Registration successful', true);
-                    setTimeout(() => {
-                        this.router.navigate(['/signin']);
-                    }, 1000);
+                    this.alertService.success(data["message"], true);
+                    this.loading = false;
                 },
                 error => {
                     this.alertService.error(error);
