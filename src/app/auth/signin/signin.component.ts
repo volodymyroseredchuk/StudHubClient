@@ -7,6 +7,7 @@ import { AuthenticationService } from '../../service/authentication.service';
 import { SocketService } from '../../service/socket.service';
 import { MatSnackBar } from "@angular/material";
 import { HttpClient } from "@angular/common/http";
+import { AuthService, GoogleLoginProvider } from "angularx-social-login";
 
 @Component({
   selector: 'app-auth',
@@ -22,6 +23,7 @@ export class SigninComponent implements OnInit {
   alertMessage: string;
   private connection: any;
   constructor(
+    private socialAuthService: AuthService,
     private snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -72,6 +74,24 @@ export class SigninComponent implements OnInit {
           this.alertService.error(error);
           this.loading = false;
         });
+  }
+  public signinWithGoogle() {
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((userData) => {
+      console.log(userData);
+      this.loading = true;
+      this.authenticationService.loginGoogle(userData)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.init();
+            window.location.href = this.returnUrl;
+            this.loading = false;
+          },
+          error => {
+            this.alertService.error(error);
+            this.loading = false;
+          });
+    });
   }
 
   public init() {
