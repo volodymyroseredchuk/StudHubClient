@@ -1,0 +1,22 @@
+.tagCard {
+    background-color: beige;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+h2, pagination-controls, mat-card {
+    text-align: center;
+}
+
+mat-card {
+    margin: 5px;
+}
+
+#pagination {
+    margin-top: 20px;
+}
+
+#sizeSelector {
+    margin-left: 30px;
+}

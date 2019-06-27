@@ -1,0 +1,23 @@
+<h2>Popular tags</h2>
+
+<div id="sizeSelector">
+  Select how many tags to show on a page &nbsp;
+  <mat-form-field>
+    <mat-label>Page size</mat-label>
+    <mat-select [(value)]="pageSize" (selectionChange)="ngOnInit()">
+      <mat-option value=2 [disabled]="2 > tagsTotalCount">2</mat-option>
+      <mat-option value=5 [disabled]="5 > tagsTotalCount">5</mat-option>
+      <mat-option value=10 [disabled]="10 > tagsTotalCount">10</mat-option>
+      <mat-option value=25 [disabled]="25 > tagsTotalCount">25</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<mat-card *ngFor="let tag of tags | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: tagsTotalCount}"
+  class = "tagCard">
+  {{ tag.name }}
+</mat-card>
+
+<div id="pagination">
+  <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
+</div>
