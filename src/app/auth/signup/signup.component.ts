@@ -49,8 +49,7 @@ export class SignupComponent implements OnInit {
             email: ['', [Validators.required, Validators.email, Validators.maxLength(60)]],
             username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]],
             password: ['', [Validators.required, Validators.minLength(6)]],
-            university: new University(),
-            creationDate: new Date()
+            university: new University()
         });
 
         this.getUniversities();

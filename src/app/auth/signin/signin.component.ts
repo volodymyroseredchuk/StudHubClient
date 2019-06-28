@@ -63,6 +63,7 @@ export class SigninComponent implements OnInit {
         }).catch(error => {
           console.log(error);
           this.alertService.error(error);
+          this.loading = false;
         });
     }
   }
