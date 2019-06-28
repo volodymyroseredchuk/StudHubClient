@@ -66,7 +66,6 @@ export class SigninComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.init();
           window.location.href = this.returnUrl;
           this.loading = false;
         },
@@ -83,7 +82,6 @@ export class SigninComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            this.init();
             window.location.href = this.returnUrl;
             this.loading = false;
           },
@@ -94,22 +92,4 @@ export class SigninComponent implements OnInit {
     });
   }
 
-  public init() {
-    this.connection.initSocket();
-    this.onMessage();
-  }
-
-  public sendMessage(message: { subject_type: string, id: string }): void {
-    if (!message) {
-      return;
-    }
-    this.connection.send(message);
-  }
-
-  public onMessage(): void {
-    const thus = this;
-    this.connection.onMessage((message: { subject_type: string, id: string }) => {
-      thus.snackBar.open(message.id, message.subject_type, { duration: 3000, verticalPosition: 'bottom', horizontalPosition: 'right' });
-    });
-  }
 }
