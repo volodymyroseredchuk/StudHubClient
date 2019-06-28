@@ -4,6 +4,7 @@ import { QuestionsComponent } from './questions.component';
 import { QuestionsCreateComponent } from './questions-create/questions-create.component';
 import { QuestionsPageComponent } from './question-page/questions-page.component';
 import { QuestionsEditComponent } from './questions-edit/questions-edit.component';
+import { AuthGuard } from '../_guards';
 
 const routes: Routes = [
   {
@@ -12,7 +13,8 @@ const routes: Routes = [
   },
   {
     path: 'questions/create',
-    component: QuestionsCreateComponent
+    component: QuestionsCreateComponent,
+    canActivate: [AuthGuard]
   },
 
   {
