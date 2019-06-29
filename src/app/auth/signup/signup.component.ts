@@ -47,12 +47,11 @@ export class SignupComponent implements OnInit {
             firstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]],
             lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]],
             email: ['', [Validators.required, Validators.email, Validators.maxLength(60)]],
-            username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]],
+            username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(32)]],
             password: ['', [Validators.required, Validators.minLength(6)]],
-            university: new University(),
-            creationDate: new Date()
+            university: new University()
         });
-        
+
         this.getUniversities();
     }
 
@@ -70,10 +69,10 @@ export class SignupComponent implements OnInit {
             console.log(this.options);
         }).then(() => {
             this.filteredOptions = this.myControl.valueChanges
-            .pipe(
-                startWith(''),
-                map(value => this._filter(value))
-            );
+                .pipe(
+                    startWith(''),
+                    map(value => this._filter(value))
+                );
         });
     }
 
@@ -106,10 +105,8 @@ export class SignupComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Registration successful', true);
-                    setTimeout(() => {
-                        this.router.navigate(['/signin']);
-                    }, 1000);
+                    this.alertService.success(data["message"], true);
+                    this.loading = false;
                 },
                 error => {
                     this.alertService.error(error);

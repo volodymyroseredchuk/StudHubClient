@@ -86,5 +86,7 @@ export class AuthenticationService extends BaseService {
         // remove user from local storage to log user out
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
+        let url = location.href.replace(location.origin, "");
+        window.location.href = "/signin?returnUrl=" + url;
     }
 }

@@ -7,6 +7,7 @@ import { AuthenticationService } from '../../service/authentication.service';
 import { SocketService } from '../../service/socket.service';
 import { MatSnackBar } from "@angular/material";
 import { HttpClient } from "@angular/common/http";
+import { UserService } from 'src/app/service/user.service';
 import { AuthService, GoogleLoginProvider } from "angularx-social-login";
 
 @Component({
@@ -20,6 +21,7 @@ export class SigninComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
+  token: string;
   alertMessage: string;
   private connection: any;
   constructor(
@@ -28,6 +30,7 @@ export class SigninComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private userService: UserService,
     private authenticationService: AuthenticationService,
     private alertService: AlertService,
     httpVar: HttpClient
@@ -48,6 +51,23 @@ export class SigninComponent implements OnInit {
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.token = this.route.snapshot.queryParams['token'];
+
+    if (this.token) {
+      console.log("token param");
+      this.loading = true;
+      this.userService.confirmAccount(this.token).toPromise()
+        .then(data => {
+          console.log(data);
+          this.alertService.success(data.message);
+        }).then(() => {
+          this.loading = false;
+        }).catch(error => {
+          console.log(error);
+          this.alertService.error(error);
+          this.loading = false;
+        });
+    }
   }
 
   // convenience getter for easy access to form fields
@@ -70,6 +90,7 @@ export class SigninComponent implements OnInit {
           this.loading = false;
         },
         error => {
+          console.log(error);
           this.alertService.error(error);
           this.loading = false;
         });
