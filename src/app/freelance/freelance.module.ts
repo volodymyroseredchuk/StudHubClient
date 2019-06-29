@@ -8,10 +8,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatAutocompleteModule } from '@angular/material';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { TasksComponent } from './tasks/tasks.component';
+import { TasksCreateComponent } from './tasks-create/tasks-create.component';
 
 
 @NgModule({
-  declarations: [TasksComponent],
+  declarations: [TasksComponent, TasksCreateComponent],
   imports: [
     CommonModule,
     FreelanceRoutingModule,
