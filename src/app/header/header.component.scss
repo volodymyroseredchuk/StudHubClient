@@ -14,3 +14,15 @@
 .nav-link:hover{
     color: rgba(0,0,0,0.5);
 }
+
+.navbar-not-collapse{
+  flex-direction: row !important;
+}
+
+.nav-link-no-collapse{
+  white-space: nowrap;
+}
+
+.my-navbar-collapse{
+  z-index: 1111 !important;
+}
