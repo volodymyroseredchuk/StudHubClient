@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import * as jwt_decode from 'jwt-decode';
+import {BaseService} from "./base-service";
 
-const SERVER_URL = 'ws://localhost:8080/sock?';
+const SERVER_URL = 'wss://localhost:8080/sock?';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class SocketService {
 }
 
 
-class SocketServiceImpl {
+class SocketServiceImpl extends BaseService {
 
   private socket;
 
@@ -29,11 +30,10 @@ class SocketServiceImpl {
 
   private isOpen;
   private token: any;
-  private http: HttpClient;
   private onmessage;
 
   constructor(http: HttpClient) {
-    this.http = http;
+    super(http);
   }
 
   public initSocket(): void {
@@ -47,7 +47,7 @@ class SocketServiceImpl {
       'Authorization': `${localStorage.getItem('accessToken')}`
     });
     const options = { headers: headers };
-    this.http.get('http://localhost:8080/getSocketToken?id=' + tokenInfo.sub, options).subscribe(
+    this.http.get(this.apiUrl + '/getSocketToken?id=' + tokenInfo.sub, options).subscribe(
       data => {
         console.log(data);
         thus.token = data['token'];

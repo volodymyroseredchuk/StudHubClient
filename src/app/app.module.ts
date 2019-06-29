@@ -20,8 +20,15 @@ import {MatSnackBarModule} from '@angular/material';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { QuestionsEditComponent } from './questions/questions-edit/questions-edit.component';
-import {FeedbackModule} from "./feedback/feedback.module";
+import {FeedbackModule} from './feedback/feedback.module';
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  GoogleLoginProvider
+} from 'angularx-social-login';
+import { provideConfig } from '../socialloginConfig';
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,12 +50,18 @@ import {FeedbackModule} from "./feedback/feedback.module";
     MaterialModule,
     AuthModule,
     MatSnackBarModule,
-    FeedbackModule
+    FeedbackModule,
+    SocialLoginModule
   ],
 
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-     QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent],
-
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+     QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

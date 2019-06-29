@@ -8,6 +8,7 @@ import { SocketService } from '../../service/socket.service';
 import { MatSnackBar } from "@angular/material";
 import { HttpClient } from "@angular/common/http";
 import { UserService } from 'src/app/service/user.service';
+import { AuthService, GoogleLoginProvider } from "angularx-social-login";
 
 @Component({
   selector: 'app-auth',
@@ -24,6 +25,7 @@ export class SigninComponent implements OnInit {
   alertMessage: string;
   private connection: any;
   constructor(
+    private socialAuthService: AuthService,
     private snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -84,8 +86,6 @@ export class SigninComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data);
-          this.init();
           window.location.href = this.returnUrl;
           this.loading = false;
         },
@@ -95,23 +95,22 @@ export class SigninComponent implements OnInit {
           this.loading = false;
         });
   }
-
-  public init() {
-    this.connection.initSocket();
-    this.onMessage();
-  }
-
-  public sendMessage(message: { subject_type: string, id: string }): void {
-    if (!message) {
-      return;
-    }
-    this.connection.send(message);
-  }
-
-  public onMessage(): void {
-    const thus = this;
-    this.connection.onMessage((message: { subject_type: string, id: string }) => {
-      thus.snackBar.open(message.id, message.subject_type, { duration: 3000, verticalPosition: 'bottom', horizontalPosition: 'right' });
+  public signinWithGoogle() {
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((userData) => {
+      console.log(userData);
+      this.loading = true;
+      this.authenticationService.loginGoogle(userData)
+        .pipe(first())
+        .subscribe(
+          data => {
+            window.location.href = this.returnUrl;
+            this.loading = false;
+          },
+          error => {
+            this.alertService.error(error);
+            this.loading = false;
+          });
     });
   }
+
 }
