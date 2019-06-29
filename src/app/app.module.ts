@@ -21,6 +21,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { QuestionsEditComponent } from './questions/questions-edit/questions-edit.component';
 import {FeedbackModule} from "./feedback/feedback.module";
+import { FreelanceModule } from './freelance/freelance.module';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {FeedbackModule} from "./feedback/feedback.module";
     MaterialModule,
     AuthModule,
     MatSnackBarModule,
-    FeedbackModule
+    FeedbackModule,
+    FreelanceModule
   ],
 
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
