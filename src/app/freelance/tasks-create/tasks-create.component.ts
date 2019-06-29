@@ -3,6 +3,7 @@ import { Task } from 'src/app/model/task.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TaskService } from 'src/app/service/task.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-tasks-create',
@@ -18,6 +19,7 @@ export class TasksCreateComponent implements OnInit {
 
   constructor(private taskService: TaskService,
     private router: Router,
+    private location: Location,
     private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -53,5 +55,9 @@ export class TasksCreateComponent implements OnInit {
       .subscribe(result => {
         this.goToAllTasks();
       })  
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

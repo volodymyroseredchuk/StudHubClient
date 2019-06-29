@@ -16,8 +16,7 @@ export class TasksComponent implements OnInit {
   page: number = 1;
 
   constructor(private router: Router, 
-    private taskService: TaskService,
-    private activatedRouter: ActivatedRoute) { }
+    private taskService: TaskService) { }
 
   ngOnInit() {
     this.getAllTasks();

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TasksComponent } from './tasks/tasks.component';
 import { TasksCreateComponent } from './tasks-create/tasks-create.component';
 import { AuthGuard } from '../_guards';
+import { TaskPageComponent } from './task-page/task-page.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,10 @@ const routes: Routes = [
     path: 'tasks/create',
     component: TasksCreateComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'tasks/:id',
+    component: TaskPageComponent
   }
 ];
 

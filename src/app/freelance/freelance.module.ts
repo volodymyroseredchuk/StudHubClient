@@ -9,10 +9,11 @@ import { MatInputModule, MatAutocompleteModule } from '@angular/material';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { TasksComponent } from './tasks/tasks.component';
 import { TasksCreateComponent } from './tasks-create/tasks-create.component';
+import { TaskPageComponent } from './task-page/task-page.component';
 
 
 @NgModule({
-  declarations: [TasksComponent, TasksCreateComponent],
+  declarations: [TasksComponent, TasksCreateComponent, TaskPageComponent],
   imports: [
     CommonModule,
     FreelanceRoutingModule,
