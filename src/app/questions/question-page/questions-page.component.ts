@@ -104,7 +104,17 @@ export class QuestionsPageComponent implements OnInit {
   }
 
   recieveNewAnswer($event) {
-    this.question.answerList.push($event);
+    let pushed = false;
+    for(var i = 0; i < this.question.answerList.length; i++) {
+      if(this.question.answerList[i].rate < 0) {
+        pushed = true;
+        this.question.answerList.splice(i,0,$event);
+        break;
+      }
+    }
+    if(!pushed){
+      this.question.answerList.push($event);
+    }
   }
 
   deleteAnswer(answerId: number) {
