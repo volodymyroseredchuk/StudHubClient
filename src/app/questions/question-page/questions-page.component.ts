@@ -115,8 +115,8 @@ export class QuestionsPageComponent implements OnInit {
       });
   }
 
-  deleteAnswerFromList(serverResponce: String, answerId: number) {
-    if (serverResponce === "Answer deleted") {
+  deleteAnswerFromList(serverResponce, answerId: number) {
+    if (serverResponce.isDeleted) {
       this.question.answerList = this.question.answerList.filter(function (value, index, arr) {
         return value.id !== answerId;
       })
@@ -136,7 +136,7 @@ export class QuestionsPageComponent implements OnInit {
   }
 
   upvoteAnswer(answer) {
-    if(answer.vote.value > 0) {
+    if(answer.vote && answer.vote.value > 0) {
       this.voteService.resetVoteAnswer(answer.id)
         .subscribe(vote => this.registerVote(vote));
     } else {
@@ -146,7 +146,7 @@ export class QuestionsPageComponent implements OnInit {
   }
 
   downvoteAnswer(answer) {
-    if(answer.vote.value < 0) {
+    if(answer.vote && answer.vote.value < 0) {
       this.voteService.resetVoteAnswer(answer.id)
         .subscribe(vote => this.registerVote(vote));
     } else {
@@ -157,6 +157,7 @@ export class QuestionsPageComponent implements OnInit {
 
   registerVote(vote) {
     {
+      console.log(vote);
       let answer = this.question.answerList.find((answer) => {
         return vote.answerId == answer.id;
       });
