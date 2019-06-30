@@ -37,7 +37,7 @@
     </mat-form-field>
 
     <mat-form-field class="general">
-      <mat-label>Expected price</mat-label>
+      <mat-label>Expected price (cookies)</mat-label>
       <input [(ngModel)]="task.expectedPrice" class="form-control" id="expectedPrice" formControlName="expectedPrice"
          name="expectedPrice"  matInput type="number" min=0 required 
          [ngClass]="{ 'is-invalid': submitted && f.expectedPrice.errors }"/>

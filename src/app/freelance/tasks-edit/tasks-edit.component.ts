@@ -39,6 +39,7 @@ export class TasksEditComponent implements OnInit {
   getTask() {
     this.taskService.getTask(this.taskId)
       .subscribe(task => {
+        alert("Task was updated successfully");
         this.task = task;
       })
   }

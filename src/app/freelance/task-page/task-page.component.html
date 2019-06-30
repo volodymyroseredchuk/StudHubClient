@@ -71,7 +71,7 @@
 </div>
 
 <div class="proposal-list" *ngIf="proposals">
-  <mat-card class="proposal-mat-card" *ngFor="let proposal of proposals">
+  <mat-card class="proposal-mat-card" *ngFor="let proposal of proposals | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: proposalsTotalCount}">
       <mat-card-content class="proposal-mat-card-content" *ngIf="proposal.body">
           {{ proposal.body }}
       </mat-card-content>

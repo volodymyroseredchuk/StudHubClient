@@ -126,7 +126,8 @@ export class TaskPageComponent implements OnInit {
       this.proposalService.deleteProposal(this.taskId, proposalId)
         .subscribe(deleteMessage => {
           alert(deleteMessage.message);
-          this.deleteProposalFromList(deleteMessage.message, proposalId)
+          this.deleteProposalFromList(deleteMessage.message, proposalId);
+          this.changePage(1);
       });
     }
   }
