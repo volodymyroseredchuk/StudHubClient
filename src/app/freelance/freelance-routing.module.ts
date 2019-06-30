@@ -4,6 +4,7 @@ import { TasksComponent } from './tasks/tasks.component';
 import { TasksCreateComponent } from './tasks-create/tasks-create.component';
 import { AuthGuard } from '../_guards';
 import { TaskPageComponent } from './task-page/task-page.component';
+import { TasksEditComponent } from './tasks-edit/tasks-edit.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,11 @@ const routes: Routes = [
   {
     path: 'tasks/:id',
     component: TaskPageComponent
+  },
+  {
+    path: 'tasks/:id/edit',
+    component: TasksEditComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

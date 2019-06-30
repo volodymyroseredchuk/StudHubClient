@@ -10,10 +10,11 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { TasksComponent } from './tasks/tasks.component';
 import { TasksCreateComponent } from './tasks-create/tasks-create.component';
 import { TaskPageComponent } from './task-page/task-page.component';
+import { TasksEditComponent } from './tasks-edit/tasks-edit.component';
 
 
 @NgModule({
-  declarations: [TasksComponent, TasksCreateComponent, TaskPageComponent],
+  declarations: [TasksComponent, TasksCreateComponent, TaskPageComponent, TasksEditComponent],
   imports: [
     CommonModule,
     FreelanceRoutingModule,
