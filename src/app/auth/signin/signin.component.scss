@@ -8,3 +8,48 @@
     text-align: center;
     padding-top: 30px;
 }
+
+@media all and (max-width: 1025px){
+    .auth-form {
+      margin:7.5%;
+      margin-top: 30%;
+      width: 85%;
+    }
+}
+
+@media all and (max-width: 769px){
+    .auth-form {
+        margin:7.5%;
+        margin-top: 30%;
+        width: 85%;
+      }
+  }
+  
+  @media all and (max-width: 415px){
+    .auth-form {
+        margin:7.5%;
+        margin-top: 30%;
+        width: 85%;
+      }
+  }
+  
+  @media all and (max-width: 380px){
+    .auth-form {
+        margin:7.5%;
+        margin-top: 25%;
+        width: 85%;
+      }
+
+  }
+
+  @media all and (max-width: 340px){
+    .auth-form {
+        margin:7.5%;
+        margin-top: 15%;
+        width: 85%;
+      }
+
+  }
+
+  
+  
