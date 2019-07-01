@@ -1,0 +1,39 @@
+<h3>Input data for the new Proposal!</h3>
+
+<mat-card id="proposalForm">
+  <form class="my-form" [formGroup]="proposalCreateForm" (ngSubmit)="onSubmit()" #userForm="ngForm">
+
+    <mat-form-field class="general">
+      <mat-label>Body</mat-label>
+      <input [(ngModel)]="proposal.body" class="form-control" id="body" formControlName="body"
+         name="body"  matInput  placeholder="Body of proposal" />
+    </mat-form-field>        
+    
+    <mat-form-field class="general">
+      <mat-label>Execution term (days)</mat-label>
+      <input [(ngModel)]="proposal.daysCount" class="form-control" id="executionTerm" formControlName="executionTerm"
+         name="executionTerm"  matInput type="number" min=0 required
+         [ngClass]="{ 'is-invalid': submitted && f.executionTerm.errors }" />
+
+      <div *ngIf="submitted && f.executionTerm.errors" class="invalid-feedback">
+        <div *ngIf="f.executionTerm.errors.required">Execution term is required</div>
+      </div>   
+    </mat-form-field>
+
+    <mat-form-field class="general">
+      <mat-label>Price (cookies)</mat-label>
+      <input [(ngModel)]="proposal.price" class="form-control" id="price" formControlName="price"
+         name="price"  matInput type="number" min=0 required 
+         [ngClass]="{ 'is-invalid': submitted && f.expectedPrice.errors }"/>
+
+      <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+        <div *ngIf="f.price.errors.required">Price is required</div>
+      </div>   
+    </mat-form-field>
+  </form>
+
+  <button type="submit" mat-raised-button color="primary"  class="btn btn-success"  (click)="onSubmit()">Create Proposal</button>
+</mat-card>
+
+<a mat-raised-button routerLink="." (click)="goBack()" id="backBtn">Go back</a>
+
