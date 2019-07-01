@@ -9,6 +9,7 @@ import { University } from 'src/app/model/university.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { UniversityService } from 'src/app/service/university.service';
 
 @Component({
     selector: 'app-auth',
@@ -33,6 +34,7 @@ export class SignupComponent implements OnInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private userService: UserService,
+        private universityService: UniversityService,
         private alertService: AlertService
     ) { }
 
@@ -57,8 +59,7 @@ export class SignupComponent implements OnInit {
 
     async getUniversities() {
         this.options = [];
-        let url = "http://localhost:8080/universities";
-        await this.http.get<University[]>(url).toPromise().then(data => {
+        await this.universityService.getAllUniversities().toPromise().then(data => {
             console.log(data);
             this.universities = data;
         }).then(() => {
