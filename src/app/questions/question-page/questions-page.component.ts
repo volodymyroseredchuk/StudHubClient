@@ -196,11 +196,12 @@ export class QuestionsPageComponent implements OnInit {
   }
 
   deleteAnswer(answerId: number) {
-
+    if (confirm("Are You sure You want to delete this answer?")){
     this.answerService.deleteAnswer(this.question.id, answerId)
       .subscribe(serverResponce => {
         this.deleteAnswerFromList(serverResponce, answerId)
       });
+    }
   }
 
   deleteAnswerFromList(serverResponce, answerId: number) {
