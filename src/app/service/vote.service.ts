@@ -55,7 +55,19 @@ export class VoteService extends BaseService{
       },
       httpOptions
     )
-}
+  }
+  
+  resetVoteAnswer(answerId: number) {
+    return this.http.post<any>(
+      `${this.apiUrl}`, 
+      {
+        'answerId': answerId,
+        'feedbackId': null,
+        'value': 0
+      },
+      httpOptions
+    )
+  }
 
   getAnswerVotesForQuestion(questionId: number){
     return this.http.get<any>(`${this.apiUrl}/question/${questionId}`, httpOptions);

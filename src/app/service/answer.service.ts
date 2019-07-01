@@ -38,7 +38,7 @@ export class AnswerService extends BaseService{
   }
 
   deleteAnswer(questionId: number, answerId: number){
-    return this.http.delete<any>(`${this.apiUrl}/${questionId}/answers/${answerId}/delete`, httpOptionsTextResponse)
+    return this.http.delete<any>(`${this.apiUrl}/${questionId}/answers/${answerId}/delete`, httpOptions)
   }
 
   approveAnswer(questionId:number, answerId: number, approved: boolean){
