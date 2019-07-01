@@ -11,10 +11,12 @@ import { QuestionsPageComponent } from './question-page/questions-page.component
 import { QuestionsEditComponent } from './questions-edit/questions-edit.component';
 import { AnswerComponent } from './answer/answer.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { CommentComponent } from './comment/comment.component';
 
 
 @NgModule({
-  declarations: [QuestionsCreateComponent, QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent, AnswerComponent],
+  declarations: [QuestionsCreateComponent, QuestionsComponent, QuestionsPageComponent,
+                 QuestionsEditComponent, AnswerComponent, CommentComponent],
   imports: [
     CommonModule,
     QuestionsRoutingModule,

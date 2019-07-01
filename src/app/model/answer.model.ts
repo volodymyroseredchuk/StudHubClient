@@ -5,7 +5,7 @@ export class Answer {
     id: number;
     body: string;
     approved: boolean;
-    //comment: Comment[];
+    comment: Comment[];
     user: User;
     vote: Vote;
     rate: number;
