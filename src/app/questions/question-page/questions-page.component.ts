@@ -164,7 +164,17 @@ export class QuestionsPageComponent implements OnInit {
   }
 
   recieveNewAnswer($event) {
-    this.question.answerList.push($event);
+    let pushed = false;
+    for(var i = 0; i < this.question.answerList.length; i++) {
+      if(this.question.answerList[i].rate < 0) {
+        pushed = true;
+        this.question.answerList.splice(i,0,$event);
+        break;
+      }
+    }
+    if(!pushed){
+      this.question.answerList.push($event);
+    }
   }
 
   //Checking if User is answer creator. If no - he can not see "edit" & "delete" buttons.
@@ -193,9 +203,10 @@ export class QuestionsPageComponent implements OnInit {
       });
   }
 
-  deleteAnswerFromList(serverResponce: String, answerId: number) {
-    if (serverResponce === "Answer deleted") {
-      this.question.answerList = this.question.answerList.filter(function (value) {
+  deleteAnswerFromList(serverResponce, answerId: number) {
+    if (serverResponce.isDeleted) {
+      this.question.answerList = this.question.answerList.filter(function (value, index, arr) {
+
         return value.id !== answerId;
       })
     }
@@ -213,6 +224,7 @@ export class QuestionsPageComponent implements OnInit {
       })
   }
 
+
   getUserVotes() {
     this.voteService.getAnswerVotesForQuestion(this.question.id).subscribe(
       votes => {
@@ -227,44 +239,45 @@ export class QuestionsPageComponent implements OnInit {
     )
   }
 
-  upvoteAnswer(answerId: number) {
-    this.voteService.upvoteAnswer(answerId)
-      .subscribe(vote => {
-        let answer = this.question.answerList.find((answer) => {
-          return vote.answerId === answer.id;
-        });
-        if (answer.vote) {
-          if (answer.vote.value !== vote.value) {
-            answer.rate -= answer.vote.value;
-            answer.rate += vote.value;
-            answer.vote = vote;
-          }
-        } else {
-          answer.rate += vote.value;
-          answer.vote = vote;
-        }
-
-      })
+  upvoteAnswer(answer) {
+    if(answer.vote && answer.vote.value > 0) {
+      this.voteService.resetVoteAnswer(answer.id)
+        .subscribe(vote => this.registerVote(vote));
+    } else {
+      this.voteService.upvoteAnswer(answer.id)
+        .subscribe(vote => this.registerVote(vote));
+    }
   }
 
-  downvoteAnswer(answerId: number) {
-    this.voteService.downvoteAnswer(answerId)
-      .subscribe(vote => {
-        let answer = this.question.answerList.find((answer) => {
-          return vote.answerId == answer.id;
-        });
-        if (answer.vote) {
-          if (answer.vote.value !== vote.value) {
-            answer.rate -= answer.vote.value;
-            answer.rate += vote.value;
-            answer.vote = vote;
-          }
-        } else {
+
+  downvoteAnswer(answer) {
+    if(answer.vote && answer.vote.value < 0) {
+      this.voteService.resetVoteAnswer(answer.id)
+        .subscribe(vote => this.registerVote(vote));
+    } else {
+      this.voteService.downvoteAnswer(answer.id)
+        .subscribe(vote => this.registerVote(vote));
+    }
+  }
+
+  registerVote(vote) {
+    {
+      console.log(vote);
+      let answer = this.question.answerList.find((answer) => {
+        return vote.answerId == answer.id;
+      });
+      if (answer.vote) {
+        if (answer.vote.value !== vote.value) {
+          answer.rate -= answer.vote.value;
           answer.rate += vote.value;
           answer.vote = vote;
         }
+      } else {
+        answer.rate += vote.value;
+        answer.vote = vote;
+      }
 
-      })
+    }
   }
 
 }

@@ -35,18 +35,24 @@
             <mat-card-content class="answer-mat-card-content">
                 <div class="row">
                     <div class="col-md-2 answer-vote">
-                        <div *ngIf="answer.vote">
-                            <div *ngIf="answer.vote.value === -1">
-                                <button class="btn btn-light btn-vote"
-                                    (click)="upvoteAnswer(answer.id)">+</button><br />
-                                <div class="text-danger rate-val"> {{answer.rate}}</div>
-                                <button class="btn btn-danger btn-vote" (click)="downvoteAnswer(answer.id)">-</button>
+
+                            <div *ngIf="answer.vote">
+                                <div *ngIf="answer.vote.value === -1">
+                                    <button class="btn btn-light btn-vote" (click)="upvoteAnswer(answer)">+</button><br/>
+                                    <div class="text-danger rate-val">  {{answer.rate}}</div>
+                                    <button class="btn btn-danger btn-vote" (click)="downvoteAnswer(answer)">-</button>
+                                </div>
+                                <div *ngIf="answer.vote.value === 1">
+                                    <button class="btn btn-success btn-vote" (click)="upvoteAnswer(answer)">+</button><br/>
+                                    <div class="text-success rate-val" >  {{answer.rate}}</div>
+                                    <button class="btn btn-light btn-vote" (click)="downvoteAnswer(answer)">-</button>
+                                </div>
                             </div>
-                            <div *ngIf="answer.vote.value === 1">
-                                <button class="btn btn-success btn-vote"
-                                    (click)="upvoteAnswer(answer.id)">+</button><br />
-                                <div class="text-success rate-val"> {{answer.rate}}</div>
-                                <button class="btn btn-light btn-vote" (click)="downvoteAnswer(answer.id)">-</button>
+                            <div *ngIf="!answer.vote || answer.vote.value === 0">
+                                <button class="btn btn-light btn-vote" (click)="upvoteAnswer(answer)">+</button><br/>
+                                <div class="rate-val">  {{answer.rate}} </div>
+                                <button class="btn btn-light btn-vote" (click)="downvoteAnswer(answer)">-</button>
+
                             </div>
                         </div>
                         <div *ngIf="!answer.vote">
