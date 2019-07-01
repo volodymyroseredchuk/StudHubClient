@@ -2,6 +2,9 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BaseService} from './base-service';
 import {User} from '../model/user.model';
+import {QuestionForListDTO} from '../model/questionForListDTO.model';
+import { map } from 'rxjs/operators';
+import {Observable} from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export class UserService extends BaseService {
@@ -30,6 +33,12 @@ export class UserService extends BaseService {
 
   updateUser(user: User) {
     return this.http.post<any>(`${this.apiUrl}/profile/update`, user, {
+      headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
+    });
+  }
+
+  getAllQuestionsByUser(): Observable<QuestionForListDTO[]> {
+    return this.http.get<QuestionForListDTO[]>(`${this.apiUrl}/profile/questions`, {
       headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
     });
   }
