@@ -42,9 +42,33 @@
             </mat-card-title>
 
           </mat-card>
+          <h3 *ngIf="questions.length == 0">You don't have questions</h3>
+
+        </div>
+
+      </mat-tab>
+      <mat-tab label="My feedbacks">
+        <div style="overflow:scroll; height: 300px;">
+          <mat-card *ngFor="let feedback of feedbacks">
+
+            <mat-card-title>
+              <a [routerLink]="['/feedbacks', feedback.id]">
+                {{feedback.body}}
+              </a> <br>
+              <h6>Rating:
+                {{feedback.rate}}
+              </h6>
+              <h6>Mark:
+                {{feedback.mark}}
+              </h6>
+            </mat-card-title>
+
+
+          </mat-card>
+          <h3 *ngIf="feedbacks.length == 0">You don't have feedbacks</h3>
+
         </div>
       </mat-tab>
-      <mat-tab label="My feedbacks">Banana</mat-tab>
     </mat-tab-group>
 
 

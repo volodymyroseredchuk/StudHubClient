@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {User} from '../model/user.model';
 import {UserService} from '../service/user.service';
 import {QuestionForListDTO} from '../model/questionForListDTO.model';
+import {Feedback} from '../model/feedback.model';
 
 @Component({
   selector: 'app-profile',
@@ -11,6 +12,7 @@ import {QuestionForListDTO} from '../model/questionForListDTO.model';
 export class ProfileComponent implements OnInit {
   user: User;
   questions: QuestionForListDTO[];
+  feedbacks: Feedback[];
 
   constructor(private userService: UserService) {
   }
@@ -22,7 +24,9 @@ export class ProfileComponent implements OnInit {
     this.userService.getAllQuestionsByUser().subscribe(res => {
       this.questions = res;
     });
-
+    this.userService.getAllFeedbacksByUser().subscribe(res => {
+      this.feedbacks = res;
+    });
   }
 
 }
