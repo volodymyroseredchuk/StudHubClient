@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BaseService} from './base-service';
 import {User} from '../model/user.model';
+import {QuestionForListDTO} from '../model/questionForListDTO.model';
+import {Feedback} from "../model/feedback.model";
 
 @Injectable({providedIn: 'root'})
 export class UserService extends BaseService {
@@ -34,6 +36,18 @@ export class UserService extends BaseService {
 
   updateUser(user: User) {
     return this.http.post<any>(`${this.apiUrl}/profile/update`, user, {
+      headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
+    });
+  }
+
+  getAllQuestionsByUser() {
+    return this.http.get<QuestionForListDTO[]>(`${this.apiUrl}/profile/questions`, {
+      headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
+    });
+  }
+
+  getAllFeedbacksByUser() {
+    return this.http.get<Feedback[]>(`${this.apiUrl}/profile/feedbacks`, {
       headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
     });
   }

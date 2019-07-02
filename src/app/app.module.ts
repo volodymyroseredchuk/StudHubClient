@@ -16,7 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AuthModule } from './auth/auth.module';
 import { QuestionsModule } from './questions/questions.module';
 import { FormsModule } from '@angular/forms';
-import {MatSnackBarModule} from '@angular/material';
+import {MatSnackBarModule, MatTabsModule} from '@angular/material';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { QuestionsEditComponent } from './questions/questions-edit/questions-edit.component';
@@ -51,7 +51,8 @@ import { provideConfig } from '../socialloginConfig';
     AuthModule,
     MatSnackBarModule,
     FeedbackModule,
-    SocialLoginModule
+    SocialLoginModule,
+    MatTabsModule
   ],
 
   providers: [
