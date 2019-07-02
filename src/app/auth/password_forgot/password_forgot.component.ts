@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AlertService } from '../../service/alert.service';
 import { UserService } from '../../service/user.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-auth',
@@ -18,6 +19,7 @@ export class PasswordForgotComponent implements OnInit {
     returnUrl: string;
 
     constructor(
+        private _snackBar: MatSnackBar,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
@@ -46,12 +48,19 @@ export class PasswordForgotComponent implements OnInit {
         }
 
         this.loading = true;
+        
+        this.router.navigate(["/"]);
+        this._snackBar.open("The password-reset link will be sent at your email during half an hour", "OK", {
+            duration: 5000,
+        });
         this.userService.forgotPassword(this.f.email.value)
             .pipe(first())
             .subscribe(
                 data => {
                     console.log(data);
-                    this.alertService.success(data.message)
+                    this._snackBar.open(data.message, "OK", {
+                        duration: 15000,
+                    });
                     this.loading = false;
                 },
                 error => {
