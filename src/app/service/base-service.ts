@@ -5,8 +5,8 @@ import { environment } from '../../environments/environment';
 
 export abstract class BaseService {
   // protected apiUrl: string = environment.apiUrl;
-  protected apiUrl: string = 'https://studhub.herokuapp.com';
-  // protected apiUrl: string = 'https://localhost:8080';
+  // protected apiUrl: string = 'https://studhub.herokuapp.com';
+  protected apiUrl: string = 'https://localhost:8080';
   constructor(protected http: HttpClient) {}
 
   protected log(message) {
