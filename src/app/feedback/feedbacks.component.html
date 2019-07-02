@@ -15,14 +15,12 @@
             <h6>Mark:
                 {{feedback.mark}}
             </h6>
-            <h4>Username:
+            <h5>Username:
                 {{feedback.user.username}}
-            </h4>
+            </h5>
         </mat-card-title>
         <mat-card-footer *ngIf="feedback.user">
-            <h4>Username:
             {{feedback.user.username}}
-            </h4>
         </mat-card-footer>
 
     </mat-card>
