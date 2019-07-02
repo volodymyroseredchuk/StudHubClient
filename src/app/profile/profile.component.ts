@@ -3,6 +3,8 @@ import {User} from '../model/user.model';
 import {UserService} from '../service/user.service';
 import {QuestionForListDTO} from '../model/questionForListDTO.model';
 import {Feedback} from '../model/feedback.model';
+import {FeedbackService} from "../service/feedback.service";
+import {QuestionService} from "../service/question.service";
 
 @Component({
   selector: 'app-profile',
@@ -14,17 +16,18 @@ export class ProfileComponent implements OnInit {
   questions: QuestionForListDTO[];
   feedbacks: Feedback[];
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private feedbackService: FeedbackService,
+              private questionService: QuestionService) {
   }
 
   ngOnInit() {
     this.userService.getUser().subscribe(res => {
       this.user = res;
     });
-    this.userService.getAllQuestionsByUser().subscribe(res => {
+    this.questionService.getAllQuestionsByCurrentUser().subscribe(res => {
       this.questions = res;
     });
-    this.userService.getAllFeedbacksByUser().subscribe(res => {
+    this.feedbackService.getAllFeedbacksByCurrentUser().subscribe(res => {
       this.feedbacks = res;
     });
   }

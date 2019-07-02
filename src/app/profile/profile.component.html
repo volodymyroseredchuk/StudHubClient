@@ -12,7 +12,8 @@
     <mat-tab-group>
       <mat-tab label="Profile">
         <div class="main-container">
-          <h5><i class="fas fa-university info"></i>{{user.university.name}}</h5>
+          <h5 *ngIf="user.university != null"><i class="fas fa-university info"></i>{{user.university.name}}</h5>
+          <h5 *ngIf="user.university == null"><i class="fas fa-university info"></i>You are not learning</h5>
           <h5><i class="fas fa-envelope info"></i>{{user.email}}</h5>
           <h5><i class="fas fa-calendar-check info"></i>{{user.creationDate}}</h5>
           <h5><i class="fas fa-user-tie info"></i>{{user.username}}</h5>
