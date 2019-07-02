@@ -39,17 +39,5 @@ export class UserService extends BaseService {
       headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
     });
   }
-
-  getAllQuestionsByUser() {
-    return this.http.get<QuestionForListDTO[]>(`${this.apiUrl}/profile/questions`, {
-      headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
-    });
-  }
-
-  getAllFeedbacksByUser() {
-    return this.http.get<Feedback[]>(`${this.apiUrl}/profile/feedbacks`, {
-      headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
-    });
-  }
 }
 
