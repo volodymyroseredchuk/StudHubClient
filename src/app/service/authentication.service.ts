@@ -62,15 +62,10 @@ export class AuthenticationService extends BaseService {
             'Authorization': `${localStorage.getItem('refreshToken')}`
         });
         let options = { headers: headers };
-        return this.http.post<any>(`${this.apiUrl}/token/refresh`, null, options)
-            .pipe(first()).subscribe(jwt => {
-                console.log("refreshin..");
-                if (jwt) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('accessToken', `${jwt.type} ${jwt.accessToken}`);
-                    localStorage.setItem('refreshToken', `${jwt.type} ${jwt.refreshToken}`);
-                }
-            });
+        return this.http.post<any>(`${this.apiUrl}/token/refresh`, null, options).toPromise().then(data => {
+            localStorage.setItem("accessToken", data.type + " " + data.accessToken);
+            localStorage.setItem("accessToken", data.type + " " + data.refreshToken);
+        });
     }
 
     verifyToken(token: string) {

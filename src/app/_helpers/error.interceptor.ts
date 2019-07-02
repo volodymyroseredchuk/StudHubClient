@@ -16,15 +16,22 @@ export class ErrorInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
             console.log(err);
-
+            console.log(request);
+            let req;
             if (err.status === 401) {
 
                 if (localStorage.getItem('refreshToken')) {
                     console.log("refresh");
                     this.authenticationService.verifyToken(localStorage.getItem("refreshToken")).toPromise()
                         .then(() => {
-                            this.authenticationService.refreshToken();
-                            window.location.reload();
+                            this.authenticationService.refreshToken().then(() => {
+                                let headers = new HttpHeaders().append("Authorization", localStorage.getItem("accessToken")).append("Content-type", "application/json");
+                                req = request.clone();
+                                console.log(req);
+                            }).then(() => {
+                                console.log("resend req");
+                                this.http.request(req);
+                            });
                         }).catch(error => {
                             console.log(error);
                             this.authenticationService.logout();
