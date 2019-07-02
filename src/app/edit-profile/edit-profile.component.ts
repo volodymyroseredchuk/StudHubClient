@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, DoCheck, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../model/user.model';
 import {UserService} from '../service/user.service';
 import {NgForm} from '@angular/forms';
@@ -29,11 +29,10 @@ export class EditProfileComponent implements OnInit {
     this.user.email = f.value.email;
 
     this.userService.updateUser(this.user).subscribe(res => {
-      this.user = res
+      this.user = res;
     });
 
-    this.router.navigateByUrl("/profile", {skipLocationChange: true}).then(() =>
-        this.router.navigate(["/profile"]));
+    this.userService.updateUser(this.user).subscribe(() => this.router.navigate(['/profile']));
   }
 
 }
