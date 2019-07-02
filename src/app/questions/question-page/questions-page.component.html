@@ -1,33 +1,41 @@
+<div class="mainContainer">
+    <button mat-raised-button color="primary" id="btnCreate" routerLink="/questions/create">Create Question</button>
+    <button mat-button routerLink="." (click)="goBack()">Back</button>
 
-<button mat-raised-button color="primary" id="btnCreate" routerLink="/questions/create">Create Question</button>
-<button mat-button routerLink="." (click)="goBack()">Back</button>
+    <mat-card *ngIf="question" class="questionCard">
+        <mat-card-title>
+            {{question.title}}
+        </mat-card-title>
+        <mat-divider></mat-divider>
+        <mat-card-content class="questionBody">
+            {{question.body}}
+        </mat-card-content>
+        <mat-card-footer class="footerCard">
+            <div>
+                <button mat-button color="primary" *ngIf="canChangeOrDeleteComment(question)"
+                    routerLink="/questions/{{question.id}}/edit">Edit</button>
+                <button mat-button color="warn" *ngIf="canChangeOrDeleteComment(question)"
+                    (click)="deleteQuestion(question.id)">Delete</button>
+            </div>
 
-<mat-card *ngIf="question" class="questionCard">
-    <mat-card-title>
-        {{question.title}}
-    </mat-card-title>
-    <mat-divider></mat-divider>
-    <mat-card-content>
-        {{question.body}}
-    </mat-card-content>
+            <div class="userCard">
+                asked: {{question.creationDate}} <br>
+                <a routerLink="/profile">
+                    {{question.user.username}}
+                </a>
+            </div>
+        </mat-card-footer>
 
-    <button mat-button color="primary" routerLink="/questions/{{question.id}}/edit">Edit</button>
-    <button mat-button color="warn"  (click)="deleteQuestion(question.id)">Delete</button> 
-
-    <span>Asked: {{question.creationDate}}</span>
-    <mat-card-footer *ngIf="question.user" class="userCard">
-            
-    {{question.user.username}} Here will be users name ladies and gentlemen
-    </mat-card-footer>
-    
-</mat-card>
+    </mat-card>
 
 
     <div class="answer-list" *ngIf="question?.answerList">
         <mat-card class="answer-mat-card" *ngFor="let answer of question.answerList">
+
             <mat-card-content class="answer-mat-card-content">
                 <div class="row">
                     <div class="col-md-2 answer-vote">
+
                             <div *ngIf="answer.vote">
                                 <div *ngIf="answer.vote.value === -1">
                                     <button class="btn btn-light btn-vote" (click)="upvoteAnswer(answer)">+</button><br/>
@@ -44,35 +52,72 @@
                                 <button class="btn btn-light btn-vote" (click)="upvoteAnswer(answer)">+</button><br/>
                                 <div class="rate-val">  {{answer.rate}} </div>
                                 <button class="btn btn-light btn-vote" (click)="downvoteAnswer(answer)">-</button>
-                            </div>
-                            
 
-                    </div>
-                    <div class="col-md-10">
+                            </div>
+                        </div>
+                        <div class="col-md-10">
                             <div class="answer-approved text-success" *ngIf="answer.approved">
-                                    Answer is approved by question creator
+                                Answer is approved by question creator
                             </div>
                             <div>
-                                {{answer.body}} 
+                                {{answer.body}}
                             </div>
-                                
-                                
+                        </div>
+
+                    </div>
+
+
+
+            </mat-card-content>
+            <div class="answerFooter row">
+                <div class="answerButtons col-md-7">
+                    <div *ngIf="this.user">
+                        <button class="btn btn-success"
+                            *ngIf="(!answer.approved) && this.user.username === question.user.username"
+                            (click)="approveAnswer(answer.id, true)">Mark as correct</button>
+                        <button class="btn btn-light"
+                            *ngIf="answer.approved && this.user.username === question.user.username"
+                            (click)="approveAnswer(answer.id, false)">Unmark answer</button>
+                        <button mat-button color="warn" *ngIf="canDelete(answer)"
+                            (click)="deleteAnswer(answer.id)">Delete</button>
+                    </div>
+                    <div>
+                        <button mat-button color="primary" (click)="loadCreateComment()">Comment</button>
                     </div>
                 </div>
-                
-            </mat-card-content>
-            <mat-card-footer>{{answer.creationDate}} {{answer.user.username}}
-            </mat-card-footer>
-
-                <div *ngIf="this.user">
-                <button class="btn btn-success" *ngIf="(!answer.approved) && this.user.username === question.user.username" (click)="approveAnswer(answer.id, true)">Mark as correct</button>
-                <button class="btn btn-light" *ngIf="answer.approved && this.user.username === question.user.username" (click)="approveAnswer(answer.id, false)">Unmark answer</button>
-                <button class="btn btn-danger" *ngIf="canDelete(answer)" (click)="deleteAnswer(answer.id)">Delete</button>
-                
-
-                <button>Comment</button>
+                <div class="userCard col-md-5">
+                    answered: {{answer.creationDate}}<br>
+                    <a routerLink="/profile"> {{answer.user.username}}
+                    </a>
                 </div>
+            </div>
+
+            <div class="commentCard" *ngIf="answer?.comment">
+                <mat-card class="comment-mat-card" *ngFor="let comment of answer.comment">
+                    <mat-card-content class="commentBody">
+                        {{comment.body}}
+                    </mat-card-content>
+
+                    <div class="commentFooter">
+                        <div>
+                            <button mat-button color="primary" *ngIf="canChangeOrDeleteComment(comment)"
+                                (click)="deleteComment(answer.id, comment.id)">Delete</button>
+                        </div>
+
+                        <div class="dateCard">
+                            <a routerLink="/profile">
+                                {{question.user.username}}
+                            </a>
+                            on: {{question.creationDate}}
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+            <app-comment *ngIf="loadCommentComponent" [answerId]="answer.id" (commentEvent)="recieveNewComment($event)"></app-comment>
         </mat-card>
-                
-    <app-answer [questionId]="question.id" (newAnswerEvent)="recieveNewAnswer($event)"></app-answer>
+        
+        
+        <app-answer *ngIf="this.user" [questionId]="question.id" (newAnswerEvent)="recieveNewAnswer($event)"></app-answer>
+
     </div>
+</div>
