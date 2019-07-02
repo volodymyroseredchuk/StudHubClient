@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { UniversityService } from 'src/app/service/university.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-auth',
@@ -29,6 +30,7 @@ export class SignupComponent implements OnInit {
     filteredOptions: Observable<string[]>;
 
     constructor(
+        private _snackBar: MatSnackBar,
         private http: HttpClient,
         private formBuilder: FormBuilder,
         private router: Router,
@@ -102,11 +104,17 @@ export class SignupComponent implements OnInit {
         }
 
         this.loading = true;
+        this.router.navigate(["/"]);
+        this._snackBar.open("The confirmation link will be sent at your email during half an hour", "OK", {
+            duration: 5000,
+        });
         this.userService.register(this.registerForm.value)
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success(data["message"], true);
+                    this._snackBar.open(data["message"], "OK", {
+                        duration: 15000,
+                    });
                     this.loading = false;
                 },
                 error => {
