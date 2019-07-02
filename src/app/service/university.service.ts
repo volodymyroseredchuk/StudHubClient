@@ -15,5 +15,6 @@ export class UniversityService extends BaseService {
     return this.http.get<University[]>(`${this.apiUrl}/universities`);
   }
 
+
 }
 

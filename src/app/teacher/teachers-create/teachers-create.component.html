@@ -1,0 +1,34 @@
+<p>
+  Input tags for the new Teacher!
+</p>
+
+<mat-card *ngIf="teacher">
+  {{ teacher.id }} {{ teacher.firstName }} {{ teacher.lastName }}=
+</mat-card>
+<form class="my-form" (ngSubmit)="onSubmit()" #userForm="ngForm">
+
+
+  <mat-form-field class="fa-chalkboard-teachers-chip-list">
+         <mat-label>First name</mat-label>
+         <input [(ngModel)]="teacher.firstName" class="form-control" id="firstName"
+         name="firstname"   matInput  placeholder="Firstname of teacher" required>
+      </mat-form-field>
+      <mat-form-field class="fa-chalkboard-teachers-chip-list">
+         <mat-label>Last Name</mat-label>
+         <input [(ngModel)]="teacher.lastName" class="form-control" id="body"
+         name="Last name"  matInput  placeholder="Last name of teacher" required>
+      </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="University">
+      <mat-option value="teacher.university">Lviv politehnic</mat-option>
+    </mat-select>
+    <mat-form-field>
+      <mat-selection-list (selectionChange)="teacher.university">
+        <mat-option value="teacher.university">University</mat-option>
+      </mat-selection-list>
+    </mat-form-field>
+  </mat-form-field>
+      
+</form>
+
+<button type="submit" mat-raised-button color="primary"  class="btn btn-success" (click)="onSubmit()">Create Teacher</button>
