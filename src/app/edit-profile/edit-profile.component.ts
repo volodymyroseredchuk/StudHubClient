@@ -25,9 +25,15 @@ export class EditProfileComponent implements OnInit {
 
   onSubmit(f: NgForm) {
 
-    this.user.firstName = f.value.firstname;
-    this.user.lastName = f.value.lastname;
-    this.user.email = f.value.email;
+    if (f.value.firstname !== '') {
+      this.user.firstName = f.value.firstname;
+    }
+    if (f.value.lastname !== '') {
+      this.user.lastName = f.value.lastname;
+    }
+    if (f.value.email !== '') {
+      this.user.email = f.value.email;
+    }
 
     this.userService.updateUser(this.user).subscribe(res => {
       this.user = res;
