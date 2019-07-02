@@ -55,28 +55,22 @@
 
                             </div>
                         </div>
-                        <div *ngIf="!answer.vote">
-                            <button class="btn btn-light btn-vote" (click)="upvoteAnswer(answer.id)">+</button><br />
-                            <div class="rate-val"> {{answer.rate}} </div>
-                            <button class="btn btn-light btn-vote" (click)="downvoteAnswer(answer.id)">-</button>
+                        <div class="col-md-10">
+                            <div class="answer-approved text-success" *ngIf="answer.approved">
+                                Answer is approved by question creator
+                            </div>
+                            <div>
+                                {{answer.body}}
+                            </div>
                         </div>
 
-
-                    </div>
-                    <div class="col-md-10">
-                        <div class="answer-approved text-success" *ngIf="answer.approved">
-                            Answer is approved by question creator
-                        </div>
-                        <div>
-                            {{answer.body}}
-                        </div>
                     </div>
 
 
 
             </mat-card-content>
-            <div class="answerFooter">
-                <div class="answerButtons">
+            <div class="answerFooter row">
+                <div class="answerButtons col-md-7">
                     <div *ngIf="this.user">
                         <button class="btn btn-success"
                             *ngIf="(!answer.approved) && this.user.username === question.user.username"
@@ -91,7 +85,7 @@
                         <button mat-button color="primary" (click)="loadCreateComment()">Comment</button>
                     </div>
                 </div>
-                <div class="userCard">
+                <div class="userCard col-md-5">
                     answered: {{answer.creationDate}}<br>
                     <a routerLink="/profile"> {{answer.user.username}}
                     </a>
@@ -123,7 +117,7 @@
         </mat-card>
         
         
-        <app-answer [questionId]="question.id" (newAnswerEvent)="recieveNewAnswer($event)"></app-answer>
+        <app-answer *ngIf="this.user" [questionId]="question.id" (newAnswerEvent)="recieveNewAnswer($event)"></app-answer>
 
     </div>
 </div>
