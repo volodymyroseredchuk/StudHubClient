@@ -7,19 +7,25 @@ import { async } from 'rxjs/internal/scheduler/async';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
+    private access: boolean = false;
     constructor(
         private router: Router,
         private authenticationService: AuthenticationService
     ) { }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
         if (localStorage.getItem('accessToken')) {
             
-            return true;
+            await this.authenticationService.verifyToken(localStorage.getItem('accessToken')).toPromise().then(() => {
+                this.access = true;
+            });
+            
         } else {
             this.router.navigate(['/signin'], { queryParams: { returnUrl: state.url } });
-            return false;
+            this.access = false;
         }
+        console.log("return");
+        return await Promise.resolve(this.access);
     }
 }   
