@@ -241,6 +241,7 @@ export class QuestionsPageComponent implements OnInit {
   }
 
   upvoteAnswer(answer) {
+    if(!this.user){ return; }
     if(answer.vote && answer.vote.value > 0) {
       this.voteService.resetVoteAnswer(answer.id)
         .subscribe(vote => this.registerVote(vote));
@@ -252,6 +253,7 @@ export class QuestionsPageComponent implements OnInit {
 
 
   downvoteAnswer(answer) {
+    if(!this.user){ return; }
     if(answer.vote && answer.vote.value < 0) {
       this.voteService.resetVoteAnswer(answer.id)
         .subscribe(vote => this.registerVote(vote));
@@ -263,7 +265,6 @@ export class QuestionsPageComponent implements OnInit {
 
   registerVote(vote) {
     {
-      console.log(vote);
       let answer = this.question.answerList.find((answer) => {
         return vote.answerId == answer.id;
       });
