@@ -1,0 +1,23 @@
+<p>
+  Create new University!
+</p>
+
+<mat-card *ngIf="university">
+  {{ university.id }} {{ university.name }}
+</mat-card>
+<form class="my-form" (ngSubmit)="onSubmit()" #userForm="ngForm">
+
+
+  <mat-form-field class="fa-chalkboard-teachers-chip-list">
+         <mat-label>Name</mat-label>
+         <input [(ngModel)]="university.name" class="form-control" id="Name"
+         name="Name"   matInput  placeholder="Name of univesity" required>
+      </mat-form-field>
+      <mat-form-field class="fa-chalkboard-teachers-chip-list">
+         <mat-label>City name</mat-label>
+         <input [(ngModel)]="university.city" class="form-control" id="city"
+         name="City"  matInput  placeholder="City of university" required>
+      </mat-form-field>
+
+
+<button type="submit" mat-raised-button color="primary"  class="btn btn-success" (click)="onSubmit()">Create University</button>
