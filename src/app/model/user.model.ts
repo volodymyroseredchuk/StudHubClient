@@ -10,5 +10,6 @@ export class User {
     creationDate: string;
     imageUrl: string;
     university: University;
+    emailSubscription: boolean;
     roles: { name: string}[];
 }

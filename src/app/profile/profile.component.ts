@@ -3,8 +3,8 @@ import {User} from '../model/user.model';
 import {UserService} from '../service/user.service';
 import {QuestionForListDTO} from '../model/questionForListDTO.model';
 import {Feedback} from '../model/feedback.model';
-import {FeedbackService} from "../service/feedback.service";
-import {QuestionService} from "../service/question.service";
+import {FeedbackService} from '../service/feedback.service';
+import {QuestionService} from '../service/question.service';
 
 @Component({
   selector: 'app-profile',

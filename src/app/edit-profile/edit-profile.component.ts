@@ -12,6 +12,8 @@ import {Router} from '@angular/router';
 export class EditProfileComponent implements OnInit {
 
   user: User;
+  fileData: File = null;
+  imgURL: any;
 
   constructor(private userService: UserService, private router: Router) {
   }
@@ -20,6 +22,10 @@ export class EditProfileComponent implements OnInit {
     this.userService.getUser().subscribe(res => {
       this.user = res;
     });
+  }
+
+  fileProgress(fileInput: any) {
+    this.fileData = fileInput.target.files[0] as File;
   }
 
 
@@ -31,15 +37,26 @@ export class EditProfileComponent implements OnInit {
     if (f.value.lastname !== '') {
       this.user.lastName = f.value.lastname;
     }
-    if (f.value.email !== '') {
-      this.user.email = f.value.email;
-    }
+    this.user.emailSubscription = f.value.emailSub;
 
-    this.userService.updateUser(this.user).subscribe(res => {
-      this.user = res;
-    });
+    alert(this.fileData);
 
     this.userService.updateUser(this.user).subscribe(() => this.router.navigate(['/profile']));
   }
+
+  onChange(event) {
+    this.fileData = event.target.files[0];
+    const mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      alert('Only images are supported');
+      return;
+    }
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = () => {
+      this.imgURL = reader.result;
+    };
+  }
+
 
 }
