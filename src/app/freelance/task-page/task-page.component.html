@@ -1,0 +1,102 @@
+<button mat-raised-button color="primary" id="btnCreate" routerLink="/tasks/create">Create Task</button><br/>
+<button mat-raised-button color="primary" id="btnCreate" routerLink="/tasks/{{task?.id}}/proposals/create">Create Proposal</button><br/>
+<button mat-button routerLink="." (click)="goBack()" id="btnCreate">Go Back</button>
+
+
+<mat-card *ngIf="task" class="taskCard">
+  <mat-card-title>
+      {{ task.title }}
+  </mat-card-title>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+      {{ task.body }}
+  </mat-card-content>
+  <mat-divider></mat-divider>
+
+  <div *ngIf="this.user" id="btnsModify">
+    <button mat-button color="primary" *ngIf="canModifyTask()" routerLink="/tasks/{{task.id}}/edit">Edit</button>
+    <button mat-button color="warn" *ngIf="canModifyTask()" (click)="deleteTask()">Delete</button> 
+  </div>
+
+  <p>
+    Task created: 
+    <mat-chip *ngIf="task.creationDate">
+      {{ task.creationDate }}
+   </mat-chip>
+  </p>
+
+  <p *ngIf="task.modifiedDate">
+    Last modified: 
+    <mat-chip *ngIf="task.modifiedDate">
+      {{ task.modifiedDate }}
+   </mat-chip>
+  </p>
+
+  <p>
+    Deadline date: 
+    <mat-chip *ngIf="task.deadlineDate">
+      {{ task.deadlineDate }}
+   </mat-chip>
+  </p>
+
+  <p>
+    Expected price: 
+    <mat-chip *ngIf="task.expectedPrice">
+      {{ task.expectedPrice }}
+   </mat-chip>
+   &nbsp; cookies
+  </p>
+
+  <p>
+    Created by: 
+    <mat-chip *ngIf="task.user">
+      {{ task.user.username }}
+   </mat-chip>
+  </p>
+  
+</mat-card>
+
+<div class="proposal-list" *ngIf="proposals">
+  <mat-card class="proposal-mat-card" *ngFor="let proposal of proposals | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: proposalsTotalCount}">
+      <mat-card-content class="proposal-mat-card-content" *ngIf="proposal.body">
+          {{ proposal.body }}
+      </mat-card-content>
+      <p>
+        Proposal created: 
+        <mat-chip *ngIf="proposal.creationDate">
+          {{ proposal.creationDate }}
+       </mat-chip>
+      </p>
+    
+      <p>
+        Price: 
+        <mat-chip *ngIf="proposal.price">
+          {{ proposal.price }}
+       </mat-chip>
+       &nbsp; cookies
+      </p>
+    
+      <p>
+        Execution term: 
+        <mat-chip *ngIf="proposal.daysCount">
+          {{ proposal.daysCount }}
+       </mat-chip>
+       &nbsp; days
+      </p>
+    
+      <p>
+        Created by: 
+        <mat-chip *ngIf="proposal.user">
+          {{ proposal.user.username }}
+       </mat-chip>
+      </p>
+      
+      <div *ngIf="this.user">
+        <button class="btn btn-danger" *ngIf="canDeleteProposal(proposal)" (click)="deleteProposal(proposal.id)">Delete</button>
+      </div>
+  </mat-card>
+</div>
+
+<div id="pagination">
+  <pagination-controls *ngIf="proposals.length != 0" (pageChange)="changePage($event)"></pagination-controls>
+</div>

@@ -1,0 +1,32 @@
+h2, h3, h4, pagination-controls {
+    text-align: center;
+}
+
+.taskCard {
+    background-color: #fff;
+    opacity: 0%;
+    width: 70%;
+    margin-right: auto;
+    margin-left: auto;
+    border: 1px solid rgba(0,0,0,0.3);
+}
+
+.createTask{
+    margin-top: 2%;
+}
+
+#tasksList {
+    margin-top: 2%;
+}
+
+#btnCreate {
+    margin-left: 5%;
+}
+
+#pagination {
+    margin-top: 20px;
+}
+
+#sizeSelector {
+    margin-left: 5%;
+}
