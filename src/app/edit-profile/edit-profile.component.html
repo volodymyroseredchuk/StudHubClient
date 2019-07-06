@@ -8,7 +8,7 @@
         <img src="{{imgURL}}" class="col-md-12" alt="avatar">
         <h6>Upload a different photo...</h6>
 
-        <input type="file" name="image" (change)="onChange($event)"/>
+        <input type="file" name="image" (change)="onChange($event)" />
       </div>
     </div>
 
@@ -30,6 +30,14 @@
             <input name="lastname" ngModel class="form-control" type="text" value="{{user?.lastName}}">
           </div>
         </div>
+        <mat-form-field class="form-group col-lg-8 example-full-width">
+          <mat-select placeholder="Change your university">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
+              (onSelectionChange)="getUniverFromName(option)">
+              {{option}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
         <div class="form-check">
           <div class="col-lg-8">
             <input type="checkbox" class="form-check-input" [ngModel]="user?.emailSubscription" name="emailSub">

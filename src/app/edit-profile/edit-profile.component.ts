@@ -1,8 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {User} from '../model/user.model';
-import {UserService} from '../service/user.service';
-import {NgForm} from '@angular/forms';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { User } from '../model/user.model';
+import { UserService } from '../service/user.service';
+import { NgForm, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { University } from '../model/university.model';
+import { UniversityService } from '../service/university.service';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-profile',
@@ -14,14 +18,24 @@ export class EditProfileComponent implements OnInit {
   user: User;
   fileData: File = null;
   imgURL: any;
+  private universities: University[];
+  private selectedUniversityName: "None";
+  private selectedUniversity: University;
+  options: string[];
+  filteredOptions: Observable<string[]>;
+  myControl = new FormControl();
 
-  constructor(private userService: UserService, private router: Router) {
+
+  constructor(private userService: UserService, private universityService: UniversityService,
+    private router: Router) {
   }
 
   ngOnInit() {
     this.userService.getUser().subscribe(res => {
       this.user = res;
     });
+
+    this.getUniversities();
   }
 
   fileProgress(fileInput: any) {
@@ -38,8 +52,9 @@ export class EditProfileComponent implements OnInit {
       this.user.lastName = f.value.lastname;
     }
     this.user.emailSubscription = f.value.emailSub;
-
-    alert(this.fileData);
+    if (this.selectedUniversity != undefined) {
+      this.user.university = this.selectedUniversity;
+    }
 
     this.userService.updateUser(this.user).subscribe(() => this.router.navigate(['/profile']));
   }
@@ -58,5 +73,33 @@ export class EditProfileComponent implements OnInit {
     };
   }
 
+  async getUniversities() {
+    this.options = [];
+    await this.universityService.getAllUniversities().toPromise().then(data => {
+      console.log(data);
+      this.universities = data;
+    }).then(() => {
+      this.universities.forEach(university => {
+        this.options.push(university.name);
+      });
+    }).then(() => {
+      this.filteredOptions = this.myControl.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
+    });
+  }
+
+  getUniverFromName(option: string) {
+    this.selectedUniversity = this.universities.find(university => {
+      return university.name === option;
+    });
+  }
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
 
 }
