@@ -1,0 +1,35 @@
+<button mat-raised-button color="primary" id="btnCreate" routerLink="/teams/create">Create Team</button><br/>
+<button mat-button routerLink="." (click)="goBack()" id="btnCreate">Go Back</button>
+
+
+<mat-card *ngIf="team" class="teamCard">
+  <mat-card-title>
+      {{ team.name }}
+  </mat-card-title>
+
+  <p>
+    <mat-chip *ngIf="team.creationDate">
+      {{ team.creationDate }}
+   </mat-chip>
+  </p>
+
+  <p *ngIf="team.modifiedDate">
+    Last modified: 
+    <mat-chip *ngIf="team.modifiedDate">
+      {{ team.modifiedDate }}
+   </mat-chip>
+  </p>
+
+  <p>
+    Created by: 
+    <mat-chip *ngIf="team.user">
+      {{ team.user.username }}
+   </mat-chip>
+  </p>
+  
+  <div *ngIf="this.user" id="btnsModify">
+    <button mat-button color="primary" *ngIf="canModifyTeam()" routerLink="/teams/{{team.id}}/edit">Edit</button>
+    <button mat-button color="warn" *ngIf="canModifyTeam()" (click)="deleteTeam()">Delete</button> 
+  </div>
+  
+</mat-card>

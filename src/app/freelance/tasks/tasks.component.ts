@@ -25,6 +25,7 @@ export class TasksComponent implements OnInit {
   getAllTasks() {
     this.taskService.getAllTasks(this.getCurrentPaginationSettings())
       .subscribe(tasksPaginated => {
+        console.log(tasksPaginated);
         this.tasks = tasksPaginated.tasks;
         this.tasksTotalCount = tasksPaginated.tasksTotalCount;
       });

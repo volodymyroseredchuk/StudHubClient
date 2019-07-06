@@ -27,6 +27,7 @@ import {
 } from 'angularx-social-login';
 import { provideConfig } from '../socialloginConfig';
 import { FreelanceModule } from './freelance/freelance.module';
+import { PrivateTeamsModule } from './private-teams/private-teams.module';
 
 // @ts-ignore
 @NgModule({
@@ -42,6 +43,7 @@ import { FreelanceModule } from './freelance/freelance.module';
     HttpClientModule,
     AppRoutingModule,
     TagsModule,
+    PrivateTeamsModule,
     ReactiveFormsModule,
     FormsModule,
     QuestionsModule,

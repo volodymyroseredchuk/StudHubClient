@@ -1,0 +1,40 @@
+h2, h3, h4, pagination-controls {
+    text-align: center;
+}
+
+#btnCreate {
+    margin-left: 5%;
+    margin-top: 20px;
+}
+
+#pagination {
+    margin-top: 20px;
+}
+
+#sizeSelector {
+    margin-left: 5%;
+}
+
+mat-divider {
+    width: 90%;
+}
+
+.teamCard {
+    background-color: #ffefe5;
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+
+.editButton{
+    color: green;
+}
+
+#btnsModify {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
