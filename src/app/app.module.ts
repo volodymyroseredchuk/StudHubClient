@@ -27,6 +27,7 @@ import {
   GoogleLoginProvider
 } from 'angularx-social-login';
 import { provideConfig } from '../socialloginConfig';
+import { CKEditorModule } from 'ckeditor4-angular';
 
 // @ts-ignore
 @NgModule({
@@ -52,7 +53,8 @@ import { provideConfig } from '../socialloginConfig';
     MatSnackBarModule,
     FeedbackModule,
     SocialLoginModule,
-    MatTabsModule
+    MatTabsModule,
+    CKEditorModule
   ],
 
   providers: [
