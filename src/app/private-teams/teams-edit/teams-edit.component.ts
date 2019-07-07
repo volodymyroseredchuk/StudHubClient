@@ -27,7 +27,7 @@ export class TeamsEditComponent implements OnInit {
     this.teamId = +this.route.snapshot.params.id;
 
     this.teamUpdateForm = this.formBuilder.group({
-      name: ['', Validators.required]
+      title: ['', Validators.required]
     });
     
     this.getTeam();

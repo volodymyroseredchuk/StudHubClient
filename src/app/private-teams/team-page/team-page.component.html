@@ -4,9 +4,10 @@
 
 <mat-card *ngIf="team" class="teamCard">
   <mat-card-title>
-      {{ team.name }}
+      {{ team.title }}
   </mat-card-title>
-
+  <h5>LIST OF MEMBERS:</h5>
+  <ul><li *ngFor="let member of team.userList">{{member.username}}</li></ul>
   <p>
     <mat-chip *ngIf="team.creationDate">
       {{ team.creationDate }}

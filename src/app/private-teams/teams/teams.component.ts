@@ -25,6 +25,7 @@ export class TeamsComponent implements OnInit {
   getAllTeams() {
     this.teamService.getAllTeams(this.getCurrentPaginationSettings())
       .subscribe(teamsPaginated => {
+        console.log(teamsPaginated);
         this.teams = teamsPaginated.teams;
         this.teamsTotalCount = teamsPaginated.teamsTotalCount;
       });

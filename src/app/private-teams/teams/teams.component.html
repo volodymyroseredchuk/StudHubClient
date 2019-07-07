@@ -2,7 +2,7 @@
   <mat-card class="teamCard" *ngFor="let team of teams | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: teamsTotalCount}">
       
       <mat-card-title>
-        <a [routerLink]="['/teams', team.id]">{{ team.name }}</a> <br>
+        <a [routerLink]="['/teams', team.id]">{{ team.title }}</a> <br>
       </mat-card-title>
 
       <p>

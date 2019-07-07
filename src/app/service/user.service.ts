@@ -2,14 +2,17 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BaseService} from './base-service';
 import {User} from '../model/user.model';
-import {QuestionForListDTO} from '../model/questionForListDTO.model';
-import {Feedback} from "../model/feedback.model";
+import { Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class UserService extends BaseService {
 
   constructor(protected http: HttpClient) {
     super(http);
+  }
+
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/profile`);
   }
 
   register(user: User) {

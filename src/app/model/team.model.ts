@@ -1,10 +1,10 @@
-import { User } from './user.model';
+import { UserDTO } from './userDTO.model';
 
 export class Team {
     id: number;
-    name: string;
-    user: User;
+    title: string;
+    user: UserDTO;
     creationDate: Date;
     modifiedDate: Date;
-    userList: User[];
+    userList: UserDTO[];
 }
