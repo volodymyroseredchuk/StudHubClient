@@ -7,33 +7,24 @@
         <a [routerLink]="['/tasks', task.id]">{{ task.title }}</a> <br>
       </mat-card-title>
 
-      <p>
-        Task created: 
+      <p class="createdDate" matTooltip="Created at:">
         <mat-chip *ngIf="task.creationDate">
-          {{ task.creationDate }}
+          <div class="createdText" *ngIf="(today | date: 'MMM dd') === (task.creationDate | date: 'MMM dd')">{{task.creationDate | date: 'hh:mm'}}</div>
+          <div class="createdText" style="margin-left: 5px" *ngIf="(today | date: 'MMM dd') !== (task.creationDate | date: 'MMM dd')">{{task.creationDate | date: 'dd'}}</div>
+          <div class="createdText" *ngIf="(today | date: 'MMM dd') !== (task.creationDate | date: 'MMM dd')">{{task.creationDate | date: 'MMM'}}</div>
        </mat-chip>
       </p>
 
-      <p>
-        Deadline date: 
+      <p class="deadlineDate" matTooltip="Deadline at:">
         <mat-chip *ngIf="task.deadlineDate">
-          {{ task.deadlineDate }}
+            <div class="deadlineText" *ngIf="(today | date: 'MMM dd') === (task.deadlineDate | date: 'MMM dd')" >{{task.deadlineDate | date: 'hh:mm'}}</div>
+            <div class="deadlineText" style="margin-left: 3px" *ngIf="(today | date: 'MMM dd') !== (task.deadlineDate | date: 'MMM dd')">{{task.deadlineDate | date: 'dd'}}</div>
+            <div class="deadlineText" *ngIf="(today | date: 'MMM dd') !== (task.deadlineDate | date: 'MMM dd')">{{task.deadlineDate | date: 'MMM'}}</div>
        </mat-chip>
       </p>
 
       <p>
-        Expected price: 
-        <mat-chip *ngIf="task.expectedPrice">
-          {{ task.expectedPrice }}
-       </mat-chip>
-       &nbsp; cookies
-      </p>
-
-      <p>
-        Created by: 
-        <mat-chip *ngIf="task.user">
-          {{ task.user.username }}
-       </mat-chip>
+        categories
       </p>
   
   </mat-card>

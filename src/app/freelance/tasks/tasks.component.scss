@@ -15,6 +15,30 @@ h2, h3, h4, pagination-controls {
     margin-top: 2%;
 }
 
+.createdDate{
+    position: absolute;
+    top: 30%;
+    right: 20%;
+}
+
+.deadlineDate{
+    position: absolute;
+    top: 30%;
+    right: 5%;
+}
+
+.createdText{
+    font-size: 1.3em;
+    font-weight: 600;
+    color: green;
+}
+
+.deadlineText{
+    font-size: 1.3em;
+    font-weight: 600;
+    color: red;
+}
+
 #tasksList {
     margin-top: 2%;
 }

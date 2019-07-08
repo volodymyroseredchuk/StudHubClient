@@ -14,6 +14,7 @@ export class TasksComponent implements OnInit {
   tasksTotalCount: number;
   pageSize: number = 10;
   page: number = 1;
+  today: Date = new Date();
 
   constructor(private router: Router, 
     private taskService: TaskService) { }
