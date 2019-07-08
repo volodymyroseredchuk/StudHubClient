@@ -27,7 +27,7 @@ import {
   GoogleLoginProvider
 } from 'angularx-social-login';
 import { provideConfig } from '../socialloginConfig';
-import { CKEditorModule } from 'ckeditor4-angular';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 // @ts-ignore
 @NgModule({

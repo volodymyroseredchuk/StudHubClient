@@ -13,7 +13,7 @@
              <div *ngIf="f.title.errors.required">Title is required</div>
          </div>
       </mat-form-field>
-      <mat-form-field class="tags-chip-list">
+      <!-- <mat-form-field class="tags-chip-list">
          <mat-label>Problem explanation</mat-label>
          <input [(ngModel)]="question.body" class="form-control" id="body" formControlName="body"
          name="body"  matInput  placeholder="Problem explanation" required
@@ -21,7 +21,13 @@
          <div *ngIf="submitted && f.body.errors" class="invalid-feedback">
              <div *ngIf="f.body.errors.required">Body is required</div>
          </div>
-      </mat-form-field>        
+      </mat-form-field>  -->
+      
+      <div>
+        <label>Body</label>
+        <ckeditor [editor]="editor" data="Type Your question here" [(ngModel)]="question.body" id="body" formControlName="body" name="body">
+        </ckeditor>
+      </div>
       
   <mat-form-field class="tags-chip-list">
         <mat-chip-list #chipList aria-label="Tag selection">

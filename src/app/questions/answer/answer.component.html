@@ -1,11 +1,17 @@
 <mat-card  class="answer-create-form">
 <form (ngSubmit)="onSubmit()" #userForm="ngForm" id="createAnswerForm">
 
-     <mat-form-field class="tags-chip-list answer-card">
+     <!-- <mat-form-field class="tags-chip-list answer-card">
         <mat-label>Your answer</mat-label>
         <textarea [(ngModel)]="newAnswer.body" class="form-control" id="answer-body" 
         name="body"  matInput  placeholder="Type your answer here" required></textarea>
-     </mat-form-field>        
+     </mat-form-field>    -->
+     <div>
+      <label>Your answer</label>      
+      <ckeditor [editor]="editor" data="Type Your answer here" [(ngModel)]="newAnswer.body"
+       id="answer-body" name="body">
+      </ckeditor>
+    </div> 
      
 </form>
 </mat-card>
