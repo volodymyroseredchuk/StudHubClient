@@ -20,7 +20,7 @@
 
             <div class="userCard">
                 asked: {{question.creationDate}} <br>
-                <a routerLink="/profile">
+                <a routerLink="/profile/{{question.user.username}}">
                     {{question.user.username}}
                 </a>
             </div>

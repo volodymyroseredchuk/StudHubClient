@@ -31,7 +31,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUser().subscribe(res => {
+    this.userService.getCurrentUser().subscribe(res => {
       this.user = res;
     });
 

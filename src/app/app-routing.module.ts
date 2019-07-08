@@ -20,6 +20,10 @@ const routes: Routes = [
     path: 'edit',
     component: EditProfileComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'profile/:username',
+    component: ProfileComponent
   }
 ];
 
