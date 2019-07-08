@@ -15,15 +15,27 @@ h2, h3, h4, pagination-controls {
     margin-top: 2%;
 }
 
+.expectedPrice{
+    position: absolute;
+    top: 35%;
+    right: 25%;
+}
+
+.expectedPriceText{
+    font-size: 1.3em;
+    font-weight: 600;
+    color: orange;
+}
+
 .createdDate{
     position: absolute;
-    top: 30%;
-    right: 20%;
+    top: 25%;
+    right: 12%;
 }
 
 .deadlineDate{
     position: absolute;
-    top: 30%;
+    top: 25%;
     right: 5%;
 }
 

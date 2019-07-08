@@ -7,6 +7,12 @@
         <a [routerLink]="['/tasks', task.id]">{{ task.title }}</a> <br>
       </mat-card-title>
 
+      <p class="expectedPrice" matTooltip="Expected price: ">
+        <mat-chip *ngIf="task.expectedPrice">
+          <div class="expectedPriceText">{{ task.expectedPrice }} ₡</div>
+        </mat-chip>
+      </p>
+
       <p class="createdDate" matTooltip="Created at:">
         <mat-chip *ngIf="task.creationDate">
           <div class="createdText" *ngIf="(today | date: 'MMM dd') === (task.creationDate | date: 'MMM dd')">{{task.creationDate | date: 'hh:mm'}}</div>
