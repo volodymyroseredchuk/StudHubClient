@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SocketService } from './service/socket.service';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './service/authentication.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +14,6 @@ export class AppComponent implements OnInit {
   title = 'studhub';
   private snackBar: MatSnackBar;
   private connection: any;
-
-
 
   constructor(snackBar: MatSnackBar, httpVar: HttpClient, private authenticationService: AuthenticationService) {
     this.snackBar = snackBar;

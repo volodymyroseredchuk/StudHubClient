@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { Team } from 'src/app/model/team.model';
 import { QuestionForListDTO } from 'src/app/model/questionForListDTO.model';
 import { QuestionService } from 'src/app/service/question.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-team-page',
@@ -25,6 +26,7 @@ export class TeamPageComponent implements OnInit {
 
   constructor(private teamService: TeamService,
     private questionService: QuestionService,
+    private _snackBar: MatSnackBar,
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
@@ -50,7 +52,10 @@ export class TeamPageComponent implements OnInit {
       .subscribe(team => {
         console.log(team);
         this.team = team;
-      })
+      },
+      err => {
+        this.location.go("errorPage");
+      });
   }
 
   getTeamQuestions() {
@@ -133,7 +138,4 @@ export class TeamPageComponent implements OnInit {
     })
   }
 
-  goBack(): void {
-    this.location.back();
-  }
 }

@@ -34,7 +34,7 @@ export class TeamService extends BaseService {
     }
 
     getTeam(id: number): Observable<Team> {
-        return this.http.get<Team>(`${this.apiUrl}/${id}`)
+        return this.http.get<Team>(`${this.apiUrl}/${id}`, httpOptions);
     }
 
     createTeam(team: Team): Observable<Team> {

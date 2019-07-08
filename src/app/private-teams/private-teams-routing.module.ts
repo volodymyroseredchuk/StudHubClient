@@ -13,7 +13,8 @@ import { TeamQuestionsEditComponent } from './questions-edit/questions-edit.comp
 const routes: Routes = [
   {
     path: 'teams',
-    component: TeamsComponent
+    component: TeamsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'teams/create',
@@ -22,7 +23,8 @@ const routes: Routes = [
   },
   {
     path: 'teams/:id',
-    component: TeamPageComponent
+    component: TeamPageComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'teams/:id/edit',
@@ -36,7 +38,8 @@ const routes: Routes = [
   },
   {
     path: 'teams/:id/questions/:id',
-    component: TeamQuestionsPageComponent
+    component: TeamQuestionsPageComponent,
+    canActivate: [AuthGuard]
   },
 
   {

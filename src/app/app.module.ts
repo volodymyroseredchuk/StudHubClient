@@ -28,6 +28,7 @@ import {
 import { provideConfig } from '../socialloginConfig';
 import { FreelanceModule } from './freelance/freelance.module';
 import { PrivateTeamsModule } from './private-teams/private-teams.module';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 // @ts-ignore
 @NgModule({
@@ -37,6 +38,7 @@ import { PrivateTeamsModule } from './private-teams/private-teams.module';
     HeaderComponent,
     ProfileComponent,
     EditProfileComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,

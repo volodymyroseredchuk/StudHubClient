@@ -45,7 +45,7 @@ export class TeamQuestionsCreateComponent implements OnInit {
       body: ['', Validators.required]
     });
 
-    this.routeSub = this.route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
       this.teamId = params['id'];
     });
   }
@@ -86,25 +86,21 @@ export class TeamQuestionsCreateComponent implements OnInit {
 
     this.question.tagList = this.tags;
 
-    
+
     this.teamService.getTeam(this.teamId).toPromise().then(data => {
       this.question.team = data;
     }).then(() => {
       this.questionService.createQuestion(this.question)
-      .subscribe(result => {
-        console.log("create");
-        console.log(this.question);
-        this.goBack();
-      });
+        .subscribe(result => {
+          console.log("create");
+          console.log(this.question);
+          this.goBack();
+        });
     });
-    
+
   }
 
   goBack(): void {
-    this.location.back();
-  }
-
-  ngOnDestroy() {
-    this.routeSub.unsubscribe();
+    this.location.go("/teams/" + this.teamId);
   }
 }
