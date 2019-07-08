@@ -17,7 +17,7 @@ import { AlertService } from 'src/app/service/alert.service';
   templateUrl: './questions-page.component.html',
   styleUrls: ['./questions-page.component.scss']
 })
-export class QuestionsPageComponent implements OnInit {
+export class TeamQuestionsPageComponent implements OnInit {
 
   question: Question;
   public questionList: Question[];

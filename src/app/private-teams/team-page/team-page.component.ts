@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/service/user.service';
 import { Location } from '@angular/common';
 import { Team } from 'src/app/model/team.model';
+import { QuestionForListDTO } from 'src/app/model/questionForListDTO.model';
+import { QuestionService } from 'src/app/service/question.service';
 
 @Component({
   selector: 'app-team-page',
@@ -15,11 +17,14 @@ export class TeamPageComponent implements OnInit {
 
   team: Team;
   teamId: number;
-  pageSize: number = 10;
+  pageSize: number = 5;
   page: number = 1;
+  questions: QuestionForListDTO[] = [];
+  questionsTotalCount: number;
   user: User;
 
   constructor(private teamService: TeamService,
+    private questionService: QuestionService,
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
@@ -29,6 +34,7 @@ export class TeamPageComponent implements OnInit {
     this.teamId = +this.route.snapshot.params.id;
     this.getTeam();
     this.getUser();
+    this.getTeamQuestions();
   }
 
   changePage(currentPage: number) {
@@ -47,6 +53,15 @@ export class TeamPageComponent implements OnInit {
       })
   }
 
+  getTeamQuestions() {
+    this.teamService.getAllQuestionssByTeamId(this.teamId, this.getCurrentPaginationSettings())
+      .subscribe(questionPaginated => {
+        console.log(questionPaginated);
+        this.questions = questionPaginated.questions;
+        this.questionsTotalCount = questionPaginated.questionsTotalCount;
+      })
+  }
+
   getUser() {
     this.userService.getUser().subscribe(
       user => {
@@ -55,6 +70,23 @@ export class TeamPageComponent implements OnInit {
         this.user = null;
       }
     )
+  }
+
+  canDeleteQuestion(question){
+    if(!this.user) { 
+      return false; 
+    }
+    let allowDelete = this.user.username === question.user.username;
+    if (allowDelete) {
+      return true;
+    } else {
+      for(let role of this.user.roles) {
+        if(role.name.toUpperCase() === "ROLE_MODERATOR" || role.name.toUpperCase() === "ROLE_ADMIN") {
+          return true;
+        }
+      }
+      return false;
+    }
   }
 
   canModifyTeam() {
@@ -82,6 +114,23 @@ export class TeamPageComponent implements OnInit {
           this.router.navigate(["/teams"])
       })
     }
+  }
+
+  deleteQuestion(questionId: number) {
+    if (window.confirm("Do you really want to delete this question?")) {
+      this.questionService.deleteQuestion(questionId)
+        .subscribe(res => {
+          console.log(res);
+          this.deleteQuestionFromList(questionId);
+          this.changePage(1);
+      });
+    }
+  }
+
+  deleteQuestionFromList(questionId: number) {
+      this.questions = this.questions.filter(function (value, index, arr) {
+        return value.id !== questionId;
+    })
   }
 
   goBack(): void {

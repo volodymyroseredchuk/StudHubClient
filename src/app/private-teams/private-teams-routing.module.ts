@@ -5,6 +5,9 @@ import { TeamsCreateComponent } from './teams-create/teams-create.component';
 import { TeamsComponent } from './teams/teams.component';
 import { TeamPageComponent } from './team-page/team-page.component';
 import { TeamsEditComponent } from './teams-edit/teams-edit.component';
+import { TeamQuestionsCreateComponent } from './questions-create/questions-create.component';
+import { TeamQuestionsPageComponent } from './question-page/questions-page.component';
+import { TeamQuestionsEditComponent } from './questions-edit/questions-edit.component';
 
 
 const routes: Routes = [
@@ -25,6 +28,20 @@ const routes: Routes = [
     path: 'teams/:id/edit',
     component: TeamsEditComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'teams/:id/questions/create',
+    component: TeamQuestionsCreateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'teams/:id/questions/:id',
+    component: TeamQuestionsPageComponent
+  },
+
+  {
+    path: 'teams/:id/questions/:id/edit',
+    component: TeamQuestionsEditComponent
   }
 ];
 

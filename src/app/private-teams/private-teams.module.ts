@@ -9,10 +9,16 @@ import { TeamsComponent } from './teams/teams.component';
 import { TeamsCreateComponent } from './teams-create/teams-create.component';
 import { TeamPageComponent } from './team-page/team-page.component';
 import { TeamsEditComponent } from './teams-edit/teams-edit.component';
+import { TeamQuestionsCreateComponent } from './questions-create/questions-create.component';
+import { TeamQuestionAnswerComponent } from './answer/answer.component';
+import { TeamQuestionsEditComponent } from './questions-edit/questions-edit.component';
+import { TeamQuestionCommentComponent } from './comment/comment.component';
+import { TeamQuestionsPageComponent } from './question-page/questions-page.component';
 
 
 @NgModule({
-  declarations: [TeamsComponent, TeamsCreateComponent, TeamPageComponent, TeamsEditComponent],
+  declarations: [TeamsComponent, TeamsCreateComponent, TeamPageComponent, TeamsEditComponent, TeamQuestionsCreateComponent,
+    TeamQuestionAnswerComponent, TeamQuestionsEditComponent, TeamQuestionCommentComponent, TeamQuestionsPageComponent],
   imports: [
     CommonModule,
     PrivateTeamsRoutingModule,

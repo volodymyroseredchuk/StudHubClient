@@ -29,6 +29,31 @@ mat-divider {
     opacity: 0.8;
 }
 
+.question-list {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.question-mat-card{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: #fffbf9;
+}
+
+.question-mat-card-content{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    //background-color: #f9f3ef;
+}
+
+#btnsModify {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 
 .editButton{
     color: green;
