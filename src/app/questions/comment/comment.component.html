@@ -1,8 +1,7 @@
 <form (ngSubmit)="onSubmit()" #userForm="ngForm" id="createComment">
    <ckeditor [editor]="editor" data="Type Your comment here"  [(ngModel)]="newComment.body" id="comment-body" name="body"
-   [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'code' ] }">
+   >
    </ckeditor>
    <button type="submit" mat-button color="primary" (click)="onSubmit()">Post comment</button>
 </form>
 
-<!-- [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'code' ] }" -->
