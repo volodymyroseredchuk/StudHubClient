@@ -24,7 +24,8 @@ import {FeedbackModule} from './feedback/feedback.module';
 import {
   SocialLoginModule,
   AuthServiceConfig,
-  GoogleLoginProvider
+  GoogleLoginProvider,
+  FacebookLoginProvider
 } from 'angularx-social-login';
 import { provideConfig } from '../socialloginConfig';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';

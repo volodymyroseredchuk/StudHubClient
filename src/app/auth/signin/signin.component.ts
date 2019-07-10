@@ -8,7 +8,7 @@ import { SocketService } from '../../service/socket.service';
 import { MatSnackBar } from "@angular/material";
 import { HttpClient } from "@angular/common/http";
 import { UserService } from 'src/app/service/user.service';
-import { AuthService, GoogleLoginProvider } from "angularx-social-login";
+import { AuthService, GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 
 @Component({
   selector: 'app-auth',
@@ -100,6 +100,25 @@ export class SigninComponent implements OnInit {
       console.log(userData);
       this.loading = true;
       this.authenticationService.loginGoogle(userData)
+        .pipe(first())
+        .subscribe(
+          data => {
+            window.location.href = this.returnUrl;
+            this.loading = false;
+          },
+          error => {
+            this.alertService.error(error);
+            this.loading = false;
+          });
+    });
+  }
+
+  public signinWithFacebook() {
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then((userData) => {
+      
+      console.log(userData);
+      this.loading = true;
+      this.authenticationService.loginFacebook(userData)
         .pipe(first())
         .subscribe(
           data => {

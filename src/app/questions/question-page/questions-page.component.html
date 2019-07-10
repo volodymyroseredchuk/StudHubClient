@@ -3,12 +3,12 @@
     <button mat-button routerLink="." (click)="goBack()">Back</button>
 
     <mat-card *ngIf="question" class="questionCard">
-        <mat-card-title>
+        <mat-card-title >
             {{question.title}}
         </mat-card-title>
         <mat-divider></mat-divider>
-        <mat-card-content class="questionBody">
-            {{question.body}}
+        <mat-card-content class="questionBody" [innerHTML]="question.body">
+            //{{question.body}}
         </mat-card-content>
         <mat-card-footer class="footerCard">
             <div>
@@ -59,8 +59,8 @@
                         <div class="answer-approved text-success" *ngIf="answer.approved">
                             Answer is approved by question creator
                         </div>
-                        <div>
-                            {{answer.body}}
+                        <div [innerHTML]="answer.body">
+                            //{{answer.body}}
                         </div>
                     </div>
 
@@ -94,8 +94,8 @@
 
             <div class="commentCard" *ngIf="answer?.comment">
                 <mat-card class="comment-mat-card" *ngFor="let comment of answer.comment">
-                    <mat-card-content class="commentBody">
-                        {{comment.body}}
+                    <mat-card-content class="commentBody" [innerHTML]="comment.body">
+                        //{{comment.body}}
                     </mat-card-content>
 
                     <div class="commentFooter">

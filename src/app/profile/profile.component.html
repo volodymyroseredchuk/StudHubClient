@@ -29,7 +29,7 @@
         </div>
       </mat-tab>
       <mat-tab label="My questions">
-        <div style="overflow:scroll; height: 300px;">
+        <div *ngIf="questions"style="overflow:scroll; height: 300px;">
           <mat-card *ngFor="let question of questions">
 
             <mat-card-title>
@@ -49,7 +49,7 @@
 
       </mat-tab>
       <mat-tab label="My feedbacks">
-        <div style="overflow:scroll; height: 300px;">
+        <div *ngIf="feedbacks" style="overflow:scroll; height: 300px;">
           <mat-card *ngFor="let feedback of feedbacks">
 
             <mat-card-title>
