@@ -11,6 +11,7 @@ import { Answer } from 'src/app/model/answer.model';
 import { CommentService } from 'src/app/service/comment.service';
 import { Comment } from 'src/app/model/comment.model';
 import { AlertService } from 'src/app/service/alert.service';
+import { TeamQuestionService } from 'src/app/service/team-question.service';
 
 @Component({
   selector: 'app-questions-page',
@@ -22,35 +23,34 @@ export class TeamQuestionsPageComponent implements OnInit {
   question: Question;
   public questionList: Question[];
   user: User;
+  teamId;
   answer: Answer = new Answer();
   comment: Comment = new Comment();
   loadCommentComponent: boolean = false;
 
-  constructor(private questionService: QuestionService, private route: ActivatedRoute,
+  constructor(private teamQuestionService: TeamQuestionService, private route: ActivatedRoute,
     private router: Router, private location: Location, private answerService: AnswerService,
     private voteService: VoteService, private userService: UserService, private commentService: CommentService,
     private alertService: AlertService) {
   }
 
   ngOnInit(): void {
+    this.teamId = +this.route.snapshot.url["1"]; // first id
     this.getQuestion();
   }
 
   //shows question page by id. If id is not valid - error is shown
   getQuestion() {
-    const id = +this.route.snapshot.params.id;
-    this.questionService.showQuestionPage(id)
+    const questionId = +this.route.snapshot.params.id; //second id
+    
+    this.teamQuestionService.showQuestionPage(this.teamId, questionId)
       .subscribe(question => {
         this.question = question;
         this.getUser();
         console.log(this.question);
-      },
-        error => {
-          alert(error);
-          this.alertService.error(error);
+      },error => {
           console.log(error);
-          this.router.navigate(["/questions"]);
-
+          this.router.navigate(["/errorPage"]);
         });
   }
 
@@ -91,17 +91,14 @@ export class TeamQuestionsPageComponent implements OnInit {
   //deletes question. If success - refresh the page. If not - shows error message and redirect to all questions page. 
   deleteQuestion(questionId: number) {
     if (confirm("Are You sure You want to delete this question?")) {
-      this.questionService.deleteQuestion(questionId)
-        .subscribe((data) => {
-          if (data === "Question deleted") {
-            alert(data);
-            this.router.navigate(["/questions"]);
-            console.log(data);
+      this.teamQuestionService.deleteQuestion(this.teamId, questionId)
+        .subscribe(response => {
+          console.log(response);
+          if (response.message === "Question deleted") {
+            this.router.navigate(["/teams/" + this.teamId]);
 
           } else {
-            alert(data);
             this.getQuestion();
-            console.log(data);
           }
         },
           error => {
@@ -213,8 +210,6 @@ export class TeamQuestionsPageComponent implements OnInit {
       })
     }
   }
-
-
 
   approveAnswer(answerId: number, newApproved: boolean) {
 

@@ -21,6 +21,7 @@ export class TeamsCreateComponent implements OnInit {
   users: UserDTO[];
   members: UserDTO[] = [];
   selectedUser: UserDTO;
+  user: UserDTO;
   team: Team = new Team();
   teamCreateForm: FormGroup;
   submitted = false;
@@ -37,6 +38,7 @@ export class TeamsCreateComponent implements OnInit {
       title: ['', Validators.required]
     });
 
+    this.getUser();
     this.getAllUsers();
   }
 
@@ -44,15 +46,17 @@ export class TeamsCreateComponent implements OnInit {
 
     await this.userService.getAllUsers().toPromise().then(data => {
       this.users = data;
-      console.log(this.users);
     }).then(() => {
       this.filteredUsers = this.usersCtrl.valueChanges
         .pipe(
-          map(user => user ? this._filterUsers(user) : this.users.slice())
+          map(user => user ? this._filterUsers(user) : undefined)
         );
     });
   }
 
+  async getUser() {
+    await this.userService.getUser().toPromise().then(user => this.user = user);
+  }
   // convenience getter for easy access to form fields
   get f() { return this.teamCreateForm.controls; }
 
@@ -75,20 +79,22 @@ export class TeamsCreateComponent implements OnInit {
   addMember() {
 
     console.log(this.selectedUser);
-    if(this.selectedUser){
-      if(this.memberExists()){
+    if (this.selectedUser) {
+      if (this.memberExists()) {
         alert("member exists");
+      } else if (this.selectedUser.username == this.user.username) {
+        alert("Team owner cannot be a member");
       } else {
         this.members.push(this.selectedUser);
       }
     } else {
       alert("user doesn't exist");
     }
-      
+
   }
 
   memberExists() {
-      return this.members.includes(this.selectedUser);
+    return this.members.includes(this.selectedUser);
   }
 
   onSubmit() {
@@ -104,12 +110,7 @@ export class TeamsCreateComponent implements OnInit {
     this.teamService.createTeam(this.team)
       .subscribe(result => {
         console.log(result);
-        alert("Team was successfully created");
         this.goToAllTeams();
       })
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 }

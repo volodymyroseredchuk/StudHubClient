@@ -5,8 +5,6 @@ import { Observable } from 'rxjs';
 import { TeamPaginatedDTO } from '../model/teamPaginatedDTO.model';
 import { Team } from '../model/team.model';
 import { Delete } from '../model/delete.model';
-import { QuestionForListDTO } from '../model/questionForListDTO.model';
-import { QuestionPaginatedDTO } from '../model/questionPaginatedDTO.model';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -27,10 +25,6 @@ export class TeamService extends BaseService {
 
     getAllTeams(paginationSettings: string): Observable<TeamPaginatedDTO> {
         return this.http.get<TeamPaginatedDTO>(`${this.apiUrl}` + paginationSettings);
-    }
-
-    getAllQuestionssByTeamId(id: number, paginationSettings: string): Observable<QuestionPaginatedDTO> {
-        return this.http.get<QuestionPaginatedDTO>(`${this.apiUrl}/${id}/questions` + paginationSettings);
     }
 
     getTeam(id: number): Observable<Team> {

@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { TeamService } from 'src/app/service/team.service';
 import { first } from 'rxjs/operators';
 import { Location } from '@angular/common';
+import { TeamQuestionService } from 'src/app/service/team-question.service';
 
 @Component({
   selector: 'app-questions-create',
@@ -31,8 +32,10 @@ export class TeamQuestionsCreateComponent implements OnInit {
   loading = false;
   submitted = false;
   private routeSub: Subscription;
-  constructor(private teamService: TeamService,
-    private route: ActivatedRoute, private questionService: QuestionService,
+  constructor(
+    private teamService: TeamService,
+    private route: ActivatedRoute, 
+    private teamQuestionService: TeamQuestionService,
     private router: Router,
     private location: Location,
     private formBuilder: FormBuilder) {
@@ -45,9 +48,7 @@ export class TeamQuestionsCreateComponent implements OnInit {
       body: ['', Validators.required]
     });
 
-    this.route.params.subscribe(params => {
-      this.teamId = params['id'];
-    });
+    this.teamId = +this.route.snapshot.params.id;
   }
 
   // convenience getter for easy access to form fields
@@ -90,7 +91,7 @@ export class TeamQuestionsCreateComponent implements OnInit {
     this.teamService.getTeam(this.teamId).toPromise().then(data => {
       this.question.team = data;
     }).then(() => {
-      this.questionService.createQuestion(this.question)
+      this.teamQuestionService.createQuestion(this.teamId, this.question)
         .subscribe(result => {
           console.log("create");
           console.log(this.question);
@@ -101,6 +102,6 @@ export class TeamQuestionsCreateComponent implements OnInit {
   }
 
   goBack(): void {
-    this.location.go("/teams/" + this.teamId);
+    this.router.navigate(["/teams/" + this.teamId]);
   }
 }

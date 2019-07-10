@@ -8,6 +8,7 @@ import { Team } from 'src/app/model/team.model';
 import { QuestionForListDTO } from 'src/app/model/questionForListDTO.model';
 import { QuestionService } from 'src/app/service/question.service';
 import { MatSnackBar } from '@angular/material';
+import { TeamQuestionService } from 'src/app/service/team-question.service';
 
 @Component({
   selector: 'app-team-page',
@@ -25,7 +26,7 @@ export class TeamPageComponent implements OnInit {
   user: User;
 
   constructor(private teamService: TeamService,
-    private questionService: QuestionService,
+    private teamQuestionService: TeamQuestionService,
     private _snackBar: MatSnackBar,
     private route: ActivatedRoute,
     private router: Router,
@@ -54,16 +55,19 @@ export class TeamPageComponent implements OnInit {
         this.team = team;
       },
       err => {
-        this.location.go("errorPage");
+        this.router.navigate(["errorPage"]);
       });
   }
 
   getTeamQuestions() {
-    this.teamService.getAllQuestionssByTeamId(this.teamId, this.getCurrentPaginationSettings())
+    this.teamQuestionService.getAllQuestionsByTeamId(this.teamId, this.getCurrentPaginationSettings())
       .subscribe(questionPaginated => {
         console.log(questionPaginated);
         this.questions = questionPaginated.questions;
         this.questionsTotalCount = questionPaginated.questionsTotalCount;
+      },
+      err => {
+        console.log(err);
       })
   }
 
@@ -123,19 +127,21 @@ export class TeamPageComponent implements OnInit {
 
   deleteQuestion(questionId: number) {
     if (window.confirm("Do you really want to delete this question?")) {
-      this.questionService.deleteQuestion(questionId)
-        .subscribe(res => {
-          console.log(res);
-          this.deleteQuestionFromList(questionId);
+      this.teamQuestionService.deleteQuestion(this.teamId, questionId)
+        .subscribe(deleteMessage => {
+          alert(deleteMessage.message);
+          this.deleteQuestionFromList(deleteMessage.message, questionId);
           this.changePage(1);
       });
     }
   }
 
-  deleteQuestionFromList(questionId: number) {
+  deleteQuestionFromList(message: string, questionId: number) {
+    if(message){
       this.questions = this.questions.filter(function (value, index, arr) {
         return value.id !== questionId;
     })
-  }
+    }
 
+  }
 }

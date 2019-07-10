@@ -7,6 +7,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
+import { TeamQuestionService } from 'src/app/service/team-question.service';
 
 @Component({
   selector: 'app-questions-edit',
@@ -28,7 +29,7 @@ export class TeamQuestionsEditComponent implements OnInit {
   teamId;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  constructor(private questionService: QuestionService, private router: Router,
+  constructor(private teamQuestionService: TeamQuestionService, private router: Router,
     private location: Location, private route: ActivatedRoute,
     private formBuilder: FormBuilder) {
 
@@ -41,9 +42,8 @@ export class TeamQuestionsEditComponent implements OnInit {
       title: ['', Validators.required],
       body: ['', Validators.required]
     });
-    this.route.params.subscribe(params => {
-      this.teamId = params['id'];
-    });
+    
+    this.teamId = +this.route.snapshot["_lastPathIndex"];
     this.getQuestion();
     this.newQuestion = this.question;
   }
@@ -53,7 +53,7 @@ export class TeamQuestionsEditComponent implements OnInit {
 
   getQuestion() {
     const id = +this.route.snapshot.params.id;
-    this.questionService.showQuestionPage(id)
+    this.teamQuestionService.showQuestionPage(this.teamId, id)
       .subscribe(question => {
         this.question = question;
         this.tags = question.tagList;
@@ -84,7 +84,7 @@ export class TeamQuestionsEditComponent implements OnInit {
   }
 
   goBack() {
-    this.location.go("/teams/" + this.teamId);
+    this.router.navigate(["/teams/" + this.teamId]);
   }
 
   onSubmit() {
@@ -95,7 +95,7 @@ export class TeamQuestionsEditComponent implements OnInit {
       return;
     }
     this.question.tagList = this.tags;
-    this.questionService.editQuestion(this.question.id, this.question)
+    this.teamQuestionService.editQuestion(this.teamId, this.question.id, this.question)
       .subscribe(result => this.goBack());
   }
 }
