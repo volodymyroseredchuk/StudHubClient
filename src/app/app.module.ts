@@ -27,6 +27,8 @@ import {
   GoogleLoginProvider
 } from 'angularx-social-login';
 import { provideConfig } from '../socialloginConfig';
+import {TeachersModule} from "./teacher/teachers.module";
+import {UniversitiesModule} from "./universities/universities.module";
 
 // @ts-ignore
 @NgModule({
@@ -52,7 +54,9 @@ import { provideConfig } from '../socialloginConfig';
     MatSnackBarModule,
     FeedbackModule,
     SocialLoginModule,
-    MatTabsModule
+    MatTabsModule,
+    TeachersModule,
+    UniversitiesModule
   ],
 
   providers: [

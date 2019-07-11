@@ -9,11 +9,32 @@ export class UniversityService extends BaseService {
 
   constructor(protected http: HttpClient) {
     super(http);
+    this.apiUrl += '/universities';
   }
 
   getAllUniversities(): Observable<University[]> {
     return this.http.get<University[]>(`${this.apiUrl}/universities`);
   }
 
+
+  newTeacher(university: University): Observable<University> {
+    return this.http.post<University>(`${this.apiUrl}/create`, university);
+  }
+
+  findAllUniversity(): Observable<University[]> {
+    return this.http.get<University[]>(`${this.apiUrl}`);
+  }
+
+  updateOneUniversity(universityid: number , university: University): Observable<University> {
+    return this.http.put<University>(`${this.apiUrl}/${universityid}/edit`, university);
+  }
+
+  deleteUniversity(universityid: number): Observable <any> {
+    return this.http.delete(`${this.apiUrl}/${universityid}/delete`);
+  }
+
+  showUniversityPage(id: number): Observable <University> {
+    return this.http.get<University>(`${this.apiUrl}/${id}`);
+  }
 }
 
