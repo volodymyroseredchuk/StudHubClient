@@ -27,6 +27,9 @@ import {
   GoogleLoginProvider
 } from 'angularx-social-login';
 import { provideConfig } from '../socialloginConfig';
+import { ChatComponent } from './chat/chat.component';
+import { ChatlistComponent } from './chatlist/chatlist.component';
+import { SafeHtmlPipe } from './safe-html.pipe';
 
 // @ts-ignore
 @NgModule({
@@ -37,6 +40,9 @@ import { provideConfig } from '../socialloginConfig';
     FooterComponent,
     ProfileComponent,
     EditProfileComponent,
+    ChatComponent,
+    ChatlistComponent,
+    SafeHtmlPipe,
   ],
   imports: [
     BrowserModule,

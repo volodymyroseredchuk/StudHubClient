@@ -1,58 +1,20 @@
 <div class="responsive_nav_bar">
 
-<div class="chatlist-container" [innerHTML]="chatListBody | safeHtml">
-  <!--<div class="chat-preview">
+<div class="chatlist-container">
+  <div class="chat-preview" *ngFor="let listItem of chatListItems" [routerLink]="['/chat', listItem.chatId]">
     <div class="chat-preview__img">
-      <img class="chat-preview__img-img" src="https://avatars3.githubusercontent.com/u/24925918?s=460&v=4" alt="">
+      <img class="chat-preview__img-img" src="{{listItem.photoUrl}}" alt="">
     </div>
     <div class="chat-preview__info">
       <div class="chat-preview__name">
-        11b
+        {{listItem.username}}
       </div>
       <div class="chat-preview__last-message">
-        fuck this
+        {{listItem.lastMessageText}}
       </div>
     </div>
   </div>
-  <div class="chat-preview">
-    <div class="chat-preview__img">
-      <img class="chat-preview__img-img" src="https://avatars3.githubusercontent.com/u/24925918?s=460&v=4" alt="">
-    </div>
-    <div class="chat-preview__info">
-      <div class="chat-preview__name">
-        11b
-      </div>
-      <div class="chat-preview__last-message">
-        fuck this
-      </div>
-    </div>
-  </div>
-  <div class="chat-preview">
-    <div class="chat-preview__img">
-      <img class="chat-preview__img-img" src="https://avatars3.githubusercontent.com/u/24925918?s=460&v=4" alt="">
-    </div>
-    <div class="chat-preview__info">
-      <div class="chat-preview__name">
-        11b
-      </div>
-      <div class="chat-preview__last-message">
-        fuck this
-      </div>
-    </div>
-  </div>
-  <div class="chat-preview">
-    <div class="chat-preview__img">
-      <img class="chat-preview__img-img" src="https://avatars3.githubusercontent.com/u/24925918?s=460&v=4" alt="">
-    </div>
-    <div class="chat-preview__info">
-      <div class="chat-preview__name">
-        11b
-      </div>
-      <div class="chat-preview__last-message">
-        fuck this
-      </div>
-    </div>
-  </div>-->
+
 </div>
 
 </div>

@@ -1,6 +1,7 @@
-import {AfterViewInit, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {ChatService, Message} from "../service/chat.service";
 import * as jwt_decode from 'jwt-decode';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-chat',
@@ -10,6 +11,7 @@ import * as jwt_decode from 'jwt-decode';
 })
 export class ChatComponent implements OnInit {
 
+  private chatId: number;
   private messages: Message[] = [];
   private pageSize = 5;
   private page = 1;
@@ -32,12 +34,16 @@ export class ChatComponent implements OnInit {
     );
   }
   constructor(
+    private route: ActivatedRoute,
     private service: ChatService) {}
 
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.chatId = params.chatId;
+    });
     const body = document.getElementsByClassName('chat-container__body')[0];
-    this.service.getChatMessages(1, this.getCurrentPaginationSettings()).subscribe(msgs => {
+    this.service.getChatMessages(this.chatId, this.getCurrentPaginationSettings()).subscribe(msgs => {
       msgs.forEach((msg) => {
         this.messages.push(msg);
       });
