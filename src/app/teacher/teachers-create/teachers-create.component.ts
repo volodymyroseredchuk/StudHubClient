@@ -1,20 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
-import { Router } from '@angular/router';
-import {Teacher} from "../../model/teacher.model";
-import {TeacherService} from "../../service/teacher.service";
-import {Observable} from "rxjs";
-import {map, startWith} from "rxjs/operators";
-import {University} from "../../model/university.model";
-import {UniversityService} from "../../service/university.service";
-import {MatSnackBar} from "@angular/material";
-import {HttpClient} from "@angular/common/http";
-import {FormBuilder, FormControl} from "@angular/forms";
-import {AuthenticationService} from "../../service/authentication.service";
-import {UserService} from "../../service/user.service";
-import {AlertService} from "../../service/alert.service";
+import {Router} from '@angular/router';
+import {Teacher} from '../../model/teacher.model';
+import {TeacherService} from '../../service/teacher.service';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {University} from '../../model/university.model';
+import {UniversityService} from '../../service/university.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-teachers-create',
