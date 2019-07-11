@@ -1,4 +1,5 @@
 import { User } from './user.model';
+import { Tag } from './tag.model';
 
 export class Task {
     id: number;
@@ -9,4 +10,5 @@ export class Task {
     deadlineDate: Date;
     expectedPrice: number;
     user: User;
+    tagList: Tag[];
 }

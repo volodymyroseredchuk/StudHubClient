@@ -129,7 +129,6 @@ export class TeamPageComponent implements OnInit {
     if (window.confirm("Do you really want to delete this question?")) {
       this.teamQuestionService.deleteQuestion(this.teamId, questionId)
         .subscribe(deleteMessage => {
-          alert(deleteMessage.message);
           this.deleteQuestionFromList(deleteMessage.message, questionId);
           this.changePage(1);
       });
