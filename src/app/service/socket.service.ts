@@ -23,7 +23,6 @@ export class SocketService {
 
 
 class SocketServiceImpl extends BaseService {
-
   private socket;
 
   private messages;
