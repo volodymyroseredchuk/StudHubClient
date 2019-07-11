@@ -1,4 +1,3 @@
-<div class="responsive_nav_bar">
 <h2>Recent Questions</h2>
 
 <button mat-raised-button color="primary" id="btnCreate" routerLink="/questions/create">Create Question</button>
@@ -71,5 +70,4 @@
 
 <div id="pagination">
   <pagination-controls *ngIf="questions.length != 0" (pageChange)="changePage($event)"></pagination-controls>
-</div>
 </div>
