@@ -12,6 +12,7 @@ import {
 import {ChatService, Message} from "../service/chat.service";
 import * as jwt_decode from 'jwt-decode';
 import {ActivatedRoute} from "@angular/router";
+import {selectContext} from "webdriver-js-extender/built/lib/command_definitions";
 
 @Component({
   selector: 'app-chat',
@@ -19,13 +20,15 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./chat.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ChatComponent implements OnInit, AfterViewChecked{
+export class ChatComponent implements OnInit {
   private chatId: number;
   private messages: Message[] = [];
   private pageSize = 20;
   private page = 1;
   private max = false;
-  private ready = false;
+  private scrollUsed = false;
+  private lastScrollHeight = 0;
+  private lastHeight = 0;
   constructor(
     private route: ActivatedRoute,
     private service: ChatService) {}
@@ -43,27 +46,12 @@ export class ChatComponent implements OnInit, AfterViewChecked{
       });
     });
   }
-  ngAfterViewChecked(): void {
-    console.log('init');
-    setTimeout(() => {
-      if (this.ready) {
-        console.log('called');
-        const body = document.getElementById('scrollMe');
-        body.scrollTop = body.scrollHeight;
-        this.ready = false;
-      }
-    }, 200);
-  }
-
-  trackFunc(length, index, item) {
-    this.ready = ((this.pageSize - 1) === index);
-    return item;
-  }
 
   sendMessage(msgText: string) {
     if (msgText != null && msgText != '') {
       const userId: number = this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub; // decode token
-      this.service.sendMessage(msgText, this.chatId, this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub).subscribe((msg) => {
+      this.service.sendMessage(msgText, this.chatId, this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub)
+        .subscribe((msg) => {
         msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
         this.messages.push(msg);
       });
@@ -85,6 +73,8 @@ export class ChatComponent implements OnInit, AfterViewChecked{
     this.max = (this.messages.length % this.pageSize != 0);
     if (!this.max) {
       if (height == 0) {
+        this.lastScrollHeight = set;
+        this.lastHeight = height;
         this.page++;
         const userId: number = this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub; // decode token
         await this.service.getChatMessages(this.chatId, this.getCurrentPaginationSettings()).toPromise().then(msgs => {
@@ -93,7 +83,7 @@ export class ChatComponent implements OnInit, AfterViewChecked{
             this.messages.unshift(msg);
           });
         }).then(() => {
-
+          this.scrollUsed = true;
         });
       }
     }

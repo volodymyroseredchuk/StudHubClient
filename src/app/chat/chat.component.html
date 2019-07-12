@@ -17,14 +17,23 @@
       <img class="chat-container__photo-img" src="https://avatars3.githubusercontent.com/u/24925918?s=460&v=4" alt="">
     </div>
   </div>
-  <!--#scrollMe [scrollTop]="scrollMe.scrollHeight" -->
-  <div class="chat-container__body" id="scrollMe" #scrollMe (scroll)="onScroll(scrollMe.scrollTop, scrollMe.scrollHeight)">
-    <ng-container></ng-container>
-    <div *ngFor="let msg of messages; trackBy: trackFunc.bind(this, 20)" class="{{msg.sender}}">
-    <div class="message-content"> {{msg.content}} </div>
-    <div class="message-triangular"></div>
+  <ng-container *ngIf="scrollUsed">
+    <div class="chat-container__body" #scrollMe1 (scroll)="onScroll(scrollMe1.scrollTop, scrollMe1.scrollHeight)" [scrollTop]="scrollMe1.scrollHeight - lastScrollHeight">
+      <div *ngFor="let msg of messages;" class="{{msg.sender}}">
+        <div class="message-content"> {{msg.content}} </div>
+        <div class="message-triangular"></div>
+      </div>
     </div>
-  </div>
+  </ng-container>
+  <ng-container *ngIf="!scrollUsed">
+    <div class="chat-container__body" #scrollMe2 (scroll)="onScroll(scrollMe2.scrollTop, scrollMe2.scrollHeight)" [scrollTop]="scrollMe2.scrollHeight - lastScrollHeight" >
+      <div *ngFor="let msg of messages;" class="{{msg.sender}}">
+        <div class="message-content"> {{msg.content}} </div>
+        <div class="message-triangular"></div>
+      </div>
+    </div>
+  </ng-container>
+
 
   <div class="chat-container__footer">
     <div class="chat-container__attachment">
