@@ -17,19 +17,44 @@
           <h5><i class="fas fa-envelope info"></i>{{user?.email}}</h5>
           <h5><i class="fas fa-calendar-check info"></i>{{user?.creationDate}}</h5>
           <h5><i class="fas fa-user-tie info"></i>{{user?.username}}</h5>
-          <a *ngIf="user?.canBeEdited==true" routerLink="/edit">
+          <a *ngIf="user?.username === currentUser?.username" routerLink="/edit">
             <button mat-button class="edit-button">Edit</button>
           </a>
           <br>
           <hr>
           <p>Rating</p>
           <div class="skill-bar">
-            <div class="progress-bar" style="width: 85%">556</div>
+            <div id="background">
+              {{rating}}/100
+            </div>
+            <div class="progress-bar" [ngStyle]="{width: rating + '%'}"></div>
           </div>
+          <br>
+          <div style="display:table;border-collapse:separate;border-spacing:10px 5px;">
+            <div style="display:table-row;">
+              <div class="circle-text">
+                <h2><strong>{{answersCount}}</strong></h2>
+                <p><small>Answers</small></p>
+              </div>
+              <div class="circle-text">
+                <h2><strong>{{questions?.length}}</strong></h2>
+                <p><small>Questions</small></p>
+              </div>
+              <div class="circle-text">
+                <h2><strong>{{feedbacks?.length}}</strong></h2>
+                <p><small>Feedbacks</small></p>
+              </div>
+              <div class="circle-text">
+                <h2><strong>120</strong></h2>
+                <p><small>Orders</small></p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </mat-tab>
       <mat-tab label="Questions">
-        <div style="overflow:scroll; height: 300px;">
+        <div style="overflow-y:scroll; height: 300px;">
           <mat-card *ngFor="let question of questions">
 
             <mat-card-title>
@@ -43,13 +68,13 @@
             </mat-card-title>
 
           </mat-card>
-          <h3 *ngIf="questions?.length == 0">You don't have questions</h3>
+          <h3 *ngIf="questions?.length == 0">No questions</h3>
 
         </div>
 
       </mat-tab>
       <mat-tab label="Feedbacks">
-        <div style="overflow:scroll; height: 300px;">
+        <div style="overflow-y:scroll; height: 300px;">
           <mat-card *ngFor="let feedback of feedbacks">
 
             <mat-card-title>
@@ -66,7 +91,7 @@
 
 
           </mat-card>
-          <h3 *ngIf="feedbacks?.length == 0">You don't have feedbacks</h3>
+          <h3 *ngIf="feedbacks?.length == 0">No feedbacks</h3>
 
         </div>
       </mat-tab>

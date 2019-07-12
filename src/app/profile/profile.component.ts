@@ -5,7 +5,9 @@ import { QuestionForListDTO } from '../model/questionForListDTO.model';
 import { Feedback } from '../model/feedback.model';
 import { FeedbackService } from '../service/feedback.service';
 import { QuestionService } from '../service/question.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { AnswerService } from '../service/answer.service';
+import { VoteService } from '../service/vote.service';
 
 
 @Component({
@@ -14,42 +16,68 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  username: String;
   user: User;
   questions: QuestionForListDTO[];
   feedbacks: Feedback[];
+  currentUser: User;
+  answersCount: number;
+  approvedAnswersCount: number;
+  rating: number;
 
   constructor(private userService: UserService, private feedbackService: FeedbackService,
-    private questionService: QuestionService, private route: ActivatedRoute) {
+    private questionService: QuestionService , private answerService: AnswerService,
+    private voteService: VoteService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    var username: String;
     this.route.params.subscribe(params => {
-      this.username = params.username;
+      username = params.username;
     });
-    if (this.username === undefined) {
+    if (username === undefined) {
       this.userService.getCurrentUser().subscribe(res => {
         this.user = res;
 
-        this.questionService.getAllQuestionsByUser(res.username).subscribe(res => {
-          this.questions = res;
-        });
-        this.feedbackService.getAllFeedbacksByUser(res.username).subscribe(res => {
-          this.feedbacks = res;
-        });
+        this.getUserFeedbacksAndQuestions(res);
+        this.getUserStatistics(res);
       });
     } else {
-      this.userService.getForeignUser(this.username).subscribe(res => {
+      this.userService.getForeignUser(username).subscribe(res => {
         this.user = res;
 
-        this.questionService.getAllQuestionsByUser(res.username).subscribe(res => {
-          this.questions = res;
-        });
-        this.feedbackService.getAllFeedbacksByUser(res.username).subscribe(res => {
-          this.feedbacks = res;
-        });
+        this.getUserFeedbacksAndQuestions(res);
+        this.getUserStatistics(res);
       });
     }
+    this.userService.getCurrentUser().subscribe(res => {
+      this.currentUser = res;
+    });
+    
+  }
+
+  getUserFeedbacksAndQuestions(user:User){
+    this.questionService.getAllQuestionsByUser(user.username).subscribe(res => {
+      this.questions = res;
+    });
+    this.feedbackService.getAllFeedbacksByUser(user.username).subscribe(res => {
+      this.feedbacks = res;
+    });
+  }
+
+  getUserStatistics(user: User){
+    this.answerService.getCountOfAnswersByUsername(user.username).subscribe(res => {
+      this.answersCount = res;
+      this.rating = res * 5;
+    });
+  
+    this.answerService.getCountOfApprovedAnswersByUsername(user.username).subscribe(res => {
+      this.approvedAnswersCount = res;
+      this.rating += res * 5;
+    });
+
+    this.voteService.getSumOfVotesByUsername(user.username).subscribe(res => {
+      this.rating += res;
+    });
   }
 }
 

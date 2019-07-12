@@ -27,18 +27,18 @@ export class UserService extends BaseService {
   }
 
   getCurrentUser() {
-    return this.http.get<User>(`${this.apiUrl}/profile/my`, {
+    return this.http.get<User>(`${this.apiUrl}/profile/current`, {
       headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
     });
   }
 
   getForeignUser(username: String) {
     if (localStorage.getItem('accessToken') != null) {
-      return this.http.get<any>(`${this.apiUrl}/profile/foreign/${username}`, {
+      return this.http.get<any>(`${this.apiUrl}/profile/${username}`, {
         headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
       });
     }
-    return this.http.get<any>(`${this.apiUrl}/profile/foreign/${username}`);
+    return this.http.get<any>(`${this.apiUrl}/profile/${username}`);
   }
 
   updateUser(user: User) {
