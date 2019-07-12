@@ -10,12 +10,11 @@
         </mat-card-content>
         <mat-card-footer class="footerCard">
             <div>
-                <button mat-button color="primary" *ngIf="canChangeOrDeleteComment(question)"
-                    routerLink="/questions/{{question.id}}/edit">Edit</button>
-                <button mat-button color="warn" *ngIf="canChangeOrDeleteComment(question)"
+                <button mat-button color="primary" *ngIf="canChangeOrDeleteComment(team, question)"
+                    (click)="goEdit()">Edit</button>
+                <button mat-button color="warn" *ngIf="canChangeOrDeleteComment(team, question)"
                     (click)="deleteQuestion(question.id)">Delete</button>
             </div>
-
             <div class="userCard">
                 asked: {{question.creationDate}} <br>
                 <a routerLink="/profile">

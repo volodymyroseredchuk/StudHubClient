@@ -43,8 +43,8 @@ export class TeamsEditComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.teamUpdateForm.controls; }
 
-  goToAllTeams() {
-    this.router.navigate(['/teams']);
+  goBack() {
+    this.router.navigate(['/teams/' + this.teamId]);
   }
 
   onSubmit() {
@@ -58,11 +58,7 @@ export class TeamsEditComponent implements OnInit {
     this.teamService.editTeam(this.teamId, this.team)
       .subscribe(result => {
         console.log(result);
-        this.goToAllTeams();
+        this.goBack();
       })
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 }

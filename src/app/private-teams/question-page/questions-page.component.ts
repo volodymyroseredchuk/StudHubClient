@@ -12,6 +12,8 @@ import { CommentService } from 'src/app/service/comment.service';
 import { Comment } from 'src/app/model/comment.model';
 import { AlertService } from 'src/app/service/alert.service';
 import { TeamQuestionService } from 'src/app/service/team-question.service';
+import { TeamService } from 'src/app/service/team.service';
+import { Team } from 'src/app/model/team.model';
 
 @Component({
   selector: 'app-questions-page',
@@ -24,39 +26,51 @@ export class TeamQuestionsPageComponent implements OnInit {
   public questionList: Question[];
   user: User;
   teamId;
+  team: Team;
   answer: Answer = new Answer();
   comment: Comment = new Comment();
   loadCommentComponent: boolean = false;
 
   constructor(private teamQuestionService: TeamQuestionService, private route: ActivatedRoute,
-    private router: Router, private location: Location, private answerService: AnswerService,
+    private teamService: TeamService, private router: Router, private location: Location, private answerService: AnswerService,
     private voteService: VoteService, private userService: UserService, private commentService: CommentService,
     private alertService: AlertService) {
   }
 
   ngOnInit(): void {
     this.teamId = +this.route.snapshot.url["1"]; // first id
+    this.getTeam();
     this.getQuestion();
+  }
+
+  getTeam() {
+    this.teamService.getTeam(this.teamId)
+      .subscribe(team => {
+        this.team = team;
+      },
+        err => {
+          this.router.navigate(["errorPage"]);
+        });
   }
 
   //shows question page by id. If id is not valid - error is shown
   getQuestion() {
     const questionId = +this.route.snapshot.params.id; //second id
-    
+
     this.teamQuestionService.showQuestionPage(this.teamId, questionId)
       .subscribe(question => {
         this.question = question;
         this.getUser();
         console.log(this.question);
-      },error => {
-          console.log(error);
-          this.router.navigate(["/errorPage"]);
-        });
+      }, error => {
+        console.log(error);
+        this.router.navigate(["/errorPage"]);
+      });
   }
 
   //"back" button
-  goBack(): void {
-    this.location.back();
+  goEdit(): void {
+    this.router.navigate(["/teams/" + this.teamId + "/questions/" + this.question.id + "/edit"])
   }
 
   //Currently logged in user
@@ -72,12 +86,13 @@ export class TeamQuestionsPageComponent implements OnInit {
   }
 
   //Checking if User is question creator. If no - he can not see "edit" & "delete" buttons.
-  canChangeOrDeleteQuestion(question) {
-
+  canChangeOrDeleteQuestion(team, question) {
     if (!this.user) { return false; }
     let allowDelete = this.user.username === question.user.username;
     if (allowDelete) {
       return allowDelete;
+    } else if (this.user.username === team.user.username){
+      return true;
     } else {
       for (let role of this.user.roles) {
         if (role.name.toUpperCase() === "ROLE_MODERATOR" || role.name.toUpperCase() === "ROLE_ADMIN") {
@@ -110,13 +125,13 @@ export class TeamQuestionsPageComponent implements OnInit {
 
   //show comment editor on button click
   loadCreateComment() {
-    if(!this.user){
-      if(window.confirm("Only registered users can comment. Wanna log in?")){
+    if (!this.user) {
+      if (window.confirm("Only registered users can comment. Wanna log in?")) {
         this.router.navigate(["/signin"]);
-      }else{
+      } else {
         this.getQuestion();
       }
-    }else{
+    } else {
       this.loadCommentComponent = true;
     }
   }
@@ -163,14 +178,14 @@ export class TeamQuestionsPageComponent implements OnInit {
 
   recieveNewAnswer($event) {
     let pushed = false;
-    for(var i = 0; i < this.question.answerList.length; i++) {
-      if(this.question.answerList[i].rate < 0) {
+    for (var i = 0; i < this.question.answerList.length; i++) {
+      if (this.question.answerList[i].rate < 0) {
         pushed = true;
-        this.question.answerList.splice(i,0,$event);
+        this.question.answerList.splice(i, 0, $event);
         break;
       }
     }
-    if(!pushed){
+    if (!pushed) {
       this.question.answerList.push($event);
     }
   }
@@ -194,11 +209,11 @@ export class TeamQuestionsPageComponent implements OnInit {
   }
 
   deleteAnswer(answerId: number) {
-    if (confirm("Are You sure You want to delete this answer?")){
-    this.answerService.deleteAnswer(this.question.id, answerId)
-      .subscribe(serverResponce => {
-        this.deleteAnswerFromList(serverResponce, answerId)
-      });
+    if (confirm("Are You sure You want to delete this answer?")) {
+      this.answerService.deleteAnswer(this.question.id, answerId)
+        .subscribe(serverResponce => {
+          this.deleteAnswerFromList(serverResponce, answerId)
+        });
     }
   }
 
@@ -237,8 +252,8 @@ export class TeamQuestionsPageComponent implements OnInit {
   }
 
   upvoteAnswer(answer) {
-    if(!this.user){ return; }
-    if(answer.vote && answer.vote.value > 0) {
+    if (!this.user) { return; }
+    if (answer.vote && answer.vote.value > 0) {
       this.voteService.resetVoteAnswer(answer.id)
         .subscribe(vote => this.registerVote(vote));
     } else {
@@ -249,8 +264,8 @@ export class TeamQuestionsPageComponent implements OnInit {
 
 
   downvoteAnswer(answer) {
-    if(!this.user){ return; }
-    if(answer.vote && answer.vote.value < 0) {
+    if (!this.user) { return; }
+    if (answer.vote && answer.vote.value < 0) {
       this.voteService.resetVoteAnswer(answer.id)
         .subscribe(vote => this.registerVote(vote));
     } else {

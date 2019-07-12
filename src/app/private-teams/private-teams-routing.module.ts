@@ -8,6 +8,7 @@ import { TeamsEditComponent } from './teams-edit/teams-edit.component';
 import { TeamQuestionsCreateComponent } from './questions-create/questions-create.component';
 import { TeamQuestionsPageComponent } from './question-page/questions-page.component';
 import { TeamQuestionsEditComponent } from './questions-edit/questions-edit.component';
+import { MembersComponent } from './members/members.component';
 
 
 const routes: Routes = [
@@ -41,16 +42,22 @@ const routes: Routes = [
     component: TeamQuestionsPageComponent,
     canActivate: [AuthGuard]
   },
-
   {
     path: 'teams/:id/questions/:id/edit',
-    component: TeamQuestionsEditComponent
-  }
+    component: TeamQuestionsEditComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'teams/:id/members',
+    component: MembersComponent,
+    canActivate: [AuthGuard]
+  },
+
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PrivateTeamsRoutingModule {}
+export class PrivateTeamsRoutingModule { }
 

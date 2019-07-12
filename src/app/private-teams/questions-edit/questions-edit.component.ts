@@ -43,7 +43,7 @@ export class TeamQuestionsEditComponent implements OnInit {
       body: ['', Validators.required]
     });
     
-    this.teamId = +this.route.snapshot["_lastPathIndex"];
+    this.teamId = +this.route.snapshot.url["1"]; // first id
     this.getQuestion();
     this.newQuestion = this.question;
   }

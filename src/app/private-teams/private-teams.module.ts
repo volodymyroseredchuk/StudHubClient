@@ -14,11 +14,12 @@ import { TeamQuestionAnswerComponent } from './answer/answer.component';
 import { TeamQuestionsEditComponent } from './questions-edit/questions-edit.component';
 import { TeamQuestionCommentComponent } from './comment/comment.component';
 import { TeamQuestionsPageComponent } from './question-page/questions-page.component';
+import { MembersComponent } from './members/members.component';
 
 
 @NgModule({
   declarations: [TeamsComponent, TeamsCreateComponent, TeamPageComponent, TeamsEditComponent, TeamQuestionsCreateComponent,
-    TeamQuestionAnswerComponent, TeamQuestionsEditComponent, TeamQuestionCommentComponent, TeamQuestionsPageComponent],
+    TeamQuestionAnswerComponent, TeamQuestionsEditComponent, TeamQuestionCommentComponent, TeamQuestionsPageComponent, MembersComponent],
   imports: [
     CommonModule,
     PrivateTeamsRoutingModule,
