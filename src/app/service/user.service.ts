@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BaseService} from './base-service';
 import {User} from '../model/user.model';
+import {QuestionForListDTO} from '../model/questionForListDTO.model';
+import {Feedback} from "../model/feedback.model";
 
 @Injectable({providedIn: 'root'})
 export class UserService extends BaseService {
@@ -12,6 +14,10 @@ export class UserService extends BaseService {
 
   register(user: User) {
     return this.http.post(`${this.apiUrl}/signup`, user);
+  }
+
+  confirmAccount(token: string) {
+    return this.http.post<any>(`${this.apiUrl}/confirm-account`, {token});
   }
 
   forgotPassword(email: string) {

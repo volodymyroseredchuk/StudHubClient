@@ -32,6 +32,29 @@ export class AuthenticationService extends BaseService {
                 return jwt;
             }));
     }
+  loginGoogle(userData) {
+    return this.http.post<any>(`${this.apiUrl}/signinGoogle`, {
+      authToken: userData.authToken,
+      email: userData.email,
+      firstName: userData.firstName,
+      id: userData.id,
+      idToken: userData.idToken,
+      lastName: userData.lastName,
+      name: userData.name,
+      photoUrl: userData.photoUrl,
+      provider: userData.provider
+    })
+      .pipe(map(jwt => {
+        // login successful if there's a jwt token in the response
+        if (jwt) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('accessToken', `${jwt.type} ${jwt.accessToken}`);
+          localStorage.setItem('refreshToken', `${jwt.type} ${jwt.refreshToken}`);
+        }
+
+        return jwt;
+      }));
+  }
 
     refreshToken() {
         let headers = new HttpHeaders({
@@ -39,15 +62,10 @@ export class AuthenticationService extends BaseService {
             'Authorization': `${localStorage.getItem('refreshToken')}`
         });
         let options = { headers: headers };
-        return this.http.post<any>(`${this.apiUrl}/token/refresh`, null, options)
-            .pipe(first()).subscribe(jwt => {
-                console.log("refreshin..");
-                if (jwt) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('accessToken', `${jwt.type} ${jwt.accessToken}`);
-                    localStorage.setItem('refreshToken', `${jwt.type} ${jwt.refreshToken}`);
-                }
-            });
+        return this.http.post<any>(`${this.apiUrl}/token/refresh`, null, options).toPromise().then(data => {
+            localStorage.setItem("accessToken", data.type + " " + data.accessToken);
+            localStorage.setItem("accessToken", data.type + " " + data.refreshToken);
+        });
     }
 
     verifyToken(token: string) {
@@ -63,5 +81,7 @@ export class AuthenticationService extends BaseService {
         // remove user from local storage to log user out
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
+        let url = location.href.replace(location.origin, "");
+        window.location.href = "/signin?returnUrl=" + url;
     }
 }

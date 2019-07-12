@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {COMMA, ENTER} from "@angular/cdk/keycodes";
-import {Tag} from "../model/tag.model";
-import {FormControl} from "@angular/forms";
-import {Observable} from "rxjs";
-import {QuestionService} from "../service/question.service";
-import {MatChipInputEvent} from "@angular/material";
-import {FeedbackService} from "../service/feedback.service";
-import {Feedback} from "../model/feedback.model";
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {FeedbackService} from '../service/feedback.service';
 
 @Component({
   selector: 'app-feedback',
@@ -34,7 +30,7 @@ export class FeedbacksComponent implements OnInit {
   }
 
   // Reset the input value
-  if (input) {
+  if(input) {
     input.value = '';
   }
 

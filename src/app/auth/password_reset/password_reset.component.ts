@@ -28,8 +28,8 @@ export class PasswordResetComponent implements OnInit {
 
     ngOnInit() {
         this.resetPasswordForm = this.formBuilder.group({
-            password: ['', Validators.required],
-            confirmPassword: ['', Validators.required]
+            password: ['', [Validators.required, Validators.minLength(6)]],
+            confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
         });
 
         // get return url from route parameters or default to '/'
@@ -53,7 +53,11 @@ export class PasswordResetComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.router.navigate([this.returnUrl]);
+                    console.log(data.message);
+                    this.alertService.success(data.message);
+                    setTimeout(() => {
+                        this.router.navigate(['/signin']);
+                    }, 1500);
                 },
                 error => {
                     this.alertService.error(error);

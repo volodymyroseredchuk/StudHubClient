@@ -9,6 +9,8 @@ import { University } from 'src/app/model/university.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { UniversityService } from 'src/app/service/university.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-auth',
@@ -28,11 +30,13 @@ export class SignupComponent implements OnInit {
     filteredOptions: Observable<string[]>;
 
     constructor(
+        private _snackBar: MatSnackBar,
         private http: HttpClient,
         private formBuilder: FormBuilder,
         private router: Router,
         private authenticationService: AuthenticationService,
         private userService: UserService,
+        private universityService: UniversityService,
         private alertService: AlertService
     ) { }
 
@@ -47,19 +51,17 @@ export class SignupComponent implements OnInit {
             firstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]],
             lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]],
             email: ['', [Validators.required, Validators.email, Validators.maxLength(60)]],
-            username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]],
+            username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(32)]],
             password: ['', [Validators.required, Validators.minLength(6)]],
-            university: new University(),
-            creationDate: new Date()
+            university: new University()
         });
-        
+
         this.getUniversities();
     }
 
     async getUniversities() {
         this.options = [];
-        let url = "http://localhost:8080/universities";
-        await this.http.get<University[]>(url).toPromise().then(data => {
+        await this.universityService.getAllUniversities().toPromise().then(data => {
             console.log(data);
             this.universities = data;
         }).then(() => {
@@ -70,10 +72,10 @@ export class SignupComponent implements OnInit {
             console.log(this.options);
         }).then(() => {
             this.filteredOptions = this.myControl.valueChanges
-            .pipe(
-                startWith(''),
-                map(value => this._filter(value))
-            );
+                .pipe(
+                    startWith(''),
+                    map(value => this._filter(value))
+                );
         });
     }
 
@@ -102,14 +104,18 @@ export class SignupComponent implements OnInit {
         }
 
         this.loading = true;
+        this.router.navigate(["/"]);
+        this._snackBar.open("The confirmation link will be sent at your email during half an hour", "OK", {
+            duration: 5000,
+        });
         this.userService.register(this.registerForm.value)
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Registration successful', true);
-                    setTimeout(() => {
-                        this.router.navigate(['/signin']);
-                    }, 1000);
+                    this._snackBar.open(data["message"], "OK", {
+                        duration: 15000,
+                    });
+                    this.loading = false;
                 },
                 error => {
                     this.alertService.error(error);

@@ -5,6 +5,7 @@ import { BaseService } from './base-service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Question } from '../model/question.model';
 import { QuestionPaginatedDTO } from '../model/questionPaginatedDTO.model';
+import {QuestionForListDTO} from "../model/questionForListDTO.model";
 
 const httpOptionsTextResponse = {
   headers: new HttpHeaders({
@@ -69,5 +70,11 @@ export class QuestionService extends BaseService {
 
   searchQuestionsByTags(searchPattern: string, paginationSettings: string): Observable<QuestionPaginatedDTO> {
     return this.http.get<QuestionPaginatedDTO>(`${this.apiUrl}/tagged/` + searchPattern + paginationSettings);
+  }
+
+  getAllQuestionsByCurrentUser() {
+    return this.http.get<QuestionForListDTO[]>(`${this.apiUrl}/current`, {
+      headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
+    });
   }
 }

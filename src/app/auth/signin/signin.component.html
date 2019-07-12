@@ -1,5 +1,5 @@
 <!-- main app container -->
-<div class="auth-form">
+<div class="auth-form responsive_nav_bar">
     <div class="container">
         <div class="row">
             <div class="col-sm-6 offset-sm-3">
@@ -29,7 +29,9 @@
                         <a routerLink="/signup" class="btn btn-link">Sign up</a>
                         <a routerLink="/password_forgot" class="btn btn-link">Forgot Password?</a>
                     </div>
+
                 </form>
+              <button style="margin-bottom: 10px" (click)="signinWithGoogle()" class="btn btn-dark">Sign in with <img width="30" height="30" src="http://www.iconninja.com/files/276/245/316/alphabet-social-color-google-network-media-icon.svg"></button>
             </div>
         </div>
     </div>
