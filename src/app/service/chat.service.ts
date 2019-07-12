@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {BaseService} from "./base-service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {ChatComponent} from "../chat/chat.component";
 
 @Injectable({
   providedIn: 'root'
@@ -29,14 +30,23 @@ export class ChatService extends BaseService {
     const options = { headers: headers };
     return this.http.get<ChatItem[]>(`${this.apiUrl}/list/` + userId, options);
   }
+  sendMessage(msgText: string, chatId: number, senderId: number) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `${localStorage.getItem('accessToken')}`
+    });
+    const options = { headers: headers };
+    return this.http.post<Message>(this.apiUrl, new Message(null, msgText, senderId, new Date(), chatId), options);
+  }
 }
 
 export class Message {
-  id: number;
-  content: string;
-  sender: any;
-  creationDateTime: any;
-  chat: any;
+  constructor(
+    public id: number,
+    public content: string,
+    public sender: any,
+    public creationDateTime: any,
+    public chat: any) {}
 }
 
 export class ChatItem {

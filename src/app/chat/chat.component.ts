@@ -1,4 +1,14 @@
-import {AfterViewInit, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+  AfterContentChecked,
+  AfterViewChecked,
+  AfterViewInit,
+  Component, Directive, DoCheck,
+  HostListener,
+  Input, OnChanges,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import {ChatService, Message} from "../service/chat.service";
 import * as jwt_decode from 'jwt-decode';
 import {ActivatedRoute} from "@angular/router";
@@ -9,30 +19,13 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./chat.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ChatComponent implements OnInit {
-
+export class ChatComponent implements OnInit, AfterViewChecked{
   private chatId: number;
   private messages: Message[] = [];
-  private pageSize = 5;
+  private pageSize = 20;
   private page = 1;
-  private chatBody = '';
-
-  static generateMyMessage(content: string): string {
-    return (
-      '<div class="message-my">\n' +
-      '<div class="message-content">' + content + '</div>\n' +
-      '<div class="message-triangular"></div>\n' +
-      '</div>'
-    );
-  }
-  static generateTheirMessage(content: string): string {
-    return (
-      '<div class="message-their">\n' +
-      '<div class="message-content">' + content + '</div>\n' +
-      '<div class="message-triangular"></div>\n' +
-      '</div>'
-    );
-  }
+  private max = false;
+  private ready = false;
   constructor(
     private route: ActivatedRoute,
     private service: ChatService) {}
@@ -42,24 +35,39 @@ export class ChatComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.chatId = params.chatId;
     });
-    const body = document.getElementsByClassName('chat-container__body')[0];
-    this.service.getChatMessages(this.chatId, this.getCurrentPaginationSettings()).subscribe(msgs => {
+    const userId: number = this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub; // decode token
+    this.service.getChatMessages(this.chatId, this.getCurrentPaginationSettings()).toPromise().then(msgs => {
       msgs.forEach((msg) => {
+        msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
         this.messages.push(msg);
       });
-      this.printMessages();
-      body.scrollTop = body.scrollHeight;
     });
   }
-  printMessages() {
-    this.messages.forEach((msg) => {
-      const userId: number = this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub; // decode token
-      if (userId == msg.sender.id) {
-        this.chatBody += ChatComponent.generateMyMessage(msg.content);
-      } else {
-        this.chatBody += ChatComponent.generateTheirMessage(msg.content);
+  ngAfterViewChecked(): void {
+    console.log('init');
+    setTimeout(() => {
+      if (this.ready) {
+        console.log('called');
+        const body = document.getElementById('scrollMe');
+        body.scrollTop = body.scrollHeight;
+        this.ready = false;
       }
-    });
+    }, 200);
+  }
+
+  trackFunc(length, index, item) {
+    this.ready = ((this.pageSize - 1) === index);
+    return item;
+  }
+
+  sendMessage(msgText: string) {
+    if (msgText != null && msgText != '') {
+      const userId: number = this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub; // decode token
+      this.service.sendMessage(msgText, this.chatId, this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub).subscribe((msg) => {
+        msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
+        this.messages.push(msg);
+      });
+    }
   }
 
   getCurrentPaginationSettings(): string {
@@ -72,6 +80,24 @@ export class ChatComponent implements OnInit {
     } catch (Error) {
       return null;
     }
+  }
+  async onScroll(height, set) {
+    this.max = (this.messages.length % this.pageSize != 0);
+    if (!this.max) {
+      if (height == 0) {
+        this.page++;
+        const userId: number = this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub; // decode token
+        await this.service.getChatMessages(this.chatId, this.getCurrentPaginationSettings()).toPromise().then(msgs => {
+          msgs.forEach((msg) => {
+            msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
+            this.messages.unshift(msg);
+          });
+        }).then(() => {
+
+        });
+      }
+    }
+
   }
 
 }

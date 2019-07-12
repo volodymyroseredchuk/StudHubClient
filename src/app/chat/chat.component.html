@@ -2,7 +2,7 @@
 
 <div class="chat-container">
   <div class="chat-container__header">
-    <div class="chat-container__back-button">
+    <div class="chat-container__back-button" routerLink="/chatlist">
       <div class="chat-container__back-button-icon">
         <
       </div>
@@ -17,8 +17,13 @@
       <img class="chat-container__photo-img" src="https://avatars3.githubusercontent.com/u/24925918?s=460&v=4" alt="">
     </div>
   </div>
-  <div class="chat-container__body" [innerHTML]="chatBody | safeHtml">
-
+  <!--#scrollMe [scrollTop]="scrollMe.scrollHeight" -->
+  <div class="chat-container__body" id="scrollMe" #scrollMe (scroll)="onScroll(scrollMe.scrollTop, scrollMe.scrollHeight)">
+    <ng-container></ng-container>
+    <div *ngFor="let msg of messages; trackBy: trackFunc.bind(this, 20)" class="{{msg.sender}}">
+    <div class="message-content"> {{msg.content}} </div>
+    <div class="message-triangular"></div>
+    </div>
   </div>
 
   <div class="chat-container__footer">
@@ -29,9 +34,9 @@
       <input type="file" id="file" class="chat-container__hidden">
     </div>
     <div class="chat-container__input">
-      <textarea placeholder="Write a message..." cols="90" rows="3" class="chat-container__textarea" max-length="5000"></textarea>
+      <textarea #msgText (keydown.enter)="$event.preventDefault();sendMessage(msgText.value);msgText.value='';"  [value]="" placeholder="Write a message..." cols="90" rows="3" class="chat-container__textarea" max-length="5000"></textarea>
     </div>
-    <div class="chat-container__send">Send</div>
+    <div class="chat-container__send" (click)="sendMessage(msgText.value); msgText.value=''">Send</div>
   </div>
 </div>
 

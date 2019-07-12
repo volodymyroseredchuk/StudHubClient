@@ -64,6 +64,7 @@
   &:hover{
     background: #cc9b05;
     transition: all 0.5s;
+    cursor: pointer;
   }
 }
 
@@ -119,6 +120,7 @@
   height: 100%;
   align-items: center;
   &:hover{
+    cursor: pointer;
     background: #cc9b05;
     transition: all 0.5s;
   }
@@ -181,6 +183,7 @@
     transform: rotate(-135deg);
   }
 }
+
 
 .message-content{
   display: block;
