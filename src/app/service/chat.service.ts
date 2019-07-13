@@ -30,6 +30,14 @@ export class ChatService extends BaseService {
     const options = { headers: headers };
     return this.http.get<ChatItem[]>(`${this.apiUrl}/list/` + userId, options);
   }
+  getChatHeader(chatId: number, userId: number) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `${localStorage.getItem('accessToken')}`
+    });
+    const options = { headers: headers };
+    return this.http.get<ChatHeader>(`${this.apiUrl}/header/` + chatId + '/' + userId, options);
+  }
   sendMessage(msgText: string, chatId: number, senderId: number) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -54,4 +62,9 @@ export class ChatItem {
   photoUrl: string;
   username: string;
   lastMessageText: string;
+}
+
+export class ChatHeader {
+  name: string;
+  photoUrl: string;
 }

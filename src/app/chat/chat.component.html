@@ -11,10 +11,10 @@
       </span>
     </div>
     <div class="chat-container__name">
-      Andrew
+      {{receiver}}
     </div>
     <div class="chat-container__photo">
-      <img class="chat-container__photo-img" src="https://avatars3.githubusercontent.com/u/24925918?s=460&v=4" alt="">
+      <img class="chat-container__photo-img" src="{{this.photoUrl}}" alt="">
     </div>
   </div>
   <ng-container *ngIf="scrollUsed">
