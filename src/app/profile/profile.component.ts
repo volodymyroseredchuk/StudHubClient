@@ -72,7 +72,8 @@ export class ProfileComponent implements OnInit {
 
     this.answerService.getCountOfApprovedAnswersByUsername(user.username).subscribe(res => {
       this.approvedAnswersCount = res;
-      this.rating += res * 5;
+      alert(res);
+      this.rating = this.rating + res * 5;
     });
 
     this.voteService.getSumOfVotesByUsername(user.username).subscribe(res => {

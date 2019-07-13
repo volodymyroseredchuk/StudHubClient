@@ -50,9 +50,6 @@ export class AnswerService extends BaseService{
   }
 
   getCountOfAnswersByUsername(username: String) {
-    return this.http.get<number>(`${this.apiUrl}/answers/count/${username}`, {
-      headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
-    });
+    return this.http.get<number>(`${this.apiUrl}/answers/count/${username}`);
   }
-
 }
