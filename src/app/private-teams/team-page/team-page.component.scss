@@ -19,18 +19,6 @@ h2, h3, h4, pagination-controls {
     text-align: center;
 }
 
-.btnEditTeam{
-    position: absolute;
-    top: 0;
-    right: 4%;
-}
-
-.btnDeleteTeam{
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-
 .created {
     position:absolute;
     float: left;
@@ -89,8 +77,9 @@ mat-divider {
 }
 
 #btnsModify {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    position: absolute;
+    top:0;
+    right: 2%;
 }
 
 

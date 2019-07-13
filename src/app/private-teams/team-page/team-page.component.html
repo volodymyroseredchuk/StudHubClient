@@ -6,12 +6,18 @@
     {{ team.title }}
   </mat-card-title>
   <div *ngIf="this.user" id="btnsModify">
-    <button mat-icon-button class="btnEditTeam" *ngIf="canModifyTeam()" routerLink="/teams/{{team.id}}/edit">
-      <mat-icon>edit</mat-icon>
+    <button class="menu" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
+    *ngIf="canModifyTeam()">
+      <mat-icon>more_vert</mat-icon>
     </button>
-    <button mat-icon-button class="btnDeleteTeam" *ngIf="canModifyTeam()" (click)="deleteTeam()">
-      <mat-icon>delete</mat-icon>
-    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/teams/{{team.id}}/edit">
+        <span>Edit</span>
+      </button>
+      <button mat-menu-item (click)="deleteTeam()">
+        <span>Delete</span>
+      </button>
+    </mat-menu>
   </div>
   <hr>
   <button mat-icon-button id="btnMembers" routerLink="/teams/{{team.id}}/members">
