@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
   rating: number;
 
   constructor(private userService: UserService, private feedbackService: FeedbackService,
-    private questionService: QuestionService , private answerService: AnswerService,
+    private questionService: QuestionService, private answerService: AnswerService,
     private voteService: VoteService, private route: ActivatedRoute) {
   }
 
@@ -52,10 +52,10 @@ export class ProfileComponent implements OnInit {
     this.userService.getCurrentUser().subscribe(res => {
       this.currentUser = res;
     });
-    
+
   }
 
-  getUserFeedbacksAndQuestions(user:User){
+  getUserFeedbacksAndQuestions(user: User) {
     this.questionService.getAllQuestionsByUser(user.username).subscribe(res => {
       this.questions = res;
     });
@@ -64,12 +64,12 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  getUserStatistics(user: User){
+  getUserStatistics(user: User) {
     this.answerService.getCountOfAnswersByUsername(user.username).subscribe(res => {
       this.answersCount = res;
       this.rating = res * 5;
     });
-  
+
     this.answerService.getCountOfApprovedAnswersByUsername(user.username).subscribe(res => {
       this.approvedAnswersCount = res;
       this.rating += res * 5;

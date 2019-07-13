@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {Feedback} from "../../model/feedback.model";
-import {FeedbackService} from "../../service/feedback.service";
+import {Feedback} from '../../model/feedback.model';
+import {FeedbackService} from '../../service/feedback.service';
 
 @Component({
     selector: 'app-feedback-create',
@@ -29,7 +29,6 @@ export class FeedbackCreateComponent implements OnInit {
 
     ngOnInit() {
         this.feedbackCreateForm = this.formBuilder.group({
-            // title: ['', Validators.required],
             body: ['', Validators.required]
         });
     }

@@ -11,7 +11,5 @@ export class Feedback {
     teacher: Teacher;
     mark: number;
     rate: number;
-    // approved: boolean;
     vote: Vote;
-    // creationDate: Date;
 }
