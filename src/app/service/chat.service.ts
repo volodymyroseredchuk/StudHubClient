@@ -46,6 +46,14 @@ export class ChatService extends BaseService {
     const options = { headers: headers };
     return this.http.post<Message>(this.apiUrl, new Message(null, msgText, senderId, new Date(), chatId), options);
   }
+  createChat(creatorUserId: number, receiverUserId: number) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `${localStorage.getItem('accessToken')}`
+    });
+    const options = { headers: headers };
+    return this.http.get<number>(this.apiUrl + '/new/' + creatorUserId + '/' + receiverUserId, options);
+  }
 }
 
 export class Message {
