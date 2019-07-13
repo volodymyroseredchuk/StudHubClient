@@ -10,5 +10,6 @@ export class Task {
     deadlineDate: Date;
     expectedPrice: number;
     user: User;
+    status: string;
     tagList: Tag[];
 }
