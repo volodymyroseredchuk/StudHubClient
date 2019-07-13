@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user.model';
 import { UserService } from '../service/user.service';
-import { NgForm, FormControl } from '@angular/forms';
+import { NgForm, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { University } from '../model/university.model';
 import { UniversityService } from '../service/university.service';
@@ -25,14 +25,26 @@ export class EditProfileComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   myControl = new FormControl();
 
+  userForm = new FormGroup({
+    firstname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
+    lastname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
+    emailSub: new FormControl()
+  });
 
-  constructor(private userService: UserService, private universityService: UniversityService,
-    private router: Router) {
-  }
+  constructor(
+    private userService: UserService,
+    private universityService: UniversityService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(res => {
       this.user = res;
+      this.userForm.patchValue({
+        firstname: res.firstName,
+        lastname: res.lastName,
+        emailSub: res.emailSubscription
+      });
     });
 
     this.getUniversities();
@@ -42,15 +54,15 @@ export class EditProfileComponent implements OnInit {
     this.fileData = fileInput.target.files[0] as File;
   }
 
+  get f() { return this.userForm.controls; }
 
   onSubmit(f: NgForm) {
+    if (f.value.firstname.length < 3 || f.value.lastname.length < 3) {
+      return;
+    }
 
-    if (f.value.firstname !== '') {
-      this.user.firstName = f.value.firstname;
-    }
-    if (f.value.lastname !== '') {
-      this.user.lastName = f.value.lastname;
-    }
+    this.user.firstName = f.value.firstname;
+    this.user.lastName = f.value.lastname;
     this.user.emailSubscription = f.value.emailSub;
     if (this.selectedUniversity != undefined) {
       this.user.university = this.selectedUniversity;
