@@ -30,7 +30,7 @@
 
 
     <div class="answer-list" *ngIf="question?.answerList">
-        <mat-card class="answer-mat-card" *ngFor="let answer of question.answerList">
+        <mat-card class="answer-mat-card" *ngFor="let answer of question.answerList" >
 
             <mat-card-content class="answer-mat-card-content">
                 <div class="row">
@@ -117,7 +117,7 @@
             </app-comment>
         </mat-card>
 
-        <app-answer *ngIf="this.user" [questionId]="question.id" (newAnswerEvent)="recieveNewAnswer($event)">
+        <app-answer *ngIf="this.user" [questionId]="question.id" (newAnswerEvent)="recieveNewAnswer($event.target)">
         </app-answer>
 
     </div>

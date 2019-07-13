@@ -1,19 +1,15 @@
-<mat-card  class="answer-create-form">
-<form (ngSubmit)="onSubmit()" #userForm="ngForm" id="createAnswerForm">
+<mat-card class="answer-create-form">
+   <form (ngSubmit)="onSubmit()" #userForm="ngForm" id="createAnswerForm">
 
-     <!-- <mat-form-field class="tags-chip-list answer-card">
-        <mat-label>Your answer</mat-label>
-        <textarea [(ngModel)]="newAnswer.body" class="form-control" id="answer-body" 
-        name="body"  matInput  placeholder="Type your answer here" required></textarea>
-     </mat-form-field>    -->
-     <div>
-      <label>Your answer</label>      
-      <ckeditor [editor]="editor" data="Type Your answer here" [(ngModel)]="newAnswer.body"
-       id="answer-body" name="body">
-      </ckeditor>
-    </div> 
-     
-</form>
+      <div>
+         <label>Your answer</label>
+         <ckeditor [editor]="editor" data="Type Your answer here" [(ngModel)]="newAnswer.body" id="answer-body"
+            name="body">
+         </ckeditor>
+      </div>
+
+   </form>
 </mat-card>
-<button type="submit" mat-raised-button color="primary" [disabled]="!submitButtonEnabled" class="btn btn-success btn-submit" (click)="onSubmit()">Post answer</button>
+<button type="submit" mat-raised-button color="primary" [disabled]="!submitButtonEnabled"
+   class="btn btn-success btn-submit" (click)="onSubmit()">Post answer</button>
 <div id="emptyBox" style="width: 100%; height: 40px; "></div>

@@ -29,7 +29,8 @@ export class CommentComponent implements OnInit {
             .subscribe(result => {
                 this.commentEvent.emit(result);
                 this.newComment.body = "";
+                console.log(result);
             });
+            
     }
-
 }

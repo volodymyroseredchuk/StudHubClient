@@ -112,13 +112,14 @@ export class QuestionsPageComponent implements OnInit {
 
   //show comment editor on button click
   loadCreateComment() {
+    
     if(!this.user){
       if(window.confirm("Only registered users can comment. Wanna log in?")){
         this.router.navigate(["/signin"]);
       }else{
         this.getQuestion();
       }
-    }else{
+    }else{       
       this.loadCommentComponent = true;
     }
   }
@@ -129,6 +130,7 @@ export class QuestionsPageComponent implements OnInit {
       return answer.id = $event.answer.id;
     }).comment.push($event);
     this.loadCommentComponent = false;
+    this.getQuestion();
   }
 
   //Checking if User is comment creator. If no - he can not see "edit" & "delete" buttons.

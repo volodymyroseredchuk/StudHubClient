@@ -1,4 +1,5 @@
 <!-- main app container -->
+
 <div class="auth-form responsive_nav_bar">
     <div class="container">
         <div class="row">
@@ -31,12 +32,16 @@
                     </div>
 
                 </form>
-                <button style="margin-bottom: 10px" (click)="signinWithGoogle()" class="btn btn-dark">Sign in with <img
-                        width="30" height="30"
-                        src="http://www.iconninja.com/files/276/245/316/alphabet-social-color-google-network-media-icon.svg"></button>
-                <!-- <div (click)="signinWithFacebook()" class="fb-login-button" data-width="" data-size="medium" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="false"></div> -->
-                <button (click)="signinWithFacebook()">Login with Facebook</button>
+                <div layout="row" flex>
+                    <button style="margin-bottom: 5px" (click)="signinWithGoogle()" class="btn btn-dark">Sign in with
+                        <img width="30" height="30"
+                            src="http://www.iconninja.com/files/276/245/316/alphabet-social-color-google-network-media-icon.svg"></button>
+
+                    <button class="loginBtn loginBtn--facebook" (click)="signinWithFacebook()">
+                        Login with Facebook
+                    </button>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
