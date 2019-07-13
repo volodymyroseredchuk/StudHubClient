@@ -1,5 +1,5 @@
 <mat-card *ngIf="team" class="teamCard">
-  <div class="created" *ngIf="team.modifiedDate">
+  <div class="created">
     Created {{ team.creationDate | date: 'dd.MM.yyyy' }} by {{ team.user.username }}
   </div>
   <mat-card-title class="team-title">

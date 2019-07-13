@@ -88,7 +88,6 @@ export class TasksCreateComponent implements OnInit {
     console.log(this.task);
     this.taskService.createTask(this.task)
       .subscribe(result => {
-        alert("Task was successfully created");
         this.goToAllTasks();
       })  
   }

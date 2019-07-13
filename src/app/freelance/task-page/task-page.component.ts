@@ -19,7 +19,7 @@ export class TaskPageComponent implements OnInit {
   taskId: number;
   proposals: Proposal[] = [];
   proposalsTotalCount: number;
-  pageSize: number = 10;
+  pageSize: number = 5;
   page: number = 1;
   user: User;
 
@@ -109,7 +109,6 @@ export class TaskPageComponent implements OnInit {
     if (window.confirm("Do you really want to delete this task?")) {
       this.taskService.deleteTask(this.taskId)
         .subscribe(deleteMessage => {
-          alert(deleteMessage.message);
           /*TODO
           send deleteMessage.message to tasks component */
           this.router.navigate(["/tasks"])
@@ -125,7 +124,6 @@ export class TaskPageComponent implements OnInit {
     if (window.confirm("Do you really want to delete this proposal?")) {
       this.proposalService.deleteProposal(this.taskId, proposalId)
         .subscribe(deleteMessage => {
-          alert(deleteMessage.message);
           this.deleteProposalFromList(deleteMessage.message, proposalId);
           this.changePage(1);
       });

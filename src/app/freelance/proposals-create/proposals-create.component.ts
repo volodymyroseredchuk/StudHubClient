@@ -27,6 +27,7 @@ export class ProposalsCreateComponent implements OnInit {
     this.taskId = +this.route.snapshot.params.id;
 
     this.proposalCreateForm = this.formBuilder.group({
+      body: ['', Validators.required],
       executionTerm: ['', Validators.required],
       price: ['', Validators.required]
     })
@@ -49,7 +50,6 @@ export class ProposalsCreateComponent implements OnInit {
 
     this.proposalService.createProposal(this.taskId, this.proposal)
       .subscribe(result => {
-        alert("Proposal was created successfully");
         this.goToTask();
       })  
   }
