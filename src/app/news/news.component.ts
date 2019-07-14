@@ -27,13 +27,20 @@ export class NewsComponent implements OnInit {
   getAllNews() {
     this.service.getAllNews(this.getCurrentPaginationSettings())
       .subscribe(newsPaginatedDTO => {
-        this.newsList = newsPaginatedDTO.news;
+        console.log(newsPaginatedDTO);
+        this.newsList = newsPaginatedDTO.newsList;
         this.newsTotalCount = newsPaginatedDTO.newsTotalCount;
+        console.log(this.newsList);
       });
   }
 
-  getCurrentPaginationSettings() : string {
+  getCurrentPaginationSettings(): string {
     return "?page=" + (this.page - 1) + "&size=" + this.pageSize;
-}
+  }
+
+  changePage(currentPage: number) {
+    this.page = currentPage;
+    this.getAllNews();
+  }
 
 }

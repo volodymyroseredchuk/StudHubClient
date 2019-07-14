@@ -31,9 +31,9 @@
 
         </mat-card>
     </div>
-    <h3 *ngIf="newsList.length == 0">Sorry, news are not found</h3>
+    <h3 *ngIf="newsList?.length == 0">Sorry, news are not found</h3>
 
     <div id="pagination">
-        <pagination-controls *ngIf="newsList.length != 0" (pageChange)="changePage($event)"></pagination-controls>
+        <pagination-controls *ngIf="newsList?.length != 0" (pageChange)="changePage($event)"></pagination-controls>
     </div>
 </div>

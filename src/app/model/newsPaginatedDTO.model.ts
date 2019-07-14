@@ -1,6 +1,6 @@
 import { NewsForListDTO } from './newsForListDTO.model';
 
 export class NewsPaginatedDTO {
-    news: NewsForListDTO[];
+    newsList: NewsForListDTO[];
     newsTotalCount: number;
 }
