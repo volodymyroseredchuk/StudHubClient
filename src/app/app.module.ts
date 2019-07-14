@@ -29,6 +29,7 @@ import {
 } from 'angularx-social-login';
 import { provideConfig } from '../socialloginConfig';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { NewsModule } from './news/news.module';
 
 // @ts-ignore
 @NgModule({
@@ -48,6 +49,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     ReactiveFormsModule,
     FormsModule,
     QuestionsModule,
+    NewsModule,
     BrowserAnimationsModule,
     MaterialModule,
     AuthModule,

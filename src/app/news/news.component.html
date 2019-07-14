@@ -1,0 +1,39 @@
+<div class="responsive_nav_bar">
+    <h2>Recent News</h2>
+
+    <div id="sizeSelector">
+        <strong>Select how many news to show on a page &nbsp;</strong>
+        <mat-form-field>
+            <mat-label>Page size</mat-label>
+            <mat-select [(value)]="pageSize" (selectionChange)="changePage(1)">
+                <mat-option value=2 [disabled]="2 > newsTotalCount">2</mat-option>
+                <mat-option value=5 [disabled]="5 > newsTotalCount">5</mat-option>
+                <mat-option value=10 [disabled]="10 > newsTotalCount">10</mat-option>
+                <mat-option value=25 [disabled]="25 > newsTotalCount">25</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div id="newsList">
+
+        <mat-card class="newsCard"
+            *ngFor="let news of newsList | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: newsTotalCount}">
+
+            <mat-card-title>
+                <a [routerLink]="['/news', news.id]">
+                    {{news.title}}
+
+                </a> <br>
+                <h6>Asked:
+                    {{news.creationDate}}
+                </h6>
+            </mat-card-title>
+
+        </mat-card>
+    </div>
+    <h3 *ngIf="newsList.length == 0">Sorry, news are not found</h3>
+
+    <div id="pagination">
+        <pagination-controls *ngIf="newsList.length != 0" (pageChange)="changePage($event)"></pagination-controls>
+    </div>
+</div>
