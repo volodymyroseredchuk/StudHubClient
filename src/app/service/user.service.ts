@@ -19,12 +19,20 @@ export class UserService extends BaseService {
     return this.http.post(`${this.apiUrl}/signup`, user);
   }
 
+  receiveConfirmLink(user: User) {
+    return this.http.post(`${this.apiUrl}/signup/confirm`, user);
+  }
+
   confirmAccount(token: string) {
     return this.http.post<any>(`${this.apiUrl}/confirm-account`, {token});
   }
 
   forgotPassword(email: string) {
     return this.http.post<any>(`${this.apiUrl}/forgot-password`, {email});
+  }
+
+  receiveForgotPasswordLink(email: string) {
+    return this.http.post(`${this.apiUrl}/forgot-password/confirm`, {email});
   }
 
   resetPassword(password: string, confirmPassword: string, token: string) {
