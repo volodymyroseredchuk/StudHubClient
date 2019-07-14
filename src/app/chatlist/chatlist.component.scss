@@ -59,6 +59,11 @@
   font-size: 18px;
 }
 
+.chatlist-container__empty {
+  text-align: center;
+  color: #FF7F50;
+}
+
 
 @media all and (max-width: 960px){
   .chatlist-container{

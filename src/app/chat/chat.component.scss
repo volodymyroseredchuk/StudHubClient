@@ -208,6 +208,11 @@
   word-break: break-all;
 }
 
+chat-container__empty {
+  text-align: center;
+  color: #FF7F50;
+}
+
 @media all and (max-width: 960px){
   .chat-container{
     width: 100%;
