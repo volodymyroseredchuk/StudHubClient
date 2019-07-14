@@ -20,8 +20,8 @@
             *ngFor="let news of newsList | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: newsTotalCount}">
 
             <mat-card-title>
-                <a [routerLink]="['/news', news.id]">
-                    {{news.title}}
+                <a [routerLink]="['/news', news.id]" [innerHTML]="news.title">
+                    //{{news.title}}
 
                 </a> <br>
                 <h6>Asked:
