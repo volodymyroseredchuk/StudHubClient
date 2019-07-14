@@ -5,9 +5,10 @@ import { QuestionForListDTO } from '../model/questionForListDTO.model';
 import { Feedback } from '../model/feedback.model';
 import { FeedbackService } from '../service/feedback.service';
 import { QuestionService } from '../service/question.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AnswerService } from '../service/answer.service';
 import { VoteService } from '../service/vote.service';
+import { ChatService } from '../service/chat.service';
 
 
 @Component({
@@ -24,10 +25,16 @@ export class ProfileComponent implements OnInit {
   approvedAnswersCount: number;
   rating: number;
 
-  constructor(private userService: UserService, private feedbackService: FeedbackService,
-    private questionService: QuestionService, private answerService: AnswerService,
-    private voteService: VoteService, private route: ActivatedRoute) {
-  }
+  constructor(
+    private userService: UserService,
+    private feedbackService: FeedbackService,
+    private questionService: QuestionService,
+    private answerService: AnswerService,
+    private voteService: VoteService,
+    private route: ActivatedRoute,
+    private chatService: ChatService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     var username: String;
@@ -72,7 +79,6 @@ export class ProfileComponent implements OnInit {
 
     this.answerService.getCountOfApprovedAnswersByUsername(user.username).subscribe(res => {
       this.approvedAnswersCount = res;
-      alert(res);
       this.rating = this.rating + res * 5;
     });
 
@@ -80,7 +86,11 @@ export class ProfileComponent implements OnInit {
       this.rating += res;
     });
   }
+
+  sendMessage() {
+    this.chatService.createChat(this.currentUser.id, this.user.id).subscribe(
+      res => {
+        this.router.navigateByUrl('chat/' + res);
+      });
+  }
 }
-
-
-
