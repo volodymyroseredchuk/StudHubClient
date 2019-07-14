@@ -45,7 +45,6 @@
 }
 .progress-bar {
   height: 25px;
-  padding: 0.1em;
   border-radius: 16px;
   text-align: center;
   color: #fff;
@@ -118,4 +117,10 @@
   top: 60px;
   left: 0;
   right: 0;
+}
+
+.message {
+  text-align: center;
+  color: #4b4fe2;
+  padding: 20px;
 }

@@ -33,11 +33,6 @@ export class UserService extends BaseService {
   }
 
   getForeignUser(username: String) {
-    if (localStorage.getItem('accessToken') != null) {
-      return this.http.get<any>(`${this.apiUrl}/profile/${username}`, {
-        headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
-      });
-    }
     return this.http.get<any>(`${this.apiUrl}/profile/${username}`);
   }
 

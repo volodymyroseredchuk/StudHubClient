@@ -69,7 +69,7 @@
             </mat-card-title>
 
           </mat-card>
-          <h3 *ngIf="questions?.length == 0">No questions.</h3>
+          <h2 *ngIf="questions?.length == 0" class="message">No questions.</h2>
 
         </div>
 
@@ -92,12 +92,11 @@
 
 
           </mat-card>
-          <h3 *ngIf="feedbacks?.length == 0">No feedbacks.</h3>
+          <h2 *ngIf="feedbacks?.length == 0" class="message" style="text-align: right;">No feedbacks.</h2>
 
         </div>
       </mat-tab>
     </mat-tab-group>
-
 
   </div>
 </div>
