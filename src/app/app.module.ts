@@ -29,6 +29,10 @@ import {
 } from 'angularx-social-login';
 import { provideConfig } from '../socialloginConfig';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { ChatComponent } from './chat/chat.component';
+import { ChatlistComponent } from './chatlist/chatlist.component';
+import { SafeHtmlPipe } from './safe-html.pipe';
+
 
 // @ts-ignore
 @NgModule({
@@ -39,6 +43,9 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     FooterComponent,
     ProfileComponent,
     EditProfileComponent,
+    ChatComponent,
+    ChatlistComponent,
+    SafeHtmlPipe,
   ],
   imports: [
     BrowserModule,
