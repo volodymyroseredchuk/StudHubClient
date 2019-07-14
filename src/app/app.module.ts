@@ -31,6 +31,7 @@ import { provideConfig } from '../socialloginConfig';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NewsModule } from './news/news.module';
 import { NewsComponent } from './news/news.component';
+import { NewsPageComponent } from './news/news-page/news-page.component';
 
 // @ts-ignore
 @NgModule({
@@ -63,7 +64,7 @@ import { NewsComponent } from './news/news.component';
 
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-     QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent, NewsComponent,
+     QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent, NewsComponent,NewsPageComponent,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
