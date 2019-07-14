@@ -2,10 +2,10 @@ import { Component, Input } from '@angular/core';
 
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import {UniversitiesComponent} from "../universities.component";
+import {University} from '../../model/university.model';
+import {UniversityService} from '../../service/university.service';
+import {UniversitiesComponent} from '../universities.component';
 
-import {University} from "../../model/university.model";
-import {UniversityService} from "../../service/university.service";
 
 
 
@@ -21,7 +21,6 @@ export class UniversitiesPageComponent{
 
   constructor(private universityService: UniversityService, private tlist: UniversitiesComponent, private route: ActivatedRoute,
               private router: Router){
-    
   }
 
   ngOnInit() {
@@ -34,7 +33,4 @@ export class UniversitiesPageComponent{
     this.universityService.showUniversityPage(id)
       .subscribe(university => this.university = this.university);
   }
-
-  
-
 }

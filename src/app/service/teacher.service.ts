@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
 
-import { BaseService } from './base-service';
-import { HttpClient } from '@angular/common/http';
-import {Teacher} from "../model/teacher.model";
+import {BaseService} from './base-service';
+import {HttpClient} from '@angular/common/http';
+import {Teacher} from '../model/teacher.model';
+import {TeacherPaginatedDTO} from '../model/teacherPaginatedDTO.model';
+import {TeacherForListDTO} from '../model/teacherForListDTO.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +17,20 @@ export class TeacherService extends BaseService {
     this.apiUrl += '/teachers';
   }
 
-  newTeacher(teacher: Teacher): Observable<Teacher> {
-    return this.http.post<Teacher>(`${this.apiUrl}/create`, teacher);
+  getAllTeachers(paginationSettings: string): Observable<TeacherPaginatedDTO> {
+    return this.http.get<TeacherPaginatedDTO>(`${this.apiUrl}` + paginationSettings);
   }
 
-  findAllTeacher(): Observable<Teacher[]> {
-    return this.http.get<Teacher[]>(`${this.apiUrl}`);
+  newTeacher(teacher: Teacher): Observable<Teacher> {
+    return this.http.post<Teacher>(`${this.apiUrl}/teacher`, teacher);
+  }
+
+  searchTeachersByLastName(searchPattern: string, paginationSettings: string): Observable<TeacherPaginatedDTO> {
+    return this.http.get<TeacherPaginatedDTO>(`${this.apiUrl}/teachersByLastName/` + searchPattern + paginationSettings);
+  }
+
+  findAllTeacher(): Observable<TeacherForListDTO[]> {
+    return this.http.get<TeacherForListDTO[]>(`${this.apiUrl}`);
   }
 
   updateOneTeacher(teacherId: number , teacher: Teacher): Observable<Teacher> {

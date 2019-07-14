@@ -10,7 +10,7 @@ const routes: Routes = [
     component: TeachersComponent
   },
   {
-    path: 'teachers/create',
+    path: 'teachers/teacher',
     component: TeachersCreateComponent
   },
 

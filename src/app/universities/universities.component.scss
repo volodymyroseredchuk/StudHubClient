@@ -2,9 +2,16 @@ h2, h3, h4, pagination-controls {
   text-align: center;
 }
 
-mat-card {
-  margin: 5px;
+.image-container {
+  position: relative;
+  width: 500px;
+  margin: auto;
 }
+
+mat-card {
+  margin: auto;
+}
+
 .questionCard {
   background-color: #ffefe5;
   width: 70%;
@@ -12,6 +19,7 @@ mat-card {
   margin-left: auto;
   opacity: 0.8;
 }
+
 .userCard {
   width: auto;
   margin-right: 10px;
@@ -22,36 +30,36 @@ mat-card {
   width: 100%;
 }
 
-#searchTeachersDiv {
-  width: 60%;
-  margin-left: auto;
+#searchUniversityDiv {
+  width: 95%;
   margin-right: auto;
+  margin-left: auto;
+  //display: flex;
 }
+
+#btnSearch {
+  width: auto;
+  margin-left: auto;
+  display: flex;
+}
+
 #teachersList {
   margin-top: 20px;
 }
+
 #card-container {
-  /*  not needed styles to reflect it */
-  background: blue;
-  padding: 10px;
-  color: white;
-  /* needed styles below */
+  width: 500px;
+  margin: auto;
+  background: #fff;
   display: flex;
   justify-content: space-between;
-  width: 500px;
 }
 
-#btnTagSearch {
-  margin-left: 30%;
-}
 
 #btnKeywordSearch {
   margin-right: 20%;
 }
 
-#btnCreate {
-  margin-left: 5%;
-}
 
 #btnRefresh {
   margin-right: 0px;

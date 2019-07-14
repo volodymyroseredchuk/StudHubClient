@@ -1,5 +1,5 @@
 <div class="responsive_nav_bar">
-  <button mat-raised-button color="warn" routerLink="/teachers/create">Create Teacher</button>
+  <button mat-raised-button color="primary" routerLink="/teachers/teacher">Create Teacher</button>
 
 
   <h2>Teachers</h2>
@@ -8,7 +8,7 @@
       <mat-chip-list #chipList aria-label="Keywords selection">
         <mat-chip *ngFor="let keyword of keywords" [selectable]="selectable"
                   [removable]="removable" (removed)="removeKeyword(keyword)">
-          {{keyword.name}}
+           {{keyword.lastName}}
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
         <input placeholder="Name"
@@ -19,8 +19,21 @@
       </mat-chip-list>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" id="btnTagSearch" (click)="searchByTags()">Search teacher</button>
+    <button mat-raised-button color="primary" id="btnTagSearch" (click)="searchByLastName()">Search teacher</button>
 
+  </div>
+
+  <div id="sizeSelector">
+    Select how many teachers to show on a page &nbsp;
+    <mat-form-field>
+      <mat-label>Page size</mat-label>
+      <mat-select [(value)]="pageSize" (selectionChange)="ngOnInit()">
+        <mat-option value=2 [disabled]="2 > teachersTotalCount">2</mat-option>
+        <mat-option value=5 [disabled]="5 > teachersTotalCount">5</mat-option>
+        <mat-option value=10 [disabled]="10 > teachersTotalCount">10</mat-option>
+        <mat-option value=25 [disabled]="25 > teachersTotalCount">25</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
 
@@ -33,12 +46,9 @@
           {{teacher.firstName}}    {{teacher.lastName}}
         </a> <br>
         <div class="">
-          <img class="image rounded mb-0" src="../../assets/images/teacher.jpg">
+          <img class="image-container" src="{{teacher.imageUrl}}" style="width: 50%">
         </div>
-
-        <h6 style="color:#bdc9ea">
-          {{teacher.creationDate}}
-        </h6>
+          <div class="">
         <h6 style="color:#bdc9ea">Univesity: {{teacher.university.name}}</h6>
         <h6 style="color:#bdc9ea">
           Mark:
@@ -49,6 +59,7 @@
             Feedback
           </button>
         </mat-card-title>
+          </div>
       </mat-card-title>
 
 

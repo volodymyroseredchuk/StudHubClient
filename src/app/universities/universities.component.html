@@ -1,63 +1,65 @@
 <div class="responsive_nav_bar">
-  <button mat-raised-button color="warn" routerLink="/universities/create">Create Universities</button>
 
+    <h2>Universities</h2>
+    <div id="searchUniversityDiv">
+        <div >
+            <mat-form-field class="keywords-chip-list">
+                <mat-chip-list #chipList aria-label="Keywords selection">
+                    <mat-chip *ngFor="let keyword of keywords" [selectable]="selectable"
+                              [removable]="removable" (removed)="removeKeyword(keyword)">
+                        {{keyword.name}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="Name"
+                           [matChipInputFor]="chipList"
+                           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                           [matChipInputAddOnBlur]="addOnBlur"
+                           (matChipInputTokenEnd)="addKeyword($event)">
+                </mat-chip-list>
 
-  <h2>Teachers</h2>
-  <div id="searchTeachersDiv">
-    <mat-form-field class="keywords-chip-list">
-      <mat-chip-list #chipList aria-label="Keywords selection">
-        <mat-chip *ngFor="let keyword of keywords" [selectable]="selectable"
-                  [removable]="removable" (removed)="removeKeyword(keyword)">
-          {{keyword.name}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-        <input placeholder="Name"
-               [matChipInputFor]="chipList"
-               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-               [matChipInputAddOnBlur]="addOnBlur"
-               (matChipInputTokenEnd)="addKeyword($event)">
-      </mat-chip-list>
-    </mat-form-field>
-
-    <button mat-raised-button color="primary" id="btnTagSearch" (click)="searchByName()">Search teacher</button>
-
-  </div>
-
-
-
-  <div id="teachersList">
-    <mat-card class="card-container" *ngFor="let university of universities">
-
-      <mat-card-title>
-        <a [routerLink]="['/universities', university.id]">
-          {{university.name}}
-        </a> <br>
-        <div class="">
-          <img class="image rounded mb-0" src="../../assets/images/university.jpg">
+            </mat-form-field>
         </div>
+        <button mat-raised-button color="primary" id="btnSearch" (click)="searchByName()">Search University</button>
+    </div>
 
-        <h6 style="color:#bdc9ea">
-          {{university.creationDate}}
-        </h6>
-        <h6 style="color:#bdc9ea">City: {{university.city}}</h6>
-        <h6 style="color:#bdc9ea">
-          Mark:
-          {{university.mark}}
-        </h6>
-        <mat-card-title>
-          <button mat-raised-button color="primary" style="margin-right:50px;" routerLink="/universities/feedback">
-            Feedback
-          </button>
-        </mat-card-title>
-      </mat-card-title>
+    <div id="teachersList">
+        <mat-card class="card-container" *ngFor="let university of universities">
+
+            <mat-card-title>
+                <a [routerLink]="['/universities', university.id]">
+                    {{university.name}}
+                </a>
+                <h5 style="color:#4681ea">City: {{university.city}}</h5>
+                <div class="">
+                    <img class="image-container" src="{{university.imageUrl}}" style="width: 100%">
+                </div>
+                <h6></h6>
+                <h6 style="color:#4681ea">
+                    Mark:
+                    {{university.mark}}
+                </h6>
+                <h6></h6>
+                <mat-card-title>
+                    <button mat-raised-button color="primary" style="margin-right:50px;"
+                            routerLink="/universities/mark">
+                        Rate the university
+                    </button>
+                    <button mat-raised-button color="primary" style="margin-right:50px;"
+                            routerLink="/universities/:id">
+                        <!--<button mat-raised-button color="primary" id="btnKeywordSearch" (click)="searchByKeywords()">Search by keywords</button>-->
+
+                        View feedbacks
+                    </button>
+                </mat-card-title>
+            </mat-card-title>
 
 
-    </mat-card>
-  </div>
-  <h3 *ngIf="universities.length == 0">Sorry, universities are not found</h3>
+        </mat-card>
+    </div>
+    <h3 *ngIf="universities.length == 0">Sorry, universities are not found</h3>
 
-  <div id="pagination">
+    <div id="pagination">
 
-    <pagination-controls *ngIf="universities.length != 0" (pageChange)="($event)"></pagination-controls>
-  </div>
+        <pagination-controls *ngIf="universities.length != 0" (pageChange)="($event)"></pagination-controls>
+    </div>
 </div>

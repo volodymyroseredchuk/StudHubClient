@@ -1,11 +1,9 @@
-import { Component, Input } from '@angular/core';
+import {Component} from '@angular/core';
 
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
-import {TeachersComponent} from "../teachers.component";
-import {TeacherService} from "../../service/teacher.service";
-import {Teacher} from "../../model/teacher.model";
-
+import {ActivatedRoute, Router} from '@angular/router';
+import {Teacher} from 'src/app/model/teacher.model';
+import {TeacherService} from '../../service/teacher.service';
+import {TeachersComponent} from '../teachers.component';
 
 
 @Component({
@@ -14,13 +12,10 @@ import {Teacher} from "../../model/teacher.model";
     styleUrls: ['./teachers-page.component.scss']
   })
 export class TeachersPageComponent{
-  
-  
    teacher: Teacher;
 
   constructor(private teacherService: TeacherService, private tlist: TeachersComponent, private route: ActivatedRoute,
     private router: Router){
-    
   }
 
   ngOnInit() {
@@ -29,11 +24,8 @@ export class TeachersPageComponent{
 
   getTeacher() {
 
-    let id = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.teacherService.showTeacherPage(id)
+    let teacherId = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.teacherService.showTeacherPage(teacherId)
       .subscribe(teacher => this.teacher = this.teacher);
   }
-
-  
-
 }
