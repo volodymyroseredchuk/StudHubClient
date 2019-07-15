@@ -1,11 +1,13 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BaseService} from './base-service';
-import {User} from '../model/user.model';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BaseService } from './base-service';
+import { User } from '../model/user.model';
 import { Observable } from 'rxjs';
 import { FreelancerDTO } from '../model/freelancerDTO.model';
+import { CustomerDTO } from '../model/customerDTO.model';
 
-@Injectable({providedIn: 'root'})
+
+@Injectable({ providedIn: 'root' })
 export class UserService extends BaseService {
 
   constructor(protected http: HttpClient) {
@@ -25,25 +27,41 @@ export class UserService extends BaseService {
   }
 
   confirmAccount(token: string) {
-    return this.http.post<any>(`${this.apiUrl}/confirm-account`, {token});
+    return this.http.post<any>(`${this.apiUrl}/confirm-account`, { token });
   }
 
   forgotPassword(email: string) {
-    return this.http.post<any>(`${this.apiUrl}/forgot-password`, {email});
+    return this.http.post<any>(`${this.apiUrl}/forgot-password`, { email });
   }
 
   receiveForgotPasswordLink(email: string) {
-    return this.http.post(`${this.apiUrl}/forgot-password/confirm`, {email});
+    return this.http.post(`${this.apiUrl}/forgot-password/confirm`, { email });
   }
 
-  rateFreelancer(freelancerDTO: FreelancerDTO): Observable<FreelancerDTO> {
-    return this.http.post<FreelancerDTO>(`${this.apiUrl}/rating/freelancer`, freelancerDTO, {
-      headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
+  rateFreelancer(freelancerDTO: FreelancerDTO, id: number): Observable<FreelancerDTO> {
+
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `${localStorage.getItem('accessToken')}`
     });
+    let options = { headers: headers };
+
+    return this.http.post<FreelancerDTO>(`${this.apiUrl}/orders/${id}/feedback/freelancer`, freelancerDTO, options);
+  }
+
+  rateCustomer(customerDTO: CustomerDTO, id: number): Observable<CustomerDTO> {
+
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `${localStorage.getItem('accessToken')}`
+    });
+    let options = { headers: headers };
+
+    return this.http.post<CustomerDTO>(`${this.apiUrl}/orders/${id}/feedback/customer`, customerDTO, options);
   }
 
   resetPassword(password: string, confirmPassword: string, token: string) {
-    return this.http.post<any>(`${this.apiUrl}/reset-password`, {password, confirmPassword, token});
+    return this.http.post<any>(`${this.apiUrl}/reset-password`, { password, confirmPassword, token });
   }
 
   getUser() {

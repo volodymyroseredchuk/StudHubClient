@@ -104,7 +104,7 @@
     </mat-card>
   </div>
   <div class="rating">
-    <form [formGroup]="form" (submit)="onSubmit()">
+    <form [formGroup]="form" (submit)="onSubmit()" >
       <p class="rating-right">Quality: &nbsp;&nbsp;&nbsp;<star-rating-control [(ngModel)]="freelancer.quality" class="star-right" [rating]="rating" formControlName="quality"></star-rating-control></p>
       
       <p class="rating-right">Price: &nbsp; &nbsp; &nbsp; &nbsp; <star-rating-control [(ngModel)]="freelancer.price" class="star-right" [rating]="rating" formControlName="price"></star-rating-control></p>

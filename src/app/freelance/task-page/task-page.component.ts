@@ -10,6 +10,7 @@ import { Location } from '@angular/common';
 import { FormGroup, FormControl } from '@angular/forms';
 import { FreelancerDTO } from 'src/app/model/freelancerDTO.model';
 import { AlertService } from 'src/app/service/alert.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-task-page',
@@ -32,7 +33,7 @@ export class TaskPageComponent implements OnInit {
     velocity: new FormControl(''),
     contact: new FormControl('')
   });
-  
+
   constructor(private taskService: TaskService,
     private route: ActivatedRoute,
     private router: Router,
@@ -50,14 +51,15 @@ export class TaskPageComponent implements OnInit {
   onSubmit() {
     console.log(this.freelancer);
 
-    if(!this.freelancer.quality || !this.freelancer.price || !this.freelancer.velocity 
-        || !this.freelancer.contact){
-          alert("Choose all critery");
-          return;
-        }
-    this.userService.rateFreelancer(this.freelancer).toPromise().then(res => {
-      console.log(res);
-    });
+    if (!this.freelancer.quality || !this.freelancer.price || !this.freelancer.velocity
+      || !this.freelancer.contact) {
+      alert("Choose all critery");
+      return;
+    }
+    this.userService.rateFreelancer(this.freelancer, this.taskId)
+      .subscribe(res => {
+        console.log(res);
+      })
   }
 
   changePage(currentPage: number) {
@@ -65,14 +67,17 @@ export class TaskPageComponent implements OnInit {
     this.getProposals();
   }
 
-  getCurrentPaginationSettings() : string {
-      return "?page=" + (this.page - 1) + "&size=" + this.pageSize;
+  getCurrentPaginationSettings(): string {
+    return "?page=" + (this.page - 1) + "&size=" + this.pageSize;
   }
 
   getTask() {
     this.taskService.getTask(this.taskId)
       .subscribe(task => {
         this.task = task;
+      },
+      err => {
+          this.router.navigate(["errorPage"]);
       })
   }
 
@@ -94,16 +99,16 @@ export class TaskPageComponent implements OnInit {
       })
   }
 
-  canDeleteProposal(proposal){
-    if(!this.user) { 
-      return false; 
+  canDeleteProposal(proposal) {
+    if (!this.user) {
+      return false;
     }
     let allowDelete = this.user.username === proposal.user.username;
     if (allowDelete) {
       return true;
     } else {
-      for(let role of this.user.roles) {
-        if(role.name.toUpperCase() === "ROLE_MODERATOR" || role.name.toUpperCase() === "ROLE_ADMIN") {
+      for (let role of this.user.roles) {
+        if (role.name.toUpperCase() === "ROLE_MODERATOR" || role.name.toUpperCase() === "ROLE_ADMIN") {
           return true;
         }
       }
@@ -112,15 +117,15 @@ export class TaskPageComponent implements OnInit {
   }
 
   canModifyTask() {
-    if(!this.user) { 
-      return false; 
+    if (!this.user) {
+      return false;
     }
     let allow = this.user.username === this.task.user.username;
     if (allow) {
       return true;
     } else {
-      for(let role of this.user.roles) {
-        if(role.name.toUpperCase() === "ROLE_MODERATOR" || role.name.toUpperCase() === "ROLE_ADMIN") {
+      for (let role of this.user.roles) {
+        if (role.name.toUpperCase() === "ROLE_MODERATOR" || role.name.toUpperCase() === "ROLE_ADMIN") {
           return true;
         }
       }
@@ -135,7 +140,7 @@ export class TaskPageComponent implements OnInit {
           /*TODO
           send deleteMessage.message to tasks component */
           this.router.navigate(["/tasks"])
-      })
+        })
     }
   }
 
@@ -149,7 +154,7 @@ export class TaskPageComponent implements OnInit {
         .subscribe(deleteMessage => {
           this.deleteProposalFromList(deleteMessage.message, proposalId);
           this.changePage(1);
-      });
+        });
     }
   }
 
