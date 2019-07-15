@@ -4,7 +4,7 @@
     <div class="image-container">
       <img src="../../assets/images/avatar.jpg" alt="Avatar" style="width: 100%">
       <div class="title">
-        <h1>{{user.firstName}} {{user.lastName}}</h1>
+        <h1>{{user?.firstName}} {{user?.lastName}}</h1>
       </div>
     </div>
 
@@ -12,66 +12,95 @@
     <mat-tab-group>
       <mat-tab label="Profile">
         <div class="main-container">
-          <h5 *ngIf="user.university != null"><i class="fas fa-university info"></i>{{user.university.name}}</h5>
-          <h5 *ngIf="user.university == null"><i class="fas fa-university info"></i>You are not learning</h5>
-          <h5><i class="fas fa-envelope info"></i>{{user.email}}</h5>
-          <h5><i class="fas fa-calendar-check info"></i>{{user.creationDate}}</h5>
-          <h5><i class="fas fa-user-tie info"></i>{{user.username}}</h5>
-          <a routerLink="/edit">
+          <h5 *ngIf="user?.university != null"><i class="fas fa-university info"></i>{{user?.university?.name}}</h5>
+          <h5 *ngIf="user?.university == null"><i class="fas fa-university info"></i>You are not learning</h5>
+          <h5><i class="fas fa-envelope info"></i>{{user?.email}}</h5>
+          <h5><i class="fas fa-calendar-check info"></i>{{user?.creationDate}}</h5>
+          <h5><i class="fas fa-user-tie info"></i>{{user?.username}}</h5>
+          <button *ngIf="user?.username !== currentUser?.username && currentUser !== undefined" mat-button class="edit-button" (click)="sendMessage()">Send message</button>
+          <a *ngIf="user?.username === currentUser?.username" routerLink="/edit">
             <button mat-button class="edit-button">Edit</button>
           </a>
           <br>
           <hr>
           <p>Rating</p>
           <div class="skill-bar">
-            <div class="progress-bar" style="width: 85%">556</div>
+            <div id="background">
+              {{rating}}/100
+            </div>
+            <div class="progress-bar" [ngStyle]="{width: rating + '%'}"></div>
           </div>
+          <br>
+          <div style="display:table;border-collapse:separate;border-spacing:10px 5px;">
+            <div style="display:table-row;">
+              <div class="circle-text">
+                <h2><strong>{{answersCount}}</strong></h2>
+                <p><small>Answers</small></p>
+              </div>
+              <div class="circle-text">
+                <h2><strong>{{questions?.length}}</strong></h2>
+                <p><small>Questions</small></p>
+              </div>
+              <div class="circle-text">
+                <h2><strong>{{feedbacks?.length}}</strong></h2>
+                <p><small>Feedbacks</small></p>
+              </div>
+              <div class="circle-text">
+                <h2><strong>120</strong></h2>
+                <p><small>Orders</small></p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </mat-tab>
-      <mat-tab label="My questions">
-        <div *ngIf="questions"style="overflow:scroll; height: 300px;">
+
+      <mat-tab label="Questions">
+        <div style="overflow-y:scroll; height: 300px;">
+
           <mat-card *ngFor="let question of questions">
 
             <mat-card-title>
               <a [routerLink]="['/questions', question.id]">
-                {{question.title}}
+                {{question?.title}}
 
               </a> <br>
               <h6>Creation date:
-                {{question.creationDate}}
+                {{question?.creationDate}}
               </h6>
             </mat-card-title>
 
           </mat-card>
-          <h3 *ngIf="questions.length == 0">You don't have questions</h3>
+          <h2 *ngIf="questions?.length == 0" class="message">No questions.</h2>
 
         </div>
 
       </mat-tab>
-      <mat-tab label="My feedbacks">
-        <div *ngIf="feedbacks" style="overflow:scroll; height: 300px;">
+
+      <mat-tab label="Feedbacks">
+        <div style="overflow-y:scroll; height: 300px;">
+
           <mat-card *ngFor="let feedback of feedbacks">
 
             <mat-card-title>
               <a [routerLink]="['/feedbacks', feedback.id]">
-                {{feedback.body}}
+                {{feedback?.body}}
               </a> <br>
               <h6>Rating:
-                {{feedback.rate}}
+                {{feedback?.rate}}
               </h6>
               <h6>Mark:
-                {{feedback.mark}}
+                {{feedback?.mark}}
               </h6>
             </mat-card-title>
 
 
           </mat-card>
-          <h3 *ngIf="feedbacks.length == 0">You don't have feedbacks</h3>
+          <h2 *ngIf="feedbacks?.length == 0" class="message" style="text-align: right;">No feedbacks.</h2>
 
         </div>
       </mat-tab>
     </mat-tab-group>
-
 
   </div>
 </div>

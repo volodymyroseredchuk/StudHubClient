@@ -32,6 +32,10 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NewsModule } from './news/news.module';
 import { NewsComponent } from './news/news.component';
 import { NewsPageComponent } from './news/news-page/news-page.component';
+import { ChatComponent } from './chat/chat.component';
+import { ChatlistComponent } from './chatlist/chatlist.component';
+import { SafeHtmlPipe } from './safe-html.pipe';
+
 
 // @ts-ignore
 @NgModule({
@@ -42,6 +46,9 @@ import { NewsPageComponent } from './news/news-page/news-page.component';
     FooterComponent,
     ProfileComponent,
     EditProfileComponent,
+    ChatComponent,
+    ChatlistComponent,
+    SafeHtmlPipe,
   ],
   imports: [
     BrowserModule,

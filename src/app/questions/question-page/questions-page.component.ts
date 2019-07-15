@@ -70,7 +70,7 @@ export class QuestionsPageComponent implements OnInit {
 
   //Currently logged in user
   getUser() {
-    this.userService.getUser().subscribe(
+    this.userService.getCurrentUser().subscribe(
       user => {
         this.user = user;
         this.getUserVotes();
@@ -88,8 +88,8 @@ export class QuestionsPageComponent implements OnInit {
     if (allowDelete) {
       return allowDelete;
     } else {
-      for (let role of this.user.roles) {
-        if (role.name.toUpperCase() === "ROLE_MODERATOR" || role.name.toUpperCase() === "ROLE_ADMIN") {
+      for (let privilege of this.user.privileges) {
+        if (privilege.name.toUpperCase() === "QUESTION_DELETE_ANY_PRIVILEGE" ) {
           return true;
         }
       }
@@ -172,8 +172,8 @@ export class QuestionsPageComponent implements OnInit {
     if (allowDelete) {
       return allowDelete;
     } else {
-      for (let role of this.user.roles) {
-        if (role.name.toUpperCase() === "ROLE_MODERATOR" || role.name.toUpperCase() === "ROLE_ADMIN") {
+      for (let privilege of this.user.privileges) {
+        if (privilege.name.toUpperCase() === "COMMENT_DELETE_ANY_PRIVILEGE" ) {
           return true;
         }
       }
@@ -219,8 +219,8 @@ export class QuestionsPageComponent implements OnInit {
       if (answer.approved) { return false; }
       return allowDelete;
     } else {
-      for (let role of this.user.roles) {
-        if (role.name.toUpperCase() === "ROLE_MODERATOR" || role.name.toUpperCase() === "ROLE_ADMIN") {
+      for (let privilege of this.user.privileges) {
+        if (privilege.name.toUpperCase() === "ANSWER_DELETE_ANY_PRIVILEGE" ) {
           return true;
         }
       }
