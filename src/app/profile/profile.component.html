@@ -19,6 +19,7 @@
           <h5><i class="fas fa-user-tie info"></i>{{user?.username}}</h5>
           <button *ngIf="user?.username !== currentUser?.username && currentUser !== undefined" mat-button class="edit-button" (click)="sendMessage()">Send message</button>
           <a *ngIf="user?.username === currentUser?.username" routerLink="/edit">
+
             <button mat-button class="edit-button">Edit</button>
           </a>
           <br>
@@ -92,7 +93,11 @@
 
 
           </mat-card>
+<<<<<<< HEAD
           <h2 *ngIf="feedbacks?.length == 0" class="message" style="text-align: right;">No feedbacks.</h2>
+=======
+          <h3 *ngIf="feedbacks?.length == 0">You don't have feedbacks</h3>
+>>>>>>> 1c96aaa5a65bf43ae7605e9968632497a5b2e974
 
         </div>
       </mat-tab>

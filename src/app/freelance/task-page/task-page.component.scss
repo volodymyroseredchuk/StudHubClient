@@ -1,0 +1,130 @@
+h2, h3, h4, pagination-controls {
+    text-align: center;
+}
+
+#btnCreate {
+    margin-top: 20px;
+}
+
+#pagination {
+    margin-top: 20px;
+}
+
+#sizeSelector {
+    margin-left: 5%;
+}
+
+.btn-danger{
+    position: absolute;
+    right: 2%;
+    bottom: 5%;
+}
+
+.pTerm{
+    font-size: 1em;
+    font-weight: 500;
+    background-color: rgba(58, 58, 165, 0.5);
+    color: white;
+    padding: 3px 10px;
+    position: absolute;
+    top: 15%;
+    right: 20%;
+    border-radius: 7px;
+}
+
+.pcreationDate{
+    position: absolute;
+    bottom: 1%;
+    right: 2%;
+}
+
+.body{
+    margin-top: 15px;
+    font-size: 1.2em;
+    font-weight: 400;
+}
+
+.pPrice{
+    font-size: 1em;
+    font-weight: 500;
+    background-color: rgb(61, 163, 61);
+    color: white;
+    padding: 3px 10px;
+    position: absolute;
+    top: 15%;
+    right: 10%;
+    border-radius: 7px;
+}
+
+.menu{
+    position: absolute;
+    top: 2%;
+    right: 2%;
+}
+
+mat-divider {
+    width: 90%;
+}
+
+.cardcont{
+    position: relative;
+    width: 80%;
+    margin-left: auto;
+    margin-top: 5%;
+    margin-right: auto;
+}
+
+.taskCard {
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,0.3);
+    margin-bottom: 20px;
+}
+
+.card-left{
+    display: inline-block;
+    width: 79%;
+    vertical-align: top;
+}
+
+.card-right{
+    display: inline-block;
+    margin-left: 1%;
+    width: 20%;
+}
+
+.tags{
+    margin-left: 3px;
+}
+
+.created {
+    position:absolute;
+    right: 2%;
+}
+
+.editButton{
+    color: green;
+}
+
+.proposal-list {
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.proposal-mat-card{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,0.3);
+}
+
+.proposal-mat-card-content{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    //background-color: #f9f3ef;
+}
+
+#btnsModify {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
