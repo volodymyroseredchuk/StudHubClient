@@ -1,11 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BaseService} from './base-service';
-import {User} from '../model/user.model';
-import {QuestionForListDTO} from '../model/questionForListDTO.model';
-import {Feedback} from "../model/feedback.model";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BaseService } from './base-service';
+import { User } from '../model/user.model';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class UserService extends BaseService {
 
   constructor(protected http: HttpClient) {
@@ -17,25 +15,29 @@ export class UserService extends BaseService {
   }
 
   confirmAccount(token: string) {
-    return this.http.post<any>(`${this.apiUrl}/confirm-account`, {token});
+    return this.http.post<any>(`${this.apiUrl}/confirm-account`, { token });
   }
 
   forgotPassword(email: string) {
-    return this.http.post<any>(`${this.apiUrl}/forgot-password`, {email});
+    return this.http.post<any>(`${this.apiUrl}/forgot-password`, { email });
   }
 
   resetPassword(password: string, confirmPassword: string, token: string) {
-    return this.http.post<any>(`${this.apiUrl}/reset-password`, {password, confirmPassword, token});
+    return this.http.post<any>(`${this.apiUrl}/reset-password`, { password, confirmPassword, token });
   }
 
-  getUser() {
-    return this.http.get<User>(`${this.apiUrl}/profile/my`, {
+  getCurrentUser() {
+    return this.http.get<User>(`${this.apiUrl}/profile/current`, {
       headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
     });
   }
 
+  getForeignUser(username: String) {
+    return this.http.get<any>(`${this.apiUrl}/profile/${username}`);
+  }
+
   updateUser(user: User) {
-    return this.http.post<any>(`${this.apiUrl}/profile/update`, user, {
+    return this.http.post<User>(`${this.apiUrl}/profile/update`, user, {
       headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
     });
   }

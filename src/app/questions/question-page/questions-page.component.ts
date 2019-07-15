@@ -60,7 +60,7 @@ export class QuestionsPageComponent implements OnInit {
 
   //Currently logged in user
   getUser() {
-    this.userService.getUser().subscribe(
+    this.userService.getCurrentUser().subscribe(
       user => {
         this.user = user;
         this.getUserVotes();
