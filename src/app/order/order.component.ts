@@ -6,6 +6,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ResultSubmission } from '../model/result-submission.model';
 import { UserService } from '../service/user.service';
 import { User } from '../model/user.model';
+import { ChatService } from '../service/chat.service';
 
 @Component({
   selector: 'app-order',
@@ -22,10 +23,11 @@ export class OrderComponent implements OnInit {
 
   user: User;
   fileToUpload: File = null;
+  chatId: number;
 
   constructor(private orderService:OrderService, private route: ActivatedRoute,
      private router: Router, private fb: FormBuilder, private cd: ChangeDetectorRef,
-     private userService: UserService) { }
+     private userService: UserService, private chatService: ChatService) { }
 
   ngOnInit() {
     this.getOrder()
@@ -36,6 +38,16 @@ export class OrderComponent implements OnInit {
     this.orderService.getOrder(id).subscribe(
       order => {
         this.order = order;
+        this.chatService.createChat(this.order.task.user.id,this.order.proposal.user.id)
+          .subscribe(
+            chatId => {
+              console.log(chatId)
+              this.chatId = chatId
+              console.log(chatId)
+            } 
+
+          )
+
       },
       error => {
         alert(error);
@@ -78,8 +90,13 @@ export class OrderComponent implements OnInit {
   }
 
   submitResult(){
+    console.log(this.fileToUpload)
     this.orderService.submitResult(this.fileToUpload, this.order.id).subscribe(
-      resultSubmission => {this.order.resultSubmission = resultSubmission}
+      resultSubmission => {
+        this.order.resultSubmission = resultSubmission
+        this.order.task.status = "DONE"      
+      }
+
     )
   }
 
