@@ -64,14 +64,18 @@ export class UserService extends BaseService {
     return this.http.post<any>(`${this.apiUrl}/reset-password`, { password, confirmPassword, token });
   }
 
-  getUser() {
-    return this.http.get<User>(`${this.apiUrl}/profile/my`, {
+  getCurrentUser() {
+    return this.http.get<User>(`${this.apiUrl}/profile/current`, {
       headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
     });
   }
 
+  getForeignUser(username: String) {
+    return this.http.get<any>(`${this.apiUrl}/profile/${username}`);
+  }
+
   updateUser(user: User) {
-    return this.http.post<any>(`${this.apiUrl}/profile/update`, user, {
+    return this.http.post<User>(`${this.apiUrl}/profile/update`, user, {
       headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
     });
   }

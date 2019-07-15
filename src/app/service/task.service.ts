@@ -28,7 +28,7 @@ export class TaskService extends BaseService {
 
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'Authorization': `${localStorage.getItem('refreshToken')}`
+            'Authorization': `${localStorage.getItem('accessToken')}`
         });
         let options = { headers: headers };
 
@@ -39,7 +39,7 @@ export class TaskService extends BaseService {
 
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'Authorization': `${localStorage.getItem('refreshToken')}`
+            'Authorization': `${localStorage.getItem('accessToken')}`
         });
         let options = { headers: headers };
 
@@ -50,7 +50,7 @@ export class TaskService extends BaseService {
 
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'Authorization': `${localStorage.getItem('refreshToken')}`
+            'Authorization': `${localStorage.getItem('accessToken')}`
         });
         let options = { headers: headers };
 

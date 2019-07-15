@@ -1,17 +1,11 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BaseService} from './base-service';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BaseService } from './base-service';
 import { Observable } from 'rxjs';
 import { Delete } from '../model/delete.model';
 import { ProposalPaginatedDTO } from '../model/proposalPaginatedDTO.model';
 import { Proposal } from '../model/proposal.model';
 
-const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': localStorage.getItem('accessToken')
-    })
-  }
 
 @Injectable({
     providedIn: 'root'
@@ -32,10 +26,24 @@ export class ProposalService extends BaseService {
     }
 
     createProposal(taskId: number, proposal: Proposal): Observable<Proposal> {
-        return this.http.post<Proposal>(`${this.apiUrl}/${taskId}/proposals/create`, proposal, httpOptions);
+
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `${localStorage.getItem('accessToken')}`
+        });
+        let options = { headers: headers };
+
+        return this.http.post<Proposal>(`${this.apiUrl}/${taskId}/proposals/create`, proposal, options);
     }
 
     deleteProposal(taskId: number, id: number): Observable<Delete> {
-        return this.http.delete<Delete>(`${this.apiUrl}/${taskId}/proposals/${id}`, httpOptions);
+
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `${localStorage.getItem('accessToken')}`
+        });
+        let options = { headers: headers };
+
+        return this.http.delete<Delete>(`${this.apiUrl}/${taskId}/proposals/${id}`, options);
     }
 }

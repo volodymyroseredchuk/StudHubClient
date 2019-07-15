@@ -66,7 +66,7 @@ export class MembersComponent implements OnInit {
   }
 
   getUser() {
-    this.userService.getUser().subscribe(
+    this.userService.getCurrentUser().subscribe(
       user => {
         this.user = user;
       }, err => {

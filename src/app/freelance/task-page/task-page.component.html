@@ -104,17 +104,34 @@
     </mat-card>
   </div>
   <div class="rating">
-    <form [formGroup]="form" (submit)="onSubmit()" >
-      <p class="rating-right">Quality: &nbsp;&nbsp;&nbsp;<star-rating-control [(ngModel)]="freelancer.quality" class="star-right" [rating]="rating" formControlName="quality"></star-rating-control></p>
+    <form [formGroup]="formFreelancer" (submit)="onSubmitFreelancer()" >
+      <p class="rating-right">Quality: &nbsp;&nbsp;&nbsp;<star-rating-control [(ngModel)]="freelancer.quality" class="star-right" formControlName="quality"></star-rating-control></p>
       
-      <p class="rating-right">Price: &nbsp; &nbsp; &nbsp; &nbsp; <star-rating-control [(ngModel)]="freelancer.price" class="star-right" [rating]="rating" formControlName="price"></star-rating-control></p>
+      <p class="rating-right">Price: &nbsp; &nbsp; &nbsp; &nbsp; <star-rating-control [(ngModel)]="freelancer.price" class="star-right" formControlName="price"></star-rating-control></p>
       
-      <p class="rating-right">Velocity: &nbsp;&nbsp;<star-rating-control [(ngModel)]="freelancer.velocity" class="star-right" [rating]="rating" formControlName="velocity"></star-rating-control></p>
+      <p class="rating-right">Velocity: &nbsp;&nbsp;<star-rating-control [(ngModel)]="freelancer.velocity" class="star-right" formControlName="velocity"></star-rating-control></p>
       
-      <p class="rating-right">Contact: &nbsp;&nbsp;<star-rating-control [(ngModel)]="freelancer.contact" class="star-right" [rating]="rating" formControlName="contact"></star-rating-control></p>
+      <p class="rating-right">Contact: &nbsp;&nbsp;<star-rating-control [(ngModel)]="freelancer.contact" class="star-right" formControlName="contact"></star-rating-control></p>
       
       <div>
-        <button class="btnRating" mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+        <button class="btnRating" mat-raised-button color="primary" type="submit" [disabled]="formFreelancer.invalid">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="rating">
+    <form [formGroup]="formCustomer" (submit)="onSubmitCustomer()" >
+      <p class="rating-right">Payment: &nbsp;&nbsp;&nbsp;<star-rating-control [(ngModel)]="customer.payment" class="star-right" formControlName="payment"></star-rating-control></p>
+      
+      <p class="rating-right">Formulation: &nbsp; &nbsp; &nbsp; &nbsp; <star-rating-control [(ngModel)]="customer.formulation" class="star-right" formControlName="formulation"></star-rating-control></p>
+      
+      <p class="rating-right">Clarity: &nbsp;&nbsp;<star-rating-control [(ngModel)]="customer.clarity" class="star-right" formControlName="clarity"></star-rating-control></p>
+      
+      <p class="rating-right">Contact: &nbsp;&nbsp;<star-rating-control [(ngModel)]="customer.contact" class="star-right"  formControlName="contact"></star-rating-control></p>
+      
+      <div>
+        <button class="btnRating" mat-raised-button color="primary" type="submit" [disabled]="formCustomer.invalid">
           Submit
         </button>
       </div>

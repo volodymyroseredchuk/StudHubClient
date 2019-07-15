@@ -32,15 +32,37 @@
 .skill-bar {
   background-color: #bdc9ea;
   border-radius: 16px;
+  text-align: center;
+  position: relative;
 }
-
+#background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+}
 .progress-bar {
-  padding: 0.1em;
+  height: 25px;
   border-radius: 16px;
   text-align: center;
   color: #fff;
   background-color: #4b4fe2;
 }
+
+.circle-text {
+  display:table-cell;
+  height: 100px;
+  width: 100px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 50%;
+  background: #4b4fe2;
+  color: #fff;
+  font: 18px "josefin sans", arial;
+  border-spacing: 25px 0px; 
+  }
 
 .title {
   position: absolute;
@@ -95,4 +117,10 @@
   top: 60px;
   left: 0;
   right: 0;
+}
+
+.message {
+  text-align: center;
+  color: #4b4fe2;
+  padding: 20px;
 }

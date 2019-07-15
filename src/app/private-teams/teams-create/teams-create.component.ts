@@ -55,7 +55,7 @@ export class TeamsCreateComponent implements OnInit {
   }
 
   async getUser() {
-    await this.userService.getUser().toPromise().then(user => this.user = user);
+    await this.userService.getCurrentUser().toPromise().then(user => this.user = user);
   }
   // convenience getter for easy access to form fields
   get f() { return this.teamCreateForm.controls; }

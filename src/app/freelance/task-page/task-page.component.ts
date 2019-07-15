@@ -11,6 +11,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { FreelancerDTO } from 'src/app/model/freelancerDTO.model';
 import { AlertService } from 'src/app/service/alert.service';
 import { first } from 'rxjs/operators';
+import { CustomerDTO } from 'src/app/model/customerDTO.model';
 
 @Component({
   selector: 'app-task-page',
@@ -21,16 +22,23 @@ export class TaskPageComponent implements OnInit {
 
   task: Task;
   freelancer: FreelancerDTO = new FreelancerDTO();
+  customer: CustomerDTO = new CustomerDTO();
   taskId: number;
   proposals: Proposal[] = [];
   proposalsTotalCount: number;
   pageSize: number = 5;
   page: number = 1;
   user: User;
-  form = new FormGroup({
+  formFreelancer = new FormGroup({
     quality: new FormControl(''),
     price: new FormControl(''),
     velocity: new FormControl(''),
+    contact: new FormControl('')
+  });
+  formCustomer = new FormGroup({
+    payment: new FormControl(''),
+    formulation: new FormControl(''),
+    clarity: new FormControl(''),
     contact: new FormControl('')
   });
 
@@ -48,7 +56,7 @@ export class TaskPageComponent implements OnInit {
     this.getProposals();
   }
 
-  onSubmit() {
+  onSubmitFreelancer() {
     console.log(this.freelancer);
 
     if (!this.freelancer.quality || !this.freelancer.price || !this.freelancer.velocity
@@ -56,7 +64,21 @@ export class TaskPageComponent implements OnInit {
       alert("Choose all critery");
       return;
     }
-    this.userService.rateFreelancer(this.freelancer, this.taskId)
+    this.userService.rateFreelancer(this.freelancer, 1)
+      .subscribe(res => {
+        console.log(res);
+      })
+  }
+
+  onSubmitCustomer() {
+    console.log(this.customer);
+
+    if (!this.customer.payment || !this.customer.formulation || !this.customer.clarity
+      || !this.customer.contact) {
+      alert("Choose all critery");
+      return;
+    }
+    this.userService.rateCustomer(this.customer, 1)
       .subscribe(res => {
         console.log(res);
       })
@@ -82,7 +104,7 @@ export class TaskPageComponent implements OnInit {
   }
 
   getUser() {
-    this.userService.getUser().subscribe(
+    this.userService.getCurrentUser().subscribe(
       user => {
         this.user = user;
       }, err => {
@@ -107,8 +129,8 @@ export class TaskPageComponent implements OnInit {
     if (allowDelete) {
       return true;
     } else {
-      for (let role of this.user.roles) {
-        if (role.name.toUpperCase() === "ROLE_MODERATOR" || role.name.toUpperCase() === "ROLE_ADMIN") {
+      for (let privilege of this.user.privileges) {
+        if (privilege.name.toUpperCase() === "PROPOSAL_DELETE_ANY_PRIVILEGE" ) {
           return true;
         }
       }
@@ -124,8 +146,8 @@ export class TaskPageComponent implements OnInit {
     if (allow) {
       return true;
     } else {
-      for (let role of this.user.roles) {
-        if (role.name.toUpperCase() === "ROLE_MODERATOR" || role.name.toUpperCase() === "ROLE_ADMIN") {
+      for (let privilege of this.user.privileges) {
+        if (privilege.name.toUpperCase() === "TASK_DELETE_ANY_PRIVILEGE" ) {
           return true;
         }
       }
