@@ -56,10 +56,11 @@ export class ProfileComponent implements OnInit {
         this.getUserStatistics(res);
       });
     }
-    this.userService.getCurrentUser().subscribe(res => {
-      this.currentUser = res;
-    });
-
+    if (localStorage.getItem('accessToken')) {
+      this.userService.getCurrentUser().subscribe(res => {
+        this.currentUser = res;
+      });
+    }
   }
 
   getUserFeedbacksAndQuestions(user: User) {
