@@ -15,8 +15,6 @@ import {UniversitiesComponent} from '../universities.component';
     styleUrls: ['./universities-page.component.scss']
   })
 export class UniversitiesPageComponent{
-  
-  
    university: University;
 
   constructor(private universityService: UniversityService, private tlist: UniversitiesComponent, private route: ActivatedRoute,

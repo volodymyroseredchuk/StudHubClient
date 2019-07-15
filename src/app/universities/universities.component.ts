@@ -4,8 +4,8 @@ import {Observable} from 'rxjs';
 
 import {FormControl} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
+import {UniversityService} from '../service/university.service';
 
-import {UniversityService} from "../service/university.service";
 
 
 @Component({
@@ -18,6 +18,7 @@ export class UniversitiesComponent implements OnInit {
   myControl = new FormControl();
   public universities = [];
   filtereduniversities: Observable<string[]>;
+
 
 
   constructor(private router: Router, private service: UniversityService, private activRouter: ActivatedRoute) {

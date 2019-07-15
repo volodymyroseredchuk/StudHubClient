@@ -22,7 +22,6 @@ export class TeachersComponent implements OnInit {
   // readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   myControl = new FormControl();
-  // public teachers = [];
   filteredTeachers: Observable<string[]>;
   keywordSearch = false;
   keywords: Teacher[] = [];
@@ -38,7 +37,7 @@ export class TeachersComponent implements OnInit {
   ngOnInit() {
 
     this.service.findAllTeacher().subscribe(data => this.teachers = data);
-    this.getAllTeachers();
+    // this.getAllTeachers();
 
   }
   getAllTeachers() {
@@ -75,7 +74,7 @@ export class TeachersComponent implements OnInit {
 
     // Add keyword
     if ((value || '').trim()) {
-      this.keywords.push({id: 0, lastName: value.trim(), imageUrl: null});
+      this.keywords.push({id: 0, lastName: value.trim(), firstName: null, imageUrl: null});
     }
 
     // Reset the input value
@@ -108,15 +107,9 @@ export class TeachersComponent implements OnInit {
     return '?page=' + (this.page - 1) + '&size=' + this.pageSize;
   }
 
-  // changePage(currentPage: number) {
-  //   this.page = currentPage;
-  //   if (this.tagSearch) {
-  //     this.getTaggedQuestions();
-  //   } else if (this.keywordSearch) {
-  //     this.getSearchedQuestions();
-  //   } else {
-  //     this.getAllQuestions();
-  //   }
-  // }
+  getTeacherById(teacherId: number){
+    this.router.navigate(['/{teacherId}']);
+  }
+
 
 }

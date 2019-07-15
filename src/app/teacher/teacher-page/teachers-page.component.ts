@@ -24,7 +24,7 @@ export class TeachersPageComponent{
 
   getTeacher() {
 
-    let teacherId = parseInt(this.route.snapshot.paramMap.get('id'));
+    let teacherId = parseInt(this.route.snapshot.paramMap.get('{teacherId}'));
     this.teacherService.showTeacherPage(teacherId)
       .subscribe(teacher => this.teacher = this.teacher);
   }

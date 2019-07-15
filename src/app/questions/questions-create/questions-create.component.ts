@@ -64,7 +64,7 @@ export class QuestionsCreateComponent implements OnInit {
   }
 
   goToAllQuestions() {
-    this.router.navigate(['/questions']);    
+    this.router.navigate(['/questions']);
   }
 
   onSubmit(){

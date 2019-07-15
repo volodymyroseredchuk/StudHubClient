@@ -55,9 +55,11 @@
           {{teacher.mark}}
         </h6>
         <mat-card-title>
-          <button mat-raised-button color="primary" style="margin-right:50px;" routerLink="/teachers/feedback">
-            Feedback
-          </button>
+          <button mat-raised-button color="primary" id="btnGetTeacherByIdSearch"
+                  (click)="getTeacherById()">View feedbacks</button>
+          <!--<button mat-raised-button color="primary" style="margin-right:50px;" routerLink="/{teacherId}">-->
+            <!--View feedbacks-->
+          <!--</button>-->
         </mat-card-title>
           </div>
       </mat-card-title>
@@ -65,7 +67,7 @@
 
     </mat-card>
   </div>
-  <h3 *ngIf="teachers.length == 0">Sorry, teachers are not found</h3>
+  <h3 *ngIf="teachers.length === 0">Sorry, teachers are not found</h3>
 
   <div id="pagination">
     <pagination-controls *ngIf="teachers.length != 0" (pageChange)="($event)"></pagination-controls>

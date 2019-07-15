@@ -4,7 +4,7 @@ export class Teacher {
   id: number;
   // creationDate: Date;
   // modifiedDate: Date;
-  // firstName: string;
+  firstName: string;
   lastName: string;
   imageUrl: ImageData;
   // university: University;
