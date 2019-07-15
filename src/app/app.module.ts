@@ -29,6 +29,9 @@ import { provideConfig } from '../socialloginConfig';
 import { FreelanceModule } from './freelance/freelance.module';
 import { PrivateTeamsModule } from './private-teams/private-teams.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { ChatComponent } from './chat/chat.component';
+import { ChatlistComponent } from './chatlist/chatlist.component';
+import { SafeHtmlPipe } from './safe-html.pipe';
 
 // @ts-ignore
 @NgModule({
@@ -38,7 +41,10 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     HeaderComponent,
     ProfileComponent,
     EditProfileComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    ChatComponent,
+    ChatlistComponent,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
