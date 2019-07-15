@@ -12,7 +12,7 @@ import { TasksCreateComponent } from './tasks-create/tasks-create.component';
 import { TaskPageComponent } from './task-page/task-page.component';
 import { TasksEditComponent } from './tasks-edit/tasks-edit.component';
 import { ProposalsCreateComponent } from './proposals-create/proposals-create.component';
-
+import {StarRatingModule} from 'angular-star-rating';
 
 @NgModule({
   declarations: [TasksComponent, TasksCreateComponent, TaskPageComponent, TasksEditComponent, ProposalsCreateComponent],
@@ -24,7 +24,8 @@ import { ProposalsCreateComponent } from './proposals-create/proposals-create.co
     ReactiveFormsModule,
     MatInputModule,
     MatAutocompleteModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    StarRatingModule.forRoot()
   ]
 })
 export class FreelanceModule { }

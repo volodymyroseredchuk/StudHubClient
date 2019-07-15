@@ -103,4 +103,21 @@
       </div>
     </mat-card>
   </div>
+  <div class="rating">
+    <form [formGroup]="form" (submit)="onSubmit()">
+      <p class="rating-right">Quality: &nbsp;&nbsp;&nbsp;<star-rating-control [(ngModel)]="freelancer.quality" class="star-right" [rating]="rating" formControlName="quality"></star-rating-control></p>
+      
+      <p class="rating-right">Price: &nbsp; &nbsp; &nbsp; &nbsp; <star-rating-control [(ngModel)]="freelancer.price" class="star-right" [rating]="rating" formControlName="price"></star-rating-control></p>
+      
+      <p class="rating-right">Velocity: &nbsp;&nbsp;<star-rating-control [(ngModel)]="freelancer.velocity" class="star-right" [rating]="rating" formControlName="velocity"></star-rating-control></p>
+      
+      <p class="rating-right">Contact: &nbsp;&nbsp;<star-rating-control [(ngModel)]="freelancer.contact" class="star-right" [rating]="rating" formControlName="contact"></star-rating-control></p>
+      
+      <div>
+        <button class="btnRating" mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

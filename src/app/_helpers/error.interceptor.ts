@@ -29,7 +29,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                         }).catch(error => {
                             console.log(error);
                             this.authenticationService.logout();
-                        }); 
+                        });
+                } else {
+                    this.authenticationService.logout();
                 }
             }
             const errorMessage = err.error.message;
