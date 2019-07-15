@@ -12,4 +12,5 @@ export class User {
     university: University;
     emailSubscription: boolean;
     roles: { name: string }[];
+    privileges: { name: string }[];
 }

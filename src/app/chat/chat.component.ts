@@ -8,6 +8,7 @@ import * as jwt_decode from 'jwt-decode';
 import {ActivatedRoute, Router} from "@angular/router";
 import {SocketService} from "../service/socket.service";
 import {HttpClient} from "@angular/common/http";
+import {AlertService} from "../service/alert.service";
 
 const DEFAULT_PHOTO_URL = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKqnsGDyoy2fmVfsQXo3twd6UoXqWn2eiJferMx_K3vF4rGW79';
 
@@ -31,6 +32,7 @@ export class ChatComponent implements OnInit {
   private connection;
   private gotMessagesCount = 0;
   constructor(
+    private alertService: AlertService,
     private route: ActivatedRoute,
     private service: ChatService,
     httpVar: HttpClient,
@@ -44,35 +46,49 @@ export class ChatComponent implements OnInit {
       this.chatId = params.chatId;
     });
     const userId: number = this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub; // decode token
-    this.service.getChatHeader(this.chatId, userId).subscribe((msgHeader) => {
+    this.service.getChatHeader(this.chatId, userId).subscribe(
+      (msgHeader) => {
       this.receiver = msgHeader.name;
       if (msgHeader.photoUrl === null || msgHeader.photoUrl === undefined) {
         this.photoUrl = DEFAULT_PHOTO_URL;
       } else {
         this.photoUrl = msgHeader.photoUrl;
       }
-    });
-    this.service.getChatMessages(this.chatId, this.getCurrentPaginationSettings()).toPromise().then(msgs => {
+    },
+      error => {
+        console.log(error);
+        this.alertService.error(error);
+      });
+    this.service.getChatMessages(this.chatId, this.getCurrentPaginationSettings()).toPromise().then(
+      msgs => {
       this.gotMessagesCount += msgs.length;
       msgs.forEach((msg) => {
         msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
         this.messages.push(msg);
       });
-    });
+      },
+      error => {
+        console.log(error);
+        this.alertService.error(error);
+      });
 
     this.onMessage();
   }
-
 
 
   sendMessage(msgText: string) {
     if (msgText != null && msgText != '') {
       const userId: number = this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub; // decode token
       this.service.sendMessage(msgText, this.chatId, this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub)
-        .subscribe((msg) => {
-        msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
-        this.messages.push(msg);
-      });
+        .subscribe(
+          (msg) => {
+            msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
+            this.messages.push(msg);
+          },
+          error => {
+            console.log(error);
+            this.alertService.error(error);
+          });
     }
   }
 
@@ -103,7 +119,11 @@ export class ChatComponent implements OnInit {
             msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
             this.messages.unshift(msg);
           });
-        }).then(() => {
+        },
+          error => {
+            console.log(error);
+            this.alertService.error(error);
+          }).then(() => {
           this.scrollUsed = true;
         });
       }
