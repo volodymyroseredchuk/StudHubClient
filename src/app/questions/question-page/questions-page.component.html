@@ -82,7 +82,7 @@
                             (click)="deleteAnswer(answer.id)">Delete</button>
                     </div>
                     <div>
-                        <button mat-button color="primary" (click)="loadCreateComment()">Comment</button>
+                        <button mat-button color="primary" (click)="loadCreateComment(answer.id)">Comment</button>
                     </div>
                 </div>
                 <div class="userCard col-md-5">
@@ -113,7 +113,7 @@
                     </div>
                 </mat-card>
             </div>
-            <app-comment *ngIf="loadCommentComponent" [answerId]="answer.id" (commentEvent)="recieveNewComment($event)">
+            <app-comment *ngIf="createCommentIsActive(answer.id)" [answerId]="answer.id" (commentEvent)="recieveNewComment($event)">
             </app-comment>
         </mat-card>
 

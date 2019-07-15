@@ -25,6 +25,10 @@ export class QuestionsPageComponent implements OnInit {
   answer: Answer = new Answer();
   comment: Comment = new Comment();
   loadCommentComponent: boolean = false;
+  loadCommentComponentMap: {
+    answerId:number;
+    isActive:boolean;
+  } [] = [];
 
   constructor(private questionService: QuestionService, private route: ActivatedRoute,
     private router: Router, private location: Location, private answerService: AnswerService,
@@ -42,6 +46,12 @@ export class QuestionsPageComponent implements OnInit {
     this.questionService.showQuestionPage(id)
       .subscribe(question => {
         this.question = question;
+        for(let i = 0; i <question.answerList.length; i++){
+          this.loadCommentComponentMap.push({
+            answerId: question.answerList[i].id,
+            isActive: false
+          })
+        }
         this.getUser();
       },
         error => {
@@ -111,16 +121,31 @@ export class QuestionsPageComponent implements OnInit {
   }
 
   //show comment editor on button click
-  loadCreateComment() {
+  loadCreateComment(answerId: number) {
     
     if(!this.user){
       if(window.confirm("Only registered users can comment. Wanna log in?")){
         this.router.navigate(["/signin"]);
       }else{
+      
+        // this.loadCommentComponent = true;
         this.getQuestion();
       }
-    }else{       
-      this.loadCommentComponent = true;
+    }else{
+      for(let i =0; i< this.loadCommentComponentMap.length; i++){
+        if(answerId == this.loadCommentComponentMap[i].answerId){
+          this.loadCommentComponentMap[i].isActive = true;
+          break;
+        }
+      }
+    }
+  }
+
+  createCommentIsActive(answerId: number){
+    for(let i =0; i< this.loadCommentComponentMap.length; i++){
+      if(answerId == this.loadCommentComponentMap[i].answerId){
+        return this.loadCommentComponentMap[i].isActive;
+      }
     }
   }
 
@@ -129,7 +154,13 @@ export class QuestionsPageComponent implements OnInit {
     this.question.answerList.find((answer) => {
       return answer.id = $event.answer.id;
     }).comment.push($event);
-    this.loadCommentComponent = false;
+    for(let i =0; i< this.loadCommentComponentMap.length; i++){
+      if($event.answer.id == this.loadCommentComponentMap[i].answerId){
+        this.loadCommentComponentMap[i].isActive = false;
+        break;
+      }
+    }
+    // this.loadCommentComponent = false;
     this.getQuestion();
   }
 
