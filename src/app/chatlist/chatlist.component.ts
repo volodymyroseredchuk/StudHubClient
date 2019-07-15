@@ -18,6 +18,8 @@ export class ChatlistComponent implements OnInit {
 
   private chatListItems: ChatItem[] = [];
   private connection;
+  loading = false;
+
   constructor(
     private alertService: AlertService,
     private service: ChatService,
@@ -27,10 +29,12 @@ export class ChatlistComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
     const userId: number = this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub; // decode token
     this.service.getChatList(userId).subscribe(
       items => {
-      items.forEach((item) => {
+        this.loading = false;
+        items.forEach((item) => {
         if (item.photoUrl === null) {
           item.photoUrl = DEFAULT_PHOTO_URL;
         }
@@ -41,6 +45,7 @@ export class ChatlistComponent implements OnInit {
       });
     },
       error => {
+        this.loading = false;
         console.log(error);
         this.alertService.error(error);
       });
