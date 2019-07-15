@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './_guards';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+
+import { ErrorPageComponent } from './error-page/error-page.component';
 import {ChatComponent} from "./chat/chat.component";
 import {ChatlistComponent} from "./chatlist/chatlist.component";
 
@@ -12,6 +14,10 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+  {
+    path: "errorPage",
+    component: ErrorPageComponent
   },
   {
     path: 'profile',
@@ -22,6 +28,10 @@ const routes: Routes = [
     path: 'edit',
     component: EditProfileComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'profile/:username',
+    component: ProfileComponent
   },
   {
     path: 'chat/:chatId',

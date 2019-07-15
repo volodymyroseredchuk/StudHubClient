@@ -1,7 +1,8 @@
 import { User } from './user.model';
 import { Tag } from './tag.model';
 
- export class Task {
+
+export class Task {
     id: number;
     title: string;
     body: string;
@@ -9,7 +10,7 @@ import { Tag } from './tag.model';
     modifiedDate: Date;
     deadlineDate: Date;
     expectedPrice: number;
-    status: string;
     user: User;
-    tags: Tag[];
+    status: string;
+    tagList: Tag[];
 }

@@ -45,8 +45,8 @@ export class SigninComponent implements OnInit {
     }
 
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(32)]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
 
     // get return url from route parameters or default to '/'

@@ -1,6 +1,7 @@
 import { User } from './user.model';
 
- export class Proposal {
+
+export class Proposal {
     id: number;
     body: string;
     price: number;

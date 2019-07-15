@@ -43,6 +43,7 @@ export class QuestionsPageComponent implements OnInit {
       .subscribe(question => {
         this.question = question;
         this.getUser();
+        console.log(this.question);
       },
         error => {
           alert(error);
@@ -60,7 +61,7 @@ export class QuestionsPageComponent implements OnInit {
 
   //Currently logged in user
   getUser() {
-    this.userService.getUser().subscribe(
+    this.userService.getCurrentUser().subscribe(
       user => {
         this.user = user;
         this.getUserVotes();

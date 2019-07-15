@@ -1,0 +1,38 @@
+h3 {
+    text-align: center;
+}
+
+#submitBtn {
+    float: right;
+    margin-right: 20px;
+    margin-top: 40px;
+}
+  
+#teamForm {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+#backBtn {
+    margin-top: 25px;
+}
+
+.general {
+    width: 100%;
+}
+
+.addMember {
+    position:absolute;
+    right: 0;
+}
+
+.example-option-img {
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  
+  [dir='rtl'] .example-option-img {
+    margin-right: 0;
+    margin-left: 8px;
+  }
