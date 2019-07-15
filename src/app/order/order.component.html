@@ -30,6 +30,11 @@
 	          Author: {{ order.task.user.username }}
  	        </div>
        </mat-card>
+       <mat-card *ngIf="order.proposal" class="taskCard">
+	        <div>
+	          Executor: {{ order.proposal.user.username }}
+ 	        </div>
+       </mat-card>
        <mat-card *ngIf="order.task" class="taskCard">
  
           <div>
@@ -49,7 +54,7 @@
        </mat-card>
        <mat-card *ngIf="order.proposal" class="taskCard">
          <div>
-           Expected price: {{ order.proposal.price }} ₡
+           Payment price: {{ order.proposal.price }} ₡
          </div>
        </mat-card>
     </div>

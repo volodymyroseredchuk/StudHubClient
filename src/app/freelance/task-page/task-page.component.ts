@@ -137,4 +137,15 @@ export class TaskPageComponent implements OnInit {
       })
     }
   }
+
+  approveProposal(proposalId : number, proposalUsername: string) {
+    if(confirm(`Are you sure you want to hire ${proposalUsername} for executing this task?`)){
+      this.proposalService.approveProposal(this.taskId, proposalId).subscribe(
+        order  => {
+          this.router.navigate([`/orders/${order.id}`])
+        }
+      )
+    }
+
+  }
 }

@@ -74,6 +74,10 @@
             </button>
           </mat-menu>
         </div>
+        <mat-divider></mat-divider>
+        <button class="btn btn-light" (click)="approveProposal(proposal.id, proposal.user.username)">
+          Hire!
+        </button>
       </mat-card>
       <div id="pagination">
         <pagination-controls *ngIf="proposals.length != 0" (pageChange)="changePage($event)"></pagination-controls>

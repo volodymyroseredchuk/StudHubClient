@@ -28,10 +28,18 @@ export class OrderService extends BaseService{
       return this.http.get<Order>(`${this.apiUrl}/${orderId}`, httpOptions);
   }
 
+  getAssignedOrders() :Observable<Order[]>{
+      return this.http.get<Order[]>(`${this.apiUrl}/assigned/my`, httpOptions);
+  }
+
+  getCreatedOrders() :Observable<Order[]>{
+    return this.http.get<Order[]>(`${this.apiUrl}/created/my`, httpOptions);
+}
+
   submitResult(resultFile: File, orderId:number) : Observable<ResultSubmission>{
 
     // insert here loading of file
-    let fileUrl = { fileUrl: "test url"}
+    let fileUrl = { fileUrl: "http://fileservice.test/test/file/url"}
     return this.http.post<ResultSubmission>(`${this.apiUrl}/${orderId}/submit`, fileUrl, httpOptions)
   }
 }

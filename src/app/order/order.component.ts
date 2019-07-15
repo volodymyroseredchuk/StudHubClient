@@ -116,6 +116,7 @@ export class OrderComponent implements OnInit {
   }
 
   isUserExecutor(){
+    console.log(this.user)
     if(!this.user){
       return false;
     }

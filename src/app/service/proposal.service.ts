@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Delete } from '../model/delete.model';
 import { ProposalPaginatedDTO } from '../model/proposalPaginatedDTO.model';
 import { Proposal } from '../model/proposal.model';
+import { Order } from '../model/order.model';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -37,5 +38,9 @@ export class ProposalService extends BaseService {
 
     deleteProposal(taskId: number, id: number): Observable<Delete> {
         return this.http.delete<Delete>(`${this.apiUrl}/${taskId}/proposals/${id}`, httpOptions);
+    }
+
+    approveProposal(taskId: number, id: number): Observable<Order> {
+        return this.http.post<Order>(`${this.apiUrl}/${taskId}/proposals/${id}/approve`,{}, httpOptions);
     }
 }

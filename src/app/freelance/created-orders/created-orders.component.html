@@ -1,0 +1,42 @@
+<div class="responsive_nav_bar">
+
+  
+
+  <div id="tasksList">
+    <mat-card class="taskCard"
+      *ngFor="let order of orders ">
+
+      <mat-card-title>
+        <a [routerLink]="['/orders', order.id]">{{ order.task.title }}</a> <br>
+      </mat-card-title>
+
+      <div class="expectedPrice" matTooltip="Price: ">
+        <div *ngIf="order.proposal.price">
+          <div class="expectedPriceText">{{ order.proposal.price }} ₡</div>
+        </div>
+      </div>
+
+      <div class="deadlineDate" matTooltip="Deadline at:">
+        <div *ngIf="order.endDate">
+          <div class="deadlineText" *ngIf="(today | date: 'MMM dd') === (order.endDate | date: 'MMM dd')">
+            {{order.endDate | date: 'hh:mm'}}</div>
+          <div class="deadlineText" style="margin-left: 3px"
+            *ngIf="(today | date: 'MMM dd') !== (order.endDate | date: 'MMM dd')">{{order.endDate | date: 'dd'}}
+          </div>
+          <div class="deadlineText" *ngIf="(today | date: 'MMM dd') !== (order.endDate | date: 'MMM dd')">
+            {{order.endDate | date: 'MMM'}}</div>
+        </div>
+      </div>
+
+      <mat-chip-list>
+        <div class="tags" *ngFor="let tag of order.task.tagList">
+          #{{tag.name}}
+        </div>
+      </mat-chip-list>
+    </mat-card>
+  </div>
+
+  <h3 *ngIf="orders.length == 0">You haven't created any task!</h3>
+
+  
+</div>
