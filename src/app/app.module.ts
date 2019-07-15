@@ -30,6 +30,8 @@ import { provideConfig } from '../socialloginConfig';
 import { ChatComponent } from './chat/chat.component';
 import { ChatlistComponent } from './chatlist/chatlist.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
+import { OrderComponent } from './order/order.component';
+import { OrderModule } from './order/order.module';
 
 // @ts-ignore
 @NgModule({
@@ -58,7 +60,8 @@ import { SafeHtmlPipe } from './safe-html.pipe';
     MatSnackBarModule,
     FeedbackModule,
     SocialLoginModule,
-    MatTabsModule
+    MatTabsModule,
+    OrderModule
   ],
 
   providers: [
