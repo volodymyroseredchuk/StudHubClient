@@ -3,7 +3,7 @@
     <button mat-button routerLink="." (click)="goBack()">Back</button>
 
     <mat-card *ngIf="question" class="questionCard">
-        <mat-card-title >
+        <mat-card-title>
             {{question.title}}
         </mat-card-title>
         <mat-divider></mat-divider>
@@ -30,7 +30,7 @@
 
 
     <div class="answer-list" *ngIf="question?.answerList">
-        <mat-card class="answer-mat-card" *ngFor="let answer of question.answerList" >
+        <mat-card class="answer-mat-card" *ngFor="let answer of question.answerList">
 
             <mat-card-content class="answer-mat-card-content">
                 <div class="row">
@@ -116,11 +116,12 @@
                     </div>
                 </mat-card>
             </div>
-            <app-comment *ngIf="createCommentIsActive(answer.id)" [answerId]="answer.id" (commentEvent)="recieveNewComment($event)">
+            <app-comment *ngIf="createCommentIsActive(answer.id)" [answerId]="answer.id"
+                (commentEvent)="recieveNewComment($event)">
             </app-comment>
         </mat-card>
 
-        <app-answer *ngIf="this.user" [questionId]="question.id" (newAnswerEvent)="recieveNewAnswer($event.target)">
+        <app-answer *ngIf="this.user" [questionId]="question.id" (newAnswerEvent)="recieveNewAnswer($event)">
         </app-answer>
 
     </div>

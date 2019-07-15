@@ -122,6 +122,7 @@ export class SigninComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
+            console.log(data);
             window.location.href = this.returnUrl;
             this.loading = false;
           },
