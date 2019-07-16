@@ -23,9 +23,14 @@ import {FeedbackModule} from './feedback/feedback.module';
 import {
   SocialLoginModule,
   AuthServiceConfig,
-  GoogleLoginProvider
+  GoogleLoginProvider,
+  FacebookLoginProvider
 } from 'angularx-social-login';
 import { provideConfig } from '../socialloginConfig';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { NewsModule } from './news/news.module';
+import { NewsComponent } from './news/news.component';
+import { NewsPageComponent } from './news/news-page/news-page.component';
 import { FreelanceModule } from './freelance/freelance.module';
 import { PrivateTeamsModule } from './private-teams/private-teams.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
@@ -34,6 +39,7 @@ import { ChatlistComponent } from './chatlist/chatlist.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
 import { OrderComponent } from './order/order.component';
 import { OrderModule } from './order/order.module';
+
 
 // @ts-ignore
 @NgModule({
@@ -57,6 +63,7 @@ import { OrderModule } from './order/order.module';
     ReactiveFormsModule,
     FormsModule,
     QuestionsModule,
+    NewsModule,
     BrowserAnimationsModule,
     MaterialModule,
     AuthModule,
@@ -64,13 +71,14 @@ import { OrderModule } from './order/order.module';
     FeedbackModule,
     SocialLoginModule,
     MatTabsModule,
+    CKEditorModule
     OrderModule,
     FreelanceModule
   ],
 
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-     QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent,
+     QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent, NewsComponent,NewsPageComponent,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
