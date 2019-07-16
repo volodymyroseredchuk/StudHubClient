@@ -19,7 +19,7 @@ import { MatSnackBar } from '@angular/material';
 export class OrderComponent implements OnInit {
 
   order: Order;
-
+  display: boolean = true;
   formGroup = this.fb.group({
     file: [null, Validators.required]
   });
@@ -64,6 +64,7 @@ export class OrderComponent implements OnInit {
     }
     this.userService.rateFreelancer(this.freelancer, this.order.id)
       .subscribe(res => {
+        this.display = false;
         this._snackBar.open("feedback has been successfully sent", "OK", {
           duration: 15000,
         });
@@ -81,6 +82,7 @@ export class OrderComponent implements OnInit {
 
     this.userService.rateCustomer(this.customer, this.order.id)
       .subscribe(res => {
+        this.display = false;
         this._snackBar.open("feedback has been successfully sent", "OK", {
           duration: 15000,
         });
