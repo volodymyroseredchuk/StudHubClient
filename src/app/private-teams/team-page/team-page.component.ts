@@ -91,8 +91,8 @@ export class TeamPageComponent implements OnInit {
     if (allow) {
       return true;
     } else {
-      for(let role of this.user.roles) {
-        if(role.name.toUpperCase() === "ROLE_MODERATOR" || role.name.toUpperCase() === "ROLE_ADMIN") {
+      for (let privilege of this.user.privileges) {
+        if (privilege.name.toUpperCase() === "WRITE_ANY_TEAM_PRIVILEGE" ) {
           return true;
         }
       }

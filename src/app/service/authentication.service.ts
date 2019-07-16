@@ -105,6 +105,9 @@ export class AuthenticationService extends BaseService {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         let url = location.href.replace(location.origin, "");
-        window.location.href = "/signin?returnUrl=" + url;
+        
+        if(location.href.substring(23,29) !== "signin"){
+            window.location.href = "/signin?returnUrl=" + url;
+        }
     }
 }

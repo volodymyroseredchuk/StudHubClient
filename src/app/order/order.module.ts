@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatAutocompleteModule } from '@angular/material';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { OrderComponent } from './order.component';
+import {StarRatingModule} from 'angular-star-rating';
 
 @NgModule({
   declarations: [OrderComponent],
@@ -18,7 +19,8 @@ import { OrderComponent } from './order.component';
     ReactiveFormsModule,
     MatInputModule,
     MatAutocompleteModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    StarRatingModule.forRoot()
   ]
 })
 export class OrderModule { }

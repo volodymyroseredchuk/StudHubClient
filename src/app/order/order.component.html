@@ -18,81 +18,126 @@
       </mat-card>
       <div class="row cardContainer">
         <div class="col-md-3">
-        <mat-card *ngIf="order.task" class="taskCard ">
-	        <div>
-	          Author: {{ order.task.user.username }}
- 	        </div>
-       </mat-card>
-      </div>
-      <div class="col-md-3">
-       <mat-card *ngIf="order.proposal" class="taskCard ">
-	        <div>
-	          Executor: {{ order.proposal.user.username }}
- 	        </div>
-       </mat-card>
-      </div>
-      <div class="col-md-3">
+          <mat-card *ngIf="order.task" class="taskCard ">
+            <div>
+              Author: {{ order.task.user.username }}
+            </div>
+          </mat-card>
+        </div>
+        <div class="col-md-3">
+          <mat-card *ngIf="order.proposal" class="taskCard ">
+            <div>
+              Executor: {{ order.proposal.user.username }}
+            </div>
+          </mat-card>
+        </div>
+        <div class="col-md-3">
           <mat-card class="taskCard">
-             <div [routerLink]="['/chat', chatId]">
-               Message <span *ngIf="isUserExecutor()">{{order.task.user.username}}</span>
-               <span *ngIf="isUserTaskCreator()">{{order.proposal.user.username}}</span>
-             </div>
-         </mat-card>
-         </div>
-      <div class="col-md-3">
-       <mat-card *ngIf="order.task" class="taskCard ">
- 
-          <div>
-           Task Created: {{ order.task.creationDate | date: 'dd.MM.yyyy' }}
-         </div>
-       </mat-card>
-      </div>
-      <div class="col-md-3">
-       <mat-card *ngIf="order" class="taskCard ">
- 
-          <div>
-           Task Started: {{ order.startDate | date: 'dd.MM.yyyy' }}
-         </div>
-       </mat-card>
-      </div>
-      <div class="col-md-3">
-       <mat-card *ngIf="order" class="taskCard">
-         <div>
-           Deadline date: {{ order.endDate | date: 'dd.MM.yyyy' }}
-         </div>
-       </mat-card>
-      </div>
-      <div class="col-md-3">
-       <mat-card *ngIf="order.proposal" class="taskCard">
-         <div>
-           Payment price: {{ order.proposal.price }} ₡
-         </div>
-       </mat-card>
-      </div>
-      <div class="col-md-3">
+            <div [routerLink]="['/chat', chatId]">
+              Message <span *ngIf="isUserExecutor()">{{order.task.user.username}}</span>
+              <span *ngIf="isUserTaskCreator()">{{order.proposal.user.username}}</span>
+            </div>
+          </mat-card>
+        </div>
+        <div class="col-md-3">
+          <mat-card *ngIf="order.task" class="taskCard ">
+
+            <div>
+              Task Created: {{ order.task.creationDate | date: 'dd.MM.yyyy' }}
+            </div>
+          </mat-card>
+        </div>
+        <div class="col-md-3">
+          <mat-card *ngIf="order" class="taskCard ">
+
+            <div>
+              Task Started: {{ order.startDate | date: 'dd.MM.yyyy' }}
+            </div>
+          </mat-card>
+        </div>
+        <div class="col-md-3">
+          <mat-card *ngIf="order" class="taskCard">
+            <div>
+              Deadline date: {{ order.endDate | date: 'dd.MM.yyyy' }}
+            </div>
+          </mat-card>
+        </div>
+        <div class="col-md-3">
+          <mat-card *ngIf="order.proposal" class="taskCard">
+            <div>
+              Payment price: {{ order.proposal.price }} ₡
+            </div>
+          </mat-card>
+        </div>
+        <div class="col-md-3">
           <mat-card *ngIf="order.proposal" class="taskCard">
             <div>
               Status: {{order.task.status}}
             </div>
           </mat-card>
-         </div>
-      
+        </div>
+
       </div>
     </div>
-    
+
     <div class="submitResult" *ngIf="isUserExecutor() && isTaskInProgress()">
       <form [formGroup]="formGroup" novalidate (ngSubmit)="submitResult()">
-          <input type="file" (change)="onFileChange($event)"/>
-          <button type="submit" [disabled]="formGroup.invalid || formGroup.prestine">Submit</button>
+        <input type="file" (change)="onFileChange($event)" />
+        <button type="submit" [disabled]="formGroup.invalid || formGroup.prestine">Submit</button>
       </form>
     </div>
     <div class="resultFile" *ngIf="isTaskDone()">
       {{order.resultSubmission.fileUrl}}
     </div>
-    <div class="empty-box">
+  </div>
+  <div class="rating" *ngIf="isTaskDone() && user.username == order.userCreator.username && !order.freelancer">
+    <form [formGroup]="formFreelancer" (submit)="onSubmitFreelancer()">
+        <p class="rating-right-top">Quality: &nbsp; &nbsp; <star-rating-control [(ngModel)]="freelancer.quality"
+          class="star-right" formControlName="quality"></star-rating-control>
+      </p>
 
-    </div>
+      <p class="rating-right">Price: &nbsp; &nbsp; &nbsp; &nbsp; <star-rating-control [(ngModel)]="freelancer.price"
+          class="star-right" formControlName="price"></star-rating-control>
+      </p>
+
+      <p class="rating-right">Velocity: &nbsp;&nbsp;<star-rating-control [(ngModel)]="freelancer.velocity"
+          class="star-right"  formControlName="velocity"></star-rating-control>
+      </p>
+
+      <p class="rating-right">Contact: &nbsp;&nbsp;<star-rating-control [(ngModel)]="freelancer.contact"
+          class="star-right"  formControlName="contact"></star-rating-control>
+      </p>
+
+      <div>
+        <button *ngIf="display" class="btnRating" mat-raised-button color="primary" type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="rating" *ngIf="isTaskDone() && user.username == order.userExecutor.username && !order.customer">
+    <form [formGroup]="formCustomer" (submit)="onSubmitCustomer()">
+      <p class="rating-right-top">Payment: &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<star-rating-control
+          [(ngModel)]="customer.payment" class="star-right" formControlName="payment"></star-rating-control>
+      </p>
+
+      <p class="rating-right">Formulation: &nbsp;<star-rating-control [(ngModel)]="customer.formulation"
+          class="star-right" formControlName="formulation"></star-rating-control>
+      </p>
+
+      <p class="rating-right">Clarity: &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;<star-rating-control
+          [(ngModel)]="customer.clarity" class="star-right" formControlName="clarity"></star-rating-control>
+      </p>
+
+      <p class="rating-right">Contact: &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;<star-rating-control
+          [(ngModel)]="customer.contact" class="star-right" formControlName="contact"></star-rating-control>
+      </p>
+
+      <div>
+        <button *ngIf="display" class="btnRating" mat-raised-button color="primary" type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
   </div>
 </div>
-
-

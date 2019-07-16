@@ -1,9 +1,10 @@
 <div>
   <nav class="navbar navbar-expand-md bg-orange my-navbar-collapse">
-    <a class="navbar-brand" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Studhub</a>
-<!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--      <span class="navbar-toggler-icon"></span>-->
-<!--    </button>-->
+    <a class="navbar-brand" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Studhub</a>
+    <!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+    <!--      <span class="navbar-toggler-icon"></span>-->
+    <!--    </button>-->
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2 " id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="navbar-item">
@@ -30,7 +31,7 @@
         <li class="navbar-item">
           <a class="nav-link" routerLink="/teams/create">Create Team</a>
         </li>
-        <li>
+        <li class="navbar-item">
           <a class="nav-link" routerLink="/chatlist">Messages</a>
         </li>
         <li class="navbar-item">
@@ -39,18 +40,18 @@
       </ul>
     </div>
     <div class="order-3">
-      <ul class="navbar-nav ml-auto navbar-not-collapse" >
+      <ul class="navbar-nav ml-auto navbar-not-collapse">
         <ng-container *ngIf="!isAuthenticated">
           <li class="navbar-item">
             <a class="nav-link nav-link-no-collapse" routerLink="/signin" style="padding-right: 20px">Sign in</a>
           </li>
           <li class="navbar-item">
-            <a class="nav-link nav-link-no-collapse" routerLink="/signup" >Sign up</a>
+            <a class="nav-link nav-link-no-collapse" routerLink="/signup">Sign up</a>
           </li>
         </ng-container>
         <ng-container *ngIf="isAuthenticated">
           <li class="navbar-item">
-            <a class="nav-link nav-link-no-collapse logout" (click)="logout()" href="/signin" >Log out</a>
+            <a class="nav-link nav-link-no-collapse logout" (click)="logout()" href="/signin">Log out</a>
           </li>
         </ng-container>
       </ul>

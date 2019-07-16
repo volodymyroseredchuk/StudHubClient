@@ -42,14 +42,18 @@ export class TaskPageComponent implements OnInit {
     this.getProposals();
   }
 
-  getCurrentPaginationSettings() : string {
-      return "?page=" + (this.page - 1) + "&size=" + this.pageSize;
+  getCurrentPaginationSettings(): string {
+    return "?page=" + (this.page - 1) + "&size=" + this.pageSize;
   }
 
   getTask() {
     this.taskService.getTask(this.taskId)
       .subscribe(task => {
         this.task = task;
+        console.log(this.task);
+      },
+      err => {
+          this.router.navigate(["errorPage"]);
       })
   }
 
@@ -71,16 +75,16 @@ export class TaskPageComponent implements OnInit {
       })
   }
 
-  canDeleteProposal(proposal){
-    if(!this.user) { 
-      return false; 
+  canDeleteProposal(proposal) {
+    if (!this.user) {
+      return false;
     }
     let allowDelete = this.user.username === proposal.user.username;
     if (allowDelete) {
       return true;
     } else {
-      for(let role of this.user.roles) {
-        if(role.name.toUpperCase() === "ROLE_MODERATOR" || role.name.toUpperCase() === "ROLE_ADMIN") {
+      for (let privilege of this.user.privileges) {
+        if (privilege.name.toUpperCase() === "PROPOSAL_DELETE_ANY_PRIVILEGE" ) {
           return true;
         }
       }
@@ -89,15 +93,15 @@ export class TaskPageComponent implements OnInit {
   }
 
   canModifyTask() {
-    if(!this.user) { 
-      return false; 
+    if (!this.user) {
+      return false;
     }
     let allow = this.user.username === this.task.user.username;
     if (allow) {
       return true;
     } else {
-      for(let role of this.user.roles) {
-        if(role.name.toUpperCase() === "ROLE_MODERATOR" || role.name.toUpperCase() === "ROLE_ADMIN") {
+      for (let privilege of this.user.privileges) {
+        if (privilege.name.toUpperCase() === "TASK_DELETE_ANY_PRIVILEGE" ) {
           return true;
         }
       }
@@ -112,7 +116,7 @@ export class TaskPageComponent implements OnInit {
           /*TODO
           send deleteMessage.message to tasks component */
           this.router.navigate(["/tasks"])
-      })
+        })
     }
   }
 
@@ -126,7 +130,7 @@ export class TaskPageComponent implements OnInit {
         .subscribe(deleteMessage => {
           this.deleteProposalFromList(deleteMessage.message, proposalId);
           this.changePage(1);
-      });
+        });
     }
   }
 

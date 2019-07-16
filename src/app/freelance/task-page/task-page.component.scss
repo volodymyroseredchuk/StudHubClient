@@ -44,6 +44,21 @@ h2, h3, h4, pagination-controls {
     font-weight: 400;
 }
 
+.rating{
+    width: 25%;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,0.3);
+    border-radius: 7px;
+}
+
+.rating-right{
+    float: left;
+}
+
+.star-right{
+    float: right;
+}
+
 .pPrice{
     font-size: 1em;
     font-weight: 500;
