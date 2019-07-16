@@ -7,11 +7,6 @@ import { UserService } from 'src/app/service/user.service';
 import { ProposalService } from 'src/app/service/proposal.service';
 import { Proposal } from 'src/app/model/proposal.model';
 import { Location } from '@angular/common';
-import { FormGroup, FormControl } from '@angular/forms';
-import { FreelancerDTO } from 'src/app/model/freelancerDTO.model';
-import { AlertService } from 'src/app/service/alert.service';
-import { first } from 'rxjs/operators';
-import { CustomerDTO } from 'src/app/model/customerDTO.model';
 
 @Component({
   selector: 'app-task-page',
@@ -21,26 +16,12 @@ import { CustomerDTO } from 'src/app/model/customerDTO.model';
 export class TaskPageComponent implements OnInit {
 
   task: Task;
-  freelancer: FreelancerDTO = new FreelancerDTO();
-  customer: CustomerDTO = new CustomerDTO();
   taskId: number;
   proposals: Proposal[] = [];
   proposalsTotalCount: number;
   pageSize: number = 5;
   page: number = 1;
   user: User;
-  formFreelancer = new FormGroup({
-    quality: new FormControl(''),
-    price: new FormControl(''),
-    velocity: new FormControl(''),
-    contact: new FormControl('')
-  });
-  formCustomer = new FormGroup({
-    payment: new FormControl(''),
-    formulation: new FormControl(''),
-    clarity: new FormControl(''),
-    contact: new FormControl('')
-  });
 
   constructor(private taskService: TaskService,
     private route: ActivatedRoute,
@@ -56,34 +37,6 @@ export class TaskPageComponent implements OnInit {
     this.getProposals();
   }
 
-  onSubmitFreelancer() {
-    console.log(this.freelancer);
-
-    if (!this.freelancer.quality || !this.freelancer.price || !this.freelancer.velocity
-      || !this.freelancer.contact) {
-      alert("Choose all critery");
-      return;
-    }
-    this.userService.rateFreelancer(this.freelancer, 1)
-      .subscribe(res => {
-        console.log(res);
-      })
-  }
-
-  onSubmitCustomer() {
-    console.log(this.customer);
-
-    if (!this.customer.payment || !this.customer.formulation || !this.customer.clarity
-      || !this.customer.contact) {
-      alert("Choose all critery");
-      return;
-    }
-    this.userService.rateCustomer(this.customer, 1)
-      .subscribe(res => {
-        console.log(res);
-      })
-  }
-
   changePage(currentPage: number) {
     this.page = currentPage;
     this.getProposals();
@@ -97,6 +50,7 @@ export class TaskPageComponent implements OnInit {
     this.taskService.getTask(this.taskId)
       .subscribe(task => {
         this.task = task;
+        console.log(this.task);
       },
       err => {
           this.router.navigate(["errorPage"]);
