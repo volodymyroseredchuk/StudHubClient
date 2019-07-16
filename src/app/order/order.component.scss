@@ -45,14 +45,40 @@
 
 }
 
+.rating{
+    width: 25%;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,0.3);
+    border-radius: 7px;
+}
+
+.rating-right-top{
+    margin-top: 10px;
+    margin-left: 10px;
+    float: left;
+}
+
+.rating-right{
+    margin-left: 10px;
+    float: left;
+}
+
+.star-right{
+    float: right;
+}
+
 .cardcont{
     position: relative;
-    width: 80%;
-    margin-right: auto;	
-    margin-left: auto;
-    margin-top: 5%;
-    margin-right: auto;
+    float:left;
     margin-bottom: 20px;
+    width: 80%;
+}
+
+.rating{
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,0.3);
 }
 
 .chat-demo-empty-box {
@@ -62,13 +88,15 @@
     margin-bottom: 20px;
 }
 
+.btnRating{
+    position: absolute;
+    right: 0;
+}
+
 .responsive_nav_bar {
     position: absolute;
     top: 60px;
-    left: 0;
-    right: 0;
+    margin-left: 10%;
+    margin-top: 5%;
+    margin-right: 13%;
   }
-
-.empty-box {
-    height:40px;
-}

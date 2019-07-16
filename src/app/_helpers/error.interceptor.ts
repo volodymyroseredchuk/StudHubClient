@@ -16,7 +16,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
             console.log(err);
-
+            
             if (err.status === 401) {
 
                 if (localStorage.getItem('refreshToken')) {
@@ -29,7 +29,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                         }).catch(error => {
                             console.log(error);
                             this.authenticationService.logout();
-                        }); 
+                        });
+                } else {
+                    this.authenticationService.logout();
                 }
             }
             const errorMessage = err.error.message;

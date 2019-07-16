@@ -10,7 +10,7 @@
       </p>
       <mat-divider></mat-divider>
 
-      <div *ngIf="this.user" id="btnsModify">
+      <div *ngIf="user" id="btnsModify">
         <button class="menu" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
           *ngIf="canModifyTask()">
           <mat-icon>more_vert</mat-icon>
@@ -39,8 +39,11 @@
       </mat-chip-list>
     </mat-card>
     <div class="proposal-list" *ngIf="proposals">
-      <button mat-raised-button color="primary" id="btnCreate" routerLink="/tasks/{{task?.id}}/proposals/create">Create
-        Proposal</button><br />
+      <div *ngIf="user">
+        <button *ngIf="user.username !== task.user.username" mat-raised-button color="primary" id="btnCreate"
+          routerLink="/tasks/{{task?.id}}/proposals/create">Create
+          Proposal</button><br />
+      </div>
       <mat-card class="proposal-mat-card"
         *ngFor="let proposal of proposals | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: proposalsTotalCount}">
 
@@ -63,7 +66,7 @@
         <p class="pcreationDate">
           {{ proposal.creationDate | date: 'dd.MM.yyyy' }}
         </p>
-        <div *ngIf="this.user">
+        <div *ngIf="user">
           <button class="menu" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
             *ngIf="canDeleteProposal(proposal)">
             <mat-icon>more_vert</mat-icon>
@@ -75,7 +78,8 @@
           </mat-menu>
         </div>
         <mat-divider></mat-divider>
-        <button *ngIf="isUserTaskCreator()" class="btn btn-light" (click)="approveProposal(proposal.id, proposal.user.username)">
+        <button *ngIf="isUserTaskCreator()" class="btn btn-light"
+          (click)="approveProposal(proposal.id, proposal.user.username)">
           Hire!
         </button>
       </mat-card>
