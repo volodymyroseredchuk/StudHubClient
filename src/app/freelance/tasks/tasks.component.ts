@@ -57,7 +57,7 @@ export class TasksComponent implements OnInit {
 
   }
 
-  onItemChange(value){
+  onItemChange(value) {
     this.searchBy = value;
   }
 

@@ -25,11 +25,11 @@ export class ChatComponent implements OnInit {
   private pageSize = 20;
   private page = 1;
   private moreMessages = true;
-  private scrollUsed = false;
+   scrollUsed = false;
   private lastScrollHeight = 0;
   private lastHeight = 0;
-  private receiver;
-  private photoUrl = DEFAULT_PHOTO_URL;
+   receiver;
+   photoUrl = DEFAULT_PHOTO_URL;
   private connection;
   private gotMessagesCount = 0;
   loading = false;

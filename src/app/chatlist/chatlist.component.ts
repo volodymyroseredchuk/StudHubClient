@@ -16,7 +16,7 @@ const DEFAULT_PHOTO_URL = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9G
 })
 export class ChatlistComponent implements OnInit {
 
-  private chatListItems: ChatItem[] = [];
+   chatListItems: ChatItem[] = [];
   private connection;
   loading = false;
 

@@ -17,50 +17,50 @@
 
       <h3>Personal info</h3>
 
-      <form class="form-horizontal" [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
+      <!--<form class="form-horizontal" [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">-->
 
-        <div class="form-group">
-          <label class="control-label">First name:</label>
-          <input class="form-control col-lg-8" [ngClass]="{ 'is-invalid':f.firstname.errors }"
-            formControlName="firstname" type="text">
-          <div *ngIf="f.firstname.errors" class="invalid-feedback">
-            <div *ngIf="f.firstname.errors.required">First Name is required</div>
-            <div *ngIf="f.firstname.errors.minlength">First Name must be at least 3 characters</div>
-            <div *ngIf="f.firstname.errors.maxlength">First Name must be less than 16 characters</div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label">Last name:</label>
-          <input class="form-control col-lg-8" [ngClass]="{ 'is-invalid':f.lastname.errors }" formControlName="lastname"
-            type="text">
-          <div *ngIf="f.lastname.errors" class="invalid-feedback">
-            <div *ngIf="f.lastname.errors.required">First Name is required</div>
-            <div *ngIf="f.lastname.errors.minlength">First Name must be at least 3 characters</div>
-            <div *ngIf="f.lastname.errors.maxlength">First Name must be less than 16 characters</div>
-          </div>
-        </div>
-        <mat-form-field class="form-group col-lg-8">
-          <mat-select placeholder="Change your university">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
-              (onSelectionChange)="getUniverFromName(option)">
-              {{option}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <!--<div class="form-group">-->
+          <!--<label class="control-label">First name:</label>-->
+          <!--<input class="form-control col-lg-8" [ngClass]="{ 'is-invalid':f.firstname.errors }"-->
+            <!--formControlName="firstname" type="text">-->
+          <!--<div *ngIf="f.firstname.errors" class="invalid-feedback">-->
+            <!--<div *ngIf="f.firstname.errors.required">First Name is required</div>-->
+            <!--<div *ngIf="f.firstname.errors.minlength">First Name must be at least 3 characters</div>-->
+            <!--<div *ngIf="f.firstname.errors.maxlength">First Name must be less than 16 characters</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+          <!--<label class="control-label">Last name:</label>-->
+          <!--<input class="form-control col-lg-8" [ngClass]="{ 'is-invalid':f.lastname.errors }" formControlName="lastname"-->
+            <!--type="text">-->
+          <!--<div *ngIf="f.lastname.errors" class="invalid-feedback">-->
+            <!--<div *ngIf="f.lastname.errors.required">First Name is required</div>-->
+            <!--<div *ngIf="f.lastname.errors.minlength">First Name must be at least 3 characters</div>-->
+            <!--<div *ngIf="f.lastname.errors.maxlength">First Name must be less than 16 characters</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<mat-form-field class="form-group col-lg-8">-->
+          <!--<mat-select placeholder="Change your university">-->
+            <!--<mat-option *ngFor="let option of filteredOptions | async" [value]="option"-->
+              <!--(onSelectionChange)="getUniverFromName(option)">-->
+              <!--{{option}}-->
+            <!--</mat-option>-->
+          <!--</mat-select>-->
+        <!--</mat-form-field>-->
 
-        <div class="form-group col-lg-8">
-          <input class="form-check-input" formControlName="emailSub" type="checkbox">
-          <label class="form-check-label">Email subscription</label>
-        </div>
+        <!--<div class="form-group col-lg-8">-->
+          <!--<input class="form-check-input" formControlName="emailSub" type="checkbox">-->
+          <!--<label class="form-check-label">Email subscription</label>-->
+        <!--</div>-->
 
-        <div class="form-group col-lg-8">
-          <button mat-button class="edit-button" type="submit">Save</button>
-          <a routerLink="/profile">
-            <button mat-button class="edit-button">Cancel</button>
-          </a>
-        </div>
-        
-      </form>
+        <!--<div class="form-group col-lg-8">-->
+          <!--<button mat-button class="edit-button" type="submit">Save</button>-->
+          <!--<a routerLink="/profile">-->
+            <!--<button mat-button class="edit-button">Cancel</button>-->
+          <!--</a>-->
+        <!--</div>-->
+        <!---->
+      <!--</form>-->
     </div>
   </div>
 </div>
