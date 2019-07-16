@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import {BaseService} from './base-service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -65,4 +65,7 @@ export class FeedbackService extends BaseService {
         return this.http.get<Feedback[]>(`${this.apiUrl}/university/${feedbackId}`);
     }
 
+  getAllFeedbacksByUser(username: String) {
+    return this.http.get<Feedback[]>(`${this.apiUrl}/user/${username}`);
+  }
 }

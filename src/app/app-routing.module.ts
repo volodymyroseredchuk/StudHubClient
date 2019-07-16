@@ -1,17 +1,25 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { AppComponent } from './app.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './_guards';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
-import {ChatComponent} from "./chat/chat.component";
-import {ChatlistComponent} from "./chatlist/chatlist.component";
+import { ChatComponent } from "./chat/chat.component";
+import { ChatlistComponent } from "./chatlist/chatlist.component";
+import { NewsComponent } from './news/news.component';
+
+
+import { ErrorPageComponent } from './error-page/error-page.component';
+
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+  {
+    path: "errorPage",
+    component: ErrorPageComponent
   },
   {
     path: 'profile',
@@ -24,6 +32,10 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'profile/:username',
+    component: ProfileComponent
+  },
+  {
     path: 'chat/:chatId',
     component: ChatComponent,
     canActivate: [AuthGuard]
@@ -31,6 +43,11 @@ const routes: Routes = [
   {
     path: 'chatlist',
     component: ChatlistComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'news',
+    component: NewsComponent,
     canActivate: [AuthGuard]
   }
 ];

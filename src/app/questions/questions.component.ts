@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { QuestionService } from '../service/question.service';
-import { Observable } from 'rxjs';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { Question } from '../model/question.model';
 import { FormControl } from '@angular/forms';
-import {map, startWith} from 'rxjs/operators';
 import { Tag } from '../model/tag.model';
 import { QuestionForListDTO } from '../model/questionForListDTO.model';
-
-
 
 @Component({
   selector: 'app-questions',
@@ -48,6 +43,7 @@ export class QuestionsComponent implements OnInit {
       .subscribe(questionPaginatedDTO => {
         this.questions = questionPaginatedDTO.questions;
         this.questionsTotalCount = questionPaginatedDTO.questionsTotalCount;
+        console.log(this.questions);
       });
   }
 

@@ -6,6 +6,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Question } from 'src/app/model/question.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-questions-create',
@@ -18,7 +19,7 @@ export class QuestionsCreateComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-
+  public editor = ClassicEditor;
   tags: Tag[] = [];
   question: Question;
 

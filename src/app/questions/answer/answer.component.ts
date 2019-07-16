@@ -2,7 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AnswerCreateDTO } from 'src/app/model/answerCreateDTO.model';
 import { AnswerService } from 'src/app/service/answer.service';
 import { Router } from '@angular/router';
-import { Answer } from './../../model/answer.model'
+import { Answer } from './../../model/answer.model';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-answer',
@@ -15,6 +16,7 @@ export class AnswerComponent implements OnInit {
   answerService: AnswerService;
   router: Router;
   submitButtonEnabled: boolean;
+  public editor = ClassicEditor;
 
   @Input() questionId: number;
   @Output() newAnswerEvent = new EventEmitter<Answer>();

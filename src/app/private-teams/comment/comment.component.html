@@ -1,0 +1,15 @@
+<div *ngIf = "this.answerId">
+    <mat-card class="createCommentForm">
+       <form (ngSubmit)="onSubmit()" #userForm="ngForm" id="createComment">
+ 
+          <mat-form-field class="tags-chip-list answer-card">
+             <mat-label>Your comment</mat-label>
+             <textarea [(ngModel)]="newComment.body" class="form-control" id="comment-body" name="body" matInput
+                placeholder="Type your comment here" required></textarea>
+          </mat-form-field>
+ 
+       </form>
+       <button type="submit" mat-button color="primary" (click)="onSubmit()">Post comment</button>
+    </mat-card>
+    
+ </div>

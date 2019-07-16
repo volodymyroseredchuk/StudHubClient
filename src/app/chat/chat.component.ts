@@ -31,6 +31,7 @@ export class ChatComponent implements OnInit {
   private photoUrl = DEFAULT_PHOTO_URL;
   private connection;
   private gotMessagesCount = 0;
+  loading = false;
   constructor(
     private alertService: AlertService,
     private route: ActivatedRoute,
@@ -42,6 +43,7 @@ export class ChatComponent implements OnInit {
 
 
   ngOnInit() {
+    this.loading = true;
     this.route.params.subscribe(params => {
       this.chatId = params.chatId;
     });
@@ -62,12 +64,14 @@ export class ChatComponent implements OnInit {
     this.service.getChatMessages(this.chatId, this.getCurrentPaginationSettings()).toPromise().then(
       msgs => {
       this.gotMessagesCount += msgs.length;
+      this.loading = false;
       msgs.forEach((msg) => {
         msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
         this.messages.push(msg);
       });
       },
       error => {
+        this.loading = false;
         console.log(error);
         this.alertService.error(error);
       });

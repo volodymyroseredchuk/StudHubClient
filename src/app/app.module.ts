@@ -9,7 +9,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { QuestionsPageComponent } from './questions/question-page/questions-page.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -24,9 +23,17 @@ import {FeedbackModule} from './feedback/feedback.module';
 import {
   SocialLoginModule,
   AuthServiceConfig,
-  GoogleLoginProvider
+  GoogleLoginProvider,
+  FacebookLoginProvider
 } from 'angularx-social-login';
 import { provideConfig } from '../socialloginConfig';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { NewsModule } from './news/news.module';
+import { NewsComponent } from './news/news.component';
+import { NewsPageComponent } from './news/news-page/news-page.component';
+import { FreelanceModule } from './freelance/freelance.module';
+import { PrivateTeamsModule } from './private-teams/private-teams.module';
+import { ErrorPageComponent } from './error-page/error-page.component';
 import {TeachersModule} from "./teacher/teachers.module";
 import {UniversitiesModule} from "./universities/universities.module";
 import { ChatComponent } from './chat/chat.component';
@@ -38,6 +45,7 @@ import {TeachersCreateComponent} from './teacher/teachers-create/teachers-create
 import {UniversitiesCreateComponent} from './universities/university-create/universities-create.component';
 import {UniversitiesPageComponent} from './universities/university-page/universities-page.component';
 import {UniversitiesComponent} from './universities/universities.component';
+import {OrderModule} from './order/order.module';
 
 // @ts-ignore
 @NgModule({
@@ -45,21 +53,23 @@ import {UniversitiesComponent} from './universities/universities.component';
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent,
     ProfileComponent,
     EditProfileComponent,
+    ErrorPageComponent,
     ChatComponent,
     ChatlistComponent,
-    SafeHtmlPipe,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     TagsModule,
+    PrivateTeamsModule,
     ReactiveFormsModule,
     FormsModule,
     QuestionsModule,
+    NewsModule,
     BrowserAnimationsModule,
     MaterialModule,
     AuthModule,
@@ -67,12 +77,17 @@ import {UniversitiesComponent} from './universities/universities.component';
     FeedbackModule,
     SocialLoginModule,
     MatTabsModule,
+    CKEditorModule,
+    OrderModule,
+    FreelanceModule,
+    MatTabsModule,
     TeachersModule,
     UniversitiesModule
   ],
 
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+     QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent, NewsComponent, NewsPageComponent,
      QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent, TeachersComponent, TeachersPageComponent,
     TeachersCreateComponent, UniversitiesCreateComponent, UniversitiesPageComponent, UniversitiesComponent,
     {

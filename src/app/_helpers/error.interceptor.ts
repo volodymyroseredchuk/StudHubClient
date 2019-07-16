@@ -23,6 +23,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                     console.log("refresh");
                     this.authenticationService.verifyToken(localStorage.getItem("refreshToken")).toPromise()
                         .then(() => {
+                            console.log("invalid refresh");
                             this.authenticationService.refreshToken();
                             window.location.reload();
                         }).catch(error => {
