@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import {BaseService} from './base-service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -49,11 +49,9 @@ export class FeedbackService extends BaseService {
         return this.http.delete(`${this.apiUrl}/${feedbackId}/delete`);
     }
 
-    getAllFeedbacksByCurrentUser() {
-        return this.http.get<Feedback[]>(`${this.apiUrl}/current`, {
-            headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
-        });
-    }
+  getAllFeedbacksByUser(username: String) {
+    return this.http.get<Feedback[]>(`${this.apiUrl}/user/${username}`);
+  }
 
     getAllFeedbacksByTeacherId(feedbackId: number): Observable<any> {
         console.log(feedbackId);
@@ -65,4 +63,9 @@ export class FeedbackService extends BaseService {
         return this.http.get<Feedback[]>(`${this.apiUrl}/university/${feedbackId}`);
     }
 
+    getAllFeedbacksByCurrentUser() {
+        return this.http.get<Feedback[]>(`${this.apiUrl}/current`, {
+            headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
+        });
+    }
 }

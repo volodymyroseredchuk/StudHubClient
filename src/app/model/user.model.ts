@@ -1,4 +1,4 @@
-import {University} from './university.model';
+import { University } from './university.model';
 
 export class User {
     id: number;
@@ -10,5 +10,7 @@ export class User {
     creationDate: string;
     imageUrl: string;
     university: University;
+    emailSubscription: boolean;
+    roles: { name: string }[];
     privileges: { name: string }[];
 }

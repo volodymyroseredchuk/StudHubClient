@@ -5,8 +5,8 @@ import { AppComponent } from './app.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './_guards';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
-import {ChatComponent} from "./chat/chat.component";
-import {ChatlistComponent} from "./chatlist/chatlist.component";
+import { ChatComponent } from "./chat/chat.component";
+import { ChatlistComponent } from "./chatlist/chatlist.component";
 
 const routes: Routes = [
   {
@@ -22,6 +22,10 @@ const routes: Routes = [
     path: 'edit',
     component: EditProfileComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'profile/:username',
+    component: ProfileComponent
   },
   {
     path: 'chat/:chatId',
