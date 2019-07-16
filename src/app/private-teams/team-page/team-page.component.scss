@@ -1,0 +1,93 @@
+h2, h3, h4, pagination-controls {
+    text-align: center;
+}
+
+#btnCreate {
+    margin-left: 5%;
+    margin-top: 20px;
+}
+
+#pagination {
+    margin-top: 20px;
+}
+
+#sizeSelector {
+    margin-left: 5%;
+}
+
+.team-title{
+    text-align: center;
+}
+
+.created {
+    position:absolute;
+    float: left;
+}
+
+.qUsername {
+    position: absolute;
+    right: 3%;
+    top: 1%;
+}
+
+.modified {
+    position: absolute;
+    right: 3%;
+    bottom: 0;
+}
+
+#btnMembers{
+    float: right;
+}
+
+mat-divider {
+    width: 90%;
+}
+
+.teamCard {
+    background-color: #fff;
+    width: 90%;
+    min-height: 20%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(0,0,0,0.3);
+}
+
+.question-list {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.question-mat-card{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,0.3);
+}
+
+.question-mat-card-content{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    //background-color: #f9f3ef;
+}
+
+#btnsModify {
+    position: absolute;
+    top:0;
+    right: 2%;
+}
+
+
+.editButton{
+    color: green;
+}
+
+#btnsModify {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

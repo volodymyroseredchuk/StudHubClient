@@ -9,7 +9,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { QuestionsPageComponent } from './questions/question-page/questions-page.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -32,9 +31,14 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NewsModule } from './news/news.module';
 import { NewsComponent } from './news/news.component';
 import { NewsPageComponent } from './news/news-page/news-page.component';
+import { FreelanceModule } from './freelance/freelance.module';
+import { PrivateTeamsModule } from './private-teams/private-teams.module';
+import { ErrorPageComponent } from './error-page/error-page.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatlistComponent } from './chatlist/chatlist.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
+import { OrderComponent } from './order/order.component';
+import { OrderModule } from './order/order.module';
 
 
 // @ts-ignore
@@ -43,18 +47,19 @@ import { SafeHtmlPipe } from './safe-html.pipe';
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent,
     ProfileComponent,
     EditProfileComponent,
+    ErrorPageComponent,
     ChatComponent,
     ChatlistComponent,
-    SafeHtmlPipe,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     TagsModule,
+    PrivateTeamsModule,
     ReactiveFormsModule,
     FormsModule,
     QuestionsModule,
@@ -67,6 +72,8 @@ import { SafeHtmlPipe } from './safe-html.pipe';
     SocialLoginModule,
     MatTabsModule,
     CKEditorModule
+    OrderModule,
+    FreelanceModule
   ],
 
   providers: [

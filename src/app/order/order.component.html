@@ -1,0 +1,98 @@
+<div *ngIf="order" class="responsive_nav_bar">
+  <div class="cardcont">
+    <div class="card-left">
+      <mat-card *ngIf="order.task" class="taskCard">
+        <mat-card-title>
+          {{order.task.title}}
+        </mat-card-title>
+        <mat-divider></mat-divider>
+        <p class="body">
+          {{ order.task.body }}
+        </p>
+        <mat-divider></mat-divider>
+        <mat-chip-list>
+          <div class="tags" *ngFor="let tag of order.task.tagList">
+            #{{tag.name}}
+          </div>
+        </mat-chip-list>
+      </mat-card>
+      <div class="row cardContainer">
+        <div class="col-md-3">
+        <mat-card *ngIf="order.task" class="taskCard ">
+	        <div>
+	          Author: {{ order.task.user.username }}
+ 	        </div>
+       </mat-card>
+      </div>
+      <div class="col-md-3">
+       <mat-card *ngIf="order.proposal" class="taskCard ">
+	        <div>
+	          Executor: {{ order.proposal.user.username }}
+ 	        </div>
+       </mat-card>
+      </div>
+      <div class="col-md-3">
+          <mat-card class="taskCard">
+             <div [routerLink]="['/chat', chatId]">
+               Message <span *ngIf="isUserExecutor()">{{order.task.user.username}}</span>
+               <span *ngIf="isUserTaskCreator()">{{order.proposal.user.username}}</span>
+             </div>
+         </mat-card>
+         </div>
+      <div class="col-md-3">
+       <mat-card *ngIf="order.task" class="taskCard ">
+ 
+          <div>
+           Task Created: {{ order.task.creationDate | date: 'dd.MM.yyyy' }}
+         </div>
+       </mat-card>
+      </div>
+      <div class="col-md-3">
+       <mat-card *ngIf="order" class="taskCard ">
+ 
+          <div>
+           Task Started: {{ order.startDate | date: 'dd.MM.yyyy' }}
+         </div>
+       </mat-card>
+      </div>
+      <div class="col-md-3">
+       <mat-card *ngIf="order" class="taskCard">
+         <div>
+           Deadline date: {{ order.endDate | date: 'dd.MM.yyyy' }}
+         </div>
+       </mat-card>
+      </div>
+      <div class="col-md-3">
+       <mat-card *ngIf="order.proposal" class="taskCard">
+         <div>
+           Payment price: {{ order.proposal.price }} ₡
+         </div>
+       </mat-card>
+      </div>
+      <div class="col-md-3">
+          <mat-card *ngIf="order.proposal" class="taskCard">
+            <div>
+              Status: {{order.task.status}}
+            </div>
+          </mat-card>
+         </div>
+      
+      </div>
+    </div>
+    
+    <div class="submitResult" *ngIf="isUserExecutor() && isTaskInProgress()">
+      <form [formGroup]="formGroup" novalidate (ngSubmit)="submitResult()">
+          <input type="file" (change)="onFileChange($event)"/>
+          <button type="submit" [disabled]="formGroup.invalid || formGroup.prestine">Submit</button>
+      </form>
+    </div>
+    <div class="resultFile" *ngIf="isTaskDone()">
+      {{order.resultSubmission.fileUrl}}
+    </div>
+    <div class="empty-box">
+
+    </div>
+  </div>
+</div>
+
+

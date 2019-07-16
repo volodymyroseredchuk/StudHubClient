@@ -8,10 +8,18 @@ import { ChatComponent } from "./chat/chat.component";
 import { ChatlistComponent } from "./chatlist/chatlist.component";
 import { NewsComponent } from './news/news.component';
 
+
+import { ErrorPageComponent } from './error-page/error-page.component';
+
+
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+  {
+    path: "errorPage",
+    component: ErrorPageComponent
   },
   {
     path: 'profile',

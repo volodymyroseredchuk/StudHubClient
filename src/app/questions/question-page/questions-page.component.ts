@@ -53,6 +53,7 @@ export class QuestionsPageComponent implements OnInit {
           })
         }
         this.getUser();
+        console.log(this.question);
       },
         error => {
           alert(error);

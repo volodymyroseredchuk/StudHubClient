@@ -1,0 +1,111 @@
+h2, h3, h4, pagination-controls {
+    text-align: center;
+}
+
+.taskCard {
+    background-color: #fff;
+    width: 70%;
+    margin-right: auto;
+    margin-left: auto;
+    border: 1px solid rgba(0,0,0,0.3);
+}
+
+.keywords-chip-list {
+    margin-left: 2%;
+    width: 58%;
+  }
+
+.tags{
+    margin-left: 3px;
+}
+
+.mat-radio-button {
+    margin-left: 16px;
+    margin-top: 25px;
+  }
+
+#searchTasksDiv {
+    width: 70%;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,0.3);
+    border-radius: 5px;
+}
+
+.expectedPrice{
+    position: absolute;
+    top: 35%;
+    right: 25%;
+}
+
+.expectedPriceText{
+    font-size: 1.3em;
+    font-weight: 600;
+    color: orange;
+}
+
+.createdDate{
+    position: absolute;
+    top: 25%;
+    right: 12%;
+}
+
+.deadlineDate{
+    position: absolute;
+    top: 25%;
+    right: 5%;
+}
+
+#btnCreate {
+    margin-left: 2%;
+}
+
+#btnRefresh {
+    position: absolute;
+    right: 0;
+}
+
+#btnSearch {
+    position: absolute;
+    float:right;
+    margin-left: 1%;
+    margin-top: 15px;
+}
+
+.responsive_nav_bar {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+  }
+
+.createdText{
+    font-size: 1.3em;
+    font-weight: 600;
+    color: green;
+}
+
+.deadlineText{
+    font-size: 1.3em;
+    font-weight: 600;
+    color: red;
+}
+
+#tasksList {
+    margin-top: 2%;
+}
+
+#pagination {
+    margin-top: 20px;
+}
+
+#sizeSelector {
+    margin-left: 5%;
+}
+
+.viewTasks {
+    margin:5px;
+    margin-left:10px;
+}

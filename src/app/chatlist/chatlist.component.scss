@@ -7,33 +7,45 @@
 }
 
 .chatlist-container{
-  width:960px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 95%;
   height: 100%;
-  background: #ffefe5;
-  margin: auto;
+  background: white;
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin: 20px auto auto;
   box-sizing: border-box;
-  padding: 10px;
+  border: 1px solid #dcdcdc;
+  padding: 25px 0;
+  border-radius: 5px;
 }
 
 .chat-preview{
-  display: flex;
-  height: 80px;
   background: #ffffff;
   width: 100%;
-  margin-bottom: 10px;
+  // margin-bottom: 10px;
   cursor: pointer;
-  &:last-child{
-    margin-bottom: 0;
+
+  .chat-preview__content {
+    width: calc(100% - 40px);
+    margin: auto;
+    display: flex;
+    border-top: 1px solid #dcdcdc;
   }
+
+  &:last-child .chat-preview__content{
+    // margin-bottom: 0;
+    border-bottom: 1px solid #dcdcdc;
+  }
+
   &:hover {
-    background: #f1f1f1;
+    background: #f8f8f8;
   }
 }
 
 .chat-preview__info{
+  width: calc(100% - 80px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -51,12 +63,14 @@
   height: 60px;
   width: 60px;
   border-radius: 50%;
-  margin: auto;
+  margin: 10px 10px 10px 0;
 }
 
 .chat-preview__name{
   font-weight: bold;
   font-size: 18px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .chatlist-container__empty {
@@ -64,6 +78,10 @@
   color: #FF7F50;
 }
 
+.chat-preview__last-message{
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 
 @media all and (max-width: 960px){
   .chatlist-container{
