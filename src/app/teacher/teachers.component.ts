@@ -6,6 +6,7 @@ import {TeacherService} from '../service/teacher.service';
 import {Teacher} from '../model/teacher.model';
 import {TeacherForListDTO} from '../model/teacherForListDTO.model';
 import {MatChipInputEvent} from '@angular/material';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class TeachersComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
-  // readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   myControl = new FormControl();
   filteredTeachers: Observable<string[]>;
