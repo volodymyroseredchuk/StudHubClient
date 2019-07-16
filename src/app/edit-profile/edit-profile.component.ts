@@ -7,6 +7,7 @@ import { University } from '../model/university.model';
 import { UniversityService } from '../service/university.service';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { FileService } from '../service/file.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -33,6 +34,7 @@ export class EditProfileComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private fileService: FileService,
     private universityService: UniversityService,
     private router: Router
   ) { }
@@ -68,8 +70,17 @@ export class EditProfileComponent implements OnInit {
       this.user.university = this.selectedUniversity;
     }
 
-    this.userService.updateUser(this.user).subscribe(() => this.router.navigate(['/profile']));
+    this.setImageUrl();
   }
+
+  async setImageUrl() {
+    await this.fileService.uploadFile(this.fileData).toPromise().then(res => {
+      this.user.imageUrl = res.message;
+    }).then(() => {
+      this.userService.updateUser(this.user).subscribe(() => this.router.navigate(['/profile']));
+    })
+  }
+
 
   onChange(event) {
     this.fileData = event.target.files[0];
@@ -77,7 +88,7 @@ export class EditProfileComponent implements OnInit {
     if (mimeType.match(/image\/*/) == null) {
       alert('Only images are supported');
       return;
-    }git 
+    }
     const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = () => {
