@@ -148,4 +148,15 @@ export class TaskPageComponent implements OnInit {
     }
 
   }
+
+  
+  isUserTaskCreator(){
+    if(!this.user){
+      return false;
+    }
+    if(this.user.username == this.task.user.username){
+      return true;
+    }
+    return false;
+  }
 }
