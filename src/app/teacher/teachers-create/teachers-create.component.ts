@@ -9,7 +9,9 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {University} from '../../model/university.model';
 import {UniversityService} from '../../service/university.service';
-import {FormControl} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Feedback} from '../../model/feedback.model';
+import {FeedbackService} from '../../service/feedback.service';
 
 @Component({
   selector: 'app-teachers-create',
@@ -26,6 +28,10 @@ export class TeachersCreateComponent implements OnInit {
   myControl = new FormControl();
   teacher: Teacher;
 
+  feedbackCreateForm: FormGroup;
+  loading = false;
+  submitted = false;
+
   private universities: University[];
   private selectedUniversityName: "None";
   private selectedUniversity: University;
@@ -35,16 +41,12 @@ export class TeachersCreateComponent implements OnInit {
 
   constructor(private teacherService: TeacherService, private router: Router, private universityService: UniversityService) {
     this.teacher = new Teacher();
-
-
-
-
    }
-
-
-
-
   ngOnInit() {
+//     this.feedbackCreateForm = this.formBuilder.group({
+//       body: ['', Validators.required]
+//     });
+//   }
   }
 
   addTag(event: MatChipInputEvent): void {
@@ -57,14 +59,11 @@ export class TeachersCreateComponent implements OnInit {
     }
   }
 
-
-
   goToAllTeachers() {
     this.router.navigate(['/teachers']);
   }
 
   onSubmit(){
-
     this.teacherService.newTeacher(this.teacher)
       .subscribe(result => this.goToAllTeachers());
   }
@@ -101,3 +100,54 @@ export class TeachersCreateComponent implements OnInit {
   }
 
 }
+
+// @Component({
+//   selector: 'app-feedback-create',
+//   templateUrl: './feedback-create.component.html',
+//   styleUrls: ['./feedback-create.component.scss']
+// })
+// export class FeedbackCreateComponent implements OnInit {
+//   visible = true;
+//   selectable = true;
+//   removable = true;
+//   addOnBlur = true;
+//   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+//
+//   feedback: Feedback;
+//
+//   feedbackCreateForm: FormGroup;
+//   loading = false;
+//   submitted = false;
+//
+//   constructor(private feedbackService: FeedbackService, private router: Router, private formBuilder: FormBuilder) {
+//     this.feedback = new Feedback();
+//   }
+//
+//   ngOnInit() {
+//     this.feedbackCreateForm = this.formBuilder.group({
+//       body: ['', Validators.required]
+//     });
+//   }
+//
+//   // convenience getter for easy access to form fields
+//   get f() {
+//     return this.feedbackCreateForm.controls;
+//   }
+//
+//   goToAllFeedbacks() {
+//     this.router.navigate(['/feedback']);
+//   }
+//
+//   onSubmit() {
+//     this.submitted = true;
+//
+//     // stop here if form is invalid
+//     if (this.feedbackCreateForm.invalid) {
+//       return;
+//     }
+//
+//     this.feedbackService.createFeedback(this.feedback)
+//         .subscribe(result => this.goToAllFeedbacks());
+//   }
+// }
+

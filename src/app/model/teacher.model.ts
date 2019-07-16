@@ -7,6 +7,6 @@ export class Teacher {
   firstName: string;
   lastName: string;
   imageUrl: ImageData;
-  // university: University;
-  // mark: number;
+  university: University;
+  mark: number;
 }

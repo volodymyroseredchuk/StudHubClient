@@ -2,16 +2,33 @@ h2, h3, h4, pagination-controls {
   text-align: center;
 }
 
-.image-container {
-  position: relative;
-  width: 500px;
+.card-container{
+  width: 70%;
   margin: auto;
+  position: center;
+  font-family: sans-serif;
+  padding: 10px;
+}
+
+.image-container {
+  position: center;
+  width: 100%;
+  margin: auto;
+  //padding-left: 3%;
+  //padding-right: 3%;
+}
+
+.title1 {
+  position: relative;
+  left: 0px;
+  top: 5px;
+  bottom: 5px;
+  color: #4b4fe2;
 }
 
 mat-card {
-  margin: auto;
+  margin: 5px;
 }
-
 .questionCard {
   background-color: #ffefe5;
   width: 70%;
@@ -19,7 +36,6 @@ mat-card {
   margin-left: auto;
   opacity: 0.8;
 }
-
 .userCard {
   width: auto;
   margin-right: 10px;
@@ -31,35 +47,37 @@ mat-card {
 }
 
 #searchUniversityDiv {
-  width: 95%;
+  width: 60%;
+  margin-left: auto;
   margin-right: auto;
-  margin-left: auto;
-  //display: flex;
 }
-
-#btnSearch {
-  width: auto;
-  margin-left: auto;
-  display: flex;
-}
-
-#teachersList {
+#universitiesList {
   margin-top: 20px;
 }
-
 #card-container {
-  width: 500px;
-  margin: auto;
-  background: #fff;
+  /*  not needed styles to reflect it */
+  background: blue;
+  padding: 10px;
+  color: white;
+  /* needed styles below */
   display: flex;
+  justify-content: space-between;
+  width: 500px;
+}
+
+#btnTagSearch {
+  margin-left: 5%;
+}
+
+#btnKeywordSearch {
+  margin-right: 3%;
+  margin-left: 65%;
   justify-content: space-between;
 }
 
-
-#btnKeywordSearch {
-  margin-right: 20%;
+#btnCreate {
+  margin-left: 5%;
 }
-
 
 #btnRefresh {
   margin-right: 0px;

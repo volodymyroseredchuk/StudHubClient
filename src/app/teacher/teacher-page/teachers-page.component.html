@@ -1,82 +1,52 @@
 <div class="mainContainer">
-    <button mat-raised-button color="primary" id="btnCreate" routerLink="/teachers/{teacherId}">Create Teacher</button>
-    <button mat-button routerLink="." (click)="goBack()">Back</button>
+    <!--<button mat-raised-button color="primary" id="btnCreate" routerLink="/teachers/{teacherId}">Create Teacher</button>-->
+    <!--<button mat-button routerLink="." (click)="goBack()">Back</button>-->
 
-    <div class="teacher-profile-container">
-        <div class="profile-card">
+    <mat-card class="teacher-profile-container">
 
-            <div class="image-container">
-                <img src="../../assets/images/avatar.jpg" alt="Avatar" style="width: 100%">
-                <div class="title">
-                    <h1>{{teacher.firstName}} {{teacher.lastName}}</h1>
-                </div>
-            </div>
-
-
-                       <!--<mat-tab-group>-->
-            <!--<mat-tab label="Profile">-->
-            <!--<div class="main-container">-->
-            <!--<h5 *ngIf="user.university != null"><i class="fas fa-university info"></i>{{user.university.name}}</h5>-->
-            <!--<h5 *ngIf="user.university == null"><i class="fas fa-university info"></i>You are not learning</h5>-->
-            <!--<h5><i class="fas fa-envelope info"></i>{{user.email}}</h5>-->
-            <!--<h5><i class="fas fa-calendar-check info"></i>{{user.creationDate}}</h5>-->
-            <!--<h5><i class="fas fa-user-tie info"></i>{{user.username}}</h5>-->
-            <!--<a routerLink="/edit">-->
-            <!--<button mat-button class="edit-button">Edit</button>-->
-            <!--</a>-->
-            <!--<br>-->
-            <!--<hr>-->
-            <!--<p>Rating</p>-->
-            <!--<div class="skill-bar">-->
-            <!--<div class="progress-bar" style="width: 85%">556</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</mat-tab>-->
-            <!--<mat-tab label="My questions">-->
-            <!--<div style="overflow:scroll; height: 300px;">-->
-            <!--<mat-card *ngFor="let question of questions">-->
-
-            <!--<mat-card-title>-->
-            <!--<a [routerLink]="['/questions', question.id]">-->
-            <!--{{question.title}}-->
-
-            <!--</a> <br>-->
-            <!--<h6>Creation date:-->
-            <!--{{question.creationDate}}-->
-            <!--</h6>-->
-            <!--</mat-card-title>-->
-
-            <!--</mat-card>-->
-            <!--<h3 *ngIf="questions.length == 0">You don't have questions</h3>-->
-
-            <!--</div>-->
-
-            <!--</mat-tab>-->
-            <!--<mat-tab label="My feedbacks">-->
-            <!--<div style="overflow:scroll; height: 300px;">-->
-            <!--<mat-card *ngFor="let feedback of feedbacks">-->
-
-            <!--<mat-card-title>-->
-            <!--<a [routerLink]="['/feedbacks', feedback.id]">-->
-            <!--{{feedback.body}}-->
-            <!--</a> <br>-->
-            <!--<h6>Rating:-->
-            <!--{{feedback.rate}}-->
-            <!--</h6>-->
-            <!--<h6>Mark:-->
-            <!--{{feedback.mark}}-->
-            <!--</h6>-->
-            <!--</mat-card-title>-->
+        <div class="title">
+            <h1>{{teacher.firstName}} {{teacher.lastName}}</h1>
+        </div>
+        <div class="title1">
+            <h3>{{teacher.university.name}}</h3>
+        </div>
+        <div class="image-container">
+            <img src="{{teacher.imageUrl}}" style="width: 100%">
+        </div>
+        <div class="title2">
+            <h3>Mark: {{teacher.mark}}</h3>
+        </div>
+        <mat-card-title class="title3">
+            <button mat-raised-button color="primary" style="margin-right:50px;"
+                    routerLink="/teachers/mark">
+                Rate the teacher
+            </button>
+            <button mat-raised-button color="primary" style="margin-right:50px;"
+                    routerLink="/feedback">
+                Add feedback
+            </button>
+        </mat-card-title>
+    </mat-card>
 
 
-            <!--</mat-card>-->
-            <!--<h3 *ngIf="feedbacks.length == 0">You don't have feedbacks</h3>-->
+    <div id="feedbacksList" *ngIf="feedbacks">
+        <mat-card class="card-container" *ngFor="let feedback of feedbacks">
 
-                    <!--</div>-->
-                <!--</mat-tab>-->
-            <!--</mat-tab-group>-->
+            <mat-card-title>
+                <a [routerLink]="['/feedbacks', feedback.id]">
+                    {{feedback.body}}
+                </a> <br>
+                <h6>Rating:
+                    {{feedback.rate}}
+                </h6>
+                <h6>Mark:
+                    {{feedback.mark}}
+                </h6>
+            </mat-card-title>
 
+
+        </mat-card>
+        <h3 *ngIf="feedbacks?.length == 0">You don't have feedbacks</h3>
     </div>
+</div>
 
-</div>
-</div>

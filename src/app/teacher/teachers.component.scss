@@ -2,6 +2,30 @@ h2, h3, h4, pagination-controls {
   text-align: center;
 }
 
+.card-container{
+  width: 70%;
+  margin: auto;
+  position: center;
+  font-family: sans-serif;
+  padding: 10px;
+}
+
+.image-container {
+  position: center;
+  width: 100%;
+  margin: auto;
+  //padding-left: 3%;
+  //padding-right: 3%;
+}
+
+.title1 {
+  position: relative;
+  left: 0px;
+  top: 5px;
+  bottom: 5px;
+  color: #4b4fe2;
+}
+
 mat-card {
   margin: 5px;
 }
@@ -42,11 +66,13 @@ mat-card {
 }
 
 #btnTagSearch {
-  margin-left: 30%;
+  margin-left: 5%;
 }
 
 #btnKeywordSearch {
-  margin-right: 20%;
+  margin-right: 3%;
+  margin-left: 65%;
+  justify-content: space-between;
 }
 
 #btnCreate {

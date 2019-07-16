@@ -41,8 +41,9 @@ export class TeacherService extends BaseService {
     return this.http.delete(`${this.apiUrl}/${teacherId}/delete`);
   }
 
-  showTeacherPage(id: number): Observable <Teacher> {
-    return this.http.get<Teacher>(`${this.apiUrl}/${id}`);
+  showTeacherPage(teacherId: number): Observable <Teacher> {
+    console.log(teacherId);
+    return this.http.get<Teacher>(`${this.apiUrl}/${teacherId}`);
   }
 
 }

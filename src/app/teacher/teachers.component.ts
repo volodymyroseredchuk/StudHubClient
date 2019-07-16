@@ -74,7 +74,8 @@ export class TeachersComponent implements OnInit {
 
     // Add keyword
     if ((value || '').trim()) {
-      this.keywords.push({id: 0, lastName: value.trim(), firstName: null, imageUrl: null});
+      this.keywords.push({id: 0, lastName: value.trim(), university: null, mark: null,
+        firstName: null, imageUrl: null});
     }
 
     // Reset the input value
@@ -108,7 +109,9 @@ export class TeachersComponent implements OnInit {
   }
 
   getTeacherById(teacherId: number){
-    this.router.navigate(['/{teacherId}']);
+    // this.router.navigate(['/{teacherId}']);
+    console.log(teacherId);
+    this.router.navigate(['/teachers', teacherId]);
   }
 
 

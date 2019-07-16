@@ -30,7 +30,11 @@ export class UniversitiesComponent implements OnInit {
 
   }
 
-
+  getUniversityById(universityId: number){
+    // this.router.navigate(['/{universityId}']);
+    console.log(universityId);
+    this.router.navigate(['/universities', universityId]);
+  }
 
 
 

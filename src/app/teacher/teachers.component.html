@@ -1,75 +1,76 @@
 <div class="responsive_nav_bar">
-  <button mat-raised-button color="primary" routerLink="/teachers/teacher">Create Teacher</button>
 
 
-  <h2>Teachers</h2>
-  <div id="searchTeachersDiv">
-    <mat-form-field class="keywords-chip-list">
-      <mat-chip-list #chipList aria-label="Keywords selection">
-        <mat-chip *ngFor="let keyword of keywords" [selectable]="selectable"
-                  [removable]="removable" (removed)="removeKeyword(keyword)">
-           {{keyword.lastName}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-        <input placeholder="Name"
-               [matChipInputFor]="chipList"
-               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-               [matChipInputAddOnBlur]="addOnBlur"
-               (matChipInputTokenEnd)="addKeyword($event)">
-      </mat-chip-list>
-    </mat-form-field>
-
-    <button mat-raised-button color="primary" id="btnTagSearch" (click)="searchByLastName()">Search teacher</button>
-
-  </div>
-
-  <div id="sizeSelector">
-    Select how many teachers to show on a page &nbsp;
-    <mat-form-field>
-      <mat-label>Page size</mat-label>
-      <mat-select [(value)]="pageSize" (selectionChange)="ngOnInit()">
-        <mat-option value=2 [disabled]="2 > teachersTotalCount">2</mat-option>
-        <mat-option value=5 [disabled]="5 > teachersTotalCount">5</mat-option>
-        <mat-option value=10 [disabled]="10 > teachersTotalCount">10</mat-option>
-        <mat-option value=25 [disabled]="25 > teachersTotalCount">25</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+    <h2>Teachers</h2>
 
 
+    <div id="searchTeachersDiv">
+        <mat-form-field class="keywords-chip-list">
+            <mat-chip-list #chipList aria-label="Keywords selection">
+                <mat-chip *ngFor="let keyword of keywords" [selectable]="selectable"
+                          [removable]="removable" (removed)="removeKeyword(keyword)">
+                    {{keyword.lastName}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Name"
+                       [matChipInputFor]="chipList"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="addOnBlur"
+                       (matChipInputTokenEnd)="addKeyword($event)">
+            </mat-chip-list>
+        </mat-form-field>
 
-  <div id="teachersList">
-    <mat-card class="card-container" *ngFor="let teacher of teachers">
+        <button mat-raised-button color="primary" id="btnKeywordSearch" (click)="searchByLastName()">Search teacher
+        </button>
+        <button mat-raised-button color="primary" routerLink="/teachers/teacher">Create Teacher</button>
+    </div>
 
-      <mat-card-title>
-        <a [routerLink]="['/teachers', teacher.id]">
-          {{teacher.firstName}}    {{teacher.lastName}}
-        </a> <br>
-        <div class="">
-          <img class="image-container" src="{{teacher.imageUrl}}" style="width: 50%">
-        </div>
-          <div class="">
-        <h6 style="color:#bdc9ea">Univesity: {{teacher.university.name}}</h6>
-        <h6 style="color:#bdc9ea">
-          Mark:
-          {{teacher.mark}}
-        </h6>
-        <mat-card-title>
-          <button mat-raised-button color="primary" id="btnGetTeacherByIdSearch"
-                  (click)="getTeacherById()">View feedbacks</button>
-          <!--<button mat-raised-button color="primary" style="margin-right:50px;" routerLink="/{teacherId}">-->
-            <!--View feedbacks-->
-          <!--</button>-->
-        </mat-card-title>
-          </div>
-      </mat-card-title>
+    <!--<div id="sizeSelector">-->
+    <!--Select how many teachers to show on a page &nbsp;-->
+    <!--<mat-form-field>-->
+    <!--<mat-label>Page size</mat-label>-->
+    <!--<mat-select [(value)]="pageSize" (selectionChange)="ngOnInit()">-->
+    <!--<mat-option value=2 [disabled]="2 > teachersTotalCount">2</mat-option>-->
+    <!--<mat-option value=5 [disabled]="5 > teachersTotalCount">5</mat-option>-->
+    <!--<mat-option value=10 [disabled]="10 > teachersTotalCount">10</mat-option>-->
+    <!--<mat-option value=25 [disabled]="25 > teachersTotalCount">25</mat-option>-->
+    <!--</mat-select>-->
+    <!--</mat-form-field>-->
+    <!--</div>-->
+
+
+    <div id="teachersList">
+        <mat-card class="card-container" *ngFor="let teacher of teachers">
+
+            <mat-card-title>
+                <a [routerLink]="['/teachers', teacher.id]">
+                    {{teacher.firstName}}    {{teacher.lastName}}
+                </a> <br>
+                <div class="title1">
+                    <h6>Univesity: {{teacher.university.name}}</h6>
+                </div>
+                <div class="">
+                    <img class="image-container" src="{{teacher.imageUrl}}">
+                </div>
+                <div class="title1">
+                    <h6>
+                        Mark:{{teacher.mark}}
+                    </h6>
+
+                <mat-card-title>
+                    <button mat-raised-button color="primary" id="btnGetTeacherByIdSearch"
+                            (click)="getTeacherById(teacher.id)">View feedbacks
+                    </button>
+                </mat-card-title>
+    </div>
+    </mat-card-title>
 
 
     </mat-card>
-  </div>
-  <h3 *ngIf="teachers.length === 0">Sorry, teachers are not found</h3>
+</div>
+<h3 *ngIf="teachers.length === 0">Sorry, teachers are not found</h3>
 
-  <div id="pagination">
+<div id="pagination">
     <pagination-controls *ngIf="teachers.length != 0" (pageChange)="($event)"></pagination-controls>
-  </div>
+</div>
 </div>
