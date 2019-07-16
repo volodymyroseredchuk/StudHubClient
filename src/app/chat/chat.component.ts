@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   OnInit,
   ViewEncapsulation
@@ -31,17 +32,20 @@ export class ChatComponent implements OnInit {
   private photoUrl = DEFAULT_PHOTO_URL;
   private connection;
   private gotMessagesCount = 0;
+  loading = false;
   constructor(
     private alertService: AlertService,
     private route: ActivatedRoute,
     private service: ChatService,
     httpVar: HttpClient,
-    private router: Router) {
+    private router: Router,
+    private cdRef: ChangeDetectorRef) {
     this.connection = SocketService.getInstance(httpVar);
   }
 
 
   ngOnInit() {
+    this.loading = true;
     this.route.params.subscribe(params => {
       this.chatId = params.chatId;
     });
@@ -62,12 +66,18 @@ export class ChatComponent implements OnInit {
     this.service.getChatMessages(this.chatId, this.getCurrentPaginationSettings()).toPromise().then(
       msgs => {
       this.gotMessagesCount += msgs.length;
+      this.loading = false;
       msgs.forEach((msg) => {
-        msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
+        if (msg.sender == null || msg.sender === '') {
+          msg.sender = 'message-both';
+        } else {
+          msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
+        }
         this.messages.push(msg);
       });
       },
       error => {
+        this.loading = false;
         console.log(error);
         this.alertService.error(error);
       });
@@ -116,7 +126,11 @@ export class ChatComponent implements OnInit {
           }
           this.gotMessagesCount += msgs.length;
           msgs.forEach((msg) => {
-            msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
+            if (msg.sender == null || msg.sender === '') {
+              msg.sender = 'message-both';
+            } else {
+              msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
+            }
             this.messages.unshift(msg);
           });
         },
@@ -128,6 +142,8 @@ export class ChatComponent implements OnInit {
         });
       }
     }
+
+    this.cdRef.detectChanges();
 
   }
 

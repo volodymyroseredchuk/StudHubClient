@@ -1,0 +1,64 @@
+<mat-card *ngIf="team" class="teamCard">
+  <div class="created">
+    Created {{ team.creationDate | date: 'dd.MM.yyyy' }} by {{ team.user.username }}
+  </div>
+  <mat-card-title class="team-title">
+    {{ team.title }}
+  </mat-card-title>
+  <div *ngIf="this.user" id="btnsModify">
+    <button class="menu" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
+    *ngIf="canModifyTeam()">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/teams/{{team.id}}/edit">
+        <span>Edit</span>
+      </button>
+      <button mat-menu-item (click)="deleteTeam()">
+        <span>Delete</span>
+      </button>
+    </mat-menu>
+  </div>
+  <hr>
+  <button mat-icon-button id="btnMembers" routerLink="/teams/{{team.id}}/members">
+    <mat-icon>group</mat-icon>
+  </button>
+
+  <div class="question-list" *ngIf="questions">
+
+    <mat-card class="question-mat-card"
+      *ngFor="let question of questions | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: questionsTotalCount}">
+      <div class="inline">
+        <mat-card-title>
+          <a routerLink="/teams/{{team.id}}/questions/{{question.id}}">
+            {{question.title}}
+          </a>
+        </mat-card-title>
+      </div>
+      <div class="inline">
+        <mat-chip-list>
+          <div *ngFor="let tag of question.tagList">
+            #{{tag.name}}
+          </div>
+        </mat-chip-list>
+      </div>
+      <div class="qUsername">
+        <p>
+          Created {{ question.creationDate | date: 'dd.MM.yyyy' }} by {{ question.user.username }}
+        </p>
+      </div>
+    </mat-card>
+  </div>
+
+
+  <div id="pagination">
+    <pagination-controls *ngIf="questions.length != 0" (pageChange)="changePage($event)"></pagination-controls>
+  </div>
+  <p class="modified" *ngIf="team.modifiedDate">
+    Last modified: {{ team.modifiedDate | date: 'dd.MM.yyyy' }}
+  </p>
+
+</mat-card>
+
+<button mat-raised-button color="primary" id="btnCreate" routerLink="/teams/{{team.id}}/questions/create">Create
+  Question</button><br />

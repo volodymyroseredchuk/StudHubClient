@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './_guards';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 import { ChatComponent } from "./chat/chat.component";
 import { ChatlistComponent } from "./chatlist/chatlist.component";
 import { NewsComponent } from './news/news.component';
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+  {
+    path: "errorPage",
+    component: ErrorPageComponent
   },
   {
     path: 'profile',

@@ -1,8 +1,9 @@
-<div class="profile-container responsive_nav_bar">
+<div class="profile-container">
   <div class="profile-card">
 
     <div class="image-container">
-      <img src="../../assets/images/avatar.jpg" alt="Avatar" style="width: 100%">
+      <img *ngIf="user.imageUrl !== null" src="{{user?.imageUrl}}" alt="Avatar" style="height: 300px;width: 100%;">
+      <img *ngIf="user.imageUrl === null" src="../../assets/images/default.png" style="height: 300px;width: 100%;">
       <div class="title">
         <h1>{{user?.firstName}} {{user?.lastName}}</h1>
       </div>
@@ -19,6 +20,7 @@
           <h5><i class="fas fa-user-tie info"></i>{{user?.username}}</h5>
           <button *ngIf="user?.username !== currentUser?.username && currentUser !== undefined" mat-button class="edit-button" (click)="sendMessage()">Send message</button>
           <a *ngIf="user?.username === currentUser?.username" routerLink="/edit">
+
             <button mat-button class="edit-button">Edit</button>
           </a>
           <br>
@@ -28,7 +30,9 @@
             <div id="background">
               {{rating}}/100
             </div>
-            <div class="progress-bar" [ngStyle]="{width: rating + '%'}"></div>
+            <div *ngIf="rating >= 0" class="progress-bar" [ngStyle]="{width: rating + '%'}"></div>
+            <div *ngIf="rating < 0" class="progress-bar" [ngStyle]="{width: 0}"></div>
+
           </div>
           <br>
           <div style="display:table;border-collapse:separate;border-spacing:10px 5px;">
@@ -97,6 +101,7 @@
 
           </mat-card>
           <h2 *ngIf="feedbacks?.length == 0" class="message" style="text-align: right;">No feedbacks.</h2>
+          <h3 *ngIf="feedbacks?.length == 0">You don't have feedbacks</h3>
 
         </div>
       </mat-tab>

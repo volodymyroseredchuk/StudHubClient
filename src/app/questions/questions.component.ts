@@ -43,6 +43,7 @@ export class QuestionsComponent implements OnInit {
       .subscribe(questionPaginatedDTO => {
         this.questions = questionPaginatedDTO.questions;
         this.questionsTotalCount = questionPaginatedDTO.questionsTotalCount;
+        console.log(this.questions);
       });
   }
 

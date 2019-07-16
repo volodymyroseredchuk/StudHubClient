@@ -9,7 +9,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { QuestionsPageComponent } from './questions/question-page/questions-page.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -32,10 +31,21 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NewsModule } from './news/news.module';
 import { NewsComponent } from './news/news.component';
 import { NewsPageComponent } from './news/news-page/news-page.component';
+import { FreelanceModule } from './freelance/freelance.module';
+import { PrivateTeamsModule } from './private-teams/private-teams.module';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import {TeachersModule} from "./teacher/teachers.module";
+import {UniversitiesModule} from "./universities/universities.module";
 import { ChatComponent } from './chat/chat.component';
 import { ChatlistComponent } from './chatlist/chatlist.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
-
+import {TeachersComponent} from './teacher/teachers.component';
+import {TeachersPageComponent} from './teacher/teacher-page/teachers-page.component';
+import {TeachersCreateComponent} from './teacher/teachers-create/teachers-create.component';
+import {UniversitiesCreateComponent} from './universities/university-create/universities-create.component';
+import {UniversitiesPageComponent} from './universities/university-page/universities-page.component';
+import {UniversitiesComponent} from './universities/universities.component';
+import {OrderModule} from './order/order.module';
 
 // @ts-ignore
 @NgModule({
@@ -43,18 +53,19 @@ import { SafeHtmlPipe } from './safe-html.pipe';
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent,
     ProfileComponent,
     EditProfileComponent,
+    ErrorPageComponent,
     ChatComponent,
     ChatlistComponent,
-    SafeHtmlPipe,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     TagsModule,
+    PrivateTeamsModule,
     ReactiveFormsModule,
     FormsModule,
     QuestionsModule,
@@ -66,12 +77,19 @@ import { SafeHtmlPipe } from './safe-html.pipe';
     FeedbackModule,
     SocialLoginModule,
     MatTabsModule,
-    CKEditorModule
+    CKEditorModule,
+    OrderModule,
+    FreelanceModule,
+    MatTabsModule,
+    TeachersModule,
+    UniversitiesModule
   ],
 
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-     QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent, NewsComponent,NewsPageComponent,
+     QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent, NewsComponent, NewsPageComponent,
+     QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent, TeachersComponent, TeachersPageComponent,
+    TeachersCreateComponent, UniversitiesCreateComponent, UniversitiesPageComponent, UniversitiesComponent,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
