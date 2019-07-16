@@ -1,0 +1,55 @@
+<h3>Update data in the Task!</h3>
+
+<mat-card id="taskForm">
+  <form class="my-form" [formGroup]="taskUpdateForm" (ngSubmit)="onSubmit()" #userForm="ngForm">
+
+    <mat-form-field class="general">
+      <mat-label>Title</mat-label>
+      <input [(ngModel)]="task.title" class="form-control" id="title" formControlName="title"
+         name="title"   matInput  placeholder="Title of task" required
+         [ngClass]="{ 'is-invalid': submitted && f.title.errors }" />
+
+      <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+        <div *ngIf="f.title.errors.required">Title is required</div>
+      </div>
+    </mat-form-field>
+
+    <mat-form-field class="general">
+      <mat-label>Body</mat-label>
+      <input [(ngModel)]="task.body" class="form-control" id="body" formControlName="body"
+         name="body"  matInput  placeholder="Body of task" required
+         [ngClass]="{ 'is-invalid': submitted && f.body.errors }" />
+
+      <div *ngIf="submitted && f.body.errors" class="invalid-feedback">
+        <div *ngIf="f.body.errors.required">Body is required</div>
+      </div>
+    </mat-form-field>        
+    
+    <mat-form-field class="general">
+      <mat-label>Deadline date</mat-label>
+      <input [(ngModel)]="task.deadlineDate" class="form-control" id="deadlineDate" formControlName="deadlineDate"
+         name="deadlineDate"  matInput type="datetime-local" required
+         [ngClass]="{ 'is-invalid': submitted && f.deadlineDate.errors }" />
+
+      <div *ngIf="submitted && f.deadlineDate.errors" class="invalid-feedback">
+        <div *ngIf="f.deadlineDate.errors.required">Deadline date is required</div>
+      </div>   
+    </mat-form-field>
+
+    <mat-form-field class="general">
+      <mat-label>Expected price (cookies)</mat-label>
+      <input [(ngModel)]="task.expectedPrice" class="form-control" id="expectedPrice" formControlName="expectedPrice"
+         name="expectedPrice"  matInput type="number" min=0 required 
+         [ngClass]="{ 'is-invalid': submitted && f.expectedPrice.errors }"/>
+
+      <div *ngIf="submitted && f.expectedPrice.errors" class="invalid-feedback">
+        <div *ngIf="f.expectedPrice.errors.required">Expected price is required</div>
+      </div>   
+    </mat-form-field>
+  </form>
+
+  <button type="submit" mat-raised-button color="primary"  class="btn btn-success"  (click)="onSubmit()">Update Task</button>
+</mat-card>
+
+<a mat-raised-button routerLink="." (click)="goBack()" id="backBtn">Go back</a>
+

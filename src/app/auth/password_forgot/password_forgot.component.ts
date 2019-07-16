@@ -49,24 +49,23 @@ export class PasswordForgotComponent implements OnInit {
 
         this.loading = true;
         
-        this.router.navigate(["/"]);
-        this._snackBar.open("The password-reset link will be sent at your email during half an hour", "OK", {
-            duration: 5000,
-        });
-        this.userService.forgotPassword(this.f.email.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    console.log(data);
-                    this._snackBar.open(data.message, "OK", {
-                        duration: 15000,
-                    });
-                    this.loading = false;
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
+        this.userService.forgotPassword(this.f.email.value).toPromise()
+            .then(() => {
+                this.router.navigate(["/"]);
+                this._snackBar.open("The password-reset link will be sent at your email during half an hour", "OK", {
+                    duration: 5000,
                 });
+                this.loading = false;
+            }).then(() => {
+                return this.userService.receiveForgotPasswordLink(this.f.email.value).toPromise();
+            }).then(data => {
+                this._snackBar.open(data["message"], "OK", {
+                    duration: 15000,
+                });
+            }).catch(error => {
+                this.alertService.error(error);
+                this.loading = false;
+            })
     }
 
 }

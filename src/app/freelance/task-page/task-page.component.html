@@ -1,0 +1,110 @@
+<div class="cardcont">
+  <div class="card-left">
+    <mat-card *ngIf="task" class="taskCard">
+      <mat-card-title>
+        {{ task.title }}
+      </mat-card-title>
+      <mat-divider></mat-divider>
+      <p class="body">
+        {{ task.body }}
+      </p>
+      <mat-divider></mat-divider>
+
+      <div *ngIf="this.user" id="btnsModify">
+        <button class="menu" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
+          *ngIf="canModifyTask()">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item routerLink="/tasks/{{task.id}}/edit">
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item (click)="deleteTask()">
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </div>
+
+      <p *ngIf="task.modifiedDate">
+        Last modified:
+        <mat-chip *ngIf="task.modifiedDate">
+          {{ task.modifiedDate | date: 'dd.MM.yyyy' }}
+        </mat-chip>
+      </p>
+
+      <mat-chip-list>
+        <div class="tags" *ngFor="let tag of task.tagList">
+          #{{tag.name}}
+        </div>
+      </mat-chip-list>
+    </mat-card>
+    <div class="proposal-list" *ngIf="proposals">
+      <button mat-raised-button color="primary" id="btnCreate" routerLink="/tasks/{{task?.id}}/proposals/create">Create
+        Proposal</button><br />
+      <mat-card class="proposal-mat-card"
+        *ngFor="let proposal of proposals | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: proposalsTotalCount}">
+
+        <p>
+          {{ proposal.user.username }}
+        </p>
+        <p class="body">
+          {{ proposal.body }}
+        </p>
+        <div class="pTerm" matTooltip="Time of work">
+          <div>
+            {{ proposal.daysCount }} days
+          </div>
+        </div>
+        <div class="pPrice" matTooltip="Price of work">
+          <div>
+            {{ proposal.price }} ₡
+          </div>
+        </div>
+        <p class="pcreationDate">
+          {{ proposal.creationDate | date: 'dd.MM.yyyy' }}
+        </p>
+        <div *ngIf="this.user">
+          <button class="menu" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
+            *ngIf="canDeleteProposal(proposal)">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="deleteProposal(proposal.id)">
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+        </div>
+        <mat-divider></mat-divider>
+        <button *ngIf="isUserTaskCreator()" class="btn btn-light" (click)="approveProposal(proposal.id, proposal.user.username)">
+          Hire!
+        </button>
+      </mat-card>
+      <div id="pagination">
+        <pagination-controls *ngIf="proposals.length != 0" (pageChange)="changePage($event)"></pagination-controls>
+      </div>
+    </div>
+  </div>
+  <div class="card-right">
+    <mat-card *ngIf="task" class="taskCard">
+      <div>
+        Author: {{ task.user.username }}
+      </div>
+    </mat-card>
+    <mat-card *ngIf="task" class="taskCard">
+
+      <div>
+        Created: {{ task.creationDate | date: 'dd.MM.yyyy' }}
+      </div>
+    </mat-card>
+    <mat-card *ngIf="task" class="taskCard">
+      <div>
+        Deadline date: {{ task.deadlineDate | date: 'dd.MM.yyyy' }}
+      </div>
+    </mat-card>
+    <mat-card *ngIf="task" class="taskCard">
+      <div>
+        Expected price: {{ task.expectedPrice }} ₡
+      </div>
+    </mat-card>
+  </div>
+</div>

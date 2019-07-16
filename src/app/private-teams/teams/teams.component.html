@@ -1,0 +1,28 @@
+<div id="teamsList">
+  <mat-card class="teamCard" *ngFor="let team of teams | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: teamsTotalCount}">
+      
+      <mat-card-title>
+        <a [routerLink]="['/teams', team.id]">{{ team.title }}</a> <br>
+      </mat-card-title>
+
+      <p>
+        <mat-chip *ngIf="team.creationDate">
+          {{ team.creationDate }}
+       </mat-chip>
+      </p>
+
+      <p>
+        Created by: 
+        <mat-chip *ngIf="team.user">
+          {{ team.user.username }}
+       </mat-chip>
+      </p>
+  
+  </mat-card>
+</div>
+
+<h3 *ngIf="teams.length == 0">Sorry, teams are not found</h3>
+  
+<div id="pagination">
+  <pagination-controls *ngIf="teams.length != 0" (pageChange)="changePage($event)"></pagination-controls>
+</div>
