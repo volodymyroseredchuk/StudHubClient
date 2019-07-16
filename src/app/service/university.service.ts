@@ -14,7 +14,7 @@ export class UniversityService extends BaseService {
     }
 
     getAllUniversities(): Observable<University[]> {
-        return this.http.get<University[]>(`${this.apiUrl}/universities`);
+        return this.http.get<University[]>(`${this.apiUrl}`);
     }
 
 

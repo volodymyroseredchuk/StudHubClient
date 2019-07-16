@@ -109,7 +109,7 @@
       </p>
 
       <div>
-        <button class="btnRating" mat-raised-button color="primary" type="submit">
+        <button *ngIf="display" class="btnRating" mat-raised-button color="primary" type="submit">
           Submit
         </button>
       </div>
@@ -134,7 +134,7 @@
       </p>
 
       <div>
-        <button class="btnRating" mat-raised-button color="primary" type="submit">
+        <button *ngIf="display" class="btnRating" mat-raised-button color="primary" type="submit">
           Submit
         </button>
       </div>
