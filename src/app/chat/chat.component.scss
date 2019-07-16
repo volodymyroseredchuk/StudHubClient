@@ -87,7 +87,6 @@
   background: #F3E5F5;
   height: 100px;
   display: flex;
-  display: flex;
   justify-content: space-between;
   align-items: center;
 }
@@ -97,8 +96,8 @@
   width: 100%;
   flex-direction: column;
   justify-content: flex-end;
-  padding-bottom: 15px;
-  overflow-y: scroll;
+  adding-bottom: 15px;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
@@ -151,6 +150,23 @@
 textarea {
   outline: none;
   resize: none;
+}
+
+.message-both {
+  border-radius: 10px;
+  min-height: 30px;
+  width: fit-content;
+  min-width: 10%;
+  max-width: 45%;
+  box-sizing: border-box;
+  margin-top: 20px;
+  margin-left: 20px;
+  float: left;
+  clear: both;
+  padding: 5px 10px;
+  position: relative;
+  background: #F3E5F5;
+
 }
 
 .message-their {

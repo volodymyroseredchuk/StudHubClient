@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   OnInit,
   ViewEncapsulation
@@ -37,7 +38,8 @@ export class ChatComponent implements OnInit {
     private route: ActivatedRoute,
     private service: ChatService,
     httpVar: HttpClient,
-    private router: Router) {
+    private router: Router,
+    private cdRef: ChangeDetectorRef) {
     this.connection = SocketService.getInstance(httpVar);
   }
 
@@ -66,7 +68,11 @@ export class ChatComponent implements OnInit {
       this.gotMessagesCount += msgs.length;
       this.loading = false;
       msgs.forEach((msg) => {
-        msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
+        if (msg.sender == null || msg.sender === '') {
+          msg.sender = 'message-both';
+        } else {
+          msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
+        }
         this.messages.push(msg);
       });
       },
@@ -120,7 +126,11 @@ export class ChatComponent implements OnInit {
           }
           this.gotMessagesCount += msgs.length;
           msgs.forEach((msg) => {
-            msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
+            if (msg.sender == null || msg.sender === '') {
+              msg.sender = 'message-both';
+            } else {
+              msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
+            }
             this.messages.unshift(msg);
           });
         },
@@ -132,6 +142,8 @@ export class ChatComponent implements OnInit {
         });
       }
     }
+
+    this.cdRef.detectChanges();
 
   }
 
