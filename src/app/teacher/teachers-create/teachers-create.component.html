@@ -1,0 +1,58 @@
+<div class="responsive_nav_bar">
+<h3>Input data for the new Teacher!</h3>
+
+    <!--<mat-card id="feedbackForm"></mat-card>-->
+        <!--<form class="my-form" [formGroup]="feedbackCreateForm" (ngSubmit)="onSubmit()" #userForm="ngForm">-->
+
+        <form class="my-form" (ngSubmit)="onSubmit()" #userForm="ngForm">
+
+
+  <mat-form-field class="fa-chalkboard-teachers-chip-list">
+         <mat-label>First name</mat-label>
+         <input [(ngModel)]="teacher.firstName" class="form-control" id="firstName"
+         name="firstname"   matInput  placeholder="Firstname of teacher" required>
+      </mat-form-field>
+      <mat-form-field class="fa-chalkboard-teachers-chip-list">
+         <mat-label>Last Name</mat-label>
+         <input [(ngModel)]="teacher.lastName" class="form-control" id="body"
+         name="Last name"  matInput  placeholder="Last name of teacher" required>
+      </mat-form-field>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-select placeholder="University (optional)">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (onSelectionChange)="getUniverFromName(option)">
+          {{option}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+
+      
+</form>
+
+<button type="submit" mat-raised-button color="primary"  class="btn btn-success" (click)="onSubmit()">Create Teacher</button>
+
+
+
+    <!--<mat-card id="feedbackForm">-->
+        <!--<form class="my-form" [formGroup]="feedbackCreateForm" (ngSubmit)="onSubmit()" #userForm="ngForm">-->
+
+
+            <!--<mat-form-field class="tags-chip-list">-->
+                <!--<mat-label>Body</mat-label>-->
+                <!--<input [(ngModel)]="feedback.body" class="form-control" id="body" formControlName="body"-->
+                       <!--name="body" matInput placeholder="Body of a feedback" required-->
+                       <!--[ngClass]="{ 'is-invalid': submitted && f.body.errors }"/>-->
+                <!--<div *ngIf="submitted && f.body.errors" class="invalid-feedback">-->
+                    <!--<div *ngIf="f.body.errors.required">Body is required</div>-->
+                <!--</div>-->
+            <!--</mat-form-field>-->
+
+
+            <!--<button type="submit" [disabled]="loading" mat-raised-button color="primary" id="submitBtn"-->
+                    <!--class="btn btn-success">Create Feedback-->
+            <!--</button>-->
+        <!--</form>-->
+
+    <!--</mat-card>-->
+    <!--<a mat-raised-button routerLink="/feedback" id="backBtn">Go back</a>-->

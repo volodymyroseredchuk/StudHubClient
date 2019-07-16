@@ -1,0 +1,100 @@
+h2, h3, h4, pagination-controls {
+  text-align: center;
+}
+
+.card-container{
+  width: 70%;
+  margin: auto;
+  position: center;
+  font-family: sans-serif;
+  padding: 10px;
+}
+
+.image-container {
+  position: center;
+  width: 100%;
+  margin: auto;
+  //padding-left: 3%;
+  //padding-right: 3%;
+}
+
+.title1 {
+  position: relative;
+  left: 0px;
+  top: 5px;
+  bottom: 5px;
+  color: #4b4fe2;
+}
+
+mat-card {
+  margin: 5px;
+}
+.questionCard {
+  background-color: #ffefe5;
+  width: 70%;
+  margin-right: auto;
+  margin-left: auto;
+  opacity: 0.8;
+}
+.userCard {
+  width: auto;
+  margin-right: 10px;
+  text-align: right;
+}
+
+.keywords-chip-list {
+  width: 100%;
+}
+
+#searchTeachersDiv {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#teachersList {
+  margin-top: 20px;
+}
+#card-container {
+  /*  not needed styles to reflect it */
+  background: blue;
+  padding: 10px;
+  color: white;
+  /* needed styles below */
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+}
+
+#btnTagSearch {
+  margin-left: 5%;
+}
+
+#btnKeywordSearch {
+  margin-right: 3%;
+  margin-left: 65%;
+  justify-content: space-between;
+}
+
+#btnCreate {
+  margin-left: 5%;
+}
+
+#btnRefresh {
+  margin-right: 0px;
+  background-color: coral;
+}
+
+#pagination {
+  margin-top: 20px;
+}
+
+#sizeSelector {
+  margin-left: 5%;
+}
+
+.responsive_nav_bar {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+}
