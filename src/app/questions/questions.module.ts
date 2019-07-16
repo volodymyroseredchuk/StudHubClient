@@ -12,6 +12,7 @@ import { QuestionsEditComponent } from './questions-edit/questions-edit.componen
 import { AnswerComponent } from './answer/answer.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { CommentComponent } from './comment/comment.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { CommentComponent } from './comment/comment.component';
     ReactiveFormsModule,
     MatInputModule,
     MatAutocompleteModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    CKEditorModule
   ]
 })
 export class QuestionsModule { }

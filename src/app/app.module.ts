@@ -23,17 +23,29 @@ import {FeedbackModule} from './feedback/feedback.module';
 import {
   SocialLoginModule,
   AuthServiceConfig,
-  GoogleLoginProvider
+  GoogleLoginProvider,
+  FacebookLoginProvider
 } from 'angularx-social-login';
 import { provideConfig } from '../socialloginConfig';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { NewsModule } from './news/news.module';
+import { NewsComponent } from './news/news.component';
+import { NewsPageComponent } from './news/news-page/news-page.component';
 import { FreelanceModule } from './freelance/freelance.module';
 import { PrivateTeamsModule } from './private-teams/private-teams.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import {TeachersModule} from "./teacher/teachers.module";
+import {UniversitiesModule} from "./universities/universities.module";
 import { ChatComponent } from './chat/chat.component';
 import { ChatlistComponent } from './chatlist/chatlist.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
-import { OrderComponent } from './order/order.component';
-import { OrderModule } from './order/order.module';
+import {TeachersComponent} from './teacher/teachers.component';
+import {TeachersPageComponent} from './teacher/teacher-page/teachers-page.component';
+import {TeachersCreateComponent} from './teacher/teachers-create/teachers-create.component';
+import {UniversitiesCreateComponent} from './universities/university-create/universities-create.component';
+import {UniversitiesPageComponent} from './universities/university-page/universities-page.component';
+import {UniversitiesComponent} from './universities/universities.component';
+import {OrderModule} from './order/order.module';
 
 // @ts-ignore
 @NgModule({
@@ -57,6 +69,7 @@ import { OrderModule } from './order/order.module';
     ReactiveFormsModule,
     FormsModule,
     QuestionsModule,
+    NewsModule,
     BrowserAnimationsModule,
     MaterialModule,
     AuthModule,
@@ -64,13 +77,19 @@ import { OrderModule } from './order/order.module';
     FeedbackModule,
     SocialLoginModule,
     MatTabsModule,
+    CKEditorModule,
     OrderModule,
-    FreelanceModule
+    FreelanceModule,
+    MatTabsModule,
+    TeachersModule,
+    UniversitiesModule
   ],
 
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-     QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent,
+     QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent, NewsComponent, NewsPageComponent,
+     QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent, TeachersComponent, TeachersPageComponent,
+    TeachersCreateComponent, UniversitiesCreateComponent, UniversitiesPageComponent, UniversitiesComponent,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig

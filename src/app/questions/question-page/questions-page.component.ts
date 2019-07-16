@@ -25,6 +25,10 @@ export class QuestionsPageComponent implements OnInit {
   answer: Answer = new Answer();
   comment: Comment = new Comment();
   loadCommentComponent: boolean = false;
+  loadCommentComponentMap: {
+    answerId: number;
+    isActive: boolean;
+  }[] = [];
 
   constructor(private questionService: QuestionService, private route: ActivatedRoute,
     private router: Router, private location: Location, private answerService: AnswerService,
@@ -42,6 +46,12 @@ export class QuestionsPageComponent implements OnInit {
     this.questionService.showQuestionPage(id)
       .subscribe(question => {
         this.question = question;
+        for (let i = 0; i < question.answerList.length; i++) {
+          this.loadCommentComponentMap.push({
+            answerId: question.answerList[i].id,
+            isActive: false
+          })
+        }
         this.getUser();
         console.log(this.question);
       },
@@ -80,7 +90,7 @@ export class QuestionsPageComponent implements OnInit {
       return allowDelete;
     } else {
       for (let privilege of this.user.privileges) {
-        if (privilege.name.toUpperCase() === "QUESTION_DELETE_ANY_PRIVILEGE" ) {
+        if (privilege.name.toUpperCase() === "QUESTION_DELETE_ANY_PRIVILEGE") {
           return true;
         }
       }
@@ -112,15 +122,29 @@ export class QuestionsPageComponent implements OnInit {
   }
 
   //show comment editor on button click
-  loadCreateComment() {
-    if(!this.user){
-      if(window.confirm("Only registered users can comment. Wanna log in?")){
+  loadCreateComment(answerId: number) {
+
+    if (!this.user) {
+      if (window.confirm("Only registered users can comment. Wanna log in?")) {
         this.router.navigate(["/signin"]);
-      }else{
+      } else {
         this.getQuestion();
       }
-    }else{
-      this.loadCommentComponent = true;
+    } else {
+      for (let i = 0; i < this.loadCommentComponentMap.length; i++) {
+        if (answerId == this.loadCommentComponentMap[i].answerId) {
+          this.loadCommentComponentMap[i].isActive = true;
+          break;
+        }
+      }
+    }
+  }
+
+  createCommentIsActive(answerId: number) {
+    for (let i = 0; i < this.loadCommentComponentMap.length; i++) {
+      if (answerId == this.loadCommentComponentMap[i].answerId) {
+        return this.loadCommentComponentMap[i].isActive;
+      }
     }
   }
 
@@ -129,7 +153,14 @@ export class QuestionsPageComponent implements OnInit {
     this.question.answerList.find((answer) => {
       return answer.id = $event.answer.id;
     }).comment.push($event);
-    this.loadCommentComponent = false;
+    for (let i = 0; i < this.loadCommentComponentMap.length; i++) {
+      if ($event.answer.id == this.loadCommentComponentMap[i].answerId) {
+        this.loadCommentComponentMap[i].isActive = false;
+        break;
+      }
+    }
+    // this.loadCommentComponent = false;
+    this.getQuestion();
   }
 
   //Checking if User is comment creator. If no - he can not see "edit" & "delete" buttons.
@@ -141,7 +172,7 @@ export class QuestionsPageComponent implements OnInit {
       return allowDelete;
     } else {
       for (let privilege of this.user.privileges) {
-        if (privilege.name.toUpperCase() === "COMMENT_DELETE_ANY_PRIVILEGE" ) {
+        if (privilege.name.toUpperCase() === "COMMENT_DELETE_ANY_PRIVILEGE") {
           return true;
         }
       }
@@ -166,14 +197,14 @@ export class QuestionsPageComponent implements OnInit {
 
   recieveNewAnswer($event) {
     let pushed = false;
-    for(var i = 0; i < this.question.answerList.length; i++) {
-      if(this.question.answerList[i].rate < 0) {
+    for (var i = 0; i < this.question.answerList.length; i++) {
+      if (this.question.answerList[i].rate < 0) {
         pushed = true;
-        this.question.answerList.splice(i,0,$event);
+        this.question.answerList.splice(i, 0, $event);
         break;
       }
     }
-    if(!pushed){
+    if (!pushed) {
       this.question.answerList.push($event);
     }
   }
@@ -188,7 +219,7 @@ export class QuestionsPageComponent implements OnInit {
       return allowDelete;
     } else {
       for (let privilege of this.user.privileges) {
-        if (privilege.name.toUpperCase() === "ANSWER_DELETE_ANY_PRIVILEGE" ) {
+        if (privilege.name.toUpperCase() === "ANSWER_DELETE_ANY_PRIVILEGE") {
           return true;
         }
       }
@@ -197,11 +228,11 @@ export class QuestionsPageComponent implements OnInit {
   }
 
   deleteAnswer(answerId: number) {
-    if (confirm("Are You sure You want to delete this answer?")){
-    this.answerService.deleteAnswer(this.question.id, answerId)
-      .subscribe(serverResponce => {
-        this.deleteAnswerFromList(serverResponce, answerId)
-      });
+    if (confirm("Are You sure You want to delete this answer?")) {
+      this.answerService.deleteAnswer(this.question.id, answerId)
+        .subscribe(serverResponce => {
+          this.deleteAnswerFromList(serverResponce, answerId)
+        });
     }
   }
 
@@ -242,8 +273,8 @@ export class QuestionsPageComponent implements OnInit {
   }
 
   upvoteAnswer(answer) {
-    if(!this.user){ return; }
-    if(answer.vote && answer.vote.value > 0) {
+    if (!this.user) { return; }
+    if (answer.vote && answer.vote.value > 0) {
       this.voteService.resetVoteAnswer(answer.id)
         .subscribe(vote => this.registerVote(vote));
     } else {
@@ -254,8 +285,8 @@ export class QuestionsPageComponent implements OnInit {
 
 
   downvoteAnswer(answer) {
-    if(!this.user){ return; }
-    if(answer.vote && answer.vote.value < 0) {
+    if (!this.user) { return; }
+    if (answer.vote && answer.vote.value < 0) {
       this.voteService.resetVoteAnswer(answer.id)
         .subscribe(vote => this.registerVote(vote));
     } else {

@@ -1,0 +1,52 @@
+<div class="mainContainer">
+    <!--<button mat-raised-button color="primary" id="btnCreate" routerLink="/teachers/{teacherId}">Create Teacher</button>-->
+    <!--<button mat-button routerLink="." (click)="goBack()">Back</button>-->
+
+    <mat-card class="teacher-profile-container">
+
+        <div class="title">
+            <h1>{{teacher.firstName}} {{teacher.lastName}}</h1>
+        </div>
+        <div class="title1">
+            <h3>{{teacher.university.name}}</h3>
+        </div>
+        <div class="image-container">
+            <img src="{{teacher.imageUrl}}" style="width: 100%">
+        </div>
+        <div class="title2">
+            <h3>Mark: {{teacher.mark}}</h3>
+        </div>
+        <mat-card-title class="title3">
+            <button mat-raised-button color="primary" style="margin-right:50px;"
+                    routerLink="/teachers/mark">
+                Rate the teacher
+            </button>
+            <button mat-raised-button color="primary" style="margin-right:50px;"
+                    routerLink="/feedback">
+                Add feedback
+            </button>
+        </mat-card-title>
+    </mat-card>
+
+
+    <div id="feedbacksList" *ngIf="feedbacks">
+        <mat-card class="card-container" *ngFor="let feedback of feedbacks">
+
+            <mat-card-title>
+                <a [routerLink]="['/feedbacks', feedback.id]">
+                    {{feedback.body}}
+                </a> <br>
+                <h6>Rating:
+                    {{feedback.rate}}
+                </h6>
+                <h6>Mark:
+                    {{feedback.mark}}
+                </h6>
+            </mat-card-title>
+
+
+        </mat-card>
+        <h3 *ngIf="feedbacks?.length == 0">You don't have feedbacks</h3>
+    </div>
+</div>
+

@@ -56,6 +56,29 @@ export class AuthenticationService extends BaseService {
       }));
   }
 
+  loginFacebook(userData) {
+    return this.http.post<any>(`${this.apiUrl}/signinFacebook`, {
+      authToken: userData.authToken,
+      email: userData.email,
+      firstName: userData.firstName,
+      id: userData.id,
+      lastName: userData.lastName,
+      name: userData.name,
+      photoUrl: userData.photoUrl,
+      provider: userData.provider
+    })
+      .pipe(map(jwt => {
+        // login successful if there's a jwt token in the response
+        if (jwt) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('accessToken', `${jwt.type} ${jwt.accessToken}`);
+          localStorage.setItem('refreshToken', `${jwt.type} ${jwt.refreshToken}`);
+        }
+
+        return jwt;
+      }));
+  }
+
     refreshToken() {
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',

@@ -1,3 +1,9 @@
 export class University {
-    name:string;
+  id: number;
+  creationDate: Date;
+  // modifiedDate: Date;
+  name: string;
+  city: string;
+  imageUrl: ImageData;
+  mark: number;
 }
