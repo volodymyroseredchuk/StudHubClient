@@ -20,17 +20,14 @@ export class NewsComponent implements OnInit {
   constructor(private router: Router, private service: NewsService, private activRouter: ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log("in newscomponent");
     this.getAllNews();
   }
 
   getAllNews() {
     this.service.getAllNews(this.getCurrentPaginationSettings())
       .subscribe(newsPaginatedDTO => {
-        console.log(newsPaginatedDTO);
         this.newsList = newsPaginatedDTO.newsList;
         this.newsTotalCount = newsPaginatedDTO.newsTotalCount;
-        console.log(this.newsList);
       });
   }
 

@@ -20,7 +20,6 @@ export class NewsPageComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log("in news-page component");
         this.getNews();
     }
 
@@ -28,13 +27,11 @@ export class NewsPageComponent implements OnInit {
         const id = +this.route.snapshot.params.id;
         this.newsService.showNewsPage(id)
           .subscribe(news => {
-              console.log(news);
             this.news = news;
           },
             error => {
               alert(error);
               this.alertService.error(error);
-              console.log(error);
               this.router.navigate(["/news"]);
     
             });
