@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Delete } from '../model/delete.model';
 import { ProposalPaginatedDTO } from '../model/proposalPaginatedDTO.model';
 import { Proposal } from '../model/proposal.model';
+import { Order } from '../model/order.model';
 
 
 @Injectable({
@@ -45,5 +46,14 @@ export class ProposalService extends BaseService {
         let options = { headers: headers };
 
         return this.http.delete<Delete>(`${this.apiUrl}/${taskId}/proposals/${id}`, options);
+    }
+
+    approveProposal(taskId: number, id: number): Observable<Order> {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `${localStorage.getItem('accessToken')}`
+        });
+        let options = { headers: headers };
+        return this.http.post<Order>(`${this.apiUrl}/${taskId}/proposals/${id}/approve`,{}, options);
     }
 }

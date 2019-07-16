@@ -32,6 +32,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatlistComponent } from './chatlist/chatlist.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
+import { OrderComponent } from './order/order.component';
+import { OrderModule } from './order/order.module';
 
 // @ts-ignore
 @NgModule({
@@ -62,6 +64,7 @@ import { SafeHtmlPipe } from './safe-html.pipe';
     FeedbackModule,
     SocialLoginModule,
     MatTabsModule,
+    OrderModule,
     FreelanceModule
   ],
 

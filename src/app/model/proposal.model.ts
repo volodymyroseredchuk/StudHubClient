@@ -1,5 +1,6 @@
 import { User } from './user.model';
 
+
 export class Proposal {
     id: number;
     body: string;

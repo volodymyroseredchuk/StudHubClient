@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BaseService } from './base-service';
-import { User } from '../model/user.model';
-import { Observable } from 'rxjs';
 import { FreelancerDTO } from '../model/freelancerDTO.model';
 import { CustomerDTO } from '../model/customerDTO.model';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {BaseService} from './base-service';
+import {User} from '../model/user.model';
+import { Observable } from 'rxjs';
 
-
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class UserService extends BaseService {
 
   constructor(protected http: HttpClient) {

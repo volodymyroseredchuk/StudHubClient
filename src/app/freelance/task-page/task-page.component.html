@@ -39,7 +39,7 @@
       </mat-chip-list>
     </mat-card>
     <div class="proposal-list" *ngIf="proposals">
-      <button mat-raised-button color="primary" id="btnCreate" routerLink="/tasks/{{task?.id}}/proposals/create">Create
+      <button *ngIf="user.username !== task.user.username" mat-raised-button color="primary" id="btnCreate" routerLink="/tasks/{{task?.id}}/proposals/create">Create
         Proposal</button><br />
       <mat-card class="proposal-mat-card"
         *ngFor="let proposal of proposals | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: proposalsTotalCount}">
@@ -74,6 +74,10 @@
             </button>
           </mat-menu>
         </div>
+        <mat-divider></mat-divider>
+        <button *ngIf="isUserTaskCreator()" class="btn btn-light" (click)="approveProposal(proposal.id, proposal.user.username)">
+          Hire!
+        </button>
       </mat-card>
       <div id="pagination">
         <pagination-controls *ngIf="proposals.length != 0" (pageChange)="changePage($event)"></pagination-controls>
