@@ -6,13 +6,6 @@ import { TaskPaginatedDTO } from '../model/taskPaginatedDTO.model';
 import { Task } from '../model/task.model';
 import { Delete } from '../model/delete.model';
 
-const httpOptions = {
-    headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('accessToken')
-    })
-}
-
 @Injectable({
     providedIn: 'root'
 })
@@ -32,15 +25,36 @@ export class TaskService extends BaseService {
     }
 
     createTask(task: Task): Observable<Task> {
-        return this.http.post<Task>(`${this.apiUrl}/create`, task, httpOptions);
+
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `${localStorage.getItem('accessToken')}`
+        });
+        let options = { headers: headers };
+
+        return this.http.post<Task>(`${this.apiUrl}/create`, task, options);
     }
 
     editTask(id: number, task: Task): Observable<Task> {
-        return this.http.put<Task>(`${this.apiUrl}/${id}`, task, httpOptions);
+
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `${localStorage.getItem('accessToken')}`
+        });
+        let options = { headers: headers };
+
+        return this.http.put<Task>(`${this.apiUrl}/${id}`, task, options);
     }
 
     deleteTask(id: number): Observable<Delete> {
-        return this.http.delete<Delete>(`${this.apiUrl}/${id}`, httpOptions);
+
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `${localStorage.getItem('accessToken')}`
+        });
+        let options = { headers: headers };
+
+        return this.http.delete<Delete>(`${this.apiUrl}/${id}`, options);
     }
 
     searchTasksByKeywords(searchPattern: string, paginationSettings: string): Observable<TaskPaginatedDTO> {
