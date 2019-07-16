@@ -1,0 +1,34 @@
+
+h2, h3, h4, pagination-controls {
+    text-align: center;
+}
+
+mat-card {
+    margin: 5px;
+}
+.newsCard {
+    background-color: #ffefe5;
+    width: 70%;
+    margin-right: auto;
+    margin-left: auto;
+    opacity: 0.8;
+}
+
+#newsList {
+    margin-top: 20px;
+}
+
+#pagination {
+    margin-top: 20px;
+}
+
+#sizeSelector {
+    margin-left: 5%;
+}
+
+.responsive_nav_bar {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+}

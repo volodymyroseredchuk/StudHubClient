@@ -6,6 +6,7 @@ import { Tag } from 'src/app/model/tag.model';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-questions-edit',
@@ -25,6 +26,7 @@ export class QuestionsEditComponent implements OnInit{
     loading = false;
     submitted = false;
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+    public editor = ClassicEditor;
 
     constructor(private questionService: QuestionService, private router: Router, 
                 private route: ActivatedRoute, private formBuilder: FormBuilder) {
