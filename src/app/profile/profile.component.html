@@ -28,7 +28,9 @@
             <div id="background">
               {{rating}}/100
             </div>
-            <div class="progress-bar" [ngStyle]="{width: rating + '%'}"></div>
+            <div *ngIf="rating >= 0" class="progress-bar" [ngStyle]="{width: rating + '%'}"></div>
+            <div *ngIf="rating < 0" class="progress-bar" [ngStyle]="{width: 0}"></div>
+
           </div>
           <br>
           <div style="display:table;border-collapse:separate;border-spacing:10px 5px;">

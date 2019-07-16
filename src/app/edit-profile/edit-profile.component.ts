@@ -77,7 +77,7 @@ export class EditProfileComponent implements OnInit {
     if (mimeType.match(/image\/*/) == null) {
       alert('Only images are supported');
       return;
-    }
+    }git 
     const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = () => {
