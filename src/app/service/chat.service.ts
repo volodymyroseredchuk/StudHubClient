@@ -44,7 +44,10 @@ export class ChatService extends BaseService {
       'Authorization': `${localStorage.getItem('accessToken')}`
     });
     const options = { headers: headers };
-    return this.http.post<Message>(this.apiUrl, new Message(null, msgText, senderId, new Date(), chatId), options);
+    let d = new Date();
+
+    d.setHours(d.getHours() + 3);
+    return this.http.post<Message>(this.apiUrl, new Message(null, msgText, senderId, d, chatId), options);
   }
   createChat(creatorUserId: number, receiverUserId: number) {
     const headers = new HttpHeaders({
