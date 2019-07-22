@@ -13,4 +13,5 @@ export class User {
     emailSubscription: boolean;
     roles: { name: string }[];
     privileges: { name: string }[];
+    cookiesCount: number;
 }
