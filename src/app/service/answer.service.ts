@@ -44,4 +44,12 @@ export class AnswerService extends BaseService{
   approveAnswer(questionId:number, answerId: number, approved: boolean){
     return this.http.put<AnswerApproveDTO>(`${this.apiUrl}/${questionId}/answers/${answerId}/approve`, approved.toString(), httpOptions )
   }
+
+  getCountOfApprovedAnswersByUsername(username: String) {
+    return this.http.get<any>(`${this.apiUrl}/answers/count/approved/${username}`);
+  }
+
+  getCountOfAnswersByUsername(username: String) {
+    return this.http.get<number>(`${this.apiUrl}/answers/count/${username}`);
+  }
 }

@@ -1,0 +1,42 @@
+.mainContainer{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 60px;
+}
+
+.newsCard {
+    background-color: #ffefe5;
+    width: 85%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.newsBody{
+    width: 90%;
+    height: auto;
+    overflow-wrap: break-word;
+}
+
+.footerCard{
+    display: flex;
+    justify-content: space-between;
+}
+
+.dateCard{
+    padding-top: 10px;
+}
+
+.responsive_nav_bar {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+}
+
+.img{
+    width: 1200px;
+}

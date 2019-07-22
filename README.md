@@ -23,7 +23,11 @@ To run the application go to `studhub` folder and run the next command prompt
 ```
 ng serve --open
 ```
-
+*tip
+If needed - install these modules:
+npm install --save @ckeditor/ckeditor5-angular
+npm install --save @ckeditor/ckeditor5-build-classic
+npm install --save angularx-social-login
 
 ## Authors
 

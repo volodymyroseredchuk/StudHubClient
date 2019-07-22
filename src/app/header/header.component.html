@@ -1,9 +1,10 @@
 <div>
   <nav class="navbar navbar-expand-md bg-orange my-navbar-collapse">
-    <a class="navbar-brand" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Studhub</a>
-<!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--      <span class="navbar-toggler-icon"></span>-->
-<!--    </button>-->
+    <a class="navbar-brand" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Studhub</a>
+    <!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+    <!--      <span class="navbar-toggler-icon"></span>-->
+    <!--    </button>-->
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2 " id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="navbar-item">
@@ -13,29 +14,44 @@
           <a class="nav-link" routerLink="/questions">QA</a>
         </li>
         <li class="navbar-item">
-          <a class="nav-link" routerLink="/universities">University rate</a>
+          <a class="nav-link" routerLink="/tasks">Freelance</a>
         </li>
         <li class="navbar-item">
-          <a class="nav-link" routerLink="/teachers">Teacher rate</a>
+          <a class="nav-link" routerLink="/universities">Universities</a>
+        </li>
+        <li class="navbar-item">
+          <a class="nav-link" routerLink="/teachers">Teachers</a>
         </li>
         <li class="navbar-item">
           <a class="nav-link" routerLink="/tags">Tags</a>
         </li>
+        <li class="navbar-item">
+          <a class="nav-link" routerLink="/teams">Teams</a>
+        </li>
+        <li class="navbar-item">
+          <a class="nav-link" routerLink="/teams/create">Create Team</a>
+        </li>
+        <li class="navbar-item">
+          <a class="nav-link" routerLink="/chatlist">Messages</a>
+        </li>
+        <li class="navbar-item">
+          <a class="nav-link" routerLink="/news">News</a>
+        </li>
       </ul>
     </div>
     <div class="order-3">
-      <ul class="navbar-nav ml-auto navbar-not-collapse" >
+      <ul class="navbar-nav ml-auto navbar-not-collapse">
         <ng-container *ngIf="!isAuthenticated">
           <li class="navbar-item">
             <a class="nav-link nav-link-no-collapse" routerLink="/signin" style="padding-right: 20px">Sign in</a>
           </li>
           <li class="navbar-item">
-            <a class="nav-link nav-link-no-collapse" routerLink="/signup" >Sign up</a>
+            <a class="nav-link nav-link-no-collapse" routerLink="/signup">Sign up</a>
           </li>
         </ng-container>
         <ng-container *ngIf="isAuthenticated">
           <li class="navbar-item">
-            <a class="nav-link nav-link-no-collapse logout" (click)="logout()" href="/signin" >Log out</a>
+            <a class="nav-link nav-link-no-collapse logout" (click)="logout()" href="/signin">Log out</a>
           </li>
         </ng-container>
       </ul>

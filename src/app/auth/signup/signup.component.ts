@@ -104,22 +104,22 @@ export class SignupComponent implements OnInit {
         }
 
         this.loading = true;
-        this.router.navigate(["/"]);
-        this._snackBar.open("The confirmation link will be sent at your email during half an hour", "OK", {
-            duration: 5000,
-        });
-        this.userService.register(this.registerForm.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this._snackBar.open(data["message"], "OK", {
-                        duration: 15000,
-                    });
-                    this.loading = false;
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
+        this.userService.register(this.registerForm.value).toPromise()
+            .then(() => {
+                this.router.navigate(["/"]);
+                this._snackBar.open("The confirmation link will be sent at your email during half an hour", "OK", {
+                    duration: 5000,
                 });
+                this.loading = false;
+            }).then(() => {
+                return this.userService.receiveConfirmLink(this.registerForm.value).toPromise();
+            }).then(data => {
+                this._snackBar.open(data["message"], "OK", {
+                    duration: 15000,
+                });
+            }).catch(error => {
+                this.alertService.error(error);
+                this.loading = false;
+            })
     }
 }

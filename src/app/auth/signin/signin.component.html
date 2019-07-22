@@ -1,4 +1,5 @@
 <!-- main app container -->
+
 <div class="auth-form responsive_nav_bar">
     <div class="container">
         <div class="row">
@@ -12,6 +13,8 @@
                             [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
                         <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
                             <div *ngIf="f.username.errors.required">Username is required</div>
+                            <div *ngIf="f.username.errors.minlength">Username must be at least 3 characters</div>
+                            <div *ngIf="f.username.errors.maxlength">Username must be less than 32 characters</div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -20,6 +23,7 @@
                             [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
                         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                             <div *ngIf="f.password.errors.required">Password is required</div>
+                            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -31,8 +35,16 @@
                     </div>
 
                 </form>
-              <button style="margin-bottom: 10px" (click)="signinWithGoogle()" class="btn btn-dark">Sign in with <img width="30" height="30" src="http://www.iconninja.com/files/276/245/316/alphabet-social-color-google-network-media-icon.svg"></button>
+                <div layout="row" flex>
+                    <button style="margin-bottom: 5px" (click)="signinWithGoogle()" class="btn btn-dark">Sign in with
+                        <img width="30" height="30"
+                            src="http://www.iconninja.com/files/276/245/316/alphabet-social-color-google-network-media-icon.svg"></button>
+
+                    <button class="loginBtn loginBtn--facebook" (click)="signinWithFacebook()">
+                        Login with Facebook
+                    </button>
+
+                </div>
             </div>
         </div>
     </div>
-</div>

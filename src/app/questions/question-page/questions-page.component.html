@@ -1,4 +1,4 @@
-<div class="mainContainer responsive_nav_bar">
+<div class="mainContainer">
     <button mat-raised-button color="primary" id="btnCreate" routerLink="/questions/create">Create Question</button>
     <button mat-button routerLink="." (click)="goBack()">Back</button>
 
@@ -7,8 +7,8 @@
             {{question.title}}
         </mat-card-title>
         <mat-divider></mat-divider>
-        <mat-card-content class="questionBody">
-            {{question.body}}
+        <mat-card-content class="questionBody" [innerHTML]="question.body">
+            //{{question.body}}
         </mat-card-content>
         <mat-card-footer class="footerCard">
             <div>
@@ -20,7 +20,7 @@
 
             <div class="userCard">
                 asked: {{question.creationDate}} <br>
-                <a routerLink="/profile">
+                <a routerLink="/profile/{{question.user.username}}">
                     {{question.user.username}}
                 </a>
             </div>
@@ -36,35 +36,35 @@
                 <div class="row">
                     <div class="col-md-2 answer-vote">
 
-                            <div *ngIf="answer.vote">
-                                <div *ngIf="answer.vote.value === -1">
-                                    <button class="btn btn-light btn-vote" (click)="upvoteAnswer(answer)">+</button><br/>
-                                    <div class="text-danger rate-val">  {{answer.rate}}</div>
-                                    <button class="btn btn-danger btn-vote" (click)="downvoteAnswer(answer)">-</button>
-                                </div>
-                                <div *ngIf="answer.vote.value === 1">
-                                    <button class="btn btn-success btn-vote" (click)="upvoteAnswer(answer)">+</button><br/>
-                                    <div class="text-success rate-val" >  {{answer.rate}}</div>
-                                    <button class="btn btn-light btn-vote" (click)="downvoteAnswer(answer)">-</button>
-                                </div>
+                        <div *ngIf="answer.vote">
+                            <div *ngIf="answer.vote.value === -1">
+                                <button class="btn btn-light btn-vote" (click)="upvoteAnswer(answer)">+</button><br />
+                                <div class="text-danger rate-val"> {{answer.rate}}</div>
+                                <button class="btn btn-danger btn-vote" (click)="downvoteAnswer(answer)">-</button>
                             </div>
-                            <div *ngIf="!answer.vote || answer.vote.value === 0">
-                                <button class="btn btn-light btn-vote" (click)="upvoteAnswer(answer)">+</button><br/>
-                                <div class="rate-val">  {{answer.rate}} </div>
+                            <div *ngIf="answer.vote.value === 1">
+                                <button class="btn btn-success btn-vote" (click)="upvoteAnswer(answer)">+</button><br />
+                                <div class="text-success rate-val"> {{answer.rate}}</div>
                                 <button class="btn btn-light btn-vote" (click)="downvoteAnswer(answer)">-</button>
-
                             </div>
                         </div>
-                        <div class="col-md-10">
-                            <div class="answer-approved text-success" *ngIf="answer.approved">
-                                Answer is approved by question creator
-                            </div>
-                            <div>
-                                {{answer.body}}
-                            </div>
-                        </div>
+                        <div *ngIf="!answer.vote || answer.vote.value === 0">
+                            <button class="btn btn-light btn-vote" (click)="upvoteAnswer(answer)">+</button><br />
+                            <div class="rate-val"> {{answer.rate}} </div>
+                            <button class="btn btn-light btn-vote" (click)="downvoteAnswer(answer)">-</button>
 
+                        </div>
                     </div>
+                    <div class="col-md-10">
+                        <div class="answer-approved text-success" *ngIf="answer.approved">
+                            Answer is approved by question creator
+                        </div>
+                        <div [innerHTML]="answer.body">
+                            //{{answer.body}}
+                        </div>
+                    </div>
+
+                </div>
 
 
 
@@ -82,20 +82,21 @@
                             (click)="deleteAnswer(answer.id)">Delete</button>
                     </div>
                     <div>
-                        <button mat-button color="primary" (click)="loadCreateComment()">Comment</button>
+                        <button mat-button color="primary" (click)="loadCreateComment(answer.id)">Comment</button>
                     </div>
                 </div>
                 <div class="userCard col-md-5">
                     answered: {{answer.creationDate}}<br>
-                    <a routerLink="/profile"> {{answer.user.username}}
+                    <a routerLink="/profile/{{answer.user.username}}">
+                        {{answer.user.username}}
                     </a>
                 </div>
             </div>
 
             <div class="commentCard" *ngIf="answer?.comment">
                 <mat-card class="comment-mat-card" *ngFor="let comment of answer.comment">
-                    <mat-card-content class="commentBody">
-                        {{comment.body}}
+                    <mat-card-content class="commentBody" [innerHTML]="comment.body">
+                        //{{comment.body}}
                     </mat-card-content>
 
                     <div class="commentFooter">
@@ -105,19 +106,23 @@
                         </div>
 
                         <div class="dateCard">
-                            <a routerLink="/profile">
-                                {{question.user.username}}
+
+                            <a routerLink="/profile/{{comment.user.username}}">
+                                {{comment.user.username}}
+
                             </a>
-                            on: {{question.creationDate}}
+                            on: {{comment.creationDate}}
                         </div>
                     </div>
                 </mat-card>
             </div>
-            <app-comment *ngIf="loadCommentComponent" [answerId]="answer.id" (commentEvent)="recieveNewComment($event)"></app-comment>
+            <app-comment *ngIf="createCommentIsActive(answer.id)" [answerId]="answer.id"
+                (commentEvent)="recieveNewComment($event)">
+            </app-comment>
         </mat-card>
-        
-        
-        <app-answer *ngIf="this.user" [questionId]="question.id" (newAnswerEvent)="recieveNewAnswer($event)"></app-answer>
+
+        <app-answer *ngIf="this.user" [questionId]="question.id" (newAnswerEvent)="recieveNewAnswer($event)">
+        </app-answer>
 
     </div>
 </div>
