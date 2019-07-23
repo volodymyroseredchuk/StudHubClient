@@ -58,7 +58,7 @@ export class EditProfileComponent implements OnInit {
 
   get f() { return this.userForm.controls; }
 
-  onSubmit(f: NgForm) {
+  onSubmit(f) {
     if (f.value.firstname.length < 3 || f.value.lastname.length < 3) {
       return;
     }
@@ -70,7 +70,11 @@ export class EditProfileComponent implements OnInit {
       this.user.university = this.selectedUniversity;
     }
 
-    this.setImageUrl();
+    if (this.fileData !== null) {
+      this.setImageUrl();
+    } else {
+      this.userService.updateUser(this.user).subscribe(() => this.router.navigate(['/profile']));
+    }
   }
 
   async setImageUrl() {
