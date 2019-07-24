@@ -52,4 +52,9 @@ export class AnswerService extends BaseService{
   getCountOfAnswersByUsername(username: String) {
     return this.http.get<number>(`${this.apiUrl}/answers/count/${username}`);
   }
+
+  getSumOfRatingByUserUsername(username: String){
+    return this.http.get<number>(`${this.apiUrl}/answers/sum/rating/${username}`);
+  }
 }
+

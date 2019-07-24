@@ -7,7 +7,6 @@ import { FeedbackService } from '../service/feedback.service';
 import { QuestionService } from '../service/question.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnswerService } from '../service/answer.service';
-import { VoteService } from '../service/vote.service';
 import { ChatService } from '../service/chat.service';
 
 
@@ -18,11 +17,10 @@ import { ChatService } from '../service/chat.service';
 })
 export class ProfileComponent implements OnInit {
   user: User;
+  currentUser: User;
   questions: QuestionForListDTO[];
   feedbacks: Feedback[];
-  currentUser: User;
   answersCount: number;
-  approvedAnswersCount: number;
   rating: number;
 
   constructor(
@@ -30,7 +28,6 @@ export class ProfileComponent implements OnInit {
     private feedbackService: FeedbackService,
     private questionService: QuestionService,
     private answerService: AnswerService,
-    private voteService: VoteService,
     private route: ActivatedRoute,
     private chatService: ChatService,
     private router: Router
@@ -79,11 +76,10 @@ export class ProfileComponent implements OnInit {
     });
 
     this.answerService.getCountOfApprovedAnswersByUsername(user.username).subscribe(res => {
-      this.approvedAnswersCount = res;
       this.rating = this.rating + res * 5;
     });
 
-    this.voteService.getSumOfVotesByUsername(user.username).subscribe(res => {
+    this.answerService.getSumOfRatingByUserUsername(user.username).subscribe(res => {
       this.rating += res;
     });
   }
