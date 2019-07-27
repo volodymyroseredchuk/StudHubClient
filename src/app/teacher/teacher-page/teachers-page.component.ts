@@ -31,7 +31,6 @@ export class TeachersPageComponent implements OnInit {
     }
 
     getTeacher() {
-
         this.teacherId = +this.route.snapshot.params.id;
         // let teacherId = parseInt(this.route.snapshot.paramMap.get('{teacherId}'));
         console.log(this.teacherId);

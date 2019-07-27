@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Feedback} from '../../model/feedback.model';
 import {FeedbackService} from '../../service/feedback.service';
+import {Teacher} from '../../model/teacher.model';
 
 @Component({
     selector: 'app-feedback-create',
@@ -23,7 +24,8 @@ export class FeedbackCreateComponent implements OnInit {
     loading = false;
     submitted = false;
 
-    constructor(private feedbackService: FeedbackService, private router: Router, private formBuilder: FormBuilder) {
+    constructor(private feedbackService: FeedbackService, private router: Router, private formBuilder: FormBuilder,
+                private route: ActivatedRoute) {
         this.feedback = new Feedback();
     }
 
@@ -38,19 +40,20 @@ export class FeedbackCreateComponent implements OnInit {
         return this.feedbackCreateForm.controls;
     }
 
-    goToAllFeedbacks() {
-        this.router.navigate(['/feedback']);
-    }
+    // goToAllFeedbacks() {
+    //     this.router.navigate(['/feedback']);
+    // }
 
     onSubmit() {
+        const teacherId = +this.route.snapshot.params.id;
         this.submitted = true;
 
         // stop here if form is invalid
         if (this.feedbackCreateForm.invalid) {
             return;
         }
-
+        this.feedback.teacherId = teacherId;
         this.feedbackService.createFeedback(this.feedback)
-            .subscribe(result => this.goToAllFeedbacks());
+            .subscribe(result => this.router.navigate(['/teachers', teacherId]));
     }
 }

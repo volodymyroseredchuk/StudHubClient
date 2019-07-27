@@ -19,10 +19,14 @@
         <mat-card-title class="title3">
             <button mat-raised-button color="primary" style="margin-right:50px;"
                     routerLink="/teachers/mark">
+                Edit the teacher
+            </button>
+            <button mat-raised-button color="primary" style="margin-right:50px;"
+                    routerLink="/teachers/mark">
                 Rate the teacher
             </button>
             <button mat-raised-button color="primary" style="margin-right:50px;"
-                    routerLink="/feedback">
+                    routerLink="/create-feedback/{{teacherId}}">
                 Add feedback
             </button>
         </mat-card-title>

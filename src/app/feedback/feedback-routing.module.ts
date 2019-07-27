@@ -5,11 +5,11 @@ import { FeedbackCreateComponent } from './feedback-create/feedback-create.compo
 
 const routes: Routes = [
   {
-    path: 'feedback',
+    path: 'feedback-list',
     component: FeedbacksComponent
   },
   {
-    path: 'feedback/feedback',
+    path: 'create-feedback/:id',
     component: FeedbackCreateComponent
   }
 ];

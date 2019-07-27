@@ -32,7 +32,7 @@ export class FeedbacksComponent implements OnInit {
 
   ngOnInit() {
 
-    this.feedbackService.getAllFeedbacks().subscribe(data => this.feedbacks = data);
+    // this.feedbackService.getAllFeedbacks().subscribe(data => this.feedbacks = data);
     this.feedbackService.getAllFeedbacksByTeacherId(this.teacherId).subscribe(data => this.feedbacks = data);
     this.feedbackService.getAllFeedbacksByUniversityId(this.universityId).subscribe(data => this.feedbacks = data);
 

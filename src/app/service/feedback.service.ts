@@ -23,7 +23,7 @@ export class FeedbackService extends BaseService {
     }
 
     createFeedback(feedback: Feedback): Observable<Feedback> {
-        return this.http.post<Feedback>(`${this.apiUrl}/feedback`, feedback, httpOptions);
+        return this.http.post<Feedback>(`${this.apiUrl}`, feedback, httpOptions);
     }
 
     // createFeedbackByUniversityId(feedback: Feedback): Observable<Feedback> {
