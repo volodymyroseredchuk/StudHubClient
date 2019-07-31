@@ -53,9 +53,9 @@
         <a [routerLink]="['/questions', question.id]">
           {{question.title}}
 
-        </a> <br>
-        <h6>Asked:
-          {{question.creationDate}}
+        </a> <br>        
+        <h6 >Asked:
+          {{question.creationDate | date: 'MMM dd'}}
         </h6>
       </mat-card-title>
 
