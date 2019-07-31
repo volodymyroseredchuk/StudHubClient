@@ -1,4 +1,5 @@
 import { University } from './university.model';
+import { Team } from './team.model';
 
 export class User {
     id: number;
@@ -14,4 +15,5 @@ export class User {
     roles: { name: string }[];
     privileges: { name: string }[];
     cookiesCount: number;
+    teamList: Team[];
 }
