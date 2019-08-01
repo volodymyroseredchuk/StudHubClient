@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {SocketService} from "../service/socket.service";
 import {AlertService} from "../service/alert.service";
+import {EncryptionService} from "../service/encryption.service";
 
 const DEFAULT_PHOTO_URL = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKqnsGDyoy2fmVfsQXo3twd6UoXqWn2eiJferMx_K3vF4rGW79';
 
@@ -24,7 +25,8 @@ export class ChatlistComponent implements OnInit {
     private alertService: AlertService,
     private service: ChatService,
     httpVar: HttpClient,
-    private router: Router) {
+    private router: Router,
+    private encryptionService: EncryptionService) {
     this.connection = SocketService.getInstance(httpVar);
   }
 
@@ -38,10 +40,11 @@ export class ChatlistComponent implements OnInit {
         if (item.photoUrl === null) {
           item.photoUrl = DEFAULT_PHOTO_URL;
         }
-        if (item.lastMessageText === null) {
-          item.lastMessageText = 'No messages yet.';
+        if (!item.secret || item.lastMessageText == 'Chat successfully created.') {
+          this.chatListItems.push(item);
+        } else {
+          item.lastMessageText = EncryptionService.decryptMessage(this.encryptionService.getChatSecret(item.chatId), item.lastMessageText);
         }
-        this.chatListItems.push(item);
       });
     },
       error => {

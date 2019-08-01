@@ -124,3 +124,9 @@
   color: #4b4fe2;
   padding: 20px;
 }
+
+#dropdown-secret {
+  &hover {
+    cursor: pointer;
+  }
+}
