@@ -14,8 +14,7 @@ import { MembersComponent } from './members/members.component';
 const routes: Routes = [
   {
     path: 'teams',
-    component: TeamsComponent,
-    canActivate: [AuthGuard]
+    component: TeamsComponent
   },
   {
     path: 'teams/create',
@@ -24,8 +23,7 @@ const routes: Routes = [
   },
   {
     path: 'teams/:id',
-    component: TeamPageComponent,
-    canActivate: [AuthGuard]
+    component: TeamPageComponent
   },
   {
     path: 'teams/:id/edit',
