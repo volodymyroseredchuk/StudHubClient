@@ -23,6 +23,7 @@ export class TeacherService extends BaseService {
   }
 
   newTeacher(teacher: Teacher): Observable<Teacher> {
+    console.log(teacher);
     return this.http.post<Teacher>(`${this.apiUrl}/teacher`, teacher);
   }
 

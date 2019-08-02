@@ -1,18 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {MatChipInputEvent} from '@angular/material/chips';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-
-import {Router} from '@angular/router';
-import {Teacher} from '../../model/teacher.model';
+import { Component, OnInit } from '@angular/core';
+import { NgForm, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { University } from '../../model/university.model';
+import { UniversityService } from '../../service/university.service';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
+import { FileService } from '../../service/file.service';
 import {TeacherService} from '../../service/teacher.service';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {University} from '../../model/university.model';
-import {UniversityService} from '../../service/university.service';
-import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
-import {Feedback} from '../../model/feedback.model';
-import {FeedbackService} from '../../service/feedback.service';
-import {FileService} from '../../service/file.service';
+import {Teacher} from '../../model/teacher.model';
 
 @Component({
   selector: 'app-teachers-create',
@@ -20,141 +15,74 @@ import {FileService} from '../../service/file.service';
   styleUrls: ['./teachers-create.component.scss']
 })
 export class TeachersCreateComponent implements OnInit {
-  visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  myControl = new FormControl();
   teacher: Teacher;
   fileData: File = null;
   imgURL: any;
-
-  feedbackCreateForm: FormGroup;
-  loading = false;
-  submitted = false;
-
   private universities: University[];
-  private selectedUniversityName: "None";
+  private selectedUniversityName: 'None';
   private selectedUniversity: University;
   options: string[];
   filteredOptions: Observable<string[]>;
-
+  myControl = new FormControl();
 
   teacherForm = new FormGroup({
     firstname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
-    lastname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
+    lastname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)])
   });
 
-
-  constructor(private teacherService: TeacherService, private fileService: FileService, private router: Router,
-              private universityService: UniversityService) {
-    this.teacher = new Teacher();
-  }
-
+  constructor(
+      private fileService: FileService,
+      private teacherService: TeacherService,
+      private universityService: UniversityService,
+      private router: Router
+  ) { }
 
   ngOnInit() {
-
-    // this.teacherForm = this.formBuilder.group({
-    //   title: ['', Validators.required],
-    //   body: ['', Validators.required]
-    // });
-    this.teacherService.newTeacher(this.teacher).subscribe(res => {
-      this.teacher = res;
-      this.teacherForm.patchValue({
-        firstname: res.firstName,
-        lastname: res.lastName,
-      });
-    });
-
     this.getUniversities();
   }
-  // ngOnInit() {
-  // }
-  //
-  // addTag(event: MatChipInputEvent): void {
-  //   const input = event.input;
-  //   const value = event.value;
-  //
-  //
-  //   if (input) {
-  //     input.value = '';
-  //   }
-  // }
 
-  goToAllTeachers() {
-    this.router.navigate(['/teachers']);
-  }
-
-
-  onSubmit() {
-    this.submitted = true;
-
-    // // stop here if form is invalid
-    // if (this.questionCreateForm.invalid) {
-    //   return;
-    // }
-    this.teacherService.newTeacher(this.teacher)
-        .subscribe(result => this.goToAllTeachers());
+  fileProgress(fileInput: any) {
+    this.fileData = fileInput.target.files[0] as File;
   }
 
   get f() { return this.teacherForm.controls; }
 
-  // onSubmit(f: NgForm) {
-  //   if (f.value.firstname.length < 3 || f.value.lastname.length < 3) {
-  //     return;
-  //   }
-  //
-  //   this.teacher.firstName = f.value.firstname;
-  //   this.teacher.lastName = f.value.lastname;
-  //   if (this.selectedUniversity !== undefined) {
-  //     this.teacher.university = this.selectedUniversity;
-  //   }
-  //
-  //   this.setImageUrl();
-  // }
-  //
-  // async setImageUrl() {
-  //   await this.fileService.uploadFile(this.fileData).toPromise().then(res => {
-  //     this.teacher.imageUrl = res.message;
-  //   }).then(() => {
-  //     this.teacherService.updateTeacher(this.teacher).subscribe(() => this.router.navigate(['/teachers']));
-  //   })
-  // }
+  async onSubmit(f: NgForm) {
+    if (f.value.firstname.length < 3 || f.value.lastname.length < 3) {
+      return;
+    }
+    console.log(f);
+    this.teacher = new Teacher();
+    this.teacher.firstName = f.value.firstname;
+    this.teacher.lastName = f.value.lastname;
+    if (this.selectedUniversity !== undefined) {
+      this.teacher.university = this.selectedUniversity;
+    }
+    console.log(this.teacher);
+    await this.setImageUrl();
+    this.createTeacher(this.teacher);
+  }
 
-
-  async getUniversities() {
-    this.options = [];
-    await this.universityService.getAllUniversities().toPromise().then(data => {
-      console.log(data);
-      this.universities = data;
-    }).then(() => {
-      this.universities.forEach(university => {
-        this.options.push(university.name);
+  async setImageUrl() {
+    console.log(this.fileData);
+    if(this.fileData){
+      await this.fileService.uploadFile(this.fileData).toPromise().then(res => {
+        console.log(res);
+        this.teacher.imageUrl = res.message;
       });
-    }).then(() => {
-      console.log(this.options);
-    }).then(() => {
-      this.filteredOptions = this.myControl.valueChanges
-          .pipe(
-              startWith(''),
-              map(value => this._filter(value))
-          );
+    } else {
+      this.teacher.imageUrl = 'https://res.cloudinary.com/studhubcloud/image/upload/v1563131695/teacher7_dr0owq.jpg';
+    }
+  }
+
+  async createTeacher(teacher: Teacher){
+    await this.teacherService.newTeacher(this.teacher).subscribe(res => {
+      console.log(res);
+      this.router.navigate(['/teachers']);
     });
   }
 
-  getUniverFromName(option: string) {
-    this.selectedUniversity = this.universities.find(university => {
-      return university.name === option;
-    });
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
 
   onChange(event) {
     this.fileData = event.target.files[0];
@@ -169,5 +97,34 @@ export class TeachersCreateComponent implements OnInit {
       this.imgURL = reader.result;
     };
   }
-}
 
+  async getUniversities() {
+    this.options = [];
+    await this.universityService.getAllUniversities().toPromise().then(data => {
+      console.log(data);
+      this.universities = data;
+    }).then(() => {
+      this.universities.forEach(university => {
+        this.options.push(university.name);
+      });
+    }).then(() => {
+      this.filteredOptions = this.myControl.valueChanges
+          .pipe(
+              startWith(''),
+              map(value => this._filter(value))
+          );
+    });
+  }
+
+  getUniverFromName(option: string) {
+    this.selectedUniversity = this.universities.find(university => {
+      return university.name === option;
+    });
+  }
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+}
