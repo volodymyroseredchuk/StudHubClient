@@ -14,16 +14,12 @@
             <img src="{{teacher.imageUrl}}" style="width: 100%">
         </div>
         <div class="title2">
-            <h3>Mark: {{teacher.mark}}</h3>
+            <h3>Rating: {{teacher.mark}}</h3>
         </div>
         <mat-card-title class="title3">
             <button mat-raised-button color="primary" style="margin-right:50px;"
-                    routerLink="/teachers/mark">
+                    routerLink="/teachers/update">
                 Edit the teacher
-            </button>
-            <button mat-raised-button color="primary" style="margin-right:50px;"
-                    routerLink="/teachers/mark">
-                Rate the teacher
             </button>
             <button mat-raised-button color="primary" style="margin-right:50px;"
                     routerLink="/create-feedback/{{teacherId}}">

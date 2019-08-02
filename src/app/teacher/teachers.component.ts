@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {TeacherService} from '../service/teacher.service';
 import {Teacher} from '../model/teacher.model';
-import {TeacherForListDTO} from '../model/teacherForListDTO.model';
+import {TeacherDTO} from '../model/teacherForListDTO.model';
 import {MatChipInputEvent} from '@angular/material';
 
 
@@ -26,7 +26,7 @@ export class TeachersComponent implements OnInit {
   keywordSearch = false;
   keywords: Teacher[] = [];
 
-  teachers: TeacherForListDTO[];
+  teachers: TeacherDTO[];
   teachersTotalCount: number;
   pageSize: number = 5;
   page: number = 1;
