@@ -53,7 +53,7 @@ export class EncryptionService {
       return db.getAll('keys').then(
         keys => {
           return keys.find((el) => {
-            return el.chatId === chatId;
+            return el.chatId == chatId;
           });
         },
         error => {
@@ -61,6 +61,7 @@ export class EncryptionService {
         }
       );
     });
+    console.log('returning: ' + found);
     return found;
   }
   public async generateSecret(keyPair, pub, chatID) {

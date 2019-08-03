@@ -40,10 +40,10 @@ export class ChatlistComponent implements OnInit {
         if (item.photoUrl === null) {
           item.photoUrl = DEFAULT_PHOTO_URL;
         }
-        if (!item.secret || item.lastMessageText == 'Chat successfully created.') {
+        if (item.secret == false || item.lastMessageText == 'Chat successfully created.') {
           this.chatListItems.push(item);
         } else {
-          item.lastMessageText = EncryptionService.decryptMessage(this.encryptionService.getChatSecret(item.chatId), item.lastMessageText);
+          this.decryptMesssage(item);
         }
       });
     },
@@ -54,7 +54,10 @@ export class ChatlistComponent implements OnInit {
       });
     this.onMessage();
   }
-
+  private async decryptMesssage(item) {
+    item.lastMessageText = EncryptionService.decryptMessage(await this.encryptionService.getChatSecret(item.chatId), item.lastMessageText);
+    this.chatListItems.push(item);
+  }
   getDecodedAccessToken(token: string): any {
     try {
       return jwt_decode(token);

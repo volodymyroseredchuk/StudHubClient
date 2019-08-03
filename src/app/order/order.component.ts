@@ -96,12 +96,12 @@ export class OrderComponent implements OnInit {
       order => {
         this.order = order;
         console.log(this.order);
-        this.chatService.createChat(this.order.task.user.id, this.order.proposal.user.id)
+        this.chatService.createChat(this.order.task.user.id, this.order.proposal.user.id, false)
           .subscribe(
             chatId => {
-              console.log(chatId)
-              this.chatId = chatId
-              console.log(chatId)
+              console.log(chatId);
+              this.chatId = chatId;
+              console.log(chatId);
             }
 
           )

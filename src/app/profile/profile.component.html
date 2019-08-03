@@ -20,13 +20,13 @@
           <h5><i class="fas fa-user-tie info"></i>{{user?.username}}</h5>
           <div *ngIf="user?.username !== currentUser?.username && currentUser !== undefined" class="btn-group">
             <button class="btn btn-secondary btn-lg" type="button" (click)="sendMessage()">
-              Large split button
+              Go to the chat
             </button>
             <button id="tpggle_chat" type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="sr-only">Toggle Dropdown</span>
             </button>
-            <div class="dropdown-menu" aria-labelledby="toggle_chat">
-              <a id="dropdown-secret" class="dropdown-item" (click)="sendSecretMessage()">Secret</a>
+            <div id="dropdown-secret" class="dropdown-menu" aria-labelledby="toggle_chat">
+              <a class="dropdown-item" (click)="sendSecretMessage()">Go to the secret chat</a>
             </div>
           </div>
           <a *ngIf="user?.username === currentUser?.username" routerLink="/edit">

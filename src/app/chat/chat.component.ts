@@ -37,7 +37,7 @@ export class ChatComponent implements OnInit {
   private gotMessagesCount = 0;
   loading = false;
   // E2EE
-  private secret: boolean;
+  private secret = false;
   private publicSent = false;
   private encryptionKey = null;
   constructor(
@@ -57,9 +57,10 @@ export class ChatComponent implements OnInit {
       this.loading = true;
       this.route.params.subscribe(params => {
         this.chatId = params.chatId;
-        this.secret = params.secret;
+        this.secret = (params.secret == 'true');
       });
-      if (this.secret) {
+      if (this.secret == true) {
+        console.log('initSecret()');
         this.initSecret().then(() => {
           this.init();
         });
@@ -92,10 +93,12 @@ export class ChatComponent implements OnInit {
             this.messages.push(msg);
           } else {
             msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
-            if (!this.secret) {
+            if (this.secret == true) {
+              console.log('decrypting message');
+              msg.content = EncryptionService.decryptMessage(this.encryptionKey, msg.content);
               this.messages.push(msg);
             } else {
-              msg.content = EncryptionService.decryptMessage(this.encryptionKey, msg.content);
+              console.log('goin to show message as it is');
               this.messages.push(msg);
             }
           }
@@ -109,6 +112,7 @@ export class ChatComponent implements OnInit {
     this.onMessage();
   }
   private async initSecret() {
+    console.log('initSecret()');
     if (this.encryptionKey === undefined || this.encryptionKey === null) {
       this.encryptionKey = await this.encryptionService.getChatSecret(this.chatId);
       if (this.encryptionKey === undefined) {
@@ -119,7 +123,30 @@ export class ChatComponent implements OnInit {
       }
     }
   }
-  sendMessage(msgText: string) {
+  send(msg: string) {
+    if (this.secret == true) {
+      this.sendSecretMessage(msg);
+    } else {
+      this.sendCommonMessage(msg);
+    }
+  }
+  sendCommonMessage(msgText: string) {
+      if (msgText != null && msgText != '' && msgText.trim() != '') {
+        const userId: number = this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub; // decode token
+        this.service.sendMessage(msgText.trim(),
+          this.chatId, this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub)
+          .subscribe(
+            (msg) => {
+                msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
+                this.messages.push(msg);
+            },
+            error => {
+              console.log(error);
+              this.alertService.error(error);
+            });
+      }
+  }
+  sendSecretMessage(msgText: string) {
     this.initSecret().then(() => {
       if (msgText != null && msgText != '' && msgText.trim() != '') {
         const userId: number = this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub; // decode token
@@ -127,14 +154,9 @@ export class ChatComponent implements OnInit {
           this.chatId, this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub)
           .subscribe(
             (msg) => {
-              if (!this.secret) {
-                msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
-                this.messages.push(msg);
-              } else {
                 msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
                 msg.content = EncryptionService.decryptMessage(this.encryptionKey, msg.content);
                 this.messages.push(msg);
-              }
             },
             error => {
               console.log(error);
@@ -171,7 +193,7 @@ export class ChatComponent implements OnInit {
             } else {
               msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
             }
-            if (!this.secret) {
+            if (this.secret == false) {
               this.messages.unshift(msg);
             } else {
               msg.content = EncryptionService.decryptMessage(this.encryptionKey, msg.content);
@@ -193,21 +215,22 @@ export class ChatComponent implements OnInit {
     this.connection.onMessage((message: {param1: string, param2: string, type: string}) => {
       if (message.type == 'CHAT_MESSAGE') {
         if (this.router.url.includes('/chat/')) {
-          this.initSecret().then(() => {
-            if (!this.secret) {
+            if (this.secret == false) {
               this.messages.push(new Message(null, message.param2, 'message-their', null, null));
             } else {
-              message.param2 = EncryptionService.decryptMessage(this.encryptionKey, message.param2);
-              this.messages.push(new Message(null, message.param2, 'message-their', null, null));
+              this.initSecret().then(() => {
+                message.param2 = EncryptionService.decryptMessage(this.encryptionKey, message.param2);
+                this.messages.push(new Message(null, message.param2, 'message-their', null, null));
+              });
             }
             this.gotMessagesCount++;
-          });
         }
       } else if (message.type == 'STATUS') {
         if (message.param2 == 'OK') {
-          this.snackBar.open('Invite sent successfully', 'Ok');
+          this.snackBar.open('Invite sent successfully.', 'Ok');
         } else {
-          this.snackBar.open('Invite sent unsuccessfully', 'Ok');
+          this.snackBar.open('Invite sent unsuccessfully. User is offline', 'Ok');
+          this.router.navigateByUrl('/chatlist');
         }
       }
 

@@ -97,7 +97,7 @@ export class ProfileComponent implements OnInit {
   sendSecretMessage() {
     this.chatService.createChat(this.currentUser.id, this.user.id, true).subscribe(
       res => {
-        this.router.navigateByUrl('chat/' + res + '/' + true);
+        this.router.navigateByUrl('chat/' + res + '/' + true) ;
       });
   }
 }
