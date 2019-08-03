@@ -9,6 +9,7 @@ import { TeamQuestionsCreateComponent } from './questions-create/questions-creat
 import { TeamQuestionsPageComponent } from './question-page/questions-page.component';
 import { TeamQuestionsEditComponent } from './questions-edit/questions-edit.component';
 import { MembersComponent } from './members/members.component';
+import { InvitationsComponent } from './invitations/invitations.component';
 
 
 const routes: Routes = [
@@ -50,6 +51,11 @@ const routes: Routes = [
     component: MembersComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'teams/:id/invitations',
+    component: InvitationsComponent,
+    canActivate: [AuthGuard]
+  }
 
 ];
 

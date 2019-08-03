@@ -22,7 +22,7 @@
     <ul>
       <li *ngFor="let member of team.userList">
         {{member.username}}
-        <button class="memberClose" *ngIf="canModifyTeam()" mat-icon-button id="btnDeleteMember" (click)="deleteMember(member)">
+        <button class="memberClose" *ngIf="canModifyTeam()" mat-icon-button (click)="deleteMember(member)">
           <mat-icon>close</mat-icon>
         </button>
       </li>
@@ -30,7 +30,7 @@
     <ul>
       <li *ngFor="let invitation of team.invitations">
         {{invitation.user.username}}
-        <button class="memberCancel" *ngIf="canModifyTeam()" mat-icon-button id="btnDeleteMember" (click)="deleteInvitation(invitation)">
+        <button class="memberCancel" *ngIf="canModifyTeam()" mat-icon-button (click)="deleteInvitation(invitation)">
           Cancel invitation
         </button>
       </li>
@@ -38,5 +38,5 @@
   </form>
 
   <a mat-raised-button (click)="goBack()" id="backBtn">Go back</a>
-  <button type="submit" mat-raised-button color="primary" class="btn btn-success" (click)="onSubmit()">Update</button>
+  <button type="submit" mat-raised-button color="primary" *ngIf="canModifyTeam()" class="btn btn-success" (click)="onSubmit()">Update</button>
 </mat-card>

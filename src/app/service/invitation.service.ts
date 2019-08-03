@@ -17,6 +17,26 @@ export class InvitationService extends BaseService {
         this.apiUrl += '/teams';
     }
 
+    getInvitation(teamId: number): Observable<Invitation[]> {
+        let httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': `${localStorage.getItem('accessToken')}`
+            })
+        }
+        return this.http.get<Invitation[]>(`${this.apiUrl}/${teamId}/invitations`, httpOptions);
+    }
+    
+    acceptInvitation(teamId: number, invitationId: number, team: Team): Observable<Team> {
+        let httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': `${localStorage.getItem('accessToken')}`
+            })
+        }
+        return this.http.put<Team>(`${this.apiUrl}/${teamId}/invitations/${invitationId}`, team, httpOptions);
+    }
+
     deleteInvitation(teamId: number, invitationId: number): Observable<Delete> {
         let httpOptions = {
             headers: new HttpHeaders({
@@ -26,4 +46,5 @@ export class InvitationService extends BaseService {
         }
         return this.http.delete<Delete>(`${this.apiUrl}/${teamId}/invitations/${invitationId}`, httpOptions);
     }
+
 }
