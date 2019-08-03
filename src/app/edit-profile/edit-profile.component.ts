@@ -18,10 +18,7 @@ import { FileService } from '../service/file.service';
 export class EditProfileComponent implements OnInit {
 
   user: User;
-  fileData: File = null;
-  imgURL: any;
   private universities: University[];
-  private selectedUniversityName: "None";
   private selectedUniversity: University;
   options: string[];
   filteredOptions: Observable<string[]>;
