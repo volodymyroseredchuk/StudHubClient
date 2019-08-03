@@ -46,6 +46,7 @@ import {UniversitiesCreateComponent} from './universities/university-create/univ
 import {UniversitiesPageComponent} from './universities/university-page/universities-page.component';
 import {UniversitiesComponent} from './universities/universities.component';
 import {OrderModule} from './order/order.module';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 // @ts-ignore
 @NgModule({
@@ -82,7 +83,8 @@ import {OrderModule} from './order/order.module';
     FreelanceModule,
     MatTabsModule,
     TeachersModule,
-    UniversitiesModule
+    UniversitiesModule,
+    ImageCropperModule
   ],
 
   providers: [
