@@ -53,24 +53,24 @@
                     <img class="image-container" src="{{teacher.imageUrl}}">
                 </div>
                 <div class="title1">
-                    <h6>
-                        Mark:{{teacher.mark}}
-                    </h6>
+                    <div class="stars-container">
+                        <star-rating [starType]="'svg'" [readOnly]="true" [rating]="teacher.mark"></star-rating>
+                    </div>
 
-                <mat-card-title>
-                    <button mat-raised-button color="primary" id="btnGetTeacherByIdSearch"
-                            (click)="getTeacherById(teacher.id)">View feedbacks
-                    </button>
-                </mat-card-title>
+                    <mat-card-title>
+                        <button mat-raised-button color="primary" id="btnGetTeacherByIdSearch"
+                                (click)="getTeacherById(teacher.id)">View feedbacks
+                        </button>
+                    </mat-card-title>
+                </div>
+            </mat-card-title>
+
+
+        </mat-card>
     </div>
-    </mat-card-title>
+    <h3 *ngIf="teachers.length === 0">Sorry, teachers are not found</h3>
 
-
-    </mat-card>
-</div>
-<h3 *ngIf="teachers.length === 0">Sorry, teachers are not found</h3>
-
-<div id="pagination">
-    <pagination-controls *ngIf="teachers.length != 0" (pageChange)="($event)"></pagination-controls>
-</div>
+    <div id="pagination">
+        <pagination-controls *ngIf="teachers.length != 0" (pageChange)="($event)"></pagination-controls>
+    </div>
 </div>

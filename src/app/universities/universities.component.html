@@ -34,10 +34,9 @@
                     <img class="image-container" src="{{university.imageUrl}}" style="width: 100%">
                 </div>
                 <h6></h6>
-                <h6 style="color: #4b4fe2">
-                    Mark:
-                    {{university.mark}}
-                </h6>
+                <div class="stars-container">
+                    <star-rating [starType]="'svg'" [readOnly]="true" [rating]="university.mark"></star-rating>
+                </div>
                 <h6></h6>
                 <mat-card-title>
                     <!--<button mat-raised-button color="primary" style="margin-right:50px;"-->

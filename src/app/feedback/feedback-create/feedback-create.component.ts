@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Feedback} from '../../model/feedback.model';
 import {FeedbackService} from '../../service/feedback.service';
 import {Teacher} from '../../model/teacher.model';
+import {MatChipInputEvent} from '@angular/material';
 
 @Component({
     selector: 'app-feedback-create',
@@ -31,13 +32,29 @@ export class FeedbackCreateComponent implements OnInit {
 
     ngOnInit() {
         this.feedbackCreateForm = this.formBuilder.group({
-            body: ['', Validators.required]
+            body: ['', Validators.required],
+            mark: ['', Validators.required]
         });
     }
 
     // convenience getter for easy access to form fields
     get f() {
         return this.feedbackCreateForm.controls;
+    }
+
+    addMark(event: MatChipInputEvent): void {
+        const input = event.input;
+        const value = event.value;
+
+        // // Add tag
+        // if ((value || '').trim()) {
+        //     this.mark.push({id:0, name: value.trim()});
+        // }
+
+        // // Reset the input value
+        // if (input) {
+        //     input.value = '';
+        // }
     }
 
     // goToAllFeedbacks() {

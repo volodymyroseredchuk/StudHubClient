@@ -13,8 +13,8 @@
         <div class="image-container">
             <img src="{{teacher.imageUrl}}" style="width: 100%">
         </div>
-        <div class="title2">
-            <h3>Rating: {{teacher.mark}}</h3>
+        <div class="stars-container">
+            <star-rating [starType]="'svg'" [readOnly]="true" [rating]="teacher.mark"></star-rating>
         </div>
         <mat-card-title class="title3">
             <button mat-raised-button color="primary" style="margin-right:50px;"
@@ -36,9 +36,11 @@
                 <a [routerLink]="['/feedbacks', feedback.id]">
                     {{feedback.body}}
                 </a> <br>
-                <h6>Rating:
-                    {{feedback.rate}}
-                </h6>
+                <mat-card-title *ngIf="feedback.user">
+                    <h5>Username:
+                        {{feedback.user.username}}
+                    </h5>
+                </mat-card-title>
                 <h6>Mark:
                     {{feedback.mark}}
                 </h6>

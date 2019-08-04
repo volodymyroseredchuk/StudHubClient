@@ -6,6 +6,7 @@ import {TeacherService} from '../../service/teacher.service';
 import {TeachersComponent} from '../teachers.component';
 import {Feedback} from '../../model/feedback.model';
 import {FeedbackService} from '../../service/feedback.service';
+import {UserService} from '../../service/user.service';
 
 
 @Component({
@@ -16,9 +17,11 @@ import {FeedbackService} from '../../service/feedback.service';
 export class TeachersPageComponent implements OnInit {
     teacher: Teacher;
     feedbacks: Feedback[];
+    // public feedbacks = [];
     teacherId: number;
 
     constructor(private teacherService: TeacherService, private feedbackService: FeedbackService,
+                private userService: UserService,
                 private tlist: TeachersComponent, private route: ActivatedRoute, private router: Router) {
     }
 

@@ -5,7 +5,8 @@ import {FeedbackCreateComponent} from './feedback-create/feedback-create.compone
 import {FeedbacksComponent} from './feedbacks.component';
 import {MaterialModule} from '../material/material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatAutocompleteModule, MatInputModule} from "@angular/material";
+import {MatAutocompleteModule, MatInputModule} from '@angular/material';
+import {StarRatingModule} from 'angular-star-rating';
 
 @NgModule({
   declarations: [FeedbackCreateComponent, FeedbacksComponent],
@@ -16,7 +17,8 @@ import {MatAutocompleteModule, MatInputModule} from "@angular/material";
     MaterialModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    StarRatingModule.forRoot()
 
   ]
 })

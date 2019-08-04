@@ -9,6 +9,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule, MatInputModule} from '@angular/material';
 import {TeachersPageComponent} from './teacher-page/teachers-page.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {StarRatingModule} from 'angular-star-rating';
 
 @NgModule({
   declarations: [TeachersCreateComponent, TeachersComponent, TeachersPageComponent],
@@ -20,7 +21,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ReactiveFormsModule,
     MatInputModule,
     MatAutocompleteModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    StarRatingModule.forRoot()
 
   ]
 })

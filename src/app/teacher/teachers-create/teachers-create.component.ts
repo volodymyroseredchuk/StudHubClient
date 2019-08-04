@@ -28,7 +28,8 @@ export class TeachersCreateComponent implements OnInit {
 
   teacherForm = new FormGroup({
     firstname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
-    lastname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)])
+    lastname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
+    mark: new FormControl('', [Validators.required, Validators.min(1),  Validators.max(5)])
   });
 
   constructor(
@@ -56,6 +57,7 @@ export class TeachersCreateComponent implements OnInit {
     this.teacher = new Teacher();
     this.teacher.firstName = f.value.firstname;
     this.teacher.lastName = f.value.lastname;
+    this.teacher.mark = f.value.mark;
     if (this.selectedUniversity !== undefined) {
       this.teacher.university = this.selectedUniversity;
     }
