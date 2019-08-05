@@ -87,7 +87,9 @@
       </form>
     </div>
     <div class="resultFile" *ngIf="isTaskDone()">
-      {{order.resultSubmission.fileUrl}}
+      <button (click)="downloadFile()">
+        Download submitted file
+      </button>
     </div>
   </div>
   <div class="rating" *ngIf="isTaskDone() && user.username == order.userCreator.username && !order.freelancer">
@@ -139,5 +141,12 @@
         </button>
       </div>
     </form>
+
+    
   </div>
+  <div>
+      <button (click)="cancelOrder()">
+        Cancel
+        </button>
+    </div>
 </div>

@@ -10,6 +10,9 @@ import { ChatService } from '../service/chat.service';
 import { FreelancerDTO } from '../model/freelancerDTO.model';
 import { CustomerDTO } from '../model/customerDTO.model';
 import { MatSnackBar } from '@angular/material';
+import { FileService } from '../service/file.service';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-order',
@@ -47,7 +50,8 @@ export class OrderComponent implements OnInit {
   constructor(private orderService: OrderService,
     private _snackBar: MatSnackBar, private route: ActivatedRoute,
     private router: Router, private fb: FormBuilder, private cd: ChangeDetectorRef,
-    private userService: UserService, private chatService: ChatService) { }
+    private userService: UserService, private chatService: ChatService,
+    private fileService: FileService, private http: HttpClient) { }
 
   ngOnInit() {
     this.getOrder()
@@ -149,12 +153,58 @@ export class OrderComponent implements OnInit {
 
   submitResult() {
     console.log(this.fileToUpload)
-    this.orderService.submitResult(this.fileToUpload, this.order.id).subscribe(
-      resultSubmission => {
-        this.order.resultSubmission = resultSubmission
-        this.order.task.status = "DONE"
+    this.fileService.uploadFile(this.fileToUpload).subscribe(
+      fileUrlObject => {
+        this.orderService.submitResult(fileUrlObject.message, this.order.id).subscribe(
+          resultSubmission => {
+            this.order.resultSubmission = resultSubmission
+            this.order.task.status = "DONE"
+          }
+    
+        )
       }
+    )
+    
+  }
 
+  downloadFile() {
+    let fixedUrl = this.fixUrl(this.order.resultSubmission.fileUrl)
+    return this.http.get<Blob>(fixedUrl,{
+        responseType: 'blob' as 'json'
+      })
+      .subscribe(res => {
+        console.log('start download:',res);
+        var blob = new Blob([res], { type: "application/pdf"})
+        var url = window.URL.createObjectURL(res);
+        var a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('style', 'display: none');
+        a.href = url;
+        a.download = fixedUrl.slice(fixedUrl.lastIndexOf("/") + 1);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove(); // remove the element
+      }, error => {
+        console.log('download error:', JSON.stringify(error));
+      }, () => {
+        console.log('Completed file download.')
+      });
+  }
+
+  fixUrl(url: String):string{
+    if(url[4] !== "s"){
+      return url.replace("http", "https");
+    }
+  }
+
+
+
+  cancelOrder() {
+    this.orderService.cancelOrder(this.order.id).subscribe(
+      order => {
+        this.order = order;
+        console.log(order);
+      }
     )
   }
 

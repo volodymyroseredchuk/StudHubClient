@@ -19,8 +19,11 @@ const httpOptions = {
 })
 export class OrderService extends BaseService{
 
+  baseUrl;
+
   constructor(protected http: HttpClient) {
     super(http);
+    this.baseUrl = this.apiUrl;
     this.apiUrl += '/orders';
   }
 
@@ -36,10 +39,15 @@ export class OrderService extends BaseService{
     return this.http.get<Order[]>(`${this.apiUrl}/created/my`, httpOptions);
 }
 
-  submitResult(resultFile: File, orderId:number) : Observable<ResultSubmission>{
+  submitResult(resultFileUrl: String, orderId:number) : Observable<ResultSubmission>{
+    return this.http.post<ResultSubmission>(`${this.apiUrl}/${orderId}/submit`, { fileUrl: resultFileUrl }, httpOptions)
+  }
 
-    // insert here loading of file
-    let fileUrl = { fileUrl: "http://fileservice.test/test/file/url"}
-    return this.http.post<ResultSubmission>(`${this.apiUrl}/${orderId}/submit`, fileUrl, httpOptions)
+  submitFile(resultFile: File): Observable<{message: String}> {
+    return this.http.post<{message: String}>(`${this.baseUrl}/files/upload`, {multiPartFile: resultFile }, httpOptions)
+  }
+
+  cancelOrder( orderId:number) : Observable<Order>{
+    return this.http.post<Order>(`${this.apiUrl}/${orderId}/cancel`, {}, httpOptions)
   }
 }
