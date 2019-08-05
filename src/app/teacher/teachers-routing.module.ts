@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TeachersComponent } from './teachers.component';
 import { TeachersCreateComponent } from './teachers-create/teachers-create.component';
 import { TeachersPageComponent } from './teacher-page/teachers-page.component';
+import {TeachersEditComponent} from './teachers-edit/teachers-edit.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,11 @@ const routes: Routes = [
   {
     path: 'teachers/teacher',
     component: TeachersCreateComponent
+  },
+
+  {
+    path: 'update/:id',
+    component: TeachersEditComponent
   },
 
   {

@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {BaseService} from './base-service';
 import {University} from '../model/university.model';
 import {Observable} from 'rxjs';
-import {Teacher} from '../model/teacher.model';
 
 @Injectable({providedIn: 'root'})
 export class UniversityService extends BaseService {
@@ -17,17 +16,13 @@ export class UniversityService extends BaseService {
         return this.http.get<University[]>(`${this.apiUrl}`);
     }
 
-
-    newTeacher(university: University): Observable<University> {
-        return this.http.post<University>(`${this.apiUrl}/create`, university);
-    }
-
     findAllUniversity(): Observable<University[]> {
         return this.http.get<University[]>(`${this.apiUrl}`);
     }
 
-    updateOneUniversity(universityid: number, university: University): Observable<University> {
-        return this.http.put<University>(`${this.apiUrl}/${universityid}/edit`, university);
+    newUniversity(university: University): Observable<University> {
+        console.log(university);
+        return this.http.post<University>(`${this.apiUrl}/university`, university);
     }
 
     deleteUniversity(universityid: number): Observable<any> {
@@ -40,3 +35,39 @@ export class UniversityService extends BaseService {
     }
 }
 
+
+// findAllTeacherOrderByMarkDesc(): Observable<TeacherDTO[]> {
+//     return this.http.get<TeacherDTO[]>(`${this.apiUrl}`);
+// }
+//
+// updateTeacher(teacherId: number) {
+//     return this.http.post<Teacher>(`${this.apiUrl}/${teacherId}/update`, this.teacher, {
+//         headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
+//     });
+// }
+//
+//
+// deleteTeacher(teacherId: number): Observable<any> {
+//     return this.http.delete(`${this.apiUrl}/${teacherId}/delete`);
+// }
+//
+// showTeacherPage(teacherId: number): Observable<Teacher> {
+//     console.log(teacherId);
+// return this.http.get<Teacher>(`${this.apiUrl}/${teacherId}`);
+// }
+//
+// getCurrentTeacher(teacher: Teacher) {
+//     console.log(this.teacherId);
+//     return this.http.get<Teacher>(`${this.apiUrl}/update/` + this.teacherId, {
+//         // headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
+//     });
+// }
+//
+// getTeacher() {
+//     this.teacherId = +this.route.snapshot.params.id;
+//     // let teacherId = parseInt(this.route.snapshot.paramMap.get('{teacherId}'));
+//     console.log(this.teacherId);
+//     return this.http.get<Teacher>(`${this.apiUrl}/update/` + this.teacherId, {
+//         // headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
+//     });
+// }

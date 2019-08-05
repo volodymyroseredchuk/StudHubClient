@@ -36,7 +36,7 @@ export class TeachersComponent implements OnInit {
 
   ngOnInit() {
 
-    this.service.findAllTeacher().subscribe(data => this.teachers = data);
+    this.service.findAllTeacherOrderByMarkDesc().subscribe(data => this.teachers = data);
     // this.getAllTeachers();
 
   }

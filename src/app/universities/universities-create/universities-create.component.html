@@ -1,0 +1,61 @@
+<div class="responsive_nav_bar">
+    <h3>Input data for the new University!</h3>
+
+    <form class="form-horizontal" [formGroup]="universityForm" (ngSubmit)="onSubmit(universityForm)">
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="text-center">
+                    <img src="{{imgURL}}" class="col-md-12">
+                    <h6>Upload a photo...</h6>
+
+                    <input type="file" name="image" (change)="onChange($event)"/>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label">University name:</label>
+            <input class="form-control col-lg-8" [ngClass]="{ 'is-invalid':f.name.errors }"
+                   formControlName="name" type="text">
+            <div *ngIf="f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required">University Name is required</div>
+                <div *ngIf="f.name.errors.minlength">University Name must be at least 3 characters</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">City:</label>
+            <input class="form-control col-lg-8" [ngClass]="{ 'is-invalid':f.city.errors }"
+                   formControlName="city"
+                   type="text">
+            <div *ngIf="f.city.errors" class="invalid-feedback">
+                <div *ngIf="f.city.errors.required">City is required</div>
+                <div *ngIf="f.city.errors.minlength">City must be at least 3 characters</div>
+                <div *ngIf="f.city.errors.maxlength">City must be less than 16 characters</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Mark:</label>
+            <input class="form-control col-lg-8" [ngClass]="{ 'is-invalid':f.mark.errors }"
+                   formControlName="mark" type="text">
+            <div *ngIf="f.mark.errors" class="invalid-feedback">
+                <div *ngIf="f.mark.errors.required">Mark is required</div>
+                <div *ngIf="f.mark.errors.min">Mark must be a number 1..5</div>
+                <div *ngIf="f.mark.errors.max">Mark must be a number 1..5</div>
+            </div>
+        </div>
+
+
+        <div class="form-group col-lg-8">
+            <button type="submit" mat-raised-button color="primary" class="btn btn-success"
+                    (click)="onSubmit()">Create University
+            </button>
+            <a routerLink="/universities">
+                <button mat-button class="edit-button">Cancel</button>
+            </a>
+        </div>
+
+    </form>
+</div>
+

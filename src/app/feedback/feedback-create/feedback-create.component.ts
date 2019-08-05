@@ -45,21 +45,7 @@ export class FeedbackCreateComponent implements OnInit {
     addMark(event: MatChipInputEvent): void {
         const input = event.input;
         const value = event.value;
-
-        // // Add tag
-        // if ((value || '').trim()) {
-        //     this.mark.push({id:0, name: value.trim()});
-        // }
-
-        // // Reset the input value
-        // if (input) {
-        //     input.value = '';
-        // }
     }
-
-    // goToAllFeedbacks() {
-    //     this.router.navigate(['/feedback']);
-    // }
 
     onSubmit() {
         const teacherId = +this.route.snapshot.params.id;
