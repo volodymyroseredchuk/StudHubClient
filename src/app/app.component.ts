@@ -65,13 +65,13 @@ export class AppComponent implements OnInit {
         });
       } else if (message.type == 'CHAT_MESSAGE') {
         if (!this.router.url.includes('/chat/')) {
-          let barRef = thus.snackBar.open('You\'ve got a new chat message.', 'Show me', {
+          let barRef = thus.snackBar.open('You\'ve got a new chat message.', 'Show more', {
             duration: 6000,
             horizontalPosition: 'right',
             verticalPosition: 'bottom'
           });
           barRef.onAction().subscribe(() => {
-            this.router.navigateByUrl('chat/' + message.param1 + '/' + message.param2);
+            this.router.navigateByUrl('chat/' + message.param1 + '/' + JSON.parse(message.param2).chat.secret);
           });
         }
       } else if (message.type == 'ENCRYPTION_PUBLIC_KEY_EXCHANGE') {

@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {NgxIndexedDB} from 'ngx-indexed-db';
 import * as CryptoJS from 'crypto-js';
+import {MatSnackBar} from "@angular/material";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,8 @@ export class EncryptionService {
   public static encryptMessage(secret, messageText) {
     return CryptoJS.AES.encrypt(messageText, secret.key).toString();
   }
-  constructor() { }
+  constructor(private router: Router,
+              private snackBar: MatSnackBar) { }
 
   async generateKeyPair() {
     const pair =  await crypto.subtle.generateKey(
@@ -103,6 +106,14 @@ export class EncryptionService {
       this.chatPairMap.set(msg.param1, pair);
       this.sendSocketMessage(msg.param1, this.chatPairMap.get(msg.param1).publicKey, 'ENCRYPTION_PUBLIC_KEY_EXCHANGE');
       this.generateSecret(this.chatPairMap.get(msg.param1), this.strToJson(msg.param2), msg.param1);
+      let barRef = this.snackBar.open('You were invited to the secret chat.', 'Show more', {
+        duration: 6000,
+        horizontalPosition: 'right',
+        verticalPosition: 'bottom'
+      });
+      barRef.onAction().subscribe(() => {
+        this.router.navigateByUrl('chat/' + msg.param1 + '/true');
+      });
     }
   }
   async sendSocketMessage(parameter1, parameter2, msgType: string) {

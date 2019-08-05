@@ -154,6 +154,7 @@ export class ChatComponent implements OnInit {
           this.chatId, this.getDecodedAccessToken(localStorage.getItem('accessToken')).sub)
           .subscribe(
             (msg) => {
+              console.log(msg);
                 msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
                 msg.content = EncryptionService.decryptMessage(this.encryptionKey, msg.content);
                 this.messages.push(msg);
@@ -215,15 +216,24 @@ export class ChatComponent implements OnInit {
     this.connection.onMessage((message: {param1: string, param2: string, type: string}) => {
       if (message.type == 'CHAT_MESSAGE') {
         if (this.router.url.includes('/chat/')) {
+          if (this.chatId.toString() ==  message.param1) {
+            const msg = JSON.parse(message.param2);
             if (this.secret == false) {
-              this.messages.push(new Message(null, message.param2, 'message-their', null, null));
+              this.messages.push(new Message(null, msg.content, 'message-their', msg.creationDateTime, null));
             } else {
               this.initSecret().then(() => {
-                message.param2 = EncryptionService.decryptMessage(this.encryptionKey, message.param2);
-                this.messages.push(new Message(null, message.param2, 'message-their', null, null));
+                const text = EncryptionService.decryptMessage(this.encryptionKey, msg.content);
+                this.messages.push(new Message(null, text, 'message-their', msg.creationDateTime, null));
               });
             }
             this.gotMessagesCount++;
+          } else {
+            this.snackBar.open('You\'ve got a new chat message.', 'Ok', {
+              duration: 1500,
+              horizontalPosition: 'right',
+              verticalPosition: 'bottom'
+            });
+          }
         }
       } else if (message.type == 'STATUS') {
         if (message.param2 == 'OK') {
