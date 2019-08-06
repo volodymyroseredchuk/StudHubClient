@@ -19,7 +19,7 @@
         <mat-divider *ngIf="isTaskInProgress()"></mat-divider>
         <mat-chip-list *ngIf="isTaskInProgress()">
             <div>
-                <button (click)="cancelOrder()">
+                <button class="btn btn-danger btnCancelOrder" (click)="cancelOrder()">
                   Cancel
                   </button>
               </div>
