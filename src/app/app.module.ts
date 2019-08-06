@@ -20,6 +20,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { QuestionsEditComponent } from './questions/questions-edit/questions-edit.component';
 import {FeedbackModule} from './feedback/feedback.module';
+import { NgxPopper } from 'angular-popper';
 import {
   SocialLoginModule,
   AuthServiceConfig,
@@ -61,6 +62,7 @@ import {OrderModule} from './order/order.module';
     SafeHtmlPipe
   ],
   imports: [
+    NgxPopper,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,

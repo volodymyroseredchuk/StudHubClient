@@ -4,6 +4,8 @@ import { SocketService } from './service/socket.service';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './service/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import {EncryptionService} from "./service/encryption.service";
+
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,11 @@ export class AppComponent implements OnInit {
   private snackBar: MatSnackBar;
   private connection: any;
 
-  constructor(snackBar: MatSnackBar, httpVar: HttpClient, private authenticationService: AuthenticationService, private router: Router) {
+  constructor(snackBar: MatSnackBar,
+              httpVar: HttpClient,
+              private authenticationService: AuthenticationService,
+              private router: Router,
+              private encryptionService: EncryptionService) {
     this.snackBar = snackBar;
     this.connection = SocketService.getInstance(httpVar);
   }
@@ -59,15 +65,17 @@ export class AppComponent implements OnInit {
         });
       } else if (message.type == 'CHAT_MESSAGE') {
         if (!this.router.url.includes('/chat/')) {
-          let barRef = thus.snackBar.open('You\'ve got a new chat message.', 'Show me', {
+          let barRef = thus.snackBar.open('You\'ve got a new chat message.', 'Show more', {
             duration: 6000,
             horizontalPosition: 'right',
             verticalPosition: 'bottom'
           });
           barRef.onAction().subscribe(() => {
-            this.router.navigateByUrl('chat/' + message.param1);
+            this.router.navigateByUrl('chat/' + message.param1 + '/' + JSON.parse(message.param2).chat.secret);
           });
         }
+      } else if (message.type == 'ENCRYPTION_PUBLIC_KEY_EXCHANGE') {
+        this.encryptionService.handleExchange(message, this.connection);
       }
     });
   }
