@@ -157,7 +157,12 @@ export class OrderComponent implements OnInit {
   submitResult() {
     console.log(this.fileToUpload)
     if(this.fileToUpload.size > 1024 * 1024 * 4 ) {
-      alert("The file is too big!(Over 4MB)") 
+      alert("The file is too big!(Over 4MB)");
+      return;
+    }
+    var fileRegExp = /.*\.(gif|jpe?g|bmp|png|pdf)$/;
+    if(!fileRegExp.test(this.fileToUpload.name)){
+      alert("This file type is not supported!"); 
       return;
     }
     
