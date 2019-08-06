@@ -15,7 +15,9 @@
             <star-rating [starType]="'svg'" [readOnly]="true" [rating]="teacher?.mark"></star-rating>
         </div>
         <mat-card-title class="title3">
-            <button mat-raised-button color="primary" style="margin-right:50px;" routerLink="/teachers" id="backBtn">Go back</button>
+            <button mat-raised-button color="primary" style="margin-right:50px;" routerLink="/teachers" id="backBtn">Go
+                back
+            </button>
             <button mat-raised-button color="primary" style="margin-right:50px;"
                     *ngIf="canChangeOrDeleteTeacher(user)"
                     (click)="deleteTeacher(teacher.id)">

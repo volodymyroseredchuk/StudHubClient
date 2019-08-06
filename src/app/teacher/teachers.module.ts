@@ -12,22 +12,23 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {StarRatingModule} from 'angular-star-rating';
 
 @NgModule({
-  declarations: [TeachersCreateComponent, TeachersComponent, TeachersPageComponent],
-  imports: [
-    CommonModule,
-    TeachersRoutingModule,
-    FormsModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    NgxPaginationModule,
-    StarRatingModule.forRoot()
+    declarations: [TeachersCreateComponent, TeachersComponent, TeachersPageComponent],
+    imports: [
+        CommonModule,
+        TeachersRoutingModule,
+        FormsModule,
+        MaterialModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatAutocompleteModule,
+        NgxPaginationModule,
+        StarRatingModule.forRoot()
 
-  ]
+    ]
 })
 
 
-export class TeachersModule { }
+export class TeachersModule {
+}
 
 

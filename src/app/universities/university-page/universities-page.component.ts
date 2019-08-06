@@ -1,7 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import {ActivatedRoute, Router} from '@angular/router';
 import {University} from '../../model/university.model';
 import {UniversityService} from '../../service/university.service';
 import {UniversitiesComponent} from '../universities.component';
@@ -16,26 +15,26 @@ import {AlertService} from '../../service/alert.service';
     selector: 'app-universities-page',
     templateUrl: './universities-page.component.html',
     styleUrls: ['./universities-page.component.scss']
-  })
+})
 export class UniversitiesPageComponent implements OnInit {
-   university: University;
+    university: University;
     feedbacks: Feedback[];
     universityId: number;
     user: User;
 
-  constructor(private universityService: UniversityService, private tlist: UniversitiesComponent,
-              private feedbackService: FeedbackService, private alertService: AlertService,
-              private route: ActivatedRoute, private userService: UserService, private router: Router){
-  }
+    constructor(private universityService: UniversityService, private tlist: UniversitiesComponent,
+                private feedbackService: FeedbackService, private alertService: AlertService,
+                private route: ActivatedRoute, private userService: UserService, private router: Router) {
+    }
 
-  ngOnInit() {
-      this.getUniversity();
-      this.feedbackService.getAllFeedbacksByUniversityId(this.universityId).subscribe(res => {
-          console.log(this.universityId);
-          this.feedbacks = res;
-      });
-      this.getUser();
-  }
+    ngOnInit() {
+        this.getUniversity();
+        this.feedbackService.getAllFeedbacksByUniversityId(this.universityId).subscribe(res => {
+            console.log(this.universityId);
+            this.feedbacks = res;
+        });
+        this.getUser();
+    }
 
     getUser() {
         this.userService.getCurrentUser().subscribe(
@@ -47,17 +46,17 @@ export class UniversitiesPageComponent implements OnInit {
         );
     }
 
-  getUniversity() {
+    getUniversity() {
 
-      this.universityId = +this.route.snapshot.params.id;
-      // let teacherId = parseInt(this.route.snapshot.paramMap.get('{teacherId}'));
-      console.log(this.universityId);
-      this.universityService.showUniversityPage(this.universityId)
-          .subscribe(university => {
-              console.log(this.universityId);
-              this.university = university;
-          });
-  }
+        this.universityId = +this.route.snapshot.params.id;
+        // let teacherId = parseInt(this.route.snapshot.paramMap.get('{teacherId}'));
+        console.log(this.universityId);
+        this.universityService.showUniversityPage(this.universityId)
+            .subscribe(university => {
+                console.log(this.universityId);
+                this.university = university;
+            });
+    }
 
 
     canChangeOrDeleteUniversity(user) {
@@ -86,7 +85,7 @@ export class UniversitiesPageComponent implements OnInit {
                     //     this.alertService.error(error);
                     //     alert(error);
                     // }
-                    );
+                );
         }
     }
 }

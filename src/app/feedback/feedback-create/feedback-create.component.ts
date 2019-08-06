@@ -4,7 +4,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Feedback} from '../../model/feedback.model';
 import {FeedbackService} from '../../service/feedback.service';
-import {Teacher} from '../../model/teacher.model';
 import {MatChipInputEvent} from '@angular/material';
 
 @Component({

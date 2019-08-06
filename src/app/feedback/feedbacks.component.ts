@@ -5,7 +5,6 @@ import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {FeedbackService} from '../service/feedback.service';
 import {TeacherService} from '../service/teacher.service';
-import {UniversitiesComponent} from '../universities/universities.component';
 import {UniversityService} from '../service/university.service';
 
 @Component({
@@ -21,7 +20,7 @@ export class FeedbacksComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   myControl = new FormControl();
-  public feedbacks = [];
+    public feedbacks = [];
   filteredFeedbacks: Observable<string[]>;
   teacherId: number;
   universityId: number;

@@ -1,55 +1,36 @@
 <div class="responsive_nav_bar">
-<h3>Input data for the new Feedback!</h3>
+    <h3>Input data for the new Feedback!</h3>
 
-<mat-card id="feedbackForm">
-    <form class="my-form" [formGroup]="feedbackCreateForm" (ngSubmit)="onSubmit()" #feedbackForm="ngForm">
-
-
-        <mat-form-field class="tags-chip-list">
-            <mat-label>Body</mat-label>
-            <input [(ngModel)]="feedback.body" class="form-control" id="body" formControlName="body"
-                   name="body" matInput placeholder="Body of a feedback" required
-                   [ngClass]="{ 'is-invalid': submitted && f.body.errors }"/>
-            <div *ngIf="submitted && f.body.errors" class="invalid-feedback">
-                <div *ngIf="f.body.errors.required">Body is required</div>
-            </div>
-        </mat-form-field>
-
-        <mat-form-field class="tags-chip-list">
-            <mat-label>Rating</mat-label>
-            <input [(ngModel)]="feedback.mark"
-
-                   class="form-control" id="mark" formControlName="mark"
-                   name="mark" matInput placeholder="mark of a feedback" required
-                   [ngClass]="{ 'is-invalid': submitted && f.mark.errors }"/>
-            <div *ngIf="submitted && f.mark.errors" class="invalid-feedback">
-                <div *ngIf="f.mark.errors.required">mark is required</div>
-            </div>
-        </mat-form-field>
-
-        <!--<div>-->
-            <!--Rating: {{ feedback.mark }} <star-rating [starType]="'svg'"  [rating]="2.63"></star-rating>-->
-        <!--</div>-->
+    <mat-card id="feedbackForm">
+        <form class="my-form" [formGroup]="feedbackCreateForm" (ngSubmit)="onSubmit()" #feedbackForm="ngForm">
 
 
-        <!--<div class="form-group">-->
-            <!--<label class="control-label">Mark:</label>-->
-            <!--<input class="form-control col-lg-8" [ngClass]="{ 'is-invalid':f.mark.errors }"-->
-                   <!--formControlName="mark" type="text">-->
-            <!--<div *ngIf="f.mark.errors" class="invalid-feedback">-->
-                <!--<div *ngIf="f.mark.errors.required">Mark is required</div>-->
-                <!--<div *ngIf="f.mark.errors.min">Mark must be a number 1..5</div>-->
-                <!--<div *ngIf="f.mark.errors.max">Mark must be a number 1..5</div>-->
-            <!--</div>-->
-        <!--</div>-->
+            <mat-form-field class="tags-chip-list">
+                <mat-label>Body</mat-label>
+                <input [(ngModel)]="feedback.body" class="form-control" id="body" formControlName="body"
+                       name="body" matInput placeholder="Body of a feedback" required
+                       [ngClass]="{ 'is-invalid': submitted && f.body.errors }"/>
+                <div *ngIf="submitted && f.body.errors" class="invalid-feedback">
+                    <div *ngIf="f.body.errors.required">Body is required</div>
+                </div>
+            </mat-form-field>
 
+            <mat-form-field class="tags-chip-list">
+                <mat-label>Rating</mat-label>
+                <input [(ngModel)]="feedback.mark"
 
-        <!--<star-rating [starType]="'svg'"  [rating]="addMark($event)" ></star-rating>-->
+                       class="form-control" id="mark" formControlName="mark"
+                       name="mark" matInput placeholder="mark of a feedback" required
+                       [ngClass]="{ 'is-invalid': submitted && f.mark.errors }"/>
+                <div *ngIf="submitted && f.mark.errors" class="invalid-feedback">
+                    <div *ngIf="f.mark.errors.required">mark is required</div>
+                </div>
+            </mat-form-field>
 
-        <button type="submit" [disabled]="loading" mat-raised-button color="primary" id="submitBtn"
-                class="btn btn-success">Create Feedback
-        </button>
-    </form>
+            <button type="submit" [disabled]="loading" mat-raised-button color="primary" id="submitBtn"
+                    class="btn btn-success">Create Feedback
+            </button>
+        </form>
 
-</mat-card>
-<a mat-raised-button routerLink="/feedback" id="backBtn">Go back</a>
+    </mat-card>
+    <a mat-raised-button routerLink="/feedback" id="backBtn">Go back</a>

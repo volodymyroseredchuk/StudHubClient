@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {University} from '../../model/university.model';
 import {UniversityService} from '../../service/university.service';
@@ -26,24 +26,15 @@ export class UniversitiesCreateComponent implements OnInit {
         city: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
         mark: new FormControl('', [Validators.required, Validators.min(1), Validators.max(5)])
     });
-    // loading = false;
-    // submitted = false;
 
     constructor(
         private fileService: FileService,
         private universityService: UniversityService,
         private router: Router,
-        // private formBuilder: FormBuilder
     ) {
     }
 
     ngOnInit() {
-        // this.universityForm = this.formBuilder.group({
-        //     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-        //     city: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
-        //     mark: new FormControl('', [Validators.required, Validators.min(1), Validators.max(5)])
-        // });
-        // this.getUniversities();
     }
 
     fileProgress(fileInput: any) {

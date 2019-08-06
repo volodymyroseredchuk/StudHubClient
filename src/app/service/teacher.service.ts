@@ -47,9 +47,9 @@ export class TeacherService extends BaseService {
 
     deleteTeacher(teacherId: number): Observable<{}> {
         return this.http.delete(`${this.apiUrl}/delete/${teacherId}`,
-        {
-            headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
-        });
+            {
+                headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
+            });
     }
 
     showTeacherPage(teacherId: number): Observable<Teacher> {
@@ -58,8 +58,7 @@ export class TeacherService extends BaseService {
     }
 
     getTeacher(id: number) {
-        return this.http.get<Teacher>(`${this.apiUrl}/${id}`, {
-        });
+        return this.http.get<Teacher>(`${this.apiUrl}/${id}`, {});
     }
 
 }
