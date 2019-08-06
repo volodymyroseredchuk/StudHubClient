@@ -29,8 +29,7 @@ export class TeachersEditComponent implements OnInit {
 
     teacherForm = new FormGroup({
         firstname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
-        lastname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
-        mark: new FormControl('', [Validators.required, Validators.min(1), Validators.max(5)])
+        lastname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)])
     });
 
     constructor(
@@ -43,29 +42,17 @@ export class TeachersEditComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.teacherService.getTeacher().subscribe(res => {
+        this.teacherService.getTeacher(this.route.snapshot.params.id).subscribe(res => {
+            console.log('consol loh in nginit' + this.route.snapshot.params.id);
             this.teacher = res;
             this.teacherForm.patchValue({
                 firstname: res.firstName,
                 lastname: res.lastName,
-                mark: res.mark
             });
         });
 
         this.getUniversities();
     }
-
-    getTeacher() {
-        this.teacherId = +this.route.snapshot.params.id;
-        // let teacherId = parseInt(this.route.snapshot.paramMap.get('{teacherId}'));
-        console.log(this.teacherId);
-        this.teacherService.showTeacherPage(this.teacherId)
-            .subscribe(teacher => {
-                console.log(this.teacherId);
-                this.teacher = teacher;
-            });
-    }
-
     fileProgress(fileInput: any) {
         this.fileData = fileInput.target.files[0] as File;
     }
@@ -81,7 +68,6 @@ export class TeachersEditComponent implements OnInit {
 
         this.teacher.firstName = f.value.firstname;
         this.teacher.lastName = f.value.lastname;
-        this.teacher.mark = f.value.mark;
         if (this.selectedUniversity !== undefined) {
             this.teacher.university = this.selectedUniversity;
         }
@@ -93,7 +79,7 @@ export class TeachersEditComponent implements OnInit {
         await this.fileService.uploadFile(this.fileData).toPromise().then(res => {
             this.teacher.imageUrl = res.message;
         }).then(() => {
-            this.teacherService.updateTeacher(this.teacherId).subscribe(() =>
+            this.teacherService.updateTeacher(this.teacher).subscribe(() =>
                 this.router.navigate(['/teachers']));
         });
     }

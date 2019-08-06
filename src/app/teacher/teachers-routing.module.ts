@@ -23,6 +23,11 @@ const routes: Routes = [
   {
     path: 'teachers/:id',
     component: TeachersPageComponent
+  },
+
+  {
+    path: 'delete/:id',
+    component: TeachersPageComponent
   }
 ];
 

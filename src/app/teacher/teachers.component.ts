@@ -37,7 +37,6 @@ export class TeachersComponent implements OnInit {
   ngOnInit() {
 
     this.service.findAllTeacherOrderByMarkDesc().subscribe(data => this.teachers = data);
-    // this.getAllTeachers();
 
   }
   getAllTeachers() {
@@ -108,8 +107,7 @@ export class TeachersComponent implements OnInit {
     return '?page=' + (this.page - 1) + '&size=' + this.pageSize;
   }
 
-  getTeacherById(teacherId: number){
-    // this.router.navigate(['/{teacherId}']);
+  getTeacherById(teacherId: number) {
     console.log(teacherId);
     this.router.navigate(['/teachers', teacherId]);
   }

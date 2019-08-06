@@ -38,15 +38,18 @@ export class TeacherService extends BaseService {
         return this.http.get<TeacherDTO[]>(`${this.apiUrl}`);
     }
 
-    updateTeacher(teacherId: number) {
-        return this.http.post<Teacher>(`${this.apiUrl}/${teacherId}/update`, this.teacher, {
+    updateTeacher(teacher: Teacher) {
+        return this.http.post<Teacher>(`${this.apiUrl}/update`, teacher, {
             headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
         });
     }
 
 
     deleteTeacher(teacherId: number): Observable<any> {
-        return this.http.delete(`${this.apiUrl}/${teacherId}/delete`);
+        return this.http.delete(`${this.apiUrl}/delete/${teacherId}`,
+        {
+            headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
+        });
     }
 
     showTeacherPage(teacherId: number): Observable<Teacher> {
@@ -54,19 +57,8 @@ export class TeacherService extends BaseService {
         return this.http.get<Teacher>(`${this.apiUrl}/${teacherId}`);
     }
 
-    getCurrentTeacher(teacher: Teacher) {
-        console.log(this.teacherId);
-        return this.http.get<Teacher>(`${this.apiUrl}/update/` + this.teacherId, {
-            // headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
-        });
-    }
-
-    getTeacher() {
-        this.teacherId = +this.route.snapshot.params.id;
-        // let teacherId = parseInt(this.route.snapshot.paramMap.get('{teacherId}'));
-        console.log(this.teacherId);
-        return this.http.get<Teacher>(`${this.apiUrl}/update/` + this.teacherId, {
-            // headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
+    getTeacher(id: number) {
+        return this.http.get<Teacher>(`${this.apiUrl}/${id}`, {
         });
     }
 

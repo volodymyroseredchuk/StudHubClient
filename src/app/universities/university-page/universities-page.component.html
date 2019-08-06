@@ -15,11 +15,13 @@
         </div>
         <mat-card-title class="title3">
             <button mat-raised-button color="primary" style="margin-right:50px;"
-                    routerLink="/universities/mark">
-                Rate the university
+                    routerLink="/delete/{{universityId}}">
+                Delete the university
             </button>
+            <!--<button mat-button color="warn" *ngIf="canChangeOrDeleteUniversity(university)"-->
+                    <!--(click)="deleteUniversity(university.id)">Delete</button>-->
             <button mat-raised-button color="primary" style="margin-right:50px;"
-                    routerLink="/feedback" >
+                    routerLink="/create-feedback/{{universityId}}" >
                 Add feedback
             </button>
         </mat-card-title>

@@ -43,4 +43,44 @@ export class UniversitiesPageComponent implements OnInit{
               this.university = university;
           });
   }
+
+    // //Checking if User is question creator. If no - he can not see "edit" & "delete" buttons.
+    // canChangeOrDeleteUniversity(university) {
+    //
+    //     if (!this.user) { return false; }
+    //     let allowDelete = this.user.username === university.user.username;
+    //     if (allowDelete) {
+    //         return allowDelete;
+    //     } else {
+    //         for (let privilege of this.user.privileges) {
+    //             if (privilege.name.toUpperCase() === "QUESTION_DELETE_ANY_PRIVILEGE") {
+    //                 return true;
+    //             }
+    //         }
+    //         return false;
+    //     }
+    // }
+    //
+    // //deletes question. If success - refresh the page. If not - shows error message and redirect to all questions page.
+    // deleteQuestion(questionId: number) {
+    //     if (confirm("Are You sure You want to delete this question?")) {
+    //         this.questionService.deleteQuestion(questionId)
+    //             .subscribe((data) => {
+    //                     if (data === "Question deleted") {
+    //                         alert(data);
+    //                         this.router.navigate(["/questions"]);
+    //                         console.log(data);
+    //
+    //                     } else {
+    //                         alert(data);
+    //                         this.getQuestion();
+    //                         console.log(data);
+    //                     }
+    //                 },
+    //                 error => {
+    //                     this.alertService.error(error);
+    //                     alert(error);
+    //                 });
+    //     }
+    // }
 }

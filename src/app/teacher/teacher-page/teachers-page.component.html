@@ -1,6 +1,4 @@
 <div class="mainContainer">
-    <!--<button mat-raised-button color="primary" id="btnCreate" routerLink="/teachers/{teacherId}">Create Teacher</button>-->
-    <!--<button mat-button routerLink="." (click)="goBack()">Back</button>-->
 
     <mat-card class="teacher-profile-container">
 
@@ -14,9 +12,14 @@
             <img src="{{teacher.imageUrl}}" style="width: 100%">
         </div>
         <div class="stars-container">
-            <star-rating [starType]="'svg'" [readOnly]="true" [rating]="teacher.mark"></star-rating>
+            <star-rating [starType]="'svg'" [readOnly]="true" [rating]="teacher?.mark"></star-rating>
         </div>
         <mat-card-title class="title3">
+            <button mat-raised-button color="primary" style="margin-right:50px;"
+                    *ngIf="canChangeOrDeleteTeacher(user)"
+                    (click)="deleteTeacher(teacher.id)">
+                Delete the teacher
+            </button>
             <button mat-raised-button color="primary" style="margin-right:50px;"
                     routerLink="/update/{{teacherId}}">
                 Edit the teacher
