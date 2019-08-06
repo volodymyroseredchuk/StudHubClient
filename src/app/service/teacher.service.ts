@@ -45,7 +45,7 @@ export class TeacherService extends BaseService {
     }
 
 
-    deleteTeacher(teacherId: number): Observable<any> {
+    deleteTeacher(teacherId: number): Observable<{}> {
         return this.http.delete(`${this.apiUrl}/delete/${teacherId}`,
         {
             headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))

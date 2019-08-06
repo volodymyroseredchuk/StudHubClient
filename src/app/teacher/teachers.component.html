@@ -1,6 +1,5 @@
 <div class="responsive_nav_bar">
 
-que
     <h2>Teachers</h2>
 
 
@@ -20,9 +19,12 @@ que
             </mat-chip-list>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" id="btnKeywordSearch" (click)="searchByLastName()">Search teacher
+        <button mat-raised-button color="primary" id="btnKeywordSearch"
+                (click)="searchByLastName()">Search teacher
         </button>
-        <button mat-raised-button color="primary" routerLink="/teachers/teacher">Create Teacher</button>
+        <button mat-raised-button color="primary"
+                *ngIf="canChangeOrDeleteTeacher(user)"
+                routerLink="/teachers/teacher">Create Teacher</button>
     </div>
 
     <div id="teachersList">

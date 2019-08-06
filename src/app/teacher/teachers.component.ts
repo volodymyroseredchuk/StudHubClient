@@ -6,6 +6,8 @@ import {TeacherService} from '../service/teacher.service';
 import {Teacher} from '../model/teacher.model';
 import {TeacherDTO} from '../model/teacherForListDTO.model';
 import {MatChipInputEvent} from '@angular/material';
+import {User} from '../model/user.model';
+import {UserService} from '../service/user.service';
 
 
 @Component({
@@ -19,6 +21,7 @@ export class TeachersComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
+  user: User;
   // readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   myControl = new FormControl();
@@ -31,13 +34,37 @@ export class TeachersComponent implements OnInit {
   pageSize: number = 5;
   page: number = 1;
 
-  constructor(private router: Router, private service: TeacherService, private activRouter: ActivatedRoute) {
+  constructor(private router: Router, private service: TeacherService,
+              private userService: UserService, private activRouter: ActivatedRoute) {
   }
 
   ngOnInit() {
 
     this.service.findAllTeacherOrderByMarkDesc().subscribe(data => this.teachers = data);
+    this.getUser();
+  }
 
+  getUser() {
+    this.userService.getCurrentUser().subscribe(
+        user => {
+          this.user = user;
+        }, () => {
+          this.user = null;
+        }
+    );
+  }
+
+  canChangeOrDeleteTeacher(user) {
+
+    if (!this.user) {
+      return false;
+    }
+    for (let privilege of this.user.privileges) {
+      if (privilege.name.toUpperCase() === 'TEACHER_DELETE_ANY_PRIVILEGE') {
+        return true;
+      }
+    }
+    return false;
   }
   getAllTeachers() {
     this.service.getAllTeachers(this.getCurrentPaginationSettings())

@@ -9,6 +9,7 @@ import {FeedbackService} from '../../service/feedback.service';
 import {UserService} from '../../service/user.service';
 import {AlertService} from '../../service/alert.service';
 import {User} from '../../model/user.model';
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -22,9 +23,11 @@ export class TeachersPageComponent implements OnInit {
     feedbacks: Feedback[];
     teacherId: number;
 
+
     constructor(private teacherService: TeacherService, private feedbackService: FeedbackService,
                 private userService: UserService, private alertService: AlertService,
-                private tlist: TeachersComponent, private route: ActivatedRoute, private router: Router) {
+                private tlist: TeachersComponent, private route: ActivatedRoute,
+                private location: Location, private router: Router) {
     }
 
     ngOnInit() {
@@ -78,14 +81,20 @@ export class TeachersPageComponent implements OnInit {
         if (confirm('Are You sure You want to delete this teacher?')) {
             console.log('delete');
             this.teacherService.deleteTeacher(teacherId)
-                .subscribe(result => {
+                .subscribe(() => {
                     console.log('delete');
                     this.router.navigate(['/teachers']);
-                    },
-                    error => {
-                        this.alertService.error(error);
-                        alert(error);
-                    });
+                    }
+                    // ,
+                    // error => {
+                    //     this.alertService.error(error);
+                    //     alert(error);
+                    // }
+                    );
         }
+    }
+
+    goBack(): void {
+        this.location.back();
     }
 }

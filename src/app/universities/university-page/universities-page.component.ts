@@ -7,6 +7,9 @@ import {UniversityService} from '../../service/university.service';
 import {UniversitiesComponent} from '../universities.component';
 import {FeedbackService} from '../../service/feedback.service';
 import {Feedback} from '../../model/feedback.model';
+import {User} from '../../model/user.model';
+import {UserService} from '../../service/user.service';
+import {AlertService} from '../../service/alert.service';
 
 
 @Component({
@@ -14,14 +17,15 @@ import {Feedback} from '../../model/feedback.model';
     templateUrl: './universities-page.component.html',
     styleUrls: ['./universities-page.component.scss']
   })
-export class UniversitiesPageComponent implements OnInit{
+export class UniversitiesPageComponent implements OnInit {
    university: University;
     feedbacks: Feedback[];
     universityId: number;
+    user: User;
 
   constructor(private universityService: UniversityService, private tlist: UniversitiesComponent,
-              private feedbackService: FeedbackService, private route: ActivatedRoute,
-              private router: Router){
+              private feedbackService: FeedbackService, private alertService: AlertService,
+              private route: ActivatedRoute, private userService: UserService, private router: Router){
   }
 
   ngOnInit() {
@@ -30,7 +34,18 @@ export class UniversitiesPageComponent implements OnInit{
           console.log(this.universityId);
           this.feedbacks = res;
       });
+      this.getUser();
   }
+
+    getUser() {
+        this.userService.getCurrentUser().subscribe(
+            user => {
+                this.user = user;
+            }, () => {
+                this.user = null;
+            }
+        );
+    }
 
   getUniversity() {
 
@@ -44,43 +59,34 @@ export class UniversitiesPageComponent implements OnInit{
           });
   }
 
-    // //Checking if User is question creator. If no - he can not see "edit" & "delete" buttons.
-    // canChangeOrDeleteUniversity(university) {
-    //
-    //     if (!this.user) { return false; }
-    //     let allowDelete = this.user.username === university.user.username;
-    //     if (allowDelete) {
-    //         return allowDelete;
-    //     } else {
-    //         for (let privilege of this.user.privileges) {
-    //             if (privilege.name.toUpperCase() === "QUESTION_DELETE_ANY_PRIVILEGE") {
-    //                 return true;
-    //             }
-    //         }
-    //         return false;
-    //     }
-    // }
-    //
-    // //deletes question. If success - refresh the page. If not - shows error message and redirect to all questions page.
-    // deleteQuestion(questionId: number) {
-    //     if (confirm("Are You sure You want to delete this question?")) {
-    //         this.questionService.deleteQuestion(questionId)
-    //             .subscribe((data) => {
-    //                     if (data === "Question deleted") {
-    //                         alert(data);
-    //                         this.router.navigate(["/questions"]);
-    //                         console.log(data);
-    //
-    //                     } else {
-    //                         alert(data);
-    //                         this.getQuestion();
-    //                         console.log(data);
-    //                     }
-    //                 },
-    //                 error => {
-    //                     this.alertService.error(error);
-    //                     alert(error);
-    //                 });
-    //     }
-    // }
+
+    canChangeOrDeleteUniversity(user) {
+
+        if (!this.user) {
+            return false;
+        }
+        for (let privilege of this.user.privileges) {
+            if (privilege.name.toUpperCase() === 'UNIVERSITY_DELETE_ANY_PRIVILEGE') {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    deleteUniversity(universityId: number) {
+        if (confirm('Are You sure You want to delete this university?')) {
+            console.log('delete');
+            this.universityService.deleteUniversity(universityId)
+                .subscribe(result => {
+                        console.log('delete');
+                        this.router.navigate(['/universities']);
+                    }
+                    // ,
+                    // error => {
+                    //     this.alertService.error(error);
+                    //     alert(error);
+                    // }
+                    );
+        }
+    }
 }

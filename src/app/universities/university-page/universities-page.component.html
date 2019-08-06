@@ -1,6 +1,4 @@
 <div class="mainContainer">
-    <!--<button mat-raised-button color="primary" id="btnCreate" routerLink="/teachers/{teacherId}">Create Teacher</button>-->
-    <!--<button mat-button routerLink="." (click)="goBack()">Back</button>-->
 
     <mat-card class="university-profile-container">
 
@@ -14,14 +12,17 @@
             <star-rating [starType]="'svg'" [readOnly]="true" [rating]="university.mark"></star-rating>
         </div>
         <mat-card-title class="title3">
+            <button mat-raised-button color="primary" style="margin-right:50px;" routerLink="/universities"
+                    id="backBtn">Go back
+            </button>
+
             <button mat-raised-button color="primary" style="margin-right:50px;"
-                    routerLink="/delete/{{universityId}}">
+                    *ngIf="canChangeOrDeleteUniversity(user)"
+                    (click)="deleteUniversity(university.id)">
                 Delete the university
             </button>
-            <!--<button mat-button color="warn" *ngIf="canChangeOrDeleteUniversity(university)"-->
-                    <!--(click)="deleteUniversity(university.id)">Delete</button>-->
             <button mat-raised-button color="primary" style="margin-right:50px;"
-                    routerLink="/create-feedback/{{universityId}}" >
+                    routerLink="/create-feedback/{{universityId}}">
                 Add feedback
             </button>
         </mat-card-title>
@@ -48,24 +49,5 @@
         <h3 *ngIf="feedbacks?.length == 0">You don't have feedbacks</h3>
     </div>
 
-    <!--<mat-card id="feedbackForm">-->
-        <!--<form class="my-form" [formGroup]="feedbackCreateForm" (ngSubmit)="onSubmit()" #userForm="ngForm">-->
 
-
-            <!--<mat-form-field class="tags-chip-list">-->
-                <!--<mat-label>Body</mat-label>-->
-                <!--<input [(ngModel)]="feedback.body" class="form-control" id="body" formControlName="body"-->
-                       <!--name="body" matInput placeholder="Body of a feedback" required-->
-                       <!--[ngClass]="{ 'is-invalid': submitted && f.body.errors }"/>-->
-                <!--<div *ngIf="submitted && f.body.errors" class="invalid-feedback">-->
-                    <!--<div *ngIf="f.body.errors.required">Body is required</div>-->
-                <!--</div>-->
-            <!--</mat-form-field>-->
-
-
-            <!--<button type="submit" [disabled]="loading" mat-raised-button color="primary" id="submitBtn"-->
-                    <!--class="btn btn-success">Create Feedback-->
-            <!--</button>-->
-        <!--</form>-->
-    <!--</mat-card>-->
 </div>
