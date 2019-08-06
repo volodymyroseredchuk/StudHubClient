@@ -137,8 +137,11 @@ export class OrderComponent implements OnInit {
 
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
+      
       this.fileToUpload = event.target.files.item(0);
       reader.readAsDataURL(file);
+
+      
 
       reader.onload = () => {
         this.formGroup.patchValue({
@@ -153,6 +156,11 @@ export class OrderComponent implements OnInit {
 
   submitResult() {
     console.log(this.fileToUpload)
+    if(this.fileToUpload.size > 1024 * 1024 * 4 ) {
+      alert("The file is too big!(Over 4MB)") 
+      return;
+    }
+    
     this.fileService.uploadFile(this.fileToUpload).subscribe(
       fileUrlObject => {
         this.orderService.submitResult(fileUrlObject.message, this.order.id).subscribe(

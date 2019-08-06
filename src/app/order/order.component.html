@@ -15,23 +15,33 @@
             #{{tag.name}}
           </div>
         </mat-chip-list>
+
+        <mat-divider *ngIf="isTaskInProgress()"></mat-divider>
+        <mat-chip-list *ngIf="isTaskInProgress()">
+            <div>
+                <button (click)="cancelOrder()">
+                  Cancel
+                  </button>
+              </div>
+        </mat-chip-list>
+
       </mat-card>
       <div class="row cardContainer">
-        <div class="col-md-3">
+        <div class="col-md-4 col-lg-3">
           <mat-card *ngIf="order.task" class="taskCard ">
             <div>
               Author: {{ order.task.user.username }}
             </div>
           </mat-card>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4 col-lg-3">
           <mat-card *ngIf="order.proposal" class="taskCard ">
             <div>
               Executor: {{ order.proposal.user.username }}
             </div>
           </mat-card>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4 col-lg-3">
           <mat-card class="taskCard">
             <div [routerLink]="['/chat', chatId]">
               Message <span *ngIf="isUserExecutor()">{{order.task.user.username}}</span>
@@ -39,7 +49,7 @@
             </div>
           </mat-card>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4 col-lg-3">
           <mat-card *ngIf="order.task" class="taskCard ">
 
             <div>
@@ -47,7 +57,7 @@
             </div>
           </mat-card>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4 col-lg-3">
           <mat-card *ngIf="order" class="taskCard ">
 
             <div>
@@ -55,21 +65,21 @@
             </div>
           </mat-card>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4 col-lg-3">
           <mat-card *ngIf="order" class="taskCard">
             <div>
               Deadline date: {{ order.endDate | date: 'dd.MM.yyyy' }}
             </div>
           </mat-card>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4 col-lg-3">
           <mat-card *ngIf="order.proposal" class="taskCard">
             <div>
               Payment price: {{ order.proposal.price }} ₡
             </div>
           </mat-card>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4 col-lg-3">
           <mat-card *ngIf="order.proposal" class="taskCard">
             <div>
               Status: {{order.task.status}}
@@ -80,10 +90,14 @@
       </div>
     </div>
 
-    <div class="submitResult" *ngIf="isUserExecutor() && isTaskInProgress()">
+    <div class="submitResult taskCard card-left" *ngIf="isUserExecutor() && isTaskInProgress()">
+      <h4> The file size should be less than 4 MB</h4>
       <form [formGroup]="formGroup" novalidate (ngSubmit)="submitResult()">
-        <input type="file" (change)="onFileChange($event)" />
-        <button type="submit" [disabled]="formGroup.invalid || formGroup.prestine">Submit</button>
+        <div>
+        <input class="fileInput" type="file" color="primary" (change)="onFileChange($event)" />
+        <button type="submit" class="btn btn-primary submitFileButton" color="primary" [disabled]="formGroup.invalid || formGroup.prestine">Submit</button>
+        </div>
+        
       </form>
     </div>
     <div class="resultFile" *ngIf="isTaskDone()">
@@ -144,9 +158,5 @@
 
     
   </div>
-  <div>
-      <button (click)="cancelOrder()">
-        Cancel
-        </button>
-    </div>
+  
 </div>
