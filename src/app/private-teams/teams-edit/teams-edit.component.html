@@ -13,6 +13,16 @@
         <div *ngIf="f.title.errors.required">Title is required</div>
       </div>
     </mat-form-field>
+
+    <mat-form-field class="general">
+      <mat-label>Description</mat-label>
+      <input [(ngModel)]="team.description" class="form-control" id="description" formControlName="description" name="description" matInput
+        placeholder="Description of team" required [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
+
+      <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+        <div *ngIf="f.description.errors.required">Description is required</div>
+      </div>
+    </mat-form-field>
   </form>
 
   <a mat-raised-button (click)="goBack()" id="backBtn">Go back</a>

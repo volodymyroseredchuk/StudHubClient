@@ -9,13 +9,13 @@ import { TeamQuestionsCreateComponent } from './questions-create/questions-creat
 import { TeamQuestionsPageComponent } from './question-page/questions-page.component';
 import { TeamQuestionsEditComponent } from './questions-edit/questions-edit.component';
 import { MembersComponent } from './members/members.component';
+import { InvitationsComponent } from './invitations/invitations.component';
 
 
 const routes: Routes = [
   {
     path: 'teams',
-    component: TeamsComponent,
-    canActivate: [AuthGuard]
+    component: TeamsComponent
   },
   {
     path: 'teams/create',
@@ -24,8 +24,7 @@ const routes: Routes = [
   },
   {
     path: 'teams/:id',
-    component: TeamPageComponent,
-    canActivate: [AuthGuard]
+    component: TeamPageComponent
   },
   {
     path: 'teams/:id/edit',
@@ -52,6 +51,11 @@ const routes: Routes = [
     component: MembersComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'teams/:id/invitations',
+    component: InvitationsComponent,
+    canActivate: [AuthGuard]
+  }
 
 ];
 
