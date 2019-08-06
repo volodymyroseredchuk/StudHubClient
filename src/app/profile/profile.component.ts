@@ -12,6 +12,8 @@ import { CustomerService } from '../service/customer.service';
 import { CustomerDTO } from '../model/customerDTO.model';
 import { FreelanceService } from '../service/freelance.service';
 import { OrderService } from '../service/order.service';
+import { Team } from '../model/team.model';
+import { TeamService } from '../service/team.service';
 
 
 @Component({
@@ -24,6 +26,8 @@ export class ProfileComponent implements OnInit {
   currentUser: User;
   questions: QuestionForListDTO[];
   feedbacks: Feedback[];
+  publicTeams: Team[];
+  privateTeams: Team[];
   answersCount: number;
   ordersDoneCount: number;
   rating: number;
@@ -49,6 +53,7 @@ export class ProfileComponent implements OnInit {
     private customerService: CustomerService,
     private freelancerService: FreelanceService,
     private orderService: OrderService,
+    private teamService: TeamService,
     private router: Router
   ) { }
 
@@ -85,6 +90,12 @@ export class ProfileComponent implements OnInit {
     });
     this.feedbackService.getAllFeedbacksByUser(user.username).subscribe(res => {
       this.feedbacks = res;
+    });
+    this.teamService.getAllPublicTeamByUserUsername(user.username).subscribe(res => {
+      this.publicTeams = res;
+    });
+    this.teamService.getAllPrivateTeamByUserUsername(user.username).subscribe(res => {
+      this.privateTeams = res;
     });
   }
 

@@ -69,4 +69,12 @@ export class TeamService extends BaseService {
         }
         return this.http.delete<Delete>(`${this.apiUrl}/${id}`, httpOptions);
     }
+
+    getAllPublicTeamByUserUsername(username: String) {
+        return this.http.get<Team[]>(`${this.apiUrl}/public/${username}`);
+    }
+
+    getAllPrivateTeamByUserUsername(username: String) {
+        return this.http.get<Team[]>(`${this.apiUrl}/private/${username}`);
+    }
 }

@@ -144,9 +144,9 @@
 
         </div>
       </mat-tab>
-      <mat-tab label="Teams">
+      <mat-tab label="Public teams">
         <div style="overflow-y:scroll; height: 300px;">
-          <mat-card *ngFor="let team of user?.teamList">
+          <mat-card *ngFor="let team of publicTeams">
 
             <mat-card-title>
               <a [routerLink]="['/teams', team?.id]">{{ team.title }}</a> <br>
@@ -161,7 +161,28 @@
 
           </mat-card>
 
-          <h2 *ngIf="user?.teamList.length == 0" class="message">No teams.</h2>
+          <h2 *ngIf="publicTeams?.length == 0" class="message">No teams.</h2>
+
+        </div>
+      </mat-tab>
+      <mat-tab *ngIf="user?.username === currentUser?.username" label="Private teams">
+        <div style="overflow-y:scroll; height: 300px;">
+          <mat-card *ngFor="let team of privateTeams">
+
+            <mat-card-title>
+              <a [routerLink]="['/teams', team?.id]">{{ team.title }}</a> <br>
+            </mat-card-title>
+
+            <p>
+              Created by:
+              <mat-chip *ngIf="team?.user">
+                {{ team.user.username }}
+              </mat-chip>
+            </p>
+
+          </mat-card>
+
+          <h2 *ngIf="private?.length == 0" class="message">No teams.</h2>
 
         </div>
       </mat-tab>
