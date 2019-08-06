@@ -47,6 +47,8 @@ import {UniversitiesPageComponent} from './universities/university-page/universi
 import {UniversitiesComponent} from './universities/universities.component';
 import {OrderModule} from './order/order.module';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
 
 // @ts-ignore
 @NgModule({
@@ -84,7 +86,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     MatTabsModule,
     TeachersModule,
     UniversitiesModule,
-    ImageCropperModule
+    ImageCropperModule,
+    AngularFontAwesomeModule
   ],
 
   providers: [
