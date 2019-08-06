@@ -9,6 +9,8 @@ import { map } from 'rxjs/operators';
 import { UserService } from 'src/app/service/user.service';
 import { UserDTO } from 'src/app/model/userDTO.model';
 import { User } from 'src/app/model/user.model';
+import { Invitation } from 'src/app/model/invitation.model';
+import { InvitationService } from 'src/app/service/invitation.service';
 
 @Component({
   selector: 'app-members',
@@ -28,13 +30,14 @@ export class MembersComponent implements OnInit {
 
   constructor(private teamService: TeamService,
     private userService: UserService,
+    private invitationService: InvitationService,
     private route: ActivatedRoute,
     private router: Router,
     private location: Location) {
   }
 
   ngOnInit() {
-    
+
     this.teamId = +this.route.snapshot.params.id;
 
     this.getTeam();
@@ -48,9 +51,9 @@ export class MembersComponent implements OnInit {
         console.log(team);
         this.team = team;
       },
-      err => {
-        this.router.navigate(["errorPage"]);
-      });
+        err => {
+          this.router.navigate(["errorPage"]);
+        });
   }
 
   async getAllUsers() {
@@ -85,13 +88,26 @@ export class MembersComponent implements OnInit {
       this.team.userList = this.team.userList.filter(member => member != user);
       console.log(this.team);
       this.teamService.editTeam(this.teamId, this.team)
-      .subscribe(result => {
-        console.log(result);
-      })
-    } 
-    
+        .subscribe(result => {
+          console.log(result);
+        })
+    }
+
   }
-  
+
+  deleteInvitation (inv: Invitation) {
+    if (window.confirm("Do you really want to cancel this invitation?")) {
+      console.log(this.team);
+      this.team.invitations = this.team.invitations.filter(invitation => invitation != inv);
+      console.log(this.team);
+      this.invitationService.deleteInvitation(this.teamId, inv.id)
+        .subscribe(result => {
+          console.log(result);
+        })
+    }
+
+  }
+
   private _filterUsers(value: string): UserDTO[] {
     const filterValue = value.toLowerCase();
 
@@ -113,7 +129,11 @@ export class MembersComponent implements OnInit {
       } else if (this.selectedUser.username == this.user.username) {
         alert("Team owner cannot be a member");
       } else {
-        this.team.userList.push(this.selectedUser);
+        //this.team.userList.push(this.selectedUser);
+        this.teamService.invite(this.teamId, this.selectedUser.id, this.team)
+          .subscribe(result => {
+            console.log(result);
+          })
       }
     } else {
       alert("user doesn't exist");
@@ -122,15 +142,15 @@ export class MembersComponent implements OnInit {
   }
 
   canModifyTeam() {
-    if(!this.user) { 
-      return false; 
+    if (!this.user) {
+      return false;
     }
     let allow = this.user.username === this.team.user.username;
     if (allow) {
       return true;
     } else {
       for (let privilege of this.user.privileges) {
-        if (privilege.name.toUpperCase() === "WRITE_ANY_TEAM_PRIVILEGE" ) {
+        if (privilege.name.toUpperCase() === "WRITE_ANY_TEAM_PRIVILEGE") {
           return true;
         }
       }

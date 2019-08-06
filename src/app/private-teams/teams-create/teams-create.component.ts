@@ -16,11 +16,6 @@ import { UserDTO } from 'src/app/model/userDTO.model';
 })
 export class TeamsCreateComponent implements OnInit {
 
-  usersCtrl = new FormControl();
-  filteredUsers: Observable<UserDTO[]>;
-  users: UserDTO[];
-  members: UserDTO[] = [];
-  selectedUser: UserDTO;
   user: UserDTO;
   team: Team = new Team();
   teamCreateForm: FormGroup;
@@ -34,24 +29,25 @@ export class TeamsCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.team.isPublic = true;
+    
     this.teamCreateForm = this.formBuilder.group({
-      title: ['', Validators.required]
+      title: ['', Validators.required],
+      description: ['', Validators.required]
     });
 
     this.getUser();
-    this.getAllUsers();
   }
 
-  async getAllUsers() {
 
-    await this.userService.getAllUsers().toPromise().then(data => {
-      this.users = data;
-    }).then(() => {
-      this.filteredUsers = this.usersCtrl.valueChanges
-        .pipe(
-          map(user => user ? this._filterUsers(user) : undefined)
-        );
-    });
+  onItemChange(value){
+
+    if(value === 1){
+      this.team.isPublic = true;
+    } else {
+      this.team.isPublic = false;
+    }
+    console.log(this.team);
   }
 
   async getUser() {
@@ -64,38 +60,6 @@ export class TeamsCreateComponent implements OnInit {
     this.router.navigate(['/teams']);
   }
 
-  private _filterUsers(value: string): UserDTO[] {
-    const filterValue = value.toLowerCase();
-
-    return this.users.filter(user => user.username.toLowerCase().indexOf(filterValue) === 0);
-  }
-
-  getUserFromUsername(username: string) {
-    this.selectedUser = this.users.find(user => {
-      return user.username === username
-    });
-  }
-
-  addMember() {
-
-    console.log(this.selectedUser);
-    if (this.selectedUser) {
-      if (this.memberExists()) {
-        alert("member exists");
-      } else if (this.selectedUser.username == this.user.username) {
-        alert("Team owner cannot be a member");
-      } else {
-        this.members.push(this.selectedUser);
-      }
-    } else {
-      alert("user doesn't exist");
-    }
-
-  }
-
-  memberExists() {
-    return this.members.includes(this.selectedUser);
-  }
 
   onSubmit() {
     this.submitted = true;
@@ -104,8 +68,8 @@ export class TeamsCreateComponent implements OnInit {
     if (this.teamCreateForm.invalid) {
       return;
     }
-
-    this.team.userList = this.members;
+    
+    console.log(this.team);
 
     this.teamService.createTeam(this.team)
       .subscribe(result => {
