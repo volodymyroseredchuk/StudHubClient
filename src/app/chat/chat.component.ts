@@ -31,7 +31,7 @@ export class ChatComponent implements OnInit {
   scrollUsed = false;
   private lastScrollHeight = 0;
   private lastHeight = 0;
-  private receiver;
+  receiver;
   photoUrl = DEFAULT_PHOTO_URL;
   private connection;
   private gotMessagesCount = 0;
