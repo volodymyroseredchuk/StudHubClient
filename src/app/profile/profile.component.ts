@@ -11,6 +11,7 @@ import { ChatService } from '../service/chat.service';
 import { CustomerService } from '../service/customer.service';
 import { CustomerDTO } from '../model/customerDTO.model';
 import { FreelanceService } from '../service/freelance.service';
+import { OrderService } from '../service/order.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class ProfileComponent implements OnInit {
   questions: QuestionForListDTO[];
   feedbacks: Feedback[];
   answersCount: number;
+  ordersDoneCount: number;
   rating: number;
   customer: CustomerDTO;
 
@@ -46,6 +48,7 @@ export class ProfileComponent implements OnInit {
     private chatService: ChatService,
     private customerService: CustomerService,
     private freelancerService: FreelanceService,
+    private orderService: OrderService,
     private router: Router
   ) { }
 
@@ -91,6 +94,11 @@ export class ProfileComponent implements OnInit {
       this.rating = res * 5;
     });
 
+    this.orderService.getCountDoneByUserUsername(user.username).subscribe(res => {
+      this.ordersDoneCount = res;
+      this.rating += res * 10;
+    });
+
     this.answerService.getCountOfApprovedAnswersByUsername(user.username).subscribe(res => {
       this.rating = this.rating + res * 5;
     });
@@ -109,7 +117,6 @@ export class ProfileComponent implements OnInit {
     this.freelancerService.getRatingByUserUsername(user.username).subscribe(res => {
       this.quality = res.quality / 5 * 100;
       this.price = res.price / 5 * 100;
-      alert(res.price);
       this.velocity = res.velocity / 5 * 100;
       this.contactFreelance = res.contact / 5 * 100;
     })

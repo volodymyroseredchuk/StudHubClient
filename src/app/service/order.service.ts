@@ -42,4 +42,8 @@ export class OrderService extends BaseService{
     let fileUrl = { fileUrl: "http://fileservice.test/test/file/url"}
     return this.http.post<ResultSubmission>(`${this.apiUrl}/${orderId}/submit`, fileUrl, httpOptions)
   }
+
+  getCountDoneByUserUsername(username: String){
+    return this.http.get<number>(`${this.apiUrl}/count/done/${username}`);
+  }
 }
