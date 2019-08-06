@@ -28,7 +28,7 @@ class SocketServiceImpl extends BaseService {
 
   private messages;
 
-  private isOpen;
+  public isOpen;
   private token: any;
   private onmessage = [];
 
@@ -57,7 +57,7 @@ class SocketServiceImpl extends BaseService {
       });
   }
 
-  public send(message: { subject_type: string, id: string }): void {
+  public send(message: { param1: string, param2: string, type: string }): void {
 
     if (this.isOpen) {
       const json = JSON.stringify(message);

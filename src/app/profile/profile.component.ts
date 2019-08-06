@@ -134,9 +134,15 @@ export class ProfileComponent implements OnInit {
   }
 
   sendMessage() {
-    this.chatService.createChat(this.currentUser.id, this.user.id).subscribe(
+    this.chatService.createChat(this.currentUser.id, this.user.id, false).subscribe(
       res => {
-        this.router.navigateByUrl('chat/' + res);
+        this.router.navigateByUrl('chat/' + res + '/' + false);
+      });
+  }
+  sendSecretMessage() {
+    this.chatService.createChat(this.currentUser.id, this.user.id, true).subscribe(
+      res => {
+        this.router.navigateByUrl('chat/' + res + '/' + true) ;
       });
   }
 }
