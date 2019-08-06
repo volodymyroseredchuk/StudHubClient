@@ -1,7 +1,7 @@
 <div class="profile-container">
   <div class="profile-card">
 
-    <div class="image-container" style="width: 200px;">
+    <div class="image-container">
       <img *ngIf="user?.imageUrl !== null" src="{{user?.imageUrl}}" alt="Avatar" style="height: 300px;width: 100%;">
       <img *ngIf="user?.imageUrl === null" src="../../assets/images/default.png" style="height: 300px;width: 100%;">
       <div class="title">
