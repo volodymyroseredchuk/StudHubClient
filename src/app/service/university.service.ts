@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BaseService} from './base-service';
 import {University} from '../model/university.model';
 import {Observable} from 'rxjs';
-import {Teacher} from '../model/teacher.model';
 
 @Injectable({providedIn: 'root'})
 export class UniversityService extends BaseService {
@@ -17,21 +16,23 @@ export class UniversityService extends BaseService {
         return this.http.get<University[]>(`${this.apiUrl}`);
     }
 
-
-    newTeacher(university: University): Observable<University> {
-        return this.http.post<University>(`${this.apiUrl}/create`, university);
-    }
-
     findAllUniversity(): Observable<University[]> {
         return this.http.get<University[]>(`${this.apiUrl}`);
     }
 
-    updateOneUniversity(universityid: number, university: University): Observable<University> {
-        return this.http.put<University>(`${this.apiUrl}/${universityid}/edit`, university);
+    newUniversity(university: University): Observable<University> {
+        console.log(university);
+        return this.http.post<University>(`${this.apiUrl}/university`, university,
+            {
+                headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
+            });
     }
 
-    deleteUniversity(universityid: number): Observable<any> {
-        return this.http.delete(`${this.apiUrl}/${universityid}/delete`);
+    deleteUniversity(universityId: number): Observable<any> {
+        return this.http.delete(`${this.apiUrl}/delete/${universityId}`,
+            {
+                headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
+            });
     }
 
     showUniversityPage(universityId: number): Observable<University> {

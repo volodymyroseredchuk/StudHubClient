@@ -26,8 +26,8 @@ export class NewsPageComponent implements OnInit {
     getNews() {
         const id = +this.route.snapshot.params.id;
         this.newsService.showNewsPage(id)
-          .subscribe(news => {
-            this.news = news;
+          .subscribe(newsList => {
+            this.newsList = newsList;
           },
             error => {
               alert(error);

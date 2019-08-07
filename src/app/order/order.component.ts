@@ -213,12 +213,38 @@ export class OrderComponent implements OnInit {
 
 
   cancelOrder() {
-    this.orderService.cancelOrder(this.order.id).subscribe(
-      order => {
-        this.order = order;
-        console.log(order);
+    if(this.isUserExecutor()){
+      if(confirm("Are you sure to cancel executing this task? You will loose posibility to earn cookies!")){
+        this.orderService.cancelOrder(this.order.id).subscribe(
+          order => {
+            this.order = order;
+            console.log(order);
+          }
+        )
       }
-    )
+    } else if (this.isUserTaskCreator()) {
+      if (this.order.endDate < new Date()){
+        if(confirm("Are you sure to cancel this task? You will loose half of your money!")){
+          this.orderService.cancelOrder(this.order.id).subscribe(
+            order => {
+              this.order = order;
+              console.log(order);
+            }
+          )
+        }
+      } else {
+        if(confirm("Are you sure to cancel this task? Your cookies will be returned!")){
+          this.orderService.cancelOrder(this.order.id).subscribe(
+            order => {
+              this.order = order;
+              console.log(order);
+            }
+          )
+        }
+      }
+
+    }
+    
   }
 
   isTaskInProgress() {
