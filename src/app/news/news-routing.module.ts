@@ -11,6 +11,16 @@ const routes: Routes = [
     },
 
     {
+      path: 'news/:id/follow',
+      component: NewsComponent
+    },
+
+    {
+      path: 'news/userfeeds',
+      component: NewsComponent
+    },
+
+    {
       path: 'news/:id',
       component: NewsPageComponent
     }

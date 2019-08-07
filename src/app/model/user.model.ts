@@ -1,4 +1,5 @@
 import { University } from './university.model';
+import { Feed } from './feed.model';
 import { Team } from './team.model';
 
 export class User {
@@ -14,6 +15,8 @@ export class User {
     emailSubscription: boolean;
     roles: { name: string }[];
     privileges: { name: string }[];
+    feeds: Feed[];
     cookiesCount: number;
     teamList: Team[];
+
 }
