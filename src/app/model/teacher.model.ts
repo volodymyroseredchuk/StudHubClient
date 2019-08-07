@@ -6,7 +6,7 @@ export class Teacher {
   // modifiedDate: Date;
   firstName: string;
   lastName: string;
-  imageUrl: ImageData;
+  imageUrl: string;
   university: University;
   mark: number;
 }

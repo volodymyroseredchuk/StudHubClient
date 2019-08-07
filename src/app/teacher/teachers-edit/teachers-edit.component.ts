@@ -1,22 +1,23 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {University} from '../../model/university.model';
 import {UniversityService} from '../../service/university.service';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {FileService} from '../../service/file.service';
-import {TeacherService} from '../../service/teacher.service';
 import {Teacher} from '../../model/teacher.model';
+import {TeacherService} from '../../service/teacher.service';
 
 @Component({
-    selector: 'app-teachers-create',
-    templateUrl: './teachers-create.component.html',
-    styleUrls: ['./teachers-create.component.scss']
+    selector: 'app-teachers-edit',
+    templateUrl: './teachers-edit.component.html',
+    styleUrls: ['./teachers-edit.component.scss']
 })
-export class TeachersCreateComponent implements OnInit {
+export class TeachersEditComponent implements OnInit {
 
     teacher: Teacher;
+    teacherId: number;
     fileData: File = null;
     imgURL: any;
     private universities: University[];
@@ -28,19 +29,28 @@ export class TeachersCreateComponent implements OnInit {
 
     teacherForm = new FormGroup({
         firstname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
-        lastname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
-        mark: new FormControl('', [Validators.required, Validators.min(1), Validators.max(5)])
+        lastname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)])
     });
 
     constructor(
         private fileService: FileService,
         private teacherService: TeacherService,
         private universityService: UniversityService,
-        private router: Router
+        private router: Router,
+        private route: ActivatedRoute
     ) {
     }
 
     ngOnInit() {
+        this.teacherService.getTeacher(this.route.snapshot.params.id).subscribe(res => {
+            console.log('consol loh in nginit' + this.route.snapshot.params.id);
+            this.teacher = res;
+            this.teacherForm.patchValue({
+                firstname: res.firstName,
+                lastname: res.lastName,
+            });
+        });
+
         this.getUniversities();
     }
 
@@ -52,39 +62,26 @@ export class TeachersCreateComponent implements OnInit {
         return this.teacherForm.controls;
     }
 
-    async onSubmit(f: NgForm) {
+    onSubmit(f: NgForm) {
         if (f.value.firstname.length < 3 || f.value.lastname.length < 3) {
             return;
         }
-        console.log(f);
-        this.teacher = new Teacher();
+
         this.teacher.firstName = f.value.firstname;
         this.teacher.lastName = f.value.lastname;
-        this.teacher.mark = f.value.mark;
         if (this.selectedUniversity !== undefined) {
             this.teacher.university = this.selectedUniversity;
         }
-        console.log(this.teacher);
-        await this.setImageUrl();
-        this.createTeacher(this.teacher);
+
+        this.setImageUrl();
     }
 
     async setImageUrl() {
-        console.log(this.fileData);
-        if (this.fileData) {
-            await this.fileService.uploadFile(this.fileData).toPromise().then(res => {
-                console.log(res);
-                this.teacher.imageUrl = res.message;
-            });
-        } else {
-            this.teacher.imageUrl = 'https://res.cloudinary.com/studhubcloud/image/upload/v1563131695/teacher7_dr0owq.jpg';
-        }
-    }
-
-    async createTeacher(teacher: Teacher) {
-        await this.teacherService.newTeacher(this.teacher).subscribe(res => {
-            console.log(res);
-            this.router.navigate(['/teachers']);
+        await this.fileService.uploadFile(this.fileData).toPromise().then(res => {
+            this.teacher.imageUrl = res.message;
+        }).then(() => {
+            this.teacherService.updateTeacher(this.teacher).subscribe(() =>
+                this.router.navigate(['/teachers']));
         });
     }
 
