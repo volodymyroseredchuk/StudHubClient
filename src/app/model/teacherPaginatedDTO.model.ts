@@ -1,6 +1,6 @@
-import {TeacherForListDTO} from './teacherForListDTO.model';
+import {TeacherDTO} from './teacherForListDTO.model';
 
 export class TeacherPaginatedDTO {
-    teachers: TeacherForListDTO[];
+    teachers: TeacherDTO[];
     teachersTotalCount: number;
 }

@@ -34,8 +34,8 @@ export class TeamPageComponent implements OnInit {
 
   ngOnInit() {
     this.teamId = +this.route.snapshot.params.id;
-    this.getTeam();
     this.getUser();
+    this.getTeam();
     this.getTeamQuestions();
   }
 
@@ -44,8 +44,8 @@ export class TeamPageComponent implements OnInit {
     this.getTeamQuestions();
   }
 
-  getCurrentPaginationSettings() : string {
-      return "?page=" + (this.page - 1) + "&size=" + this.pageSize;
+  getCurrentPaginationSettings(): string {
+    return "?page=" + (this.page - 1) + "&size=" + this.pageSize;
   }
 
   getTeam() {
@@ -54,9 +54,9 @@ export class TeamPageComponent implements OnInit {
         console.log(team);
         this.team = team;
       },
-      err => {
-        this.router.navigate(["errorPage"]);
-      });
+        err => {
+          this.router.navigate(["errorPage"]);
+        });
   }
 
   getTeamQuestions() {
@@ -67,9 +67,66 @@ export class TeamPageComponent implements OnInit {
         this.questionsTotalCount = questionPaginated.questionsTotalCount;
         console.log(this.questions);
       },
-      err => {
-        console.log(err);
+        err => {
+          console.log(err);
+        })
+  }
+
+  isMember() {
+
+    if (!this.user) {
+      return false;
+    }
+
+    return this.memberExists();
+  }
+
+  isNotMember(){
+
+    let allow = true;
+
+    if(this.team.user.username === this.user.username){
+      allow = false;
+    }
+    this.team.userList.forEach(e => {
+      console.log(e);
+      if(e.username == this.user.username){
+        allow = false;
+      }
+    })
+    console.log(allow);
+    return allow;
+  }
+
+  leaveTeam() {
+    if (window.confirm("Do you really want to leave this team?")) {
+      this.teamService.leaveTeam(this.teamId, this.user.id)
+        .subscribe(res => {
+          console.log(res);
+          this.team = res;
+        })
+    }
+  }
+
+  joinTeam() {
+    this.teamService.joinTeam(this.teamId, this.user.id)
+      .subscribe(res => {
+        this.team = res;
+        console.log(this.team);
       })
+    
+  }
+
+  memberExists() {
+    let allow = false;
+    this.team.userList.forEach(e => {
+      console.log(e);
+      if(e.username == this.user.username){
+        allow = true;
+      }
+    })
+    console.log(allow);
+    return allow;
   }
 
   getUser() {
@@ -84,15 +141,15 @@ export class TeamPageComponent implements OnInit {
 
 
   canModifyTeam() {
-    if(!this.user) { 
-      return false; 
+    if (!this.user) {
+      return false;
     }
     let allow = this.user.username === this.team.user.username;
     if (allow) {
       return true;
     } else {
       for (let privilege of this.user.privileges) {
-        if (privilege.name.toUpperCase() === "WRITE_ANY_TEAM_PRIVILEGE" ) {
+        if (privilege.name.toUpperCase() === "WRITE_ANY_TEAM_PRIVILEGE") {
           return true;
         }
       }
@@ -105,7 +162,7 @@ export class TeamPageComponent implements OnInit {
       this.teamService.deleteTeam(this.teamId)
         .subscribe(deleteMessage => {
           this.router.navigate(["/teams"])
-      })
+        })
     }
   }
 

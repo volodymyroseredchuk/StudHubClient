@@ -1,6 +1,4 @@
 <div class="mainContainer">
-    <!--<button mat-raised-button color="primary" id="btnCreate" routerLink="/teachers/{teacherId}">Create Teacher</button>-->
-    <!--<button mat-button routerLink="." (click)="goBack()">Back</button>-->
 
     <mat-card class="teacher-profile-container">
 
@@ -13,16 +11,30 @@
         <div class="image-container">
             <img src="{{teacher.imageUrl}}" style="width: 100%">
         </div>
-        <div class="title2">
-            <h3>Mark: {{teacher.mark}}</h3>
+        <div class="stars-container" *ngIf="teacher.mark">
+            <star-rating [starType]="'svg'" [readOnly]="true" [rating]="teacher?.mark"></star-rating>
+        </div>
+        <div class="stars-container" *ngIf="!teacher.mark">
+            <star-rating [starType]="'svg'" [readOnly]="true" [rating]="0.5"></star-rating>
         </div>
         <mat-card-title class="title3">
             <button mat-raised-button color="primary" style="margin-right:50px;"
-                    routerLink="/teachers/mark">
-                Rate the teacher
+                    *ngIf="canChangeOrDeleteTeacher(user)"
+                    routerLink="/teachers" id="backBtn">Go back
             </button>
             <button mat-raised-button color="primary" style="margin-right:50px;"
-                    routerLink="/feedback">
+                    *ngIf="canChangeOrDeleteTeacher(user)"
+                    (click)="deleteTeacher(teacher.id)">
+                Delete the teacher
+            </button>
+            <button mat-raised-button color="primary" style="margin-right:50px;"
+                    *ngIf="canChangeOrDeleteTeacher(user)"
+                    routerLink="/update/{{teacherId}}">
+                Edit the teacher
+            </button>
+            <button mat-raised-button color="primary" style="margin-right:50px;"
+                    *ngIf="canChangeOrDeleteTeacher(user)"
+                    routerLink="/create-feedback/{{teacherId}}">
                 Add feedback
             </button>
         </mat-card-title>
@@ -36,9 +48,11 @@
                 <a [routerLink]="['/feedbacks', feedback.id]">
                     {{feedback.body}}
                 </a> <br>
-                <h6>Rating:
-                    {{feedback.rate}}
-                </h6>
+                <mat-card-title *ngIf="feedback.user">
+                    <h5>Username:
+                        {{feedback.user.username}}
+                    </h5>
+                </mat-card-title>
                 <h6>Mark:
                     {{feedback.mark}}
                 </h6>

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
 
 import {BaseService} from './base-service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -23,19 +23,15 @@ export class FeedbackService extends BaseService {
     }
 
     createFeedback(feedback: Feedback): Observable<Feedback> {
-        return this.http.post<Feedback>(`${this.apiUrl}/feedback`, feedback, httpOptions);
+        return this.http.post<Feedback>(`${this.apiUrl}`, feedback,
+            {
+                headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
+            });
     }
 
-    // createFeedbackByUniversityId(feedback: Feedback): Observable<Feedback> {
-    //     return this.http.post<Feedback>(`${this.apiUrl}/universities/{universityId}/feedback`, feedback, httpOptions);
-    // }
     createFeedbackByUniversityId(feedback: Feedback): Observable<Feedback> {
         return this.http.post<Feedback>(`${this.apiUrl}/feedback`, feedback, httpOptions);
     }
-
-    // getAllFeedbackByTeacherId(teacherId: number, feedback: Feedback): Observable<Feedback[]> {
-    //     return this.http.get<Feedback[]>(`${this.apiUrl}`);
-    // }
 
     getAllFeedbacks(): Observable<Feedback[]> {
         return this.http.get<Feedback[]>(`${this.apiUrl}`);
@@ -65,7 +61,7 @@ export class FeedbackService extends BaseService {
         return this.http.get<Feedback[]>(`${this.apiUrl}/university/${feedbackId}`);
     }
 
-  getAllFeedbacksByUser(username: String) {
-    return this.http.get<Feedback[]>(`${this.apiUrl}/user/${username}`);
-  }
+    getAllFeedbacksByUser(username: String) {
+        return this.http.get<Feedback[]>(`${this.apiUrl}/user/${username}`);
+    }
 }

@@ -2,24 +2,23 @@
     
     <button mat-button routerLink="." (click)="goBack()">Back</button>
 
-    <mat-card class="newsCard">
-        <!-- <mat-card-title *ngIf="news?.title">
-            {{news.title}}
-        </mat-card-title>
-        <mat-divider></mat-divider> -->
-        <mat-card-content class="newsBody" *ngIf="news?.body" [innerHTML]="news.body">
-            //{{news.body}}
-        </mat-card-content>
-        <mat-card-footer class="footerCard" *ngIf="news?.creationDate">
-           
-            <div class="dateCard">
-                <!-- posted: {{news.creationDate}} <br> -->
-                <a href={{news.sourceUrl}}>
-                    Original article
-                </a>
-            </div>
-        </mat-card-footer>
+    <div id="newsList">
 
-    </mat-card>
+        <mat-card class="newsCard"
+            *ngFor="let news of newsList ">
+
+            <mat-card-title>
+                <a href={{news.sourceUrl}}>
+                    <h4>{{news.title}}</h4>
+                    
+                </a>
+                <div class="newsBody"><h6 [innerHTML]="news.body"></h6></div>
+                
+                <div><h6>{{news.creationDate | date: 'MMM dd'}}</h6></div>
+                
+            </mat-card-title>
+
+        </mat-card>
+    </div>
     
 </div>

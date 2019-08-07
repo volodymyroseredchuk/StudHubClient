@@ -35,21 +35,21 @@ import { NewsPageComponent } from './news/news-page/news-page.component';
 import { FreelanceModule } from './freelance/freelance.module';
 import { PrivateTeamsModule } from './private-teams/private-teams.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import {TeachersModule} from "./teacher/teachers.module";
-import {UniversitiesModule} from "./universities/universities.module";
+import {TeachersModule} from './teacher/teachers.module';
+import {UniversitiesModule} from './universities/universities.module';
 import { ChatComponent } from './chat/chat.component';
 import { ChatlistComponent } from './chatlist/chatlist.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
 import {TeachersComponent} from './teacher/teachers.component';
 import {TeachersPageComponent} from './teacher/teacher-page/teachers-page.component';
 import {TeachersCreateComponent} from './teacher/teachers-create/teachers-create.component';
-import {UniversitiesCreateComponent} from './universities/university-create/universities-create.component';
+import {UniversitiesCreateComponent} from './universities/universities-create/universities-create.component';
 import {UniversitiesPageComponent} from './universities/university-page/universities-page.component';
 import {UniversitiesComponent} from './universities/universities.component';
 import {OrderModule} from './order/order.module';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-
+import {TeachersEditComponent} from './teacher/teachers-edit/teachers-edit.component';
 
 // @ts-ignore
 @NgModule({
@@ -62,7 +62,8 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     ErrorPageComponent,
     ChatComponent,
     ChatlistComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    TeachersEditComponent
   ],
   imports: [
     NgxPopper,
@@ -97,6 +98,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
      QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent, NewsComponent, NewsPageComponent,
      QuestionsComponent, QuestionsPageComponent, QuestionsEditComponent, TeachersComponent, TeachersPageComponent,
     TeachersCreateComponent, UniversitiesCreateComponent, UniversitiesPageComponent, UniversitiesComponent,
+    TeachersEditComponent,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
