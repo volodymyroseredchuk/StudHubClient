@@ -194,7 +194,7 @@ export class ChatComponent implements OnInit {
             } else {
               msg.sender.id == userId ? msg.sender = 'message-my' : msg.sender = 'message-their';
             }
-            if (this.secret == false) {
+            if (this.secret == false || msg.sender == 'message-both') {
               this.messages.unshift(msg);
             } else {
               msg.content = EncryptionService.decryptMessage(this.encryptionKey, msg.content);
