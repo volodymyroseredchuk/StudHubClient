@@ -11,12 +11,16 @@
         <div class="image-container">
             <img src="{{teacher.imageUrl}}" style="width: 100%">
         </div>
-        <div class="stars-container">
+        <div class="stars-container" *ngIf="teacher.mark">
             <star-rating [starType]="'svg'" [readOnly]="true" [rating]="teacher?.mark"></star-rating>
         </div>
+        <div class="stars-container" *ngIf="!teacher.mark">
+            <star-rating [starType]="'svg'" [readOnly]="true" [rating]="0.5"></star-rating>
+        </div>
         <mat-card-title class="title3">
-            <button mat-raised-button color="primary" style="margin-right:50px;" routerLink="/teachers" id="backBtn">Go
-                back
+            <button mat-raised-button color="primary" style="margin-right:50px;"
+                    *ngIf="canChangeOrDeleteTeacher(user)"
+                    routerLink="/teachers" id="backBtn">Go back
             </button>
             <button mat-raised-button color="primary" style="margin-right:50px;"
                     *ngIf="canChangeOrDeleteTeacher(user)"

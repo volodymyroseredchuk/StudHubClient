@@ -42,7 +42,7 @@
                     <img class="image-container" src="{{teacher.imageUrl}}">
                 </div>
                 <div class="title1">
-                    <div class="stars-container">
+                    <div class="stars-container" *ngIf="teacher.mark">
                         <star-rating [starType]="'svg'" [readOnly]="true" [rating]="teacher.mark"></star-rating>
                     </div>
 

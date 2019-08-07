@@ -1,5 +1,7 @@
 <div class="responsive_nav_bar">
-    <button mat-raised-button color="primary" style="margin-right:50px;" routerLink="/universities/university">Create new University</button>
+    <button mat-raised-button color="primary" style="margin-right:50px;"
+            *ngIf="canChangeOrDeleteUniversity(user)"
+            routerLink="/universities/university">Create new University</button>
 
     <h2>Universities</h2>
 
@@ -15,7 +17,7 @@
                     <img class="image-container" src="{{university.imageUrl}}" style="width: 100%">
                 </div>
                 <h6></h6>
-                <div class="stars-container">
+                <div class="stars-container" *ngIf="university.mark">
                     <star-rating [starType]="'svg'" [readOnly]="true" [rating]="university.mark"></star-rating>
                 </div>
                 <h6></h6>

@@ -49,7 +49,6 @@ export class UniversitiesPageComponent implements OnInit {
     getUniversity() {
 
         this.universityId = +this.route.snapshot.params.id;
-        // let teacherId = parseInt(this.route.snapshot.paramMap.get('{teacherId}'));
         console.log(this.universityId);
         this.universityService.showUniversityPage(this.universityId)
             .subscribe(university => {
@@ -76,7 +75,7 @@ export class UniversitiesPageComponent implements OnInit {
         if (confirm('Are You sure You want to delete this university?')) {
             console.log('delete');
             this.universityService.deleteUniversity(universityId)
-                .subscribe(result => {
+                .subscribe(() => {
                         console.log('delete');
                         this.router.navigate(['/universities']);
                     }

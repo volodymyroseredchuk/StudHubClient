@@ -22,11 +22,14 @@ export class UniversityService extends BaseService {
 
     newUniversity(university: University): Observable<University> {
         console.log(university);
-        return this.http.post<University>(`${this.apiUrl}/university`, university);
+        return this.http.post<University>(`${this.apiUrl}/university`, university,
+            {
+                headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
+            });
     }
 
-    deleteUniversity(universityid: number): Observable<any> {
-        return this.http.delete(`${this.apiUrl}/delete/${universityid}`,
+    deleteUniversity(universityId: number): Observable<any> {
+        return this.http.delete(`${this.apiUrl}/delete/${universityId}`,
             {
                 headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
             });

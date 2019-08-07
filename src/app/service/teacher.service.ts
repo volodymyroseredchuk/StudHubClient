@@ -27,7 +27,8 @@ export class TeacherService extends BaseService {
 
     newTeacher(teacher: Teacher): Observable<Teacher> {
         console.log(teacher);
-        return this.http.post<Teacher>(`${this.apiUrl}/teacher`, teacher);
+        return this.http.post<Teacher>(`${this.apiUrl}/teacher`, teacher,
+            { headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))});
     }
 
     searchTeachersByLastName(searchPattern: string, paginationSettings: string): Observable<TeacherPaginatedDTO> {

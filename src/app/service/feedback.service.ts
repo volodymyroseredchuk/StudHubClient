@@ -23,7 +23,10 @@ export class FeedbackService extends BaseService {
     }
 
     createFeedback(feedback: Feedback): Observable<Feedback> {
-        return this.http.post<Feedback>(`${this.apiUrl}`, feedback, httpOptions);
+        return this.http.post<Feedback>(`${this.apiUrl}`, feedback,
+            {
+                headers: new HttpHeaders().set('Authorization', localStorage.getItem('accessToken'))
+            });
     }
 
     createFeedbackByUniversityId(feedback: Feedback): Observable<Feedback> {
