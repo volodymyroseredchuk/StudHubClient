@@ -19,8 +19,8 @@
       </mat-chip-list>
     </mat-form-field>
     <mat-radio-group aria-label="Select an option">
-      <mat-radio-button [(ngModel)]="value" checked value="tags" (change)="onItemChange(1)">by tags</mat-radio-button>
-      <mat-radio-button [(ngModel)]="value" value="keywords" (change)="onItemChange(2)">by keywords</mat-radio-button>
+      <mat-radio-button  checked value="tags" (change)="onItemChange(1)">by tags</mat-radio-button>
+      <mat-radio-button  value="keywords" (change)="onItemChange(2)">by keywords</mat-radio-button>
     </mat-radio-group>
     <button mat-icon-button id="btnSearch" (click)="search()">
       <mat-icon>search</mat-icon>

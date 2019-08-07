@@ -62,7 +62,7 @@ export class TeachersEditComponent implements OnInit {
         return this.teacherForm.controls;
     }
 
-    onSubmit(f: NgForm) {
+    onSubmit(f) {
         if (f.value.firstname.length < 3 || f.value.lastname.length < 3) {
             return;
         }

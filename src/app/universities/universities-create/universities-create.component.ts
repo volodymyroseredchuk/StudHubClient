@@ -45,7 +45,7 @@ export class UniversitiesCreateComponent implements OnInit {
         return this.universityForm.controls;
     }
 
-    async onSubmit(f: NgForm) {
+    async onSubmit(f) {
         if (f.value.name.length < 3 || f.value.city.length < 3) {
             return;
         }

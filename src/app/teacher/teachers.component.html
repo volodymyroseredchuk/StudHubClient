@@ -13,7 +13,6 @@
                 </mat-chip>
                 <input placeholder="Name"
                        [matChipInputFor]="chipList"
-                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                        [matChipInputAddOnBlur]="addOnBlur"
                        (matChipInputTokenEnd)="addKeyword($event)">
             </mat-chip-list>

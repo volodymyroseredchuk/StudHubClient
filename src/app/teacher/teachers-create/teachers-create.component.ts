@@ -52,7 +52,7 @@ export class TeachersCreateComponent implements OnInit {
         return this.teacherForm.controls;
     }
 
-    async onSubmit(f: NgForm) {
+    async onSubmit(f) {
         if (f.value.firstname.length < 3 || f.value.lastname.length < 3) {
             return;
         }
