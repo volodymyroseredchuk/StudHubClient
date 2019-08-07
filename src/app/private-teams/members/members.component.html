@@ -3,7 +3,7 @@
   <hr>
   <form class="my-form" (ngSubmit)="onSubmit()" #userForm="ngForm">
 
-    <mat-form-field class="general">
+    <mat-form-field *ngIf="isMember() || isCreator()" class="general">
       <input #memberField matInput placeholder="Add member" aria-label="User" [matAutocomplete]="auto"
         [formControl]="usersCtrl">
       <mat-autocomplete #auto="matAutocomplete">
@@ -27,16 +27,19 @@
         </button>
       </li>
     </ul>
+    <div *ngIf="canModifyTeam()">
     <ul>
-      <li *ngFor="let invitation of team.invitations">
+      <li class="invit" *ngFor="let invitation of team.invitations">
         {{invitation.user.username}}
-        <button class="memberCancel" *ngIf="canModifyTeam()" mat-icon-button (click)="deleteInvitation(invitation)">
+        <button class="memberCancel" mat-icon-button (click)="deleteInvitation(invitation)">
           Cancel invitation
         </button>
       </li>
     </ul>
+    </div>
   </form>
 
   <a mat-raised-button (click)="goBack()" id="backBtn">Go back</a>
-  <button type="submit" mat-raised-button color="primary" *ngIf="canModifyTeam()" class="btn btn-success" (click)="onSubmit()">Update</button>
+  <button type="submit" mat-raised-button color="primary" *ngIf="canModifyTeam()" class="btn btn-success"
+    (click)="onSubmit()">Update</button>
 </mat-card>

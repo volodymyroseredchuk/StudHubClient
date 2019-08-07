@@ -69,4 +69,24 @@ export class TeamService extends BaseService {
         }
         return this.http.delete<Delete>(`${this.apiUrl}/${id}`, httpOptions);
     }
+
+    joinTeam(id: number, userId: number): Observable<Team> {
+        let httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': `${localStorage.getItem('accessToken')}`
+            })
+        }
+        return this.http.put<Team>(`${this.apiUrl}/${id}/join/${userId}`, {}, httpOptions);
+    }
+
+    leaveTeam(id: number, userId: number): Observable<Team> {
+        let httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': `${localStorage.getItem('accessToken')}`
+            })
+        }
+        return this.http.put<Team>(`${this.apiUrl}/${id}/leave/${userId}`, {}, httpOptions);
+    }
 }
