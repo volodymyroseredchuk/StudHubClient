@@ -1,4 +1,5 @@
 import { University } from './university.model';
+import { Feed } from './feed.model';
 
 export class User {
     id: number;
@@ -13,4 +14,5 @@ export class User {
     emailSubscription: boolean;
     roles: { name: string }[];
     privileges: { name: string }[];
+    feeds: Feed[];
 }

@@ -8,17 +8,26 @@
 .newsCard {
     background-color: #ffefe5;
     width: 85%;
+    height: auto;
     margin-right: auto;
     margin-left: auto;
     margin-top: 20px;
     margin-bottom: 20px;
     opacity: 0.8;
+    //overflow: hidden;
+    //white-space: nowrap;
+    //text-overflow: ellipsis;
 }
 
 .newsBody{
-    width: 90%;
-    height: auto;
+    //display: inline-block;
+    //width: 1000px;
+    height: 80px;
     overflow-wrap: break-word;
+    overflow: hidden;
+    // white-space: nowrap;
+    // text-overflow: ellipsis;
+    
 }
 
 .footerCard{
@@ -37,6 +46,3 @@
   right: 0;
 }
 
-.img{
-    width: 1200px;
-}
