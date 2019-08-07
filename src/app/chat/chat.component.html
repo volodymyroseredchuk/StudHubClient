@@ -47,9 +47,9 @@
       <input type="file" id="file" class="chat-container__hidden">
     </div>
     <div class="chat-container__input">
-      <textarea #msgText (keydown.enter)="$event.preventDefault();sendMessage(msgText.value);msgText.value='';"  [value]="" placeholder=" Write a message..." cols="90" rows="3" class="chat-container__textarea" max-length="5000"></textarea>
+      <textarea #msgText (keydown.enter)="$event.preventDefault();send(msgText.value);msgText.value='';"  [value]="" placeholder=" Write a message..." cols="90" rows="3" class="chat-container__textarea" max-length="5000"></textarea>
     </div>
-    <div class="chat-container__send" (click)="sendMessage(msgText.value); msgText.value=''">Send</div>
+    <div class="chat-container__send" (click)="send(msgText.value); msgText.value=''">Send</div>
   </div>
 </div>
 

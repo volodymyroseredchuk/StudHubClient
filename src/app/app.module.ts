@@ -20,6 +20,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { QuestionsEditComponent } from './questions/questions-edit/questions-edit.component';
 import {FeedbackModule} from './feedback/feedback.module';
+import { NgxPopper } from 'angular-popper';
 import {
   SocialLoginModule,
   AuthServiceConfig,
@@ -46,6 +47,8 @@ import {UniversitiesCreateComponent} from './universities/universities-create/un
 import {UniversitiesPageComponent} from './universities/university-page/universities-page.component';
 import {UniversitiesComponent} from './universities/universities.component';
 import {OrderModule} from './order/order.module';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import {TeachersEditComponent} from './teacher/teachers-edit/teachers-edit.component';
 
 // @ts-ignore
@@ -63,6 +66,7 @@ import {TeachersEditComponent} from './teacher/teachers-edit/teachers-edit.compo
     TeachersEditComponent
   ],
   imports: [
+    NgxPopper,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
@@ -84,7 +88,9 @@ import {TeachersEditComponent} from './teacher/teachers-edit/teachers-edit.compo
     FreelanceModule,
     MatTabsModule,
     TeachersModule,
-    UniversitiesModule
+    UniversitiesModule,
+    ImageCropperModule,
+    AngularFontAwesomeModule
   ],
 
   providers: [

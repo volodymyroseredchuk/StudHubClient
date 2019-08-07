@@ -133,8 +133,13 @@ export class QuestionsPageComponent implements OnInit {
     } else {
       for (let i = 0; i < this.loadCommentComponentMap.length; i++) {
         if (answerId == this.loadCommentComponentMap[i].answerId) {
-          this.loadCommentComponentMap[i].isActive = true;
-          break;
+          //this.loadCommentComponentMap[i].isActive = true;
+          //break;
+          if (this.loadCommentComponentMap[i].isActive == false){
+            this.loadCommentComponentMap[i].isActive = true;
+          } else {
+            this.loadCommentComponentMap[i].isActive = false;
+          }
         }
       }
     }

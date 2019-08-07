@@ -33,7 +33,7 @@ const routes: Routes = [
     component: ProfileComponent
   },
   {
-    path: 'chat/:chatId',
+    path: 'chat/:chatId/:secret',
     component: ChatComponent,
     canActivate: [AuthGuard]
   },

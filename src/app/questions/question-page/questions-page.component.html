@@ -19,7 +19,7 @@
             </div>
 
             <div class="userCard">
-                asked: {{question.creationDate}} <br>
+                asked: {{question.creationDate | date: 'MMM dd'}} <br>
                 <a routerLink="/profile/{{question.user.username}}">
                     {{question.user.username}}
                 </a>
@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <div class="userCard col-md-5">
-                    answered: {{answer.creationDate}}<br>
+                    answered: {{answer.creationDate | date: 'MMM dd'}}<br>
                     <a routerLink="/profile/{{answer.user.username}}">
                         {{answer.user.username}}
                     </a>
@@ -111,7 +111,7 @@
                                 {{comment.user.username}}
 
                             </a>
-                            on: {{comment.creationDate}}
+                            on: {{comment.creationDate | date: 'MMM dd'}}
                         </div>
                     </div>
                 </mat-card>

@@ -49,13 +49,13 @@ export class ChatService extends BaseService {
     d.setHours(d.getHours() + 3);
     return this.http.post<Message>(this.apiUrl, new Message(null, msgText, senderId, d, chatId), options);
   }
-  createChat(creatorUserId: number, receiverUserId: number) {
+  createChat(creatorUserId: number, receiverUserId: number, secret: boolean) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `${localStorage.getItem('accessToken')}`
     });
     const options = { headers: headers };
-    return this.http.get<number>(this.apiUrl + '/new/' + creatorUserId + '/' + receiverUserId, options);
+    return this.http.get<any>(this.apiUrl + '/new/' + creatorUserId + '/' + receiverUserId + '/' + secret, options);
   }
 }
 
@@ -73,6 +73,7 @@ export class ChatItem {
   photoUrl: string;
   username: string;
   lastMessageText: string;
+  secret: boolean;
 }
 
 export class ChatHeader {

@@ -1,0 +1,16 @@
+<div class="warning" *ngIf="!invitations.length">
+  Sorry, we couldn't find that team invitation. It is possible that the invitation was revoked or that you are not logged into the invited account.
+</div>
+<mat-card *ngIf="invitations.length" id="teamForm">
+  <h3>Invitation</h3>
+  <hr>
+  <form class="my-form" (ngSubmit)="onSubmit()" #userForm="ngForm">
+        <div class="title" >You had been invited to join {{ team.title }} team</div>
+        <button class="invAccept" mat-icon-button id="btnDeleteMember" (click)="acceptInvitation()">
+          Accept
+        </button>
+        <button class="memberCancel" mat-icon-button id="btnDeleteMember" (click)="cancelInvitation()">
+          Cancel
+        </button>
+  </form>
+</mat-card>

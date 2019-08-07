@@ -7,8 +7,11 @@ import { FeedbackService } from '../service/feedback.service';
 import { QuestionService } from '../service/question.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnswerService } from '../service/answer.service';
-import { VoteService } from '../service/vote.service';
 import { ChatService } from '../service/chat.service';
+import { CustomerService } from '../service/customer.service';
+import { CustomerDTO } from '../model/customerDTO.model';
+import { FreelanceService } from '../service/freelance.service';
+import { OrderService } from '../service/order.service';
 
 
 @Component({
@@ -18,21 +21,34 @@ import { ChatService } from '../service/chat.service';
 })
 export class ProfileComponent implements OnInit {
   user: User;
+  currentUser: User;
   questions: QuestionForListDTO[];
   feedbacks: Feedback[];
-  currentUser: User;
   answersCount: number;
-  approvedAnswersCount: number;
+  ordersDoneCount: number;
   rating: number;
+  customer: CustomerDTO;
+
+  clarity: number;
+  contact: number;
+  formulation: number;
+  payment: number;
+
+  quality: number;
+  price: number;
+  velocity: number;
+  contactFreelance: number;
 
   constructor(
     private userService: UserService,
     private feedbackService: FeedbackService,
     private questionService: QuestionService,
     private answerService: AnswerService,
-    private voteService: VoteService,
     private route: ActivatedRoute,
     private chatService: ChatService,
+    private customerService: CustomerService,
+    private freelancerService: FreelanceService,
+    private orderService: OrderService,
     private router: Router
   ) { }
 
@@ -78,20 +94,44 @@ export class ProfileComponent implements OnInit {
       this.rating = res * 5;
     });
 
+    this.orderService.getCountDoneByUserUsername(user.username).subscribe(res => {
+      this.ordersDoneCount = res;
+      this.rating += res * 10;
+    });
+
     this.answerService.getCountOfApprovedAnswersByUsername(user.username).subscribe(res => {
-      this.approvedAnswersCount = res;
       this.rating = this.rating + res * 5;
     });
 
-    this.voteService.getSumOfVotesByUsername(user.username).subscribe(res => {
+    this.answerService.getSumOfRatingByUserUsername(user.username).subscribe(res => {
       this.rating += res;
     });
+
+    this.customerService.getRatingByUserUsername(user.username).subscribe(res => {
+      this.clarity = res.clarity / 5 * 100;
+      this.contact = res.contact / 5 * 100;
+      this.formulation = res.formulation / 5 * 100;
+      this.payment = res.payment / 5 * 100;
+    })
+
+    this.freelancerService.getRatingByUserUsername(user.username).subscribe(res => {
+      this.quality = res.quality / 5 * 100;
+      this.price = res.price / 5 * 100;
+      this.velocity = res.velocity / 5 * 100;
+      this.contactFreelance = res.contact / 5 * 100;
+    })
   }
 
   sendMessage() {
-    this.chatService.createChat(this.currentUser.id, this.user.id).subscribe(
+    this.chatService.createChat(this.currentUser.id, this.user.id, false).subscribe(
       res => {
-        this.router.navigateByUrl('chat/' + res);
+        this.router.navigateByUrl('chat/' + res + '/' + false);
+      });
+  }
+  sendSecretMessage() {
+    this.chatService.createChat(this.currentUser.id, this.user.id, true).subscribe(
+      res => {
+        this.router.navigateByUrl('chat/' + res + '/' + true) ;
       });
   }
 }
