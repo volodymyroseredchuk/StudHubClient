@@ -10,12 +10,12 @@
         Back
       </span>
     </div>
-    <div class="chat-container__name">
-      {{receiver}}
-    </div>
-    <div class="chat-container__photo">
-      <img class="chat-container__photo-img" src="{{this.photoUrl}}" alt="">
-    </div>
+      <a class="chat-container__name" routerLink="/profile/{{receiver}}">
+        {{receiver}}
+      </a>
+      <a class="chat-container__photo" routerLink="/profile/{{receiver}}">
+        <img class="chat-container__photo-img" src="{{this.photoUrl}}" alt="">
+      </a>
   </div>
   <ng-container *ngIf="scrollUsed">
     <div class="chat-container__body" #scrollMe1 (scroll)="onScroll(scrollMe1.scrollTop, scrollMe1.scrollHeight)" [scrollTop]="scrollMe1.scrollHeight - lastScrollHeight">
