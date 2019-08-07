@@ -158,8 +158,32 @@ export class MembersComponent implements OnInit {
     }
   }
 
+  isMember() {
+
+    if (!this.user) {
+      return false;
+    }
+
+    return this.memberExists();
+  }
+
+  isCreator() {
+
+    return this.team.user.username === this.user.username;
+  }
+
   memberExists() {
-    return this.team.userList.includes(this.selectedUser);
+
+    let allow = false;
+
+    this.team.userList.forEach(e => {
+      console.log(e);
+      if(e.username == this.user.username){
+        allow = true;
+      }
+    })
+
+    return allow;
   }
 
   onSubmit() {
