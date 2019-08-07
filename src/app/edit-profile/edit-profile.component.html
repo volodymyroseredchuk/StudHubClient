@@ -8,7 +8,7 @@
         <input type="file" (change)="fileChangeEvent($event)" />
 
         <div>
-          <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="16 / 9"
+          <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
             [resizeToWidth]="512" [cropperMinWidth]="128" (lyScaleDown)="true" [roundCropper]="false" format="png"
             outputType="base64" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
             (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"
