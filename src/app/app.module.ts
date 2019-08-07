@@ -20,6 +20,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { QuestionsEditComponent } from './questions/questions-edit/questions-edit.component';
 import {FeedbackModule} from './feedback/feedback.module';
+import { NgxPopper } from 'angular-popper';
 import {
   SocialLoginModule,
   AuthServiceConfig,
@@ -46,6 +47,9 @@ import {UniversitiesCreateComponent} from './universities/university-create/univ
 import {UniversitiesPageComponent} from './universities/university-page/universities-page.component';
 import {UniversitiesComponent} from './universities/universities.component';
 import {OrderModule} from './order/order.module';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
 
 // @ts-ignore
 @NgModule({
@@ -61,6 +65,7 @@ import {OrderModule} from './order/order.module';
     SafeHtmlPipe
   ],
   imports: [
+    NgxPopper,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
@@ -82,7 +87,9 @@ import {OrderModule} from './order/order.module';
     FreelanceModule,
     MatTabsModule,
     TeachersModule,
-    UniversitiesModule
+    UniversitiesModule,
+    ImageCropperModule,
+    AngularFontAwesomeModule
   ],
 
   providers: [

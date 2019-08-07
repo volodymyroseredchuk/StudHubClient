@@ -5,10 +5,18 @@
     <!-- left column -->
     <div class="col-md-3">
       <div class="text-center">
-        <img src="{{imgURL}}" class="col-md-12">
-        <h6>Upload a different photo...</h6>
+        <input type="file" (change)="fileChangeEvent($event)" />
 
-        <input type="file" name="image" (change)="onChange($event)" />
+        <div>
+          <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="16 / 9"
+            [resizeToWidth]="512" [cropperMinWidth]="128" (lyScaleDown)="true" [roundCropper]="false" format="png"
+            outputType="base64" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"
+            [style.display]="showCropper ? null : 'none'" [alignImage]="'left'"></image-cropper>
+        </div>
+
+        <img [src]="croppedImage" width="200px"/>
+        <h6>Upload a different photo...</h6>
       </div>
     </div>
 
@@ -59,7 +67,7 @@
             <button mat-button class="edit-button">Cancel</button>
           </a>
         </div>
-        
+
       </form>
     </div>
   </div>

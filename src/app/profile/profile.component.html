@@ -2,13 +2,12 @@
   <div class="profile-card">
 
     <div class="image-container">
-      <img *ngIf="user.imageUrl !== null" src="{{user?.imageUrl}}" alt="Avatar" style="height: 300px;width: 100%;">
-      <img *ngIf="user.imageUrl === null" src="../../assets/images/default.png" style="height: 300px;width: 100%;">
+      <img *ngIf="user?.imageUrl !== null" src="{{user?.imageUrl}}" alt="Avatar" style="height: 300px;width: 100%;">
+      <img *ngIf="user?.imageUrl === null" src="../../assets/images/default.png" style="height: 300px;width: 100%;">
       <div class="title">
         <h1>{{user?.firstName}} {{user?.lastName}}</h1>
       </div>
     </div>
-
 
     <mat-tab-group>
       <mat-tab label="Profile">
@@ -18,11 +17,22 @@
           <h5><i class="fas fa-envelope info"></i>{{user?.email}}</h5>
           <h5><i class="fas fa-calendar-check info"></i>{{user?.creationDate}}</h5>
           <h5><i class="fas fa-user-tie info"></i>{{user?.username}}</h5>
-          <button *ngIf="user?.username !== currentUser?.username && currentUser !== undefined" mat-button class="edit-button" (click)="sendMessage()">Send message</button>
+          <h5><i class="fas fa-cookie info"></i>{{user?.cookiesCount}}</h5>
+          <div *ngIf="user?.username !== currentUser?.username && currentUser !== undefined" class="btn-group">
+            <button class="btn btn-secondary btn-lg" type="button" (click)="sendMessage()">
+              Go to the chat
+            </button>
+            <button id="tpggle_chat" type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <div id="dropdown-secret" class="dropdown-menu" aria-labelledby="toggle_chat">
+              <a class="dropdown-item" (click)="sendSecretMessage()">Go to the secret chat</a>
+            </div>
+          </div>
           <a *ngIf="user?.username === currentUser?.username" routerLink="/edit">
-
             <button mat-button class="edit-button">Edit</button>
           </a>
+
           <br>
           <hr>
           <p>Rating</p>
@@ -50,13 +60,51 @@
                 <p><small>Feedbacks</small></p>
               </div>
               <div class="circle-text">
-                <h2><strong>120</strong></h2>
+                <h2><strong>{{ordersDoneCount}}</strong></h2>
                 <p><small>Orders</small></p>
               </div>
             </div>
           </div>
-
+          <div style="width: 200px; float: left;">
+            <h3 style="text-align: center">Customer Rating</h3>
+            Clarity
+            <div class="star-ratings-sprite">
+              <span [ngStyle]="{width: clarity + '%'}" class="star-ratings-sprite-rating"></span>
+            </div>
+            Contact
+            <div class="star-ratings-sprite">
+              <span [ngStyle]="{width: contact + '%'}" class="star-ratings-sprite-rating"></span>
+            </div>
+            Formilation
+            <div class="star-ratings-sprite">
+              <span [ngStyle]="{width: formulation + '%'}" class="star-ratings-sprite-rating"></span>
+            </div>
+            Payment
+            <div class="star-ratings-sprite">
+              <span [ngStyle]="{width: payment + '%'}" class="star-ratings-sprite-rating"></span>
+            </div>
+          </div>
+          <div style="width: 200px; float: right;">
+            <h3 style="text-align: center">Freelance Rating</h3>
+            Quality
+            <div class="star-ratings-sprite">
+              <span [ngStyle]="{width: quality + '%'}" class="star-ratings-sprite-rating"></span>
+            </div>
+            Price
+            <div class="star-ratings-sprite">
+              <span [ngStyle]="{width: price + '%'}" class="star-ratings-sprite-rating"></span>
+            </div>
+            Velocity
+            <div class="star-ratings-sprite">
+              <span [ngStyle]="{width: velocity + '%'}" class="star-ratings-sprite-rating"></span>
+            </div>
+            Contact
+            <div class="star-ratings-sprite">
+              <span [ngStyle]="{width: contactFreelance + '%'}" class="star-ratings-sprite-rating"></span>
+            </div>
+          </div>
         </div>
+
       </mat-tab>
 
       <mat-tab label="Questions">
@@ -75,9 +123,9 @@
             </mat-card-title>
 
           </mat-card>
-          <h2 *ngIf="questions?.length == 0" class="message">No questions.</h2>
-
         </div>
+
+        <h2 *ngIf="questions?.length == 0" class="message">No questions.</h2>
 
       </mat-tab>
 
@@ -98,10 +146,30 @@
               </h6>
             </mat-card-title>
 
+          </mat-card>
+
+          <h2 *ngIf="feedbacks?.length == 0" class="message">No feedbacks.</h2>
+
+        </div>
+      </mat-tab>
+      <mat-tab label="Teams">
+        <div style="overflow-y:scroll; height: 300px;">
+          <mat-card *ngFor="let team of user?.teamList">
+
+            <mat-card-title>
+              <a [routerLink]="['/teams', team?.id]">{{ team.title }}</a> <br>
+            </mat-card-title>
+
+            <p>
+              Created by:
+              <mat-chip *ngIf="team?.user">
+                {{ team.user.username }}
+              </mat-chip>
+            </p>
 
           </mat-card>
-          <h2 *ngIf="feedbacks?.length == 0" class="message" style="text-align: right;">No feedbacks.</h2>
-          <h3 *ngIf="feedbacks?.length == 0">You don't have feedbacks</h3>
+
+          <h2 *ngIf="user?.teamList.length == 0" class="message">No teams.</h2>
 
         </div>
       </mat-tab>

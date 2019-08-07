@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../model/user.model';
 import { UserService } from '../service/user.service';
-import { NgForm, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { Router } from '@angular/router';
 import { University } from '../model/university.model';
 import { UniversityService } from '../service/university.service';
@@ -17,14 +18,14 @@ import { FileService } from '../service/file.service';
 export class EditProfileComponent implements OnInit {
 
   user: User;
-  fileData: File = null;
-  imgURL: any;
   private universities: University[];
-  private selectedUniversityName: "None";
   private selectedUniversity: University;
   options: string[];
   filteredOptions: Observable<string[]>;
   myControl = new FormControl();
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  showCropper = false;
 
   userForm = new FormGroup({
     firstname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
@@ -52,13 +53,9 @@ export class EditProfileComponent implements OnInit {
     this.getUniversities();
   }
 
-  fileProgress(fileInput: any) {
-    this.fileData = fileInput.target.files[0] as File;
-  }
-
   get f() { return this.userForm.controls; }
 
-  onSubmit(f: NgForm) {
+  onSubmit(f) {
     if (f.value.firstname.length < 3 || f.value.lastname.length < 3) {
       return;
     }
@@ -70,30 +67,28 @@ export class EditProfileComponent implements OnInit {
       this.user.university = this.selectedUniversity;
     }
 
-    this.setImageUrl();
+    if (this.croppedImage !== '') {
+      this.setImageUrl();
+    } else {
+      this.userService.updateUser(this.user).subscribe(() => this.router.navigate(['/profile']));
+    }
   }
 
   async setImageUrl() {
-    await this.fileService.uploadFile(this.fileData).toPromise().then(res => {
+    await this.fileService.uploadFile(this.dataURLtoFile(this.croppedImage, 'avatar.png')).toPromise().then(res => {
       this.user.imageUrl = res.message;
     }).then(() => {
       this.userService.updateUser(this.user).subscribe(() => this.router.navigate(['/profile']));
     })
   }
 
-
-  onChange(event) {
-    this.fileData = event.target.files[0];
-    const mimeType = this.fileData.type;
-    if (mimeType.match(/image\/*/) == null) {
-      alert('Only images are supported');
-      return;
+  dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
     }
-    const reader = new FileReader();
-    reader.readAsDataURL(this.fileData);
-    reader.onload = () => {
-      this.imgURL = reader.result;
-    };
+    return new File([u8arr], filename, { type: mime });
   }
 
   async getUniversities() {
@@ -119,10 +114,25 @@ export class EditProfileComponent implements OnInit {
       return university.name === option;
     });
   }
+
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  }
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+  }
+  imageLoaded() {
+    this.showCropper = true;
+  }
+  cropperReady() {
+  }
+  loadImageFailed() {
   }
 
 }

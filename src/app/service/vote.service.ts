@@ -72,8 +72,4 @@ export class VoteService extends BaseService{
   getAnswerVotesForQuestion(questionId: number){
     return this.http.get<any>(`${this.apiUrl}/question/${questionId}`, httpOptions);
   }
-
-  getSumOfVotesByUsername(username: String) {
-    return this.http.get<number>(`${this.apiUrl}/sum/${username}`);
-  }
 }

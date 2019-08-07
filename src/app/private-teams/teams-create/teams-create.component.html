@@ -13,18 +13,20 @@
       </div>
     </mat-form-field>
 
-      <mat-form-field class="general">
-        <input #memberField matInput placeholder="Add member" aria-label="User" [matAutocomplete]="auto" [formControl]="usersCtrl">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let user of filteredUsers | async" [value]="user.username" (onSelectionChange)="getUserFromUsername(user.username)">
-            <img class="example-option-img" aria-hidden [src]="user.imageUrl" height="25">
-            <span>{{user.username}}</span> |
-            <small>{{user.firstName}} {{user.lastName}}</small>
-          </mat-option>
-        </mat-autocomplete>
-        <button type="button" class="addMember" (click)="addMember()">Add</button>
-      </mat-form-field>
-      <ul><li *ngFor="let member of members">{{member.username}}</li></ul>
+    <mat-form-field class="general">
+      <mat-label>Description</mat-label>
+      <input [(ngModel)]="team.description" class="form-control" id="description" formControlName="description" name="description" matInput
+        placeholder="Description of team" required [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
+
+      <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+        <div *ngIf="f.description.errors.required">Description is required</div>
+      </div>
+    </mat-form-field>
+    
+      <mat-radio-group aria-label="Select an option">
+        <mat-radio-button checked value="public" (change)="onItemChange(1)">public</mat-radio-button><br/>
+        <mat-radio-button value="private" (change)="onItemChange(2)">private</mat-radio-button>
+      </mat-radio-group>
   </form>
 
   <a mat-raised-button routerLink="." (click)="goBack()" id="backBtn">Go back</a>

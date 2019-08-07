@@ -15,11 +15,12 @@ import { TeamQuestionsEditComponent } from './questions-edit/questions-edit.comp
 import { TeamQuestionCommentComponent } from './comment/comment.component';
 import { TeamQuestionsPageComponent } from './question-page/questions-page.component';
 import { MembersComponent } from './members/members.component';
+import { InvitationsComponent } from './invitations/invitations.component';
 
 
 @NgModule({
   declarations: [TeamsComponent, TeamsCreateComponent, TeamPageComponent, TeamsEditComponent, TeamQuestionsCreateComponent,
-    TeamQuestionAnswerComponent, TeamQuestionsEditComponent, TeamQuestionCommentComponent, TeamQuestionsPageComponent, MembersComponent],
+    TeamQuestionAnswerComponent, TeamQuestionsEditComponent, TeamQuestionCommentComponent, TeamQuestionsPageComponent, MembersComponent, InvitationsComponent],
   imports: [
     CommonModule,
     PrivateTeamsRoutingModule,
