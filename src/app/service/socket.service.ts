@@ -4,7 +4,7 @@ import * as jwt_decode from 'jwt-decode';
 import {BaseService} from "./base-service";
 import {Router} from "@angular/router";
 
-const SERVER_URL = 'wss://localhost:8080/sock?';
+const SERVER_URL = 'wss://studhub-server.herokuapp.com/sock?';
 
 @Injectable({
   providedIn: 'root',
