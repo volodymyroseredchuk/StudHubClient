@@ -2,6 +2,11 @@ h2, h3, h4, pagination-controls {
   text-align: center;
 }
 
+.stars-container {
+  position: relative;
+  padding: 15px;
+}
+
 mat-card {
   width: 90%;
   margin-left: auto;

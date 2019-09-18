@@ -6,16 +6,19 @@ h2, h3, h4, pagination-controls {
 mat-card {
     margin: 5px;
 }
-.newsCard {
+.feedCard {
     background-color: #ffefe5;
     width: 70%;
     margin-right: auto;
     margin-left: auto;
     opacity: 0.8;
+    display: flex;
+    justify-content: space-between;
 }
 
-#newsList {
+#feedList {
     margin-top: 20px;
+    
 }
 
 #pagination {

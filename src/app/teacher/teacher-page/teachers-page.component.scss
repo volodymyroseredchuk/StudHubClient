@@ -25,7 +25,6 @@
   top: 40px;
   margin-bottom: 50px;
   width: 80%;
-  //display: flex;
 }
 
 .profile-card {
@@ -37,6 +36,11 @@
 
 .image-container {
   position: relative;
+}
+
+.stars-container {
+  position: relative;
+  padding: 15px;
 }
 
 .feedbacksList{

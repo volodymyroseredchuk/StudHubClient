@@ -2,29 +2,37 @@
   <div class="profile-card">
 
     <div class="image-container">
-      <img *ngIf="user.imageUrl !== null" src="{{user?.imageUrl}}" alt="Avatar" style="height: 300px;width: 100%;">
-      <img *ngIf="user.imageUrl === null" src="../../assets/images/default.png" style="height: 300px;width: 100%;">
+      <img *ngIf="user?.imageUrl !== null" src="{{user?.imageUrl}}" alt="Avatar" style="height: 250px; width: 250px;">
+      <img *ngIf="user?.imageUrl === null" src="../../assets/images/default.png" style="height: 250px; width: 250px;">
       <div class="title">
-        <h1>{{user?.firstName}} {{user?.lastName}}</h1>
-      </div>
-    </div>
-
-
-    <mat-tab-group>
-      <mat-tab label="Profile">
-        <div class="main-container">
-          <h5 *ngIf="user?.university != null"><i class="fas fa-university info"></i>{{user?.university?.name}}</h5>
+        <h2>{{user?.firstName}} {{user?.lastName}}</h2>
+        <h5 *ngIf="user?.university != null"><i class="fas fa-university info"></i>{{user?.university?.name}}</h5>
           <h5 *ngIf="user?.university == null"><i class="fas fa-university info"></i>You are not learning</h5>
           <h5><i class="fas fa-envelope info"></i>{{user?.email}}</h5>
           <h5><i class="fas fa-calendar-check info"></i>{{user?.creationDate}}</h5>
           <h5><i class="fas fa-user-tie info"></i>{{user?.username}}</h5>
-          <button *ngIf="user?.username !== currentUser?.username && currentUser !== undefined" mat-button class="edit-button" (click)="sendMessage()">Send message</button>
-          <a *ngIf="user?.username === currentUser?.username" routerLink="/edit">
+          <h5><i class="fas fa-cookie info"></i>{{user?.cookiesCount}}</h5>
 
+          <div *ngIf="user?.username !== currentUser?.username && currentUser !== undefined" class="btn-group">
+            <button class="btn btn-secondary btn-lg" type="button" (click)="sendMessage()">
+              Go to the chat
+            </button>
+            <button id="tpggle_chat" type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <div id="dropdown-secret" class="dropdown-menu" aria-labelledby="toggle_chat">
+              <a class="dropdown-item" (click)="sendSecretMessage()">Go to the secret chat</a>
+            </div>
+          </div>
+          <a *ngIf="user?.username === currentUser?.username" routerLink="/edit">
             <button mat-button class="edit-button">Edit</button>
           </a>
-          <br>
-          <hr>
+      </div>
+    </div>
+
+    <mat-tab-group>
+      <mat-tab label="Statistics">
+        <div class="main-container">
           <p>Rating</p>
           <div class="skill-bar">
             <div id="background">
@@ -35,7 +43,7 @@
 
           </div>
           <br>
-          <div style="display:table;border-collapse:separate;border-spacing:10px 5px;">
+          <div style="display:table;border-collapse:separate;border-spacing:50px 5px;">
             <div style="display:table-row;">
               <div class="circle-text">
                 <h2><strong>{{answersCount}}</strong></h2>
@@ -50,17 +58,55 @@
                 <p><small>Feedbacks</small></p>
               </div>
               <div class="circle-text">
-                <h2><strong>4</strong></h2>
+                <h2><strong>{{ordersDoneCount}}</strong></h2>
                 <p><small>Orders</small></p>
               </div>
             </div>
           </div>
-
+          <div style="width: 200px; float: left; margin-bottom: 10px;">
+            <h3 style="text-align: center">Customer Rating</h3>
+            Clarity
+            <div class="star-ratings-sprite">
+              <span [ngStyle]="{width: clarity + '%'}" class="star-ratings-sprite-rating"></span>
+            </div>
+            Contact
+            <div class="star-ratings-sprite">
+              <span [ngStyle]="{width: contact + '%'}" class="star-ratings-sprite-rating"></span>
+            </div>
+            Formilation
+            <div class="star-ratings-sprite">
+              <span [ngStyle]="{width: formulation + '%'}" class="star-ratings-sprite-rating"></span>
+            </div>
+            Payment
+            <div class="star-ratings-sprite">
+              <span [ngStyle]="{width: payment + '%'}" class="star-ratings-sprite-rating"></span>
+            </div>
+          </div>
+          <div style="width: 200px; float: right; margin-bottom: 10px;">
+            <h3 style="text-align: center">Freelance Rating</h3>
+            Quality
+            <div class="star-ratings-sprite">
+              <span [ngStyle]="{width: quality + '%'}" class="star-ratings-sprite-rating"></span>
+            </div>
+            Price
+            <div class="star-ratings-sprite">
+              <span [ngStyle]="{width: price + '%'}" class="star-ratings-sprite-rating"></span>
+            </div>
+            Velocity
+            <div class="star-ratings-sprite">
+              <span [ngStyle]="{width: velocity + '%'}" class="star-ratings-sprite-rating"></span>
+            </div>
+            Contact
+            <div class="star-ratings-sprite">
+              <span [ngStyle]="{width: contactFreelance + '%'}" class="star-ratings-sprite-rating"></span>
+            </div>
+          </div>
         </div>
+
       </mat-tab>
 
       <mat-tab label="Questions">
-        <div style="overflow-y:scroll; height: 300px;">
+        <div style="overflow-y:scroll; height: 450px;">
 
           <mat-card *ngFor="let question of questions">
 
@@ -75,6 +121,7 @@
             </mat-card-title>
 
           </mat-card>
+          
           <h2 *ngIf="questions?.length == 0" class="message">No questions.</h2>
 
         </div>
@@ -82,7 +129,7 @@
       </mat-tab>
 
       <mat-tab label="Feedbacks">
-        <div style="overflow-y:scroll; height: 300px;">
+        <div style="overflow-y:scroll; height: 450px;">
 
           <mat-card *ngFor="let feedback of feedbacks">
 
@@ -98,9 +145,51 @@
               </h6>
             </mat-card-title>
 
+          </mat-card>
+
+          <h2 *ngIf="feedbacks?.length == 0" class="message">No feedbacks.</h2>
+
+        </div>
+      </mat-tab>
+      <mat-tab label="Public teams">
+        <div style="overflow-y:scroll; height: 450px;">
+          <mat-card *ngFor="let team of publicTeams">
+
+            <mat-card-title>
+              <a [routerLink]="['/teams', team?.id]">{{ team.title }}</a> <br>
+            </mat-card-title>
+
+            <p>
+              Created by:
+              <mat-chip *ngIf="team?.user">
+                {{ team.user.username }}
+              </mat-chip>
+            </p>
 
           </mat-card>
-          <h2 *ngIf="feedbacks?.length == 0" class="message" style="text-align: right;">No feedbacks.</h2>
+
+          <h2 *ngIf="publicTeams?.length == 0" class="message">No teams.</h2>
+
+        </div>
+      </mat-tab>
+      <mat-tab *ngIf="user?.username === currentUser?.username" label="Private teams">
+        <div style="overflow-y:scroll; height: 450px;">
+          <mat-card *ngFor="let team of privateTeams">
+
+            <mat-card-title>
+              <a [routerLink]="['/teams', team?.id]">{{ team.title }}</a> <br>
+            </mat-card-title>
+
+            <p>
+              Created by:
+              <mat-chip *ngIf="team?.user">
+                {{ team.user.username }}
+              </mat-chip>
+            </p>
+
+          </mat-card>
+
+          <h2 *ngIf="privateTeams?.length == 0" class="message">No teams.</h2>
 
         </div>
       </mat-tab>

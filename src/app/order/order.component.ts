@@ -10,6 +10,9 @@ import { ChatService } from '../service/chat.service';
 import { FreelancerDTO } from '../model/freelancerDTO.model';
 import { CustomerDTO } from '../model/customerDTO.model';
 import { MatSnackBar } from '@angular/material';
+import { FileService } from '../service/file.service';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-order',
@@ -47,7 +50,8 @@ export class OrderComponent implements OnInit {
   constructor(private orderService: OrderService,
     private _snackBar: MatSnackBar, private route: ActivatedRoute,
     private router: Router, private fb: FormBuilder, private cd: ChangeDetectorRef,
-    private userService: UserService, private chatService: ChatService) { }
+    private userService: UserService, private chatService: ChatService,
+    private fileService: FileService, private http: HttpClient) { }
 
   ngOnInit() {
     this.getOrder()
@@ -96,12 +100,12 @@ export class OrderComponent implements OnInit {
       order => {
         this.order = order;
         console.log(this.order);
-        this.chatService.createChat(this.order.task.user.id, this.order.proposal.user.id)
+        this.chatService.createChat(this.order.task.user.id, this.order.proposal.user.id, false)
           .subscribe(
             chatId => {
-              console.log(chatId)
-              this.chatId = chatId
-              console.log(chatId)
+              console.log(chatId);
+              this.chatId = chatId;
+              console.log(chatId);
             }
 
           )
@@ -133,8 +137,11 @@ export class OrderComponent implements OnInit {
 
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
+      
       this.fileToUpload = event.target.files.item(0);
       reader.readAsDataURL(file);
+
+      
 
       reader.onload = () => {
         this.formGroup.patchValue({
@@ -149,13 +156,95 @@ export class OrderComponent implements OnInit {
 
   submitResult() {
     console.log(this.fileToUpload)
-    this.orderService.submitResult(this.fileToUpload, this.order.id).subscribe(
-      resultSubmission => {
-        this.order.resultSubmission = resultSubmission
-        this.order.task.status = "DONE"
+    if(this.fileToUpload.size > 1024 * 1024 * 4 ) {
+      alert("The file is too big!(Over 4MB)");
+      return;
+    }
+    var fileRegExp = /.*\.(gif|jpe?g|bmp|png|pdf)$/;
+    if(!fileRegExp.test(this.fileToUpload.name)){
+      alert("This file type is not supported!"); 
+      return;
+    }
+    
+    this.fileService.uploadFile(this.fileToUpload).subscribe(
+      fileUrlObject => {
+        this.orderService.submitResult(fileUrlObject.message, this.order.id).subscribe(
+          resultSubmission => {
+            this.order.resultSubmission = resultSubmission
+            this.order.task.status = "DONE"
+          }
+    
+        )
+      }
+    )
+    
+  }
+
+  downloadFile() {
+    let fixedUrl = this.fixUrl(this.order.resultSubmission.fileUrl)
+    return this.http.get<Blob>(fixedUrl,{
+        responseType: 'blob' as 'json'
+      })
+      .subscribe(res => {
+        console.log('start download:',res);
+        var blob = new Blob([res], { type: "application/pdf"})
+        var url = window.URL.createObjectURL(res);
+        var a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('style', 'display: none');
+        a.href = url;
+        a.download = fixedUrl.slice(fixedUrl.lastIndexOf("/") + 1);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove(); // remove the element
+      }, error => {
+        console.log('download error:', JSON.stringify(error));
+      }, () => {
+        console.log('Completed file download.')
+      });
+  }
+
+  fixUrl(url: String):string{
+    if(url[4] !== "s"){
+      return url.replace("http", "https");
+    }
+  }
+
+
+
+  cancelOrder() {
+    if(this.isUserExecutor()){
+      if(confirm("Are you sure to cancel executing this task? You will loose posibility to earn cookies!")){
+        this.orderService.cancelOrder(this.order.id).subscribe(
+          order => {
+            this.order = order;
+            console.log(order);
+          }
+        )
+      }
+    } else if (this.isUserTaskCreator()) {
+      if (this.order.endDate < new Date()){
+        if(confirm("Are you sure to cancel this task? You will loose half of your money!")){
+          this.orderService.cancelOrder(this.order.id).subscribe(
+            order => {
+              this.order = order;
+              console.log(order);
+            }
+          )
+        }
+      } else {
+        if(confirm("Are you sure to cancel this task? Your cookies will be returned!")){
+          this.orderService.cancelOrder(this.order.id).subscribe(
+            order => {
+              this.order = order;
+              console.log(order);
+            }
+          )
+        }
       }
 
-    )
+    }
+    
   }
 
   isTaskInProgress() {

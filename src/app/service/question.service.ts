@@ -16,6 +16,12 @@ const httpOptionsTextResponse = {
   responseType: 'text' as 'json'
 }
 
+let headers = new HttpHeaders({
+  'Content-Type': 'application/json',
+  'Authorization': `${localStorage.getItem('accessToken')}`
+});
+let options = { headers: headers };
+
 @Injectable({
   providedIn: 'root'
 })
@@ -28,11 +34,7 @@ export class QuestionService extends BaseService {
 
   createQuestion(question: Question): Observable<Question> {
 
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `${localStorage.getItem('accessToken')}`
-    });
-    let options = { headers: headers };
+    
 
     return this.http.post<Question>(`${this.apiUrl}/create`, question, options);
   }

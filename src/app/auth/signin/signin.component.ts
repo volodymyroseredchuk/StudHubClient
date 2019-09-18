@@ -22,8 +22,6 @@ export class SigninComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   token: string;
-  alertMessage: string;
-  private connection: any;
   constructor(
     private socialAuthService: AuthService,
     private snackBar: MatSnackBar,
@@ -32,11 +30,7 @@ export class SigninComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private authenticationService: AuthenticationService,
-    private alertService: AlertService,
-    httpVar: HttpClient
-  ) {
-    this.connection = SocketService.getInstance(httpVar);
-  }
+    private alertService: AlertService) {}
 
   ngOnInit() {
     // redirect to home if already logged in
@@ -54,11 +48,9 @@ export class SigninComponent implements OnInit {
     this.token = this.route.snapshot.queryParams['token'];
 
     if (this.token) {
-      console.log("token param");
       this.loading = true;
       this.userService.confirmAccount(this.token).toPromise()
         .then(data => {
-          console.log(data);
           this.alertService.success(data.message);
         }).then(() => {
           this.loading = false;

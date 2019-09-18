@@ -4,6 +4,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { NewsPaginatedDTO } from '../model/newsPaginatedDTO.model';
 import { News } from '../model/news.model';
+import { Feed } from '../model/feed.model';
 
 const httpOptionsTextResponse = {
     headers: new HttpHeaders({
@@ -13,6 +14,12 @@ const httpOptionsTextResponse = {
     }),
     responseType: 'text' as 'json'
 }
+
+let headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `${localStorage.getItem('accessToken')}`
+  });
+  let options = { headers: headers };
 
 @Injectable({
     providedIn: 'root'
@@ -24,12 +31,22 @@ export class NewsService extends BaseService {
         this.apiUrl += '/news';
     }
 
-    getAllNews(paginationSettings: string): Observable<NewsPaginatedDTO> {
-        return this.http.get<NewsPaginatedDTO>(`${this.apiUrl}` + paginationSettings);
+    getAllFeeds(): Observable<any> {
+        
+        return this.http.get<Feed[]>(`${this.apiUrl}`, options);
     }
 
-    showNewsPage(id: number): Observable<News> {
-        return this.http.get<News>(`${this.apiUrl}/${id}`);
+    showNewsPage(id: number): Observable<News[]> {
+        return this.http.get<News[]>(`${this.apiUrl}/${id}`);
+    }
+
+    followChannel(id: number): Observable<string> {
+        return this.http.get<string>(`${this.apiUrl}/${id}/follow`, httpOptionsTextResponse);
+    }
+
+    getUserFeeds(): Observable<any> {
+        
+        return this.http.get<Feed[]>(`${this.apiUrl}/userfeeds`, options);
     }
 
 }

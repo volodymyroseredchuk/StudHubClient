@@ -1,58 +1,69 @@
 <div class="responsive_nav_bar">
-<h3>Input data for the new Teacher!</h3>
+    <h3>Input data for the new Teacher!</h3>
 
-    <!--<mat-card id="feedbackForm"></mat-card>-->
-        <!--<form class="my-form" [formGroup]="feedbackCreateForm" (ngSubmit)="onSubmit()" #userForm="ngForm">-->
+    <form class="form-horizontal" [formGroup]="teacherForm" (ngSubmit)="onSubmit(teacherForm)">
 
-        <form class="my-form" (ngSubmit)="onSubmit()" #userForm="ngForm">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="text-center">
+                    <img src="{{imgURL}}" class="col-md-12">
+                    <h6>Upload a photo...</h6>
 
-
-  <mat-form-field class="fa-chalkboard-teachers-chip-list">
-         <mat-label>First name</mat-label>
-         <input [(ngModel)]="teacher.firstName" class="form-control" id="firstName"
-         name="firstname"   matInput  placeholder="Firstname of teacher" required>
-      </mat-form-field>
-      <mat-form-field class="fa-chalkboard-teachers-chip-list">
-         <mat-label>Last Name</mat-label>
-         <input [(ngModel)]="teacher.lastName" class="form-control" id="body"
-         name="Last name"  matInput  placeholder="Last name of teacher" required>
-      </mat-form-field>
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <mat-select placeholder="University (optional)">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (onSelectionChange)="getUniverFromName(option)">
-          {{option}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </form>
-
-      
-</form>
-
-<button type="submit" mat-raised-button color="primary"  class="btn btn-success" (click)="onSubmit()">Create Teacher</button>
+                    <input type="file" name="image" (change)="onChange($event)"/>
+                </div>
+            </div>
+        </div>
 
 
+        <div class="form-group">
+            <label class="control-label">First name:</label>
+            <input class="form-control col-lg-8" [ngClass]="{ 'is-invalid':f.firstname.errors }"
+                   formControlName="firstname" type="text">
+            <div *ngIf="f.firstname.errors" class="invalid-feedback">
+                <div *ngIf="f.firstname.errors.required">First Name is required</div>
+                <div *ngIf="f.firstname.errors.minlength">First Name must be at least 3 characters</div>
+                <div *ngIf="f.firstname.errors.maxlength">First Name must be less than 16 characters</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Last name:</label>
+            <input class="form-control col-lg-8" [ngClass]="{ 'is-invalid':f.lastname.errors }"
+                   formControlName="lastname"
+                   type="text">
+            <div *ngIf="f.lastname.errors" class="invalid-feedback">
+                <div *ngIf="f.lastname.errors.required">Last Name is required</div>
+                <div *ngIf="f.lastname.errors.minlength">Last Name must be at least 3 characters</div>
+                <div *ngIf="f.lastname.errors.maxlength">Last Name must be less than 16 characters</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Mark:</label>
+            <input class="form-control col-lg-8" [ngClass]="{ 'is-invalid':f.mark.errors }"
+                   formControlName="mark" type="text">
+            <div *ngIf="f.mark.errors" class="invalid-feedback">
+                <div *ngIf="f.mark.errors.required">Mark is required</div>
+                <div *ngIf="f.mark.errors.min">Mark must be a number 1..5</div>
+                <div *ngIf="f.mark.errors.max">Mark must be a number 1..5</div>
+            </div>
+        </div>
+        <mat-form-field class="form-group col-lg-8">
+            <mat-select placeholder="Change the university">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
+                            (onSelectionChange)="getUniverFromName(option)">
+                    {{option}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 
-    <!--<mat-card id="feedbackForm">-->
-        <!--<form class="my-form" [formGroup]="feedbackCreateForm" (ngSubmit)="onSubmit()" #userForm="ngForm">-->
+        <div class="form-group col-lg-8">
+            <button type="submit" mat-raised-button color="primary" style="margin-right:50px;" class="btn btn-success"
+                    (click)="onSubmit()">Create Teacher
+            </button>
+            <a routerLink="/teachers">
+                <button mat-raised-button color="primary" style="margin-right:50px;" class="edit-button">Cancel</button>
+            </a>
+        </div>
 
+    </form>
+</div>
 
-            <!--<mat-form-field class="tags-chip-list">-->
-                <!--<mat-label>Body</mat-label>-->
-                <!--<input [(ngModel)]="feedback.body" class="form-control" id="body" formControlName="body"-->
-                       <!--name="body" matInput placeholder="Body of a feedback" required-->
-                       <!--[ngClass]="{ 'is-invalid': submitted && f.body.errors }"/>-->
-                <!--<div *ngIf="submitted && f.body.errors" class="invalid-feedback">-->
-                    <!--<div *ngIf="f.body.errors.required">Body is required</div>-->
-                <!--</div>-->
-            <!--</mat-form-field>-->
-
-
-            <!--<button type="submit" [disabled]="loading" mat-raised-button color="primary" id="submitBtn"-->
-                    <!--class="btn btn-success">Create Feedback-->
-            <!--</button>-->
-        <!--</form>-->
-
-    <!--</mat-card>-->
-    <!--<a mat-raised-button routerLink="/feedback" id="backBtn">Go back</a>-->

@@ -1,0 +1,75 @@
+h3 {
+    text-align: center;
+}
+
+#submitBtn {
+    float: right;
+    margin-right: 20px;
+    margin-top: 40px;
+}
+  
+#teamForm {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    text-align: center;
+}
+  
+.title{
+    font-size: 2em;
+    font-weight: 400;
+    padding-bottom: 50px;
+}
+
+.memberClose{
+    float:right;
+}
+
+.memberCancel{
+    width: 30%;
+    color: white;
+    background-color: red;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+
+.invAccept{
+    width: 30%;
+    color: white;
+    background-color: green;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+
+.buttons{
+    margin: 0 auto;
+}
+
+.warning{
+    margin: 5% 10%;
+    text-align:center;
+    color:#ab0000;
+    background-color:#ffbdbd;
+    border: 1px solid #ab0000;
+    border-radius:5px;
+}
+
+#backBtn {
+    margin-top: 25px;
+}
+
+.general {
+    width: 100%;
+}
+
+.addMember {
+    position:absolute;
+    bottom: 5%;
+    right: 0;
+}
+
+.example-option-img {
+    vertical-align: middle;
+    margin-right: 8px;
+  }
